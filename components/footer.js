@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { useState } from "react";
 import Link from "next/link";
 import {
-  RiFacebookBoxFill,
+  RiFacebookCircleFill,
   RiInstagramFill,
   RiLinkedinFill,
   RiPinterestFill,
@@ -72,7 +72,7 @@ export default function Footer() {
         <div className="footer-top row p-0 m-0 py-5">
           <div className="col-4 py-5 px-0 social-links d-flex">
             <Link href="#">
-              <a className="me-4"><div><RiFacebookBoxFill/></div></a>
+              <a className="me-4"><div><RiFacebookCircleFill/></div></a>
             </Link>
             <Link href="#">
               <a className="me-4"><div><RiInstagramFill/></div></a>
