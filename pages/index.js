@@ -14,10 +14,10 @@ export default function Home() {
   const navigationNextRef = React.useRef(null);
 
   let collectionSliders = [
-    { url: "Rectangle 33.png", title: "Empress Collection" },
-    { url: "Rectangle 33.png", title: "Wedding & Anniversary" },
-    { url: "Rectangle 33.png", title: "Royal Classics" },
-    { url: "Rectangle 33.png", title: "Fine Jewelry" },
+    { url: "Rectangle 29.png", title: "Empress Collection" },
+    { url: "Rectangle 30.png", title: "Wedding & Anniversary" },
+    { url: "Rectangle 31.png", title: "Royal Classics" },
+    { url: "Rectangle 32.png", title: "Fine Jewelry" },
     { url: "Rectangle 33.png", title: "Watches" },
   ];
   return (
@@ -216,24 +216,24 @@ export default function Home() {
               <div className="col-4">
                 <Link href="#">
                   <a className="instagram-link gallery-type-1">
-                    <img src="/img/Rectangle 33.png" alt="gallery-img" />
-                    {/* <img src="/img/Rectangle 34.png" alt="gallery-img" /> */}
+                    {/* <img src="/img/Rectangle 33.png" alt="gallery-img" /> */}
+                    <img src="/img/Rectangle 34.png" alt="gallery-img" />
                   </a>
                 </Link>
               </div>
               <div className="col-4">
                 <Link href="#">
                   <a className="instagram-link gallery-type-1">
-                    <img src="/img/Rectangle 33.png" alt="gallery-img" />
-                    {/* <img src="/img/Rectangle 36.png" alt="gallery-img" /> */}
+                    {/* <img src="/img/Rectangle 33.png" alt="gallery-img" /> */}
+                    <img src="/img/Rectangle 36.png" alt="gallery-img" />
                   </a>
                 </Link>
               </div>
               <div className="col-4">
                 <Link href="#">
                   <a className="instagram-link gallery-type-1">
-                    {/* <img src="/img/Rectangle 38.png" alt="gallery-img" /> */}
-                    <img src="/img/Rectangle 33.png" alt="gallery-img" />
+                    <img src="/img/Rectangle 38.png" alt="gallery-img" />
+                    {/* <img src="/img/Rectangle 33.png" alt="gallery-img" /> */}
                   </a>
                 </Link>
               </div>
@@ -242,16 +242,16 @@ export default function Home() {
               <div className="col-8">
                 <Link href="#">
                   <a className="instagram-link gallery-type-1">
-                    <img src="/img/Rectangle 33.png" alt="gallery-img" />
-                    {/* <img src="/img/Rectangle 37.png" alt="gallery-img" /> */}
+                    {/* <img src="/img/Rectangle 33.png" alt="gallery-img" /> */}
+                    <img src="/img/Rectangle 37.png" alt="gallery-img" />
                   </a>
                 </Link>
               </div>
               <div className="col-4">
                 <Link href="#">
                   <a className="instagram-link gallery-type-1">
-                    <img src="/img/Rectangle 33.png" alt="gallery-img" />
-                    {/* <img src="/img/Rectangle 35.png" alt="gallery-img" /> */}
+                    {/* <img src="/img/Rectangle 33.png" alt="gallery-img" /> */}
+                    <img src="/img/Rectangle 35.png" alt="gallery-img" />
                   </a>
                 </Link>
               </div>
@@ -260,8 +260,8 @@ export default function Home() {
           <div className="col-3 pe-0">
             <Link href="#">
               <a className="instagram-link gallery-type-2">
-                <img src="/img/Rectangle 33.png" alt="gallery-img" />
-                {/* <img src="/img/Rectangle 1.png" alt="gallery-img" /> */}
+                {/* <img src="/img/Rectangle 33.png" alt="gallery-img" /> */}
+                <img src="/img/Rectangle 1.png" alt="gallery-img" />
               </a>
             </Link>
           </div>

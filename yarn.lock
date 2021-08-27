@@ -1083,6 +1083,11 @@ domhandler@4.2.0, domhandler@^4.0.0, domhandler@^4.2.0:
   dependencies:
     domelementtype "^2.2.0"
 
+domify@^1.4.0:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/domify/-/domify-1.4.1.tgz#2e1e813019646715deeb8d3c5de4d3ef7bddd07e"
+  integrity sha512-x18nuiDHMCZGXr4KJSRMf/TWYtiaRo6RX8KN9fEbW54mvbQ6pieUuerC2ahBg+kEp1wycFj8MPUI0WkIOw5E9w==
+
 domutils@^2.5.2:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.7.0.tgz#8ebaf0c41ebafcf55b0b72ec31c56323712c5442"
@@ -1424,6 +1429,11 @@ etag@1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+
+events@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
+  integrity sha1-nr23Y1rQmccNzEwqH1AEKI6L2SQ=
 
 events@^3.0.0:
   version "3.3.0"
@@ -1806,6 +1816,22 @@ ignore@^5.1.4:
   version "5.1.8"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.1.8.tgz#f150a8b50a34289b33e22f5889abd4d8016f0e57"
   integrity sha512-BMpfD7PpiETpBl/A6S498BaIJ6Y/ABT93ETbby2fP00v4EbvPBXWEoaR1UBPKs3iR53pJY7EtZk5KACI57i1Uw==
+
+image-gallery@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/image-gallery/-/image-gallery-0.3.1.tgz#2cdced4c89957f628e5fc371b6771659f12ee185"
+  integrity sha1-LNztTImVf2KOX8NxtncWWfEu4YU=
+  dependencies:
+    domify "^1.4.0"
+    events "^1.1.0"
+    image-layout "^0.4.0"
+    inherits "^2.0.1"
+    xtend "^4.0.1"
+
+image-layout@^0.4.0:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/image-layout/-/image-layout-0.4.1.tgz#e240437d226ad0d9b9d844fa1846f61992b1a18a"
+  integrity sha1-4kBDfSJq0Nm52ET6GEb2GZKxoYo=
 
 image-size@1.0.0:
   version "1.0.0"
@@ -3130,6 +3156,11 @@ react@17.0.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
+reactjs-image-gallery@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/reactjs-image-gallery/-/reactjs-image-gallery-1.1.7.tgz#07415f138cc6ce250b23910a51a670a5ce6523f2"
+  integrity sha512-Q8K1ZvaPT+5T9J/b8JgSY8sTZJ/D/XzfoeTpL4bNoHXvoOGBk0Zr00IS+l2F5fhbwrsshZpPIMrnn4/UVgxOmQ==
+
 read-pkg-up@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-3.0.0.tgz#3ed496685dba0f8fe118d0691dc51f4a1ff96f07"
@@ -3937,7 +3968,7 @@ wrappy@1:
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
-xtend@^4.0.0, xtend@^4.0.2:
+xtend@^4.0.0, xtend@^4.0.1, xtend@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
