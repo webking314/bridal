@@ -1,0 +1,72 @@
+$flagSelectColor: white;
+$headerBorderColor: 1px solid rgba(255, 255, 255, 0.1);
+$ContainerPadding: 70px !important;
+@media (max-width: 1440px) {
+  $ContainerPadding: 40px !important;
+}
+
+#header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  * {
+    font-size: 1.6rem;
+  }
+  & a:hover {
+    color: white;
+  }
+  & > .top-bar {
+    padding-right: $ContainerPadding;
+    padding-left: $ContainerPadding;
+    background: #01215c;
+    & a {
+      &:hover {
+        color: white;
+      }
+    }
+    & .flag-select {
+      & #rfs-btn {
+        border: 0;
+        padding: 0;
+        * {
+          font-size: 1.8rem;
+        }
+        &::after {
+          border-top-color: $flagSelectColor;
+          margin-left: 0;
+        }
+        &[aria-expanded="true"]::after {
+          border-bottom-color: $flagSelectColor;
+        }
+      }
+    }
+  }
+  & > .row:not(.top-bar) {
+    padding-right: $ContainerPadding;
+    padding-left: $ContainerPadding;
+    background: transparent;
+    border-bottom: $headerBorderColor;
+  }
+  & .middle-bar {
+    & svg {
+      margin-right: 10px;
+    }
+  }
+  & .logo-bar {
+    & .font-icon {
+      font-size: 22px;
+    }
+    & .logo-img {
+      width: 190px;
+      height: auto;
+    }
+  }
+  & > .sub-bar {
+    & > nav {
+      max-width: max-content;
+    }
+    & > div {
+      flex: 1;
+    }
+  }
+}

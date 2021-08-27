@@ -1,0 +1,262 @@
+$containerPadding: 160px !important;
+$titleSize: 7.2rem;
+// $ContainerPadding: 70px !important;
+
+.hero {
+  margin-top: 4rem;
+  padding-left: $containerPadding;
+  background: linear-gradient(
+      180deg,
+      rgba(1, 33, 92, 0.9) 0%,
+      rgba(1, 33, 92, 0) 60.17%
+    ),
+    url(/img/hero_bg.jpg);
+  background-size: cover;
+  padding-top: 30rem;
+  & > .text-panel {
+    width: 50%;
+    h1 {
+      font-size: $titleSize;
+    }
+    p {
+      font-size: 2rem;
+    }
+  }
+  & > .btn-panel {
+    padding-bottom: 10rem;
+    button {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      border-radius: 7px;
+    }
+    .rainbow-btn {
+      background: #021825;
+    }
+  }
+}
+
+.categories {
+  padding: 15px 0 15px 15px;
+  > div {
+    padding-right: 15px !important;
+  }
+  a {
+    & > div {
+      width: 100%;
+      position: relative;
+      border-radius: 10px;
+      .hover-title {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        font-size: 2rem;
+        display: none;
+      }
+      &:hover {
+        .hover-title {
+          display: block;
+        }
+      }
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.collections {
+  position: relative;
+  padding-bottom: 10rem;
+  padding-right: $containerPadding;
+  padding-left: $containerPadding;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    background: #13439b;
+    opacity: 0.7;
+    filter: blur(150px);
+    transform: matrix(0.8, -0.46, 0.73, 0.83, 0, 0);
+    width: 10%;
+    height: 70%;
+    z-index: 1;
+  }
+  img {
+    width: 100%;
+  }
+  h2 {
+    padding-top: 5rem;
+    color: #01215c;
+    font-size: 3.6rem;
+  }
+  .swiper {
+    z-index: 10;
+    p {
+      font-size: 2rem;
+    }
+  }
+  .btn-bottom-panel {
+    z-index: 10;
+    position: relative;
+  }
+  button {
+    &:focus-visible {
+      box-shadow: none;
+    }
+  }
+}
+
+.help {
+  background: #f2ebdf;
+  padding-left: $containerPadding;
+  padding-right: $containerPadding;
+  & > .row {
+    padding-top: 15rem;
+    background: url(/img/help_bg.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: 50%;
+    background-position: 0 -20%;
+  }
+  & .text-panel {
+    h2 {
+      font-size: $titleSize;
+    }
+    p {
+      font-size: 2.4rem;
+      padding-bottom: 5rem;
+    }
+  }
+  & .service_panel {
+    width: 100%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background: white;
+    h3 {
+      font-size: 3.6rem;
+    }
+    p {
+      width: 80%;
+      font-size: 1.8rem;
+    }
+    a {
+      display: block;
+      width: 100%;
+      font-size: 1.8rem;
+      background: #fad3da;
+      color: #01215c;
+      border-radius: 8px;
+      &.upgrade-diamond {
+        background: #01215c;
+      }
+    }
+  }
+}
+.instagram {
+  padding-top: 15rem;
+  padding-left: $containerPadding;
+  padding-right: $containerPadding;
+  .text-panel {
+    h1 {
+      font-size: 3.6rem;
+    }
+    .link-panel {
+      font-size: 2.4rem;
+    }
+  }
+  .follow-btn {
+    border-radius: 8px;
+    font-size: 1.8rem;
+  }
+  .gallery-panel {
+    .gallery-type-1 {
+      img {
+        height: calc((100vw - 330px) / 4);
+      }
+    }
+    .gallery-type-2 {
+      img {
+        // height: calc((100vw - 330px) / 2 + 10px);
+        height: 100%;
+      }
+    }
+    .instagram-link {
+      position: relative;
+      &:hover {
+        &::after {
+          content: "";
+          background-image: url(/img/Frame90.png);
+          background-size: contain;
+          width: 30px;
+          height: 30px;
+          position: absolute;
+          margin-top: 10px;
+          right: 10px;
+          z-index: 10;
+        }
+      }
+      img {
+        width: 100%;
+        border-radius: 1.2rem;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.schedule {
+  padding-top: 10rem;
+  padding-left: $containerPadding;
+  padding-right: $containerPadding;
+  padding-bottom: 10rem;
+  .text-panel {
+    h3 {
+      font-size: 3.6rem;
+    }
+    h2 {
+      font-size: 6.4rem;
+    }
+    p {
+      font-size: 1.8rem;
+    }
+  }
+  .schedule-panel {
+    height: 100%;
+    background: linear-gradient(
+        53.9deg,
+        #01215c 22.38%,
+        rgba(1, 33, 92, 0) 100%
+      ),
+      url(/img/Rectangle72.png) no-repeat;
+    background-size: cover;
+    border-radius: 15px;
+
+    button {
+      margin-top: 10rem;
+      font-size: 1.8rem;
+      color: #01215c;
+      background: #fad3da;
+      border-radius: 0.8rem;
+    }
+  }
+  .newsletter-panel {
+    height: 100%;
+    background: #f2ebdf;
+    border-radius: 15px;
+    .form-panel {
+      > * {
+        border-radius: 0.8rem;
+      }
+      * {
+        font-size: 1.6rem;
+      }
+      button {
+        width: 100%;
+        background: #01215c;
+      }
+    }
+  }
+}
