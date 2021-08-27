@@ -70,7 +70,7 @@ export default function Footer() {
     <div className="footer" id="footer">
       <div className="main-footer">
         <div className="footer-top row p-0 m-0 py-5">
-          <div className="col-6 py-5 px-0 social-links d-flex">
+          <div className="col-4 py-5 px-0 social-links d-flex">
             <Link href="#">
               <a className="me-4"><div><RiFacebookBoxFill/></div></a>
             </Link>
@@ -87,7 +87,7 @@ export default function Footer() {
               <a className="me-4"><div><RiYoutubeFill/></div></a>
             </Link>
           </div>
-          <div className="col-6 py-5 px-0 text-end">
+          <div className="col-8 py-5 px-0 text-end">
             {paymentLogo.map((item, index) => {
               return (
                 <Link key={index} href={item.url}>
@@ -95,7 +95,7 @@ export default function Footer() {
                     <img
                       src={"/img/" + item.img}
                       alt="payment-getway"
-                      width="35"
+                      width="38"
                     />
                   </a>
                 </Link>

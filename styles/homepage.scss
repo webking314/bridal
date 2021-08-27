@@ -17,8 +17,15 @@ $titleSize: 7.2rem;
     width: 50%;
     h1 {
       font-size: $titleSize;
+      color: #01215C;
+      span {
+        font-family: FreeSerif;
+        font-weight: normal;
+        font-style: italic;
+      }
     }
     p {
+      color: rgba(1, 33, 92, 0.7);
       font-size: 2rem;
     }
   }
@@ -48,6 +55,9 @@ $titleSize: 7.2rem;
       .hover-title {
         position: absolute;
         bottom: 0;
+        font-family: FreeSerif, sans-serif;
+        font-weight: normal;
+        font-style: italic;
         width: 100%;
         background: rgba(255, 255, 255, 0.3);
         font-size: 2rem;
@@ -124,6 +134,10 @@ $titleSize: 7.2rem;
   & .text-panel {
     h2 {
       font-size: $titleSize;
+      span {
+        font-family: FreeSerif;
+        font-style: italic;
+      }
     }
     p {
       font-size: 2.4rem;
@@ -161,7 +175,13 @@ $titleSize: 7.2rem;
   padding-right: $containerPadding;
   .text-panel {
     h1 {
-      font-size: 3.6rem;
+      font-size: 4.8rem;
+      color: #01215C;
+      div {
+        font-family: FreeSerif;
+        font-size: 7.2rem;
+        font-style: italic;
+      }
     }
     .link-panel {
       font-size: 2.4rem;
@@ -218,6 +238,8 @@ $titleSize: 7.2rem;
     }
     h2 {
       font-size: 6.4rem;
+      font-family: FreeSerif, sans-serif;
+      font-style: italic;
     }
     p {
       font-size: 1.8rem;

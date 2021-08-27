@@ -14,4 +14,28 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: MarlinGeoSQ, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: MarlinGeoSQ;
+  src: url(/font/marlin-geo-sq/MarlinGeoSQ-Medium.ttf);
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MarlinGeoSQ;
+  src: url(/font/marlin-geo-sq/MarlinGeoSQ-Light.ttf);
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: FreeSerif;
+  src: url(/font/freeserif/FreeSerifItalic.ttf);
+  font-style: italic;
+  font-weight: normal;
 }

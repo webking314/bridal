@@ -101,7 +101,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="col-4 px-5 text-end">
-          <nav className="btn mx-3">
+          <nav className="btn me-5 pe-5">
             <RiSearchLine className="text-white font-icon"/>
           </nav>
           <nav className="btn px-0">

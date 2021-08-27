@@ -10,7 +10,10 @@ $ContainerPadding: 70px !important;
   top: 0;
   width: 100%;
   * {
+    font-family: MarlinGeoSQ;
     font-size: 1.6rem;
+    // font-style: normal;
+    font-weight: lighter;
   }
   & a:hover {
     color: white;

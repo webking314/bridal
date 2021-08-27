@@ -26,14 +26,14 @@ export default function Home() {
       {/* Start hero section */}
       <div className="hero">
         <div className="text-panel">
-          <h1>All the colors of the rainbow!</h1>
+          <h1 className="text-capitalize">All the colors of the <span>rainbow!</span></h1>
           <p className="mt-4 mb-5 pt-2">Exclusively at Royal Coster Diamonds</p>
         </div>
         <div className="btn-panel pt-5">
-          <button className="btn rainbow-btn text-white px-4 py-2">
+          <button className="btn rainbow-btn text-white px-5 py-3">
             Rainbow Collection
           </button>
-          <button className="btn btn-outline-dark mx-3 px-4 py-2">
+          <button className="btn btn-outline-dark mx-3 px-5 py-3">
             SHOP NOW
           </button>
         </div>
@@ -151,7 +151,7 @@ export default function Home() {
           {/* <div className="col-6 px-0 img-panel"></div> */}
           <div className="col-6 px-0">
             <div className="text-panel">
-              <h2 className="title">
+              <h2 className="title text-capitalize">
                 Let us <span>help you!</span>
               </h2>
               <p>Help you to get started.</p>
@@ -193,7 +193,7 @@ export default function Home() {
               <Link href="#">
                 <a className="text-primary">#Royalcoster</a>
               </Link>{" "}
-              @instagram for"
+              @instagram for
             </div>
             <div className="mx-0 text-end">
               <Link href="#">
