@@ -68,9 +68,8 @@ $titleSize: 7.2rem;
           width: 100%;
           background: rgba(255, 255, 255, 0.3);
           font-size: 2rem;
-          // display: none;
           transform: translate(0, 100%);
-          transition-duration: .7s;
+          transition-duration: 0.7s;
         }
         &:hover {
           .hover-title {
@@ -84,7 +83,7 @@ $titleSize: 7.2rem;
         }
         img {
           width: 100%;
-          transition-duration: .7s;
+          transition-duration: 0.7s;
         }
       }
     }
@@ -252,10 +251,10 @@ $titleSize: 7.2rem;
         height: 100%;
         .hover-panel {
           position: absolute;
-          width: 0%;
-          height: 0%;
-          bottom: 50%;
-          right: 50%;
+          width: 100%;
+          height: 100%;
+          bottom: 0;
+          opacity: 0;
           background: linear-gradient(
             180deg,
             rgba(8, 14, 24, 0.37) 0%,
@@ -276,11 +275,7 @@ $titleSize: 7.2rem;
         }
         &:hover {
           .hover-panel {
-            border-radius: 1.2rem;
-            width: 100%;
-            height: 100%;
-            bottom: 0;
-            right: 0;
+            opacity: 1;
             transition-duration: 0.7s;
           }
           &::after {

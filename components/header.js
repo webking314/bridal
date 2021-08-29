@@ -31,7 +31,7 @@ export default function Header({ page }) {
     <div id="header" className={!page ? "" : "homepage"}>
       <div className="desktop-header">
         <div className="row m-0 px-5 py-3 top-bar">
-          <div className="r-container d-flex justify-content-between">
+          <div className="r-container d-flex justify-content-between align-items-center">
             <Link href="#">
               <a>WHY ROYAL COSTER ?</a>
             </Link>

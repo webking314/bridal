@@ -13,8 +13,8 @@ $flagSelectColor: white;
     position: absolute;
     background: transparent;
     * {
-      color: white
-    };
+      color: white;
+    }
     a:hover {
       color: white;
     }
@@ -67,6 +67,9 @@ $flagSelectColor: white;
     border-bottom: $headerBorderColor;
   }
   & .middle-bar {
+    * {
+      font-size: 1rem;
+    }
     .r-container {
       @media (max-width: 890px) {
         flex-direction: column;
