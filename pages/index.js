@@ -86,12 +86,12 @@ export default function Home() {
       <div className="collections pt-5">
         <div className="r-container">
           <div className="row m-0 p-0 top-panel align-items-center">
-            <h2 className="col-6 text-start p-0 pb-5 mt-5">Our Collections</h2>
-            <div className="col-6 p-0 m-0 text-end">
+            <h2 className="col-12 text-start p-0 pb-5 mt-5">Our Collections</h2>
+            {/* <div className="col-6 p-0 m-0 text-end">
               <button ref={navigationNextRef} className="btn">
                 <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
               </button>
-            </div>
+            </div> */}
           </div>
           <Swiper
             navigation={{
