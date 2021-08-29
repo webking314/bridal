@@ -18,6 +18,7 @@ export default function Home() {
       easing: "ease-out-cubic",
       once: true,
       offset: 50,
+      duration: 600
     });
   }, []);
 
