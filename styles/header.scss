@@ -1,31 +1,46 @@
-$flagSelectColor: white;
 $headerBorderColor: 1px solid rgba(255, 255, 255, 0.1);
-$ContainerPadding: 70px !important;
-@media (max-width: 1440px) {
-  $ContainerPadding: 40px !important;
-}
+$flagSelectColor: white;
 
 #header {
-  position: absolute;
+  position: relative;
   top: 0;
   width: 100%;
+  background: white;
+  &.homepage {
+    position: absolute;
+    background: transparent;
+    * {
+      color: white
+    };
+    a:hover {
+      color: white;
+    }
+  }
   * {
     font-family: MarlinGeoSQ;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     // font-style: normal;
     font-weight: lighter;
+    color: black;
   }
   & a:hover {
-    color: white;
+    color: black;
   }
-  & > .top-bar {
-    padding-right: $ContainerPadding;
-    padding-left: $ContainerPadding;
+  .r-container {
+    width: 100%;
+    max-width: 1500px;
+    margin: auto;
+  }
+  & .top-bar {
+    * {
+      font-size: 1rem;
+    }
     background: #01215c;
-    & a {
-      &:hover {
-        color: white;
-      }
+    * {
+      color: white;
+    }
+    a:hover {
+      color: white;
     }
     & .flag-select {
       & #rfs-btn {
@@ -45,12 +60,18 @@ $ContainerPadding: 70px !important;
     }
   }
   & > .row:not(.top-bar) {
-    padding-right: $ContainerPadding;
-    padding-left: $ContainerPadding;
     background: transparent;
     border-bottom: $headerBorderColor;
   }
   & .middle-bar {
+    .r-container {
+      @media (max-width: 890px) {
+        flex-direction: column;
+        div {
+          justify-content: center;
+        }
+      }
+    }
     & svg {
       margin-right: 10px;
     }
@@ -65,11 +86,16 @@ $ContainerPadding: 70px !important;
     }
   }
   & > .sub-bar {
-    & > nav {
-      max-width: max-content;
-    }
-    & > div {
-      flex: 1;
+    .r-container {
+      .right-menu {
+        max-width: max-content;
+      }
+      .left-menu {
+        flex: 1;
+      }
+      // @media (max-width: 1180px) {
+      //   flex-direction: column;
+      // }
     }
   }
 }

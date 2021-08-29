@@ -68,34 +68,55 @@ export default function Footer() {
   ];
   return (
     <div className="footer" id="footer">
-      <div className="main-footer">
+      <div className="main-footer r-container">
         <div className="footer-top row p-0 m-0 py-5">
-          <div className="col-4 py-5 px-0 social-links d-flex">
+          <div className="col-md-6 col-12 py-md-5 pb-md-5 pb-0 px-0 social-links d-flex justify-content-md-start justify-content-center">
             <Link href="#">
-              <a className="me-4"><div><RiFacebookCircleFill/></div></a>
+              <a className="me-4">
+                <div>
+                  <RiFacebookCircleFill />
+                </div>
+              </a>
             </Link>
             <Link href="#">
-              <a className="me-4"><div><RiInstagramFill/></div></a>
+              <a className="me-4">
+                <div>
+                  <RiInstagramFill />
+                </div>
+              </a>
             </Link>
             <Link href="#">
-              <a className="me-4"><div><RiLinkedinFill/></div></a>
+              <a className="me-4">
+                <div>
+                  <RiLinkedinFill />
+                </div>
+              </a>
             </Link>
             <Link href="#">
-              <a className="me-4"><div><RiPinterestFill/></div></a>
+              <a className="me-4">
+                <div>
+                  <RiPinterestFill />
+                </div>
+              </a>
             </Link>
             <Link href="#">
-              <a className="me-4"><div><RiYoutubeFill/></div></a>
+              <a className="me-4">
+                <div>
+                  <RiYoutubeFill />
+                </div>
+              </a>
             </Link>
           </div>
-          <div className="col-8 py-5 px-0 text-end">
+          <div className="col-md-6 col-12 py-5 px-0 text-md-end text-center">
             {paymentLogo.map((item, index) => {
               return (
                 <Link key={index} href={item.url}>
-                  <a className="ms-4">
+                  <a className={index == 0 ? "ms-0":"ms-4"}>
                     <img
-                      src={"/img/" + item.img}
+                      src={"/img/common/" + item.img}
                       alt="payment-getway"
                       width="38"
+                      className="my-4"
                     />
                   </a>
                 </Link>
@@ -106,7 +127,7 @@ export default function Footer() {
         <div className="footer-middle row p-0 m-0 pt-5">
           {midFooterList.map((items, index) => {
             return (
-              <div className="col-md-3 col-sm-6 col-12 m-0 mb-5" key={index}>
+              <div className="col-lg-3 col-md-6 col-12 text-md-start text-center m-0 mb-5" key={index}>
                 <h3 className="mb-5">{items.title}</h3>
                 {items.url.map((item, key) => {
                   return (
@@ -120,20 +141,22 @@ export default function Footer() {
           })}
         </div>
       </div>
-      <div className="footer-bottom row p-0 m-0 py-3">
-        <div className="col-sm-6 col-12 px-0">
-          © 2020 Royal Coster Diamonds - All rights reserved
-        </div>
-        <div className="col-sm-6 col-12 px-0 text-end">
-          <Link href="#">
-            <a className="text-uppercase ms-5">Privacy Policy</a>
-          </Link>
-          <Link href="#">
-            <a className="text-uppercase ms-5">Cookies</a>
-          </Link>
-          <Link href="#">
-            <a className="text-uppercase ms-5">Terms</a>
-          </Link>
+      <div className="footer-bottom py-3">
+        <div className="r-container row m-auto p-0">
+          <div className="col-md-6 col-12 text-md-start text-center px-0">
+            © 2020 Royal Coster Diamonds - All rights reserved
+          </div>
+          <div className="col-md-6 col-12 px-0 mt-md-0 mt-3 text-md-end text-center">
+            <Link href="#">
+              <a className="text-uppercase">Privacy Policy</a>
+            </Link>
+            <Link href="#">
+              <a className="text-uppercase ms-5">Cookies</a>
+            </Link>
+            <Link href="#">
+              <a className="text-uppercase ms-5">Terms</a>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,55 @@
+.schedule {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+  .text-panel {
+    h3 {
+      font-size: 3.6rem;
+    }
+    h2 {
+      font-size: 6.4rem;
+      font-family: FreeSerif, sans-serif;
+      font-style: italic;
+    }
+    p {
+      font-size: 1.8rem;
+    }
+    @media (max-width: 425px) {
+      h3 {
+        font-size: 2.4rem;
+      }
+      h2 {
+        font-size: 4.8rem;
+      }
+    }
+  }
+  .schedule-panel {
+    height: 100%;
+    background: linear-gradient(
+        53.9deg,
+        #01215c 22.38%,
+        rgba(1, 33, 92, 0) 100%
+      ),
+      url(/img/common/Rectangle72.png) no-repeat;
+    background-size: cover;
+
+    button {
+      margin-top: 5rem;
+      font-size: 1.8rem;
+      color: #01215c;
+      background: #fad3da;
+    }
+  }
+  .newsletter-panel {
+    height: 100%;
+    background: #f2ebdf;
+    .form-panel {
+      * {
+        font-size: 1.6rem;
+      }
+      button {
+        width: 100%;
+        background: #01215c;
+      }
+    }
+  }
+}
