@@ -255,7 +255,6 @@ export default function Home() {
                         <img
                           src="/img/homepage/Rectangle 36.png"
                           className="round"
-                          className="round"
                           alt="gallery-img"
                         />
                         <div className="hover-panel"></div>
