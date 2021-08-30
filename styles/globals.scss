@@ -21,17 +21,23 @@ a {
 
 @font-face {
   font-family: MarlinGeoSQ;
-  src: url(/font/marlin-geo-sq/MarlinGeoSQ-Medium.ttf);
-  font-style: normal;
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: MarlinGeoSQ;
   src: url(/font/marlin-geo-sq/MarlinGeoSQ-Light.ttf);
   font-weight: lighter;
   font-style: normal;
 }
+
+@font-face {
+  font-family: MarlinGeoSQ;
+  src: url("/font/marlin-geo-sq/MarlinGeoSQ-Medium.eot");
+  src: local("/font/marlin-geo-sq/Marlin Geo SQ Medium"), local("/font/marlin-geo-sq/MarlinGeoSQ-Medium"),
+    url("/font/marlin-geo-sq/MarlinGeoSQ-Medium.eot?#iefix") format("embedded-opentype"),
+    url("/font/marlin-geo-sq/MarlinGeoSQ-Medium.woff2") format("woff2"),
+    url("/font/marlin-geo-sq/MarlinGeoSQ-Medium.woff") format("woff"),
+    url("/font/marlin-geo-sq/MarlinGeoSQ-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
 
 @font-face {
   font-family: FreeSerif;
@@ -57,5 +63,6 @@ a {
 }
 
 .round-form {
-  border-radius: .8rem;
+  border-radius: 0.8rem;
+  font-weight: 500;
 }
