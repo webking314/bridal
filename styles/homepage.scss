@@ -179,6 +179,9 @@ $titleSize: 7.2rem;
       p {
         width: 80%;
         font-size: 1.8rem;
+        @media (max-width: 540px) {
+          width: 100%;
+        }
       }
       a {
         display: block;
@@ -188,6 +191,26 @@ $titleSize: 7.2rem;
         color: #01215c;
         &.upgrade-diamond {
           background: #01215c;
+        }
+      }
+      @media (max-width: 450px) {
+        h3 {
+          font-size: 3rem;
+        }
+        .upgrade-diamond {
+          padding: 10px 20px !important;
+          img {
+            display: none;
+          }
+          p {
+            text-align: center;
+            font-size: 1.4rem;
+          }
+        }
+        .design-service {
+          padding: 10px 20px !important;
+          text-align: center;
+          font-size: 1.4rem;
         }
       }
     }

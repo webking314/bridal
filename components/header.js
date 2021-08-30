@@ -11,6 +11,7 @@ import {
   RiUser3Line,
   RiMailSendLine,
   RiHeartLine,
+  RiMenu3Line
 } from "react-icons/ri";
 
 export default function Header({ page }) {
@@ -29,7 +30,7 @@ export default function Header({ page }) {
 
   return (
     <div id="header" className={!page ? "" : "homepage"}>
-      <div className="desktop-header">
+      <div className="desktop-header d-lg-block d-none">
         <div className="row m-0 px-5 py-3 top-bar">
           <div className="r-container d-flex justify-content-between align-items-center">
             <Link href="#">
@@ -149,7 +150,58 @@ export default function Header({ page }) {
           </div>
         </div>
       </div>
-      <div className="moblie header"></div>
+      <div className="mobile-header d-lg-none d-block">
+        <div className="mobile__top-bar d-flex justify-content-between align-items-center px-5 py-4 text-white">
+          <Link href="#">
+            <a className="d-flex align-items-center">
+              <RiUser3Line className="me-3" />
+              MY ACCOUNT
+            </a>
+          </Link>
+          <ReactFlagsSelect
+            showSelectedLabel={false}
+            showSecondarySelectedLabel={false}
+            showOptionLabel={false}
+            showSecondaryOptionLabel={false}
+            selectedSize={14}
+            optionsSize={14}
+            fullWidth={false}
+            selected={selected}
+            onSelect={(code) => setSelected(code)}
+            placeholder=" "
+            className="flag-select pb-0"
+          />
+        </div>
+        <div className="mobile__sub-bar d-flex justify-content-between align-items-center px-5 py-4">
+          <Link href="#">
+            <a>
+              <img src="/img/common/mobile_logo.png" alt="mobile-logo" width="30"/>
+            </a>
+          </Link>
+          <div className="links-panel d-flex align-items-center">
+            <Link href="#">
+              <a className="me-5 d-flex align-items-center">
+                <RiSearchLine/>
+              </a>
+            </Link>
+            <Link href="#">
+              <a className="me-5 d-flex align-items-center">
+                <RiHeartLine/>
+              </a>
+            </Link>
+            <Link href="#">
+              <a className="me-5 d-flex align-items-center">
+                <RiShoppingCartLine/>
+              </a>
+            </Link>
+            <Link href="#">
+              <a className="d-flex align-items-center">
+                <RiMenu3Line/>
+              </a>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

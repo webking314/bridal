@@ -64,7 +64,7 @@ export default function Home() {
       {/* End Hero section */}
 
       {/* Start Categories section */}
-      <div className="categories row m-0">
+      <div className="categories d-none d-md-flex row m-0">
         {categories.map((item, index) => {
           return (
             <div className="col-lg-3 col-sm-6 col-12 p-0 mb-4" data-aos="fade-up" key={index}>

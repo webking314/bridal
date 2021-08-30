@@ -38,6 +38,14 @@
       color: #01215c;
       background: #fad3da;
     }
+    @media (max-width: 424px) {
+      padding: 20px !important;
+      button {
+        width: 100%;
+        font-size: 1.4rem;
+        padding: 10px 20px !important;
+      }
+    }
   }
   .newsletter-panel {
     height: 100%;
@@ -49,6 +57,18 @@
       button {
         width: 100%;
         background: #01215c;
+      }
+    }
+    @media (max-width: 424px) {
+      padding: 20px !important;
+      button {
+        width: 100%;
+        font-size: 1.4rem;
+        padding: 10px 20px !important;
+        justify-content: center !important;
+        img {
+          display: none;
+        }
       }
     }
   }

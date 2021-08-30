@@ -2,9 +2,6 @@ $headerBorderColor: 1px solid rgba(255, 255, 255, 0.1);
 $flagSelectColor: white;
 
 #header {
-  .desktop-header {
-    // display: none;
-  }
   position: relative;
   top: 0;
   width: 100%;
@@ -45,20 +42,23 @@ $flagSelectColor: white;
     a:hover {
       color: white;
     }
-    & .flag-select {
-      & #rfs-btn {
-        border: 0;
-        padding: 0;
-        * {
-          font-size: 1.8rem;
-        }
-        &::after {
-          border-top-color: $flagSelectColor;
-          margin-left: 0;
-        }
-        &[aria-expanded="true"]::after {
-          border-bottom-color: $flagSelectColor;
-        }
+  }
+  & .flag-select {
+    * {
+      font-size: 1.6rem;
+    }
+    & #rfs-btn {
+      border: 0;
+      padding: 0;
+      * {
+        font-size: 1.8rem;
+      }
+      &::after {
+        border-top-color: $flagSelectColor;
+        margin-left: 0;
+      }
+      &[aria-expanded="true"]::after {
+        border-bottom-color: $flagSelectColor;
       }
     }
   }
@@ -102,6 +102,23 @@ $flagSelectColor: white;
       // @media (max-width: 1180px) {
       //   flex-direction: column;
       // }
+    }
+  }
+  .mobile-header {
+    .mobile__top-bar {
+      background: #01215c;
+      a {
+        font-size: 1.1rem;
+      }
+    }
+    .mobile__sub-bar {
+      background: white;
+      .links-panel {
+        * {
+          color: #01215C;
+          font-size: 2.2rem;
+        }
+      }
     }
   }
 }
