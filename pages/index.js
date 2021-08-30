@@ -264,13 +264,13 @@ export default function Home() {
                     <a className="instagram-link gallery-type-1">
                       <div className="gallery-item round">
                         <img
-                          src="/img/homepage/Rectangle 36.png"
+                          src="/img/homepage/Rectangle 38.png"
                           className="round"
                           alt="gallery-img"
                         />
                         <div className="hover-panel"></div>
                       </div>
-                      {/* <img src="/img/homepage/Rectangle 36.png"  className="round" alt="gallery-img" /> */}
+                      {/* <img src="/img/homepage/Rectangle 38.png"  className="round" alt="gallery-img" /> */}
                     </a>
                   </Link>
                 </div>
@@ -299,23 +299,23 @@ export default function Home() {
                       <a className="instagram-link p-0 gallery-type-1">
                         <div className="gallery-item round">
                           <img
-                            src="/img/homepage/Rectangle 35.png"
+                            src="/img/homepage/Rectangle 36.png"
                             className="round"
                             alt="gallery-img"
                           />
                           <div className="hover-panel"></div>
                         </div>
-                        {/* <img src="/img/homepage/Rectangle 35.png"  className="round" alt="gallery-img" /> */}
+                        {/* <img src="/img/homepage/Rectangle 36.png"  className="round" alt="gallery-img" /> */}
                       </a>
                     </Link>
                   </div>
                   <div className="row m-0 p-0" data-aos="fade-up">
                     <Link href="#">
                       <a className="instagram-link p-0 gallery-type-1">
-                        {/* <img src="/img/homepage/Rectangle 38.png"  className="round" alt="gallery-img" /> */}
+                        {/* <img src="/img/homepage/Rectangle 35.png"  className="round" alt="gallery-img" /> */}
                         <div className="gallery-item round">
                           <img
-                            src="/img/homepage/Rectangle 38.png"
+                            src="/img/homepage/Rectangle 35.png"
                             className="round"
                             alt="gallery-img"
                           />
