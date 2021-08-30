@@ -1,4 +1,5 @@
-$headerBorderColor: 1px solid rgba(255, 255, 255, 0.1);
+$homeHeaderBorderColor: 1px solid rgba(255, 255, 255, 0.1);
+$headerBorderColor: 1px solid rgba(2, 24, 37, 0.1);
 $flagSelectColor: white;
 
 #header {
@@ -14,6 +15,9 @@ $flagSelectColor: white;
     }
     a:hover {
       color: white;
+    }
+    .row:not(.top-bar) {
+      border-bottom: $homeHeaderBorderColor;
     }
   }
   * {
