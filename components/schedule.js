@@ -44,7 +44,7 @@ export default function Schedule() {
                 <input
                   type="text"
                   className="form-control round-form p-3 mb-3"
-                  placeholder="Your name"
+                  placeholder="Your Name"
                 />
                 <input
                   type="email"

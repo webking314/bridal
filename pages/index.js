@@ -192,12 +192,12 @@ export default function Home() {
                   right diamond and setting.
                 </p>
                 <Link href="#">
-                  <a className="design-service round-form py-4 px-5 mb-4">
+                  <a className="design-service round-form text-uppercase py-4 px-5 mb-4">
                     Custom Design Services
                   </a>
                 </Link>
                 <Link href="#">
-                  <a className="upgrade-diamond round-form py-4 px-5 text-white d-flex justify-content-between align-items-center">
+                  <a className="upgrade-diamond round-form py-4 text-uppercase px-5 text-white d-flex justify-content-between align-items-center">
                     <p className="m-0 p-0">Upgrade your Diamonds</p>
                     <img src="/img/common/rightArrow.png" alt="rightArrow" />
                   </a>
@@ -214,7 +214,7 @@ export default function Home() {
         <div className="r-container">
           <div className="row mx-0 mb-5 text-panel">
             <div className="col-md-6 col-12 p-0">
-              <h1 className="m-0" data-aos="fade-right">
+              <h1 className="m-0 text-capitalize" data-aos="fade-right">
                 Follow us on <div>Instagram</div>
               </h1>
             </div>
@@ -224,19 +224,19 @@ export default function Home() {
                 <Link href="#">
                   <a className="text-primary">#Royalcoster</a>
                 </Link>{" "}
-                @instagram for
+                @Instagram For
               </div>
               <div className="mx-0 text-md-end text-start">
                 <Link href="#">
-                  <a className="text-primary">#diamondstories</a>
+                  <a className="text-primary">#Diamondstories</a>
                 </Link>
                 ,{" "}
                 <Link href="#">
-                  <a className="text-primary">#inspiration</a>
+                  <a className="text-primary">#Inspiration</a>
                 </Link>{" "}
                 &{" "}
                 <Link href="#">
-                  <a className="text-primary">#amsterdiamonds</a>
+                  <a className="text-primary">#Amsterdiamonds</a>
                 </Link>
               </div>
             </div>
@@ -344,7 +344,7 @@ export default function Home() {
             </div>
           </div>
           <button className="btn round-form mt-5 px-5 py-3 follow-btn btn-outline-dark">
-            Follow @costerdiamondsofficial
+            Follow @Costerdiamondsofficial
           </button>
         </div>
       </div>

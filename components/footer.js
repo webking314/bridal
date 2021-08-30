@@ -151,7 +151,7 @@ export default function Footer() {
                 {items.url.map((item, key) => {
                   return (
                     <Link href="#" key={key}>
-                      <a className="row m-0 mb-3">{item.link}</a>
+                      <a className="row m-0 mb-3 text-uppercase">{item.link}</a>
                     </Link>
                   );
                 })}
