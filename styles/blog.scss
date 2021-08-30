@@ -19,6 +19,22 @@
       background: #fad3da;
       color: #01215c;
     }
+    @media (max-width: 650px) {
+      padding-top: 15rem;
+      padding-bottom: 10rem;
+      .text-panel {
+        width: 70%;
+        .blog__banner--title {
+          font-size: 2.4rem;
+        }
+        .blog__banner--description {
+          font-size: 1.4rem;
+        }
+      }
+      .btn--read-more {
+        font-size: 1.4rem;
+      }
+    }
   }
   .blog-section {
     .top-bar {
@@ -31,6 +47,38 @@
         p {
           font-size: 1.6rem;
           color: rgba(2, 24, 37, 0.7);
+        }
+      }
+      .search-box {
+        background: #f2f3f4;
+        label {
+          font-size: 1.4rem;
+        }
+        .select-search__value {
+          input {
+            background: #f2f3f4;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            color: #01215c;
+          }
+          &::after {
+            right: 15px;
+          }
+        }
+      }
+      @media (max-width: 767px) {
+        border-bottom: 0;
+        .title-panel {
+          border-bottom: 1px solid #000000;
+        }
+        .search-box {
+          width: 100%;
+          display: flex;
+          .select-search {
+            flex: 1;
+          }
         }
       }
     }

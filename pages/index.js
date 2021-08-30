@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Head from "next/head";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import Link from "next/link";
 import Header from "../components/header";
@@ -18,8 +19,13 @@ export default function Home() {
       easing: "ease-out-cubic",
       once: true,
       offset: 50,
-      duration: 600
+      duration: 600,
     });
+  }, []);
+  useEffect(() => {
+    typeof document !== undefined
+      ? require("bootstrap/dist/js/bootstrap")
+      : null;
   }, []);
 
   let collectionSliders = [
@@ -67,7 +73,11 @@ export default function Home() {
       <div className="categories d-none d-md-flex row m-0">
         {categories.map((item, index) => {
           return (
-            <div className="col-lg-3 col-sm-6 col-12 p-0 mb-4" data-aos="fade-up" key={index}>
+            <div
+              className="col-lg-3 col-sm-6 col-12 p-0 mb-4"
+              data-aos="fade-up"
+              key={index}
+            >
               <Link href={item.url}>
                 <a>
                   <div className="category-item round">

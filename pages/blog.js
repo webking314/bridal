@@ -10,8 +10,19 @@ export default function Blog() {
   const [selectValue, setSelectValue] = useState("");
 
   const options = [
-    { name: "Swedish", value: "sv" },
-    { name: "English", value: "Filter By :en" },
+    { name: "All", value: "All" },
+    { name: "Diamond Products", value: "Diamond Products" },
+    { name: "To Do in Amsterdam", value: "To Do in Amsterdam" },
+    { name: "Knowledge", value: "Knowledge" },
+    { name: "News", value: "News" },
+    { name: "Craftsmanship", value: "Craftsmanship" },
+    { name: "Diamonds & Gemstones", value: "Diamonds & Gemstones" },
+    { name: "Our Royal Legacy", value: "Our Royal Legacy" },
+    { name: "Blog", value: "Blog" },
+    { name: "Job opening", value: "Job opening" },
+    { name: "Tourism", value: "Tourism" },
+    { name: "Kennis", value: "Kennis" },
+    { name: "Diamanten & Edelstenen", value: "Diamanten & Edelstenen" },
   ];
   const tabs = [
     { tab: "All", key: "All" },
@@ -90,7 +101,7 @@ export default function Blog() {
       {/* Start banner section */}
       <div className="banner-section">
         <div className="r-container">
-          <div className="row text-panel mb-5 pb-5">
+          <div className="row text-panel mb-md-5 mb-0 pb-md-5 pb-0">
             <h1 className="blog__banner--title text-capitalize text-white">
               The Koh-I-Noor: More than only óur heritage
             </h1>
@@ -107,13 +118,15 @@ export default function Blog() {
       {/* Start blog section */}
       <div className="blog-section r-container py-5">
         <div className="top-bar row align-items-center m-0 p-0 mt-5 pt-5 pb-4">
-          <div className="title-panel col-md-6 col-12 p-0">
+          <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-5">
             <h2>Our Recent Blogs</h2>
             <p>{result} results</p>
           </div>
-          <div className="col-md-6 col-12 d-flex justify-content-end p-0">
+          <div className="col-md-6 col-12 d-flex justify-content-end p-0 pt-5 pt-md-0">
             <div className="search-box round-form d-flex align-items-center">
-              <label htmlFor="selectSearch">FITER BY :</label>
+              <label htmlFor="selectSearch" className="px-4">
+                FITER BY :{" "}
+              </label>
               <SelectSearch
                 id="selectSearch"
                 options={options}
@@ -131,7 +144,7 @@ export default function Blog() {
             </div>
           </div>
         </div>
-        <div className="tab-bar d-sm-flex d-none flex-wrap py-4 mb-5">
+        <div className="tab-bar d-md-flex d-none flex-wrap py-4 mb-5">
           {tabs.map((item, index) => {
             return (
               <button

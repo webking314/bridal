@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { useState } from "react";
 import Link from "next/link";
-import { Accordion } from 'react-bootstrap'
+import { Accordion } from "react-bootstrap";
 import {
   RiFacebookCircleFill,
   RiInstagramFill,
@@ -11,6 +11,21 @@ import {
 } from "react-icons/ri";
 
 export default function Footer() {
+  let handleAccordion = (e) => {
+    let target = e.target
+      .closest(".accordion-item")
+      .querySelector(".accordion-collapse");
+    if (target.classList.contains("show")) {
+      target.classList.remove("show");
+    } else {
+      target.classList.add("show");
+    }
+    if (e.target.classList.contains("collapsed")) {
+      e.target.classList.remove("collapsed");
+    } else {
+      e.target.classList.add("collapsed");
+    }
+  };
   let paymentLogo = [
     { img: "Frame.png", url: "#" },
     { img: "Frame-1.png", url: "#" },
@@ -145,7 +160,7 @@ export default function Footer() {
           })}
         </div>
       </div>
-      <div className="mobile-footer r-container">
+      <div className="mobile-footer r-container d-md-none d-block">
         <div className="mobile-footer-logo text-center">
           <img src="/img/common/logo_black.png" alt="footer-logo" />
           <p className="mobile-footer__title my-5">
@@ -190,32 +205,84 @@ export default function Footer() {
             </a>
           </Link>
         </div>
-        {/* <Accordion defaultActiveKey="0">
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>Accordion Item #1</Accordion.Header>
-            <Accordion.Body>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="1">
-            <Accordion.Header>Accordion Item #2</Accordion.Header>
-            <Accordion.Body>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion> */}
+        <div className="accordion" id="links-panel">
+          {midFooterList.map((item, index) => {
+            return (
+              <div className="accordion-item" key={index}>
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button collapsed py-5 ps-0"
+                    onClick={handleAccordion}
+                  >
+                    {item.title}
+                  </button>
+                </h2>
+                <div className="accordion-collapse collapse">
+                  <div className="accordion-body">
+                    {item.url.map((link, key) => {
+                      return (
+                        <Link href={link.url} key={key}>
+                          <a>
+                            <div className="link-item mb-5">{link.link}</div>
+                          </a>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          {/* <div className="accordion-item">
+            <h2 className="accordion-header" id="headingOne">
+              <button
+                className="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+                onClick={handleAccordion}
+              >
+                Accordion Item #1
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              className="accordion-collapse collapse show"
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is
+                shown by default, until the collapse plugin adds the appropriate
+                classes that we use to style each element. These classes control
+                the overall appearance, as well as the showing and hiding via
+                CSS transitions. You can modify any of this with custom CSS or
+                overriding our default variables. It's also worth noting that
+                just about any HTML can go within the{" "}
+                <code>.accordion-body</code>, though the transition does limit
+                overflow.
+              </div>
+            </div>
+          </div> */}
+        </div>
+        <div className="col-12 py-4 px-0 text-center">
+          {paymentLogo.map((item, index) => {
+            return (
+              <Link key={index} href={item.url}>
+                <a className={index == 0 ? "ms-0" : "ms-4"}>
+                  <img
+                    src={"/img/common/" + item.img}
+                    alt="payment-getway"
+                    width="38"
+                    className="my-2"
+                  />
+                </a>
+              </Link>
+            );
+          })}
+        </div>
       </div>
       <div className="footer-bottom py-3">
         <div className="r-container row m-auto p-0">
