@@ -3,11 +3,12 @@ $headerBorderColor: 1px solid rgba(2, 24, 37, 0.1);
 $flagSelectColor: white;
 
 #header {
-  .d-none {
+  .dr-none {
     height: 0;
     opacity: 0;
     visibility: hidden;
     top: -1000px;
+    display: none;
   }
   position: relative;
   z-index: 10;

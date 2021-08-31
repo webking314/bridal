@@ -205,7 +205,7 @@ export default function Header({ page }) {
   return (
     <div id="header" className={!page ? "" : "homepage"}>
       <div className="desktop-header d-lg-block d-none">
-        <div className="scroll-header d-none px-5">
+        <div className="scroll-header dr-none px-5">
           <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
             <div className="d-flex p-0 left-menu flex-1 flex-wrap py-2 ">
               <Link href="/">
@@ -218,7 +218,7 @@ export default function Header({ page }) {
                   <span>{submenu.title}</span>
                   <hr className="mt-2" />
                   {submenu.megaMenu && (
-                    <div className="hover-bar d-none px-5">
+                    <div className="hover-bar dr-none px-5">
                       <div className="d-flex justify-content-between r-container p-5">
                         {submenu.megaMenu.map((menu, key) => {
                           return (
@@ -435,7 +435,7 @@ export default function Header({ page }) {
                   <span>{submenu.title}</span>
                   <hr className="mt-2" />
                   {submenu.megaMenu && (
-                    <div className="hover-bar d-none px-5">
+                    <div className="hover-bar dr-none px-5">
                       <div className="d-flex justify-content-between r-container p-5">
                         {submenu.megaMenu.map((menu, key) => {
                           return (
@@ -498,7 +498,7 @@ export default function Header({ page }) {
           </div>
         </div>
       </div>
-      <div className="mobile-header d-none d-lg-none d-block">
+      <div className="mobile-header dr-none d-lg-none d-block">
         <div className="mobile__top-bar d-flex justify-content-between align-items-center px-5 py-4 text-white">
           <Link href="#">
             <a className="d-flex align-items-center">
@@ -573,7 +573,7 @@ export default function Header({ page }) {
         </div>
       </div>
       <div
-        className="offcanvas d-none offcanvas-end p-3"
+        className="offcanvas dr-none offcanvas-end p-3"
         tabIndex="-1"
         id="mobileBar"
         aria-labelledby="mobileMenuLabel"
@@ -699,7 +699,7 @@ export default function Header({ page }) {
         </div>
       </div>
       <div
-        className="offcanvas d-none offcanvas-top justify-content-center"
+        className="offcanvas dr-none offcanvas-top justify-content-center"
         tabIndex="-1"
         id="searchBox"
         aria-labelledby="searchBoxLabel"
@@ -722,7 +722,7 @@ export default function Header({ page }) {
         </div>
       </div>
       <div
-        className="offcanvas d-none offcanvas-end p-3"
+        className="offcanvas dr-none offcanvas-end p-3"
         tabIndex="-1"
         id="wishListBox"
         aria-labelledby="wisthListLabel"
@@ -742,7 +742,7 @@ export default function Header({ page }) {
         <div className="offcanvas-body"></div>
       </div>
       <div
-        className="offcanvas d-none offcanvas-end p-3"
+        className="offcanvas dr-none offcanvas-end p-3"
         tabIndex="-1"
         id="myCartBox"
         aria-labelledby="myCartBoxLabel"
