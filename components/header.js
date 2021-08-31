@@ -37,14 +37,12 @@ export default function Header({ page }) {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
-      // setTimeout(() => {
-      //   let items = document.querySelectorAll(".dr-none");
-      //   for (let i = 0; i < items.length; i++) {
-      //     items[i].classList.remove("dr-none");
-      //     console.log(items[i]);
-      //   }
-      //   console.log("SUCESS!")
-      // },500);
+      setTimeout(() => {
+        let items = document.querySelectorAll(".dr-none");
+        for (let i = 0; i < items.length; i++) {
+          items[i].classList.remove("dr-none");
+        }
+      }, 1000);
     }
   }, []);
   let submenus = [
