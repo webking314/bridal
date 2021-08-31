@@ -201,7 +201,7 @@ export default function Header({ page }) {
         </div>
         <div className="row m-0 middle-bar px-5 py-3">
           <div className="r-container d-flex justify-content-between">
-            <div className="d-flex left-menu">
+            <div className="d-flex left-menu align-items-center">
               <nav>
                 <Link href="#">
                   <a className="d-flex align-items-center">
@@ -227,7 +227,7 @@ export default function Header({ page }) {
                 </Link>
               </nav>
             </div>
-            <div className="d-flex right-menu">
+            <div className="d-flex right-menu align-items-center">
               <nav>
                 <Link href="#">
                   <a className="d-flex align-items-center">
@@ -244,14 +244,16 @@ export default function Header({ page }) {
                   </a>
                 </Link>
               </nav>
-              <nav>
-                <Link href="#">
-                  <a className="d-flex align-items-center">
-                    <RiHeartLine />
-                    WISHLIST ( {wishListCounter} )
-                  </a>
-                </Link>
-              </nav>
+              <button
+                className="btn me-4"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#myCartBox"
+                aria-controls="myCartBox"
+              >
+                <RiHeartLine />
+                WISHLIST ( {wishListCounter} )
+              </button>
             </div>
           </div>
         </div>
@@ -295,62 +297,64 @@ export default function Header({ page }) {
             </div>
           </div>
         </div>
-        <div className="row m-0 px-5 py-3  sub-bar">
+        <div className="row m-0 px-5 sub-bar">
           <div className="r-container d-flex justify-content-md-between justify-content-start align-items-center">
-            <div className="d-flex p-0 left-menu flex-1 flex-wrap">
+            <div className="d-flex p-0 left-menu flex-1 flex-wrap py-3 ">
               {submenus.map((submenu, index) => (
                 <nav key={index} className="btn ps-0 pe-5 mt-2">
                   <span>{submenu.title}</span>
                   <hr className="mt-2" />
                   {submenu.megaMenu && (
-                    <div className="d-flex justify-content-between hover-bar p-5">
-                      {submenu.megaMenu.map((menu, key) => {
-                        return (
-                          <div
-                            className="mega-menu-body text-start px-5"
-                            key={key}
-                          >
-                            <h2 className="text-start mb-5">{menu.title}</h2>
-                            {menu.menu.map((item, id) => {
-                              return (
-                                <Link href={item.url} key={id}>
-                                  <a>
-                                    {item.img ? (
-                                      <div className="link-item my-4 d-flex align-items-center">
-                                        <img
-                                          src={"/img/common/" + item.img}
-                                          alt="mega-logo"
-                                          className="me-3"
-                                        />
-                                        <span className="text-uppercase">
+                    <div className="hover-bar p-5">
+                      <div className="d-flex justify-content-between r-container p-5">
+                        {submenu.megaMenu.map((menu, key) => {
+                          return (
+                            <div
+                              className="mega-menu-body text-start px-5"
+                              key={key}
+                            >
+                              <h2 className="text-start mb-5">{menu.title}</h2>
+                              {menu.menu.map((item, id) => {
+                                return (
+                                  <Link href={item.url} key={id}>
+                                    <a>
+                                      {item.img ? (
+                                        <div className="link-item my-4 d-flex align-items-center">
+                                          <img
+                                            src={"/img/common/" + item.img}
+                                            alt="mega-logo"
+                                            className="me-3"
+                                          />
+                                          <span className="text-uppercase">
+                                            {item.name}
+                                          </span>
+                                        </div>
+                                      ) : (
+                                        <div className="link-item my-4 text-uppercase">
                                           {item.name}
-                                        </span>
-                                      </div>
-                                    ) : (
-                                      <div className="link-item my-4 text-uppercase">
-                                        {item.name}
-                                      </div>
-                                    )}
-                                  </a>
-                                </Link>
-                              );
-                            })}
+                                        </div>
+                                      )}
+                                    </a>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          );
+                        })}
+                        <div className="image-panel text-start">
+                          <img
+                            src={"img/common/" + submenu.imagePanel.image}
+                            alt="mega-image"
+                            className="round"
+                          />
+                          <div className="title-panel">
+                            <h3 className="my-3">{submenu.imagePanel.title}</h3>
+                            <Link href={submenu.imagePanel.url}>
+                              <a>
+                                <p>Learn More</p>
+                              </a>
+                            </Link>
                           </div>
-                        );
-                      })}
-                      <div className="image-panel text-start">
-                        <img
-                          src={"img/common/" + submenu.imagePanel.image}
-                          alt="mega-image"
-                          className="round"
-                        />
-                        <div className="title-panel">
-                          <h3 className="my-3">{submenu.imagePanel.title}</h3>
-                          <Link href={submenu.imagePanel.url}>
-                            <a>
-                              <p>Learn More</p>
-                            </a>
-                          </Link>
                         </div>
                       </div>
                     </div>
@@ -358,9 +362,11 @@ export default function Header({ page }) {
                 </nav>
               ))}
             </div>
-            <nav className="btn right-menu text-uppercase px-0 d-flex">
-              Schedule consultation
-            </nav>
+            <div>
+              <button className="btn right-menu text-uppercase px-0 d-flex">
+                Schedule consultation
+              </button>
+            </div>
           </div>
         </div>
       </div>

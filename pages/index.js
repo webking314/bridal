@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Head from "next/head";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import Link from "next/link";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Schedule from "../components/schedule";
-import AOS from "aos";
 import "swiper/css";
 
 SwiperCore.use([Autoplay, Navigation]);
@@ -14,15 +12,6 @@ SwiperCore.use([Autoplay, Navigation]);
 export default function Home() {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
-  useEffect(() => {
-    AOS.init({
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-      duration: 600,
-    });
-  }, []);
-
   let collectionSliders = [
     { url: "Rectangle 29.png", title: "Empress Collection" },
     { url: "Rectangle 30.png", title: "Wedding & Anniversary" },
@@ -47,16 +36,28 @@ export default function Home() {
       <Header page="homepage" />
       {/* Start hero section */}
       <div className="hero">
-        <video
+        {/* <video
           src={videoUrl}
+          type="video/mp4"
           autoPlay
           loop
           className="d-block d-sm-none bg_video"
-          type="video/mp4"
-        />
+        /> */}
+        <video
+          autoPlay="autoplay"
+          loop="loop"
+          muted
+          defaultmuted="defaultmuted"
+          playsInline
+          onContextMenu={() => false}
+          preload="auto"
+          className="d-block d-sm-none bg_video"
+        >
+          <source src={videoUrl} type="video/mp4" />
+        </video>
         <div className="r-container d-flex flex-column">
           <div className="text-panel col-lg-6 col-md-8 col-sm-10 col-12">
-            <h1 className="text-capitalize" data-aos="fade-right">
+            <h1 className="text-capitalize">
               All the colors of the <span>rainbow!</span>
             </h1>
             <p className="mt-4 mb-5 pt-2">
@@ -79,11 +80,7 @@ export default function Home() {
       <div className="categories d-none d-md-flex row m-0">
         {categories.map((item, index) => {
           return (
-            <div
-              className="col-lg-3 col-sm-6 col-12 p-0 mb-4"
-              data-aos="fade-up"
-              key={index}
-            >
+            <div className="col-lg-3 col-sm-6 col-12 p-0 mb-4" key={index}>
               <Link href={item.url}>
                 <a>
                   <div className="category-item round">
@@ -186,7 +183,7 @@ export default function Home() {
             {/* <div className="col-6 px-0 img-panel"></div> */}
             <div className="col-lg-6 col-md-8 col-sm-10 col-12 px-0">
               <div className="text-panel">
-                <h2 className="title text-capitalize" data-aos="fade-up">
+                <h2 className="title text-capitalize">
                   Let us <span>help you!</span>
                 </h2>
                 <p>Help you to get started.</p>
@@ -220,7 +217,7 @@ export default function Home() {
         <div className="r-container">
           <div className="row mx-0 mb-5 text-panel">
             <div className="col-md-6 col-12 p-0">
-              <h1 className="m-0 text-capitalize" data-aos="fade-right">
+              <h1 className="m-0 text-capitalize">
                 Follow us on <div>Instagram</div>
               </h1>
             </div>
@@ -250,7 +247,7 @@ export default function Home() {
           <div className="row gallery-panel m-0 p-0">
             <div className="col-md-6 col-12 m-0 p-0 d-flex flex-column justify-content-between">
               <div className="row m-0 p-0">
-                <div className="col-6 d-flex m-0 p-0" data-aos="fade-up">
+                <div className="col-6 d-flex m-0 p-0">
                   <Link href="#">
                     <a className="instagram-link gallery-type-1">
                       <div className="gallery-item round">
@@ -265,7 +262,7 @@ export default function Home() {
                     </a>
                   </Link>
                 </div>
-                <div className="col-6 d-flex m-0 p-0" data-aos="fade-up">
+                <div className="col-6 d-flex m-0 p-0">
                   <Link href="#">
                     <a className="instagram-link gallery-type-1">
                       <div className="gallery-item round">
@@ -281,7 +278,7 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              <div className="row m-0 p-0" data-aos="fade-up">
+              <div className="row m-0 p-0">
                 <Link href="#">
                   <a className="instagram-link p-0 gallery-type-1">
                     <div className="gallery-item round">
@@ -300,7 +297,7 @@ export default function Home() {
             <div className="col-md-6 col-12 p-0">
               <div className="row m-0 p-0">
                 <div className="col-6 p-0">
-                  <div className="row m-0 p-0" data-aos="fade-up">
+                  <div className="row m-0 p-0">
                     <Link href="#">
                       <a className="instagram-link p-0 gallery-type-1">
                         <div className="gallery-item round">
@@ -315,7 +312,7 @@ export default function Home() {
                       </a>
                     </Link>
                   </div>
-                  <div className="row m-0 p-0" data-aos="fade-up">
+                  <div className="row m-0 p-0">
                     <Link href="#">
                       <a className="instagram-link p-0 gallery-type-1">
                         {/* <img src="/img/homepage/Rectangle 35.png"  className="round" alt="gallery-img" /> */}
@@ -331,7 +328,7 @@ export default function Home() {
                     </Link>
                   </div>
                 </div>
-                <div className="col-6 d-flex p-0" data-aos="fade-up">
+                <div className="col-6 d-flex p-0">
                   <Link href="#">
                     <a className="instagram-link gallery-type-2">
                       <div className="gallery-item round">
