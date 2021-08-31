@@ -243,6 +243,22 @@ $flagSelectColor: white;
       color: #000000;
     }
   }
+
+  .desktop-header {
+    a {
+      &:hover {
+        color: #fbe9d5;
+        * {
+          color: #fbe9d5;
+        }
+      }
+    }
+    button {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
   #mobileBar {
     * {
       color: #01215c;

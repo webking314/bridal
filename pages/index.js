@@ -67,7 +67,7 @@ export default function Home() {
             <button className="btn rainbow-btn text-white round-form px-5 py-3 me-3 mt-5">
               Rainbow Collection
             </button>
-            <button className="btn btn-sm-outline-dark btn-outline-light shop-now-btn round-form px-5 py-3 mt-5">
+            <button className="btn btn-outline-dark shop-now-btn round-form px-5 py-3 mt-5">
               SHOP NOW
             </button>
           </div>

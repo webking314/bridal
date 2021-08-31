@@ -79,6 +79,19 @@ $titleSize: 7.2rem;
         .rainbow-btn {
           background: white;
           color: black !important;
+          &:hover {
+            background: transparent;
+            color: white !important;
+            border-color: white;
+          }
+        }
+        .shop-now-btn {
+          border-color: white !important;
+          color: white !important;
+          &:hover {
+            background: white !important;
+            color: black !important;
+          }
         }
       }
     }

@@ -299,7 +299,7 @@ export default function Header({ page }) {
           <div className="r-container d-flex justify-content-md-between justify-content-start align-items-center">
             <div className="d-flex p-0 left-menu flex-1 flex-wrap">
               {submenus.map((submenu, index) => (
-                <nav key={index} className="btn ps-0 pe-5">
+                <nav key={index} className="btn ps-0 pe-5 mt-2">
                   <span>{submenu.title}</span>
                   <hr className="mt-2" />
                   {submenu.megaMenu && (
