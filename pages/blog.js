@@ -127,7 +127,7 @@ export default function Blog() {
             <h2>Our Recent Blogs</h2>
             <p className="text-uppercase">{result} results</p>
           </div>
-          <div className="col-md-6 col-12 d-flex justify-content-end p-0 pt-5 pt-md-0">
+          <div className="col-12 d-md-none d-flex justify-content-end p-0 pt-5 pt-md-0">
             <div className="search-box round-form d-flex align-items-center">
               <label htmlFor="selectSearch" className="px-4">
                 FITER BY :{" "}
