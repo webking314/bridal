@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   RiCustomerService2Fill,
   RiMapPin2Line,
-  RiHeart2Line,
+  RiServiceLine,
   RiSearchLine,
   RiShoppingCartLine,
   RiUser3Line,
@@ -30,34 +30,47 @@ export default function Header({ page }) {
     {
       title: "ENGAGEMENT",
       url: "#",
-      megaMenu1: [
+      imagePanel: {
+        image: "mega_img-1.png",
+        title: "Ring Shopping Guide",
+        url: "#",
+      },
+      megaMenu: [
         {
           title: "Create a Ring",
           menu: [
-            { name: "Start with Setting", url: "#" },
-            { name: "Start with a Diamond", url: "#" },
-            { name: "Ring Recommender", url: "#" },
-            { name: "Design your own Engagement Ring", url: "#" },
+            { name: "Start with Setting", img: "mega_logo (1).png", url: "#" },
+            {
+              name: "Start with a Diamond",
+              img: "mega_logo (2).png",
+              url: "#",
+            },
+            { name: "Ring Recommender", img: "mega_logo (3).png", url: "#" },
+            {
+              name: "Design your own Engagement Ring",
+              img: "mega_logo (4).png",
+              url: "#",
+            },
           ],
         },
         {
           title: "Shop by Style",
           menu: [
-            { name: "Halo", url: "#" },
-            { name: "Solitaire", url: "#" },
-            { name: "Slidestone", url: "#" },
-            { name: "Threestone", url: "#" },
-            { name: "Vintage", url: "#" },
+            { name: "Halo", img: "mega_logo (5).png", url: "#" },
+            { name: "Solitaire", img: "mega_logo (6).png", url: "#" },
+            { name: "Slidestone", img: "mega_logo (7).png", url: "#" },
+            { name: "Threestone", img: "mega_logo (8).png", url: "#" },
+            { name: "Vintage", img: "mega_logo (9).png", url: "#" },
           ],
         },
         {
           title: "Shop by Popular Style",
           menu: [
-            { name: "Round", url: "#" },
-            { name: "Cushion", url: "#" },
-            { name: "Princess", url: "#" },
-            { name: "Oval", url: "#" },
-            { name: "Emerald", url: "#" },
+            { name: "Round", img: "mega_logo (10).png", url: "#" },
+            { name: "Cushion", img: "mega_logo (11).png", url: "#" },
+            { name: "Princess", img: "mega_logo (12).png", url: "#" },
+            { name: "Oval", img: "mega_logo (13).png", url: "#" },
+            { name: "Emerald", img: "mega_logo (14).png", url: "#" },
           ],
         },
         {
@@ -74,7 +87,12 @@ export default function Header({ page }) {
     {
       title: "JEWELRY",
       url: "#",
-      megaMenu1: [
+      imagePanel: {
+        image: "mega_img-2.png",
+        title: "Jewelry Shopping Guide",
+        url: "#",
+      },
+      megaMenu: [
         {
           title: "Rings",
           menu: [
@@ -123,7 +141,8 @@ export default function Header({ page }) {
     {
       title: "EDUCATION",
       url: "#",
-      megaMenu1: [
+      imagePanel: { image: "mega_img-3.png", title: "Timeline", url: "#" },
+      megaMenu: [
         {
           title: "The diamond Experts",
           menu: [
@@ -194,7 +213,7 @@ export default function Header({ page }) {
               <nav className="mx-5">
                 <Link href="#">
                   <a className="d-flex align-items-center">
-                    <RiHeart2Line />
+                    <RiServiceLine />
                     SERVICES
                   </a>
                 </Link>
@@ -279,9 +298,63 @@ export default function Header({ page }) {
         <div className="row m-0 px-5 py-3  sub-bar">
           <div className="r-container d-flex justify-content-md-between justify-content-start align-items-center">
             <div className="d-flex p-0 left-menu flex-1 flex-wrap">
-              {submenus.map((item, index) => (
+              {submenus.map((submenu, index) => (
                 <nav key={index} className="btn ps-0 pe-5">
-                  {item.title}
+                  <span>{submenu.title}</span>
+                  <hr className="mt-2" />
+                  {submenu.megaMenu && (
+                    <div className="d-flex justify-content-between hover-bar p-5">
+                      {submenu.megaMenu.map((menu, key) => {
+                        return (
+                          <div
+                            className="mega-menu-body text-start px-5"
+                            key={key}
+                          >
+                            <h2 className="text-start mb-5">{menu.title}</h2>
+                            {menu.menu.map((item, id) => {
+                              return (
+                                <Link href={item.url} key={id}>
+                                  <a>
+                                    {item.img ? (
+                                      <div className="link-item my-4 d-flex align-items-center">
+                                        <img
+                                          src={"/img/common/" + item.img}
+                                          alt="mega-logo"
+                                          className="me-3"
+                                        />
+                                        <span className="text-uppercase">
+                                          {item.name}
+                                        </span>
+                                      </div>
+                                    ) : (
+                                      <div className="link-item my-4 text-uppercase">
+                                        {item.name}
+                                      </div>
+                                    )}
+                                  </a>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                      <div className="image-panel text-start">
+                        <img
+                          src={"img/common/" + submenu.imagePanel.image}
+                          alt="mega-image"
+                          className="round"
+                        />
+                        <div className="title-panel">
+                          <h3 className="my-3">{submenu.imagePanel.title}</h3>
+                          <Link href={submenu.imagePanel.url}>
+                            <a>
+                              <p>Learn More</p>
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </nav>
               ))}
             </div>
@@ -392,7 +465,6 @@ export default function Header({ page }) {
                       className="accordion-button submenu collapsed py-4 ps-0"
                       data-bs-target={"#index" + index}
                       data-bs-toggle="collapse"
-                      // onClick={handleAccordion}
                     >
                       {submenu.title}
                     </button>
@@ -410,9 +482,22 @@ export default function Header({ page }) {
                               return (
                                 <Link href={item.url} key={id}>
                                   <a>
-                                    <div className="link-item my-5 text-uppercase">
-                                      {item.name}
-                                    </div>
+                                    {item.img ? (
+                                      <div className="link-item my-5 d-flex align-items-center">
+                                        <img
+                                          src={"/img/common/" + item.img}
+                                          alt="mega-logo"
+                                          className="me-3"
+                                        />
+                                        <span className="text-uppercase">
+                                          {item.name}
+                                        </span>
+                                      </div>
+                                    ) : (
+                                      <div className="link-item my-5 text-uppercase">
+                                        {item.name}
+                                      </div>
+                                    )}
                                   </a>
                                 </Link>
                               );
@@ -420,6 +505,21 @@ export default function Header({ page }) {
                           </div>
                         );
                       })}
+                      <div className="image-panel text-center">
+                        <img
+                          src={"/img/common/" + submenu.imagePanel.image}
+                          alt="sub_image"
+                          className="round"
+                        />
+                        <div className="sub_title-panel">
+                          <h3 className="my-5">{submenu.imagePanel.title}</h3>
+                          <Link href={submenu.imagePanel.url}>
+                            <a>
+                              <p>Learn More</p>
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -442,7 +542,7 @@ export default function Header({ page }) {
               <Link href="#">
                 <a>
                   <div className="contact-item d-flex align-items-center justify-content-center">
-                    <RiPhoneLine />
+                    <RiMapPin2Line />
                   </div>
                 </a>
               </Link>

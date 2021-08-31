@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import AOS from "aos";
+import { RiPhoneFill, RiCompassDiscoverLine } from "react-icons/ri";
 
 export default function Schedule() {
   useEffect(() => {
@@ -16,16 +17,27 @@ export default function Schedule() {
           <div className="col-lg-6 col-12 ps-0 pe-lg-2 pe-0 pb-lg-0 pb-5">
             <div className="schedule-panel round d-flex flex-column justify-content-between p-5">
               <div className="text-panel text-white p-md-5 pt-5 p-0 pb-lg-5 pb-md-0 pb-0">
-                <h3 data-aos="fade-down">Visit</h3>
-                <h2 data-aos="fade-down">Royal Coster</h2>
+                <h3 data-aos="fade-up">Visit</h3>
+                <h2 data-aos="fade-up">Royal Coster</h2>
                 <p className="pt-5 text-capitalize">
                   Book an experience and learn about our heritage or visit us to
                   see more diamonds & jewelry
                 </p>
               </div>
               <div className="p-md-5 p-0 pt-lg-5 pt-md-0 pt-0">
-                <button className="btn round-form text-uppercase px-5 py-3">
-                  Schedule consultation
+                <div className="contact-btn-group d-flex justify-content-between mb-5">
+                  <button className="contact-btn btn round-form d-flex align-items-center justify-content-center px-5 py-3">
+                    <RiPhoneFill className="me-3"/>
+                    <span className="text-uppercase">Contact Us</span>
+                  </button>
+                  <button className="direction-btn btn round-form d-flex align-items-center justify-content-center px-5 py-3">
+                    <RiCompassDiscoverLine className="me-3" />
+                    <span className="text-uppercase">Get Direction</span>
+                  </button>
+                </div>
+                <button className="btn book-btn round-form d-flex align-items-center justify-content-between px-5 py-3">
+                  <span className="text-uppercase">Book tours & workshops</span>
+                  <img src="/img/common/rightArrow_blue.png" alt="rightArrow" />
                 </button>
               </div>
             </div>
@@ -33,8 +45,8 @@ export default function Schedule() {
           <div className="col-lg-6 col-12 ps-lg-2 ps-0 pe-0">
             <div className="newsletter-panel round d-flex flex-column justify-content-between p-5">
               <div className="text-panel p-md-5 pt-5 p-0 pb-lg-5 pb-md-0 pb-0">
-                <h3 data-aos="fade-down">Sign up for</h3>
-                <h2 data-aos="fade-down">Our Newsletter</h2>
+                <h3 data-aos="fade-up">Sign up for</h3>
+                <h2 data-aos="fade-up">Our Newsletter</h2>
                 <p className="pt-5 text-capitalize">
                   The fascinating world of diamonds presented by Royal Coster.
                   Products, tours and news. We won't spam your inbox.

@@ -40,12 +40,20 @@ export default function Home() {
     { img: "category3.png", url: "#", title: "Earrings" },
     { img: "category4.png", url: "#", title: "Earrings" },
   ];
+  let videoUrl = "/video/video.mp4";
 
   return (
     <div className="homepage">
       <Header page="homepage" />
       {/* Start hero section */}
       <div className="hero">
+        <video
+          src={videoUrl}
+          autoPlay
+          loop
+          className="d-block d-sm-none bg_video"
+          type="video/mp4"
+        />
         <div className="r-container d-flex flex-column">
           <div className="text-panel col-lg-6 col-md-8 col-sm-10 col-12">
             <h1 className="text-capitalize" data-aos="fade-right">
@@ -59,7 +67,7 @@ export default function Home() {
             <button className="btn rainbow-btn text-white round-form px-5 py-3 me-3 mt-5">
               Rainbow Collection
             </button>
-            <button className="btn btn-outline-dark shop-now-btn round-form px-5 py-3 mt-5">
+            <button className="btn btn-sm-outline-dark btn-outline-light shop-now-btn round-form px-5 py-3 mt-5">
               SHOP NOW
             </button>
           </div>

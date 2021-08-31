@@ -24,6 +24,7 @@ export default function Footer() {
     { img: "Frame-8.png", url: "#" },
     { img: "Frame-9.png", url: "#" },
     { img: "Frame-11.png", url: "#" },
+    { img: "Frame-12.png", url: "#" },
   ];
   let midFooterList = [
     {

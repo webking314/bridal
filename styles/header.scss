@@ -4,6 +4,7 @@ $flagSelectColor: white;
 
 #header {
   position: relative;
+  z-index: 10;
   top: 0;
   width: 100%;
   background: white;
@@ -37,7 +38,7 @@ $flagSelectColor: white;
   }
   & .top-bar {
     * {
-      font-size: 1rem;
+      font-size: 1.3rem;
     }
     background: #01215c;
     * {
@@ -74,7 +75,7 @@ $flagSelectColor: white;
 
   & .middle-bar {
     * {
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
     .r-container {
       @media (max-width: 890px) {
@@ -90,7 +91,7 @@ $flagSelectColor: white;
   }
   & .logo-bar {
     & .font-icon {
-      font-size: 22px;
+      font-size: 2.2rem;
     }
     & .logo-img {
       width: 190px;
@@ -98,12 +99,71 @@ $flagSelectColor: white;
     }
   }
   & .sub-bar {
+    position: relative;
     .r-container {
       .right-menu {
         max-width: max-content;
       }
       .left-menu {
         flex: 1;
+        .hover-bar {
+          position: absolute;
+          // display: none !important;
+          top: 50px;
+          width: 100%;
+          left: 0;
+          background: white;
+          z-index: 20;
+          visibility: hidden;
+          transform: translate(0, -10px);
+          box-shadow: 0 0 10px grey;
+          transition-duration: 0.5s;
+          opacity: 0;
+          * {
+            color: #021825;
+            font-size: 1.5rem;
+            font-weight: 500;
+          }
+          h2 {
+            color: #01215c;
+            font-size: 1.6rem;
+            font-weight: 500;
+          }
+          .image-panel {
+            width: 20%;
+            img {
+              width: 100%;
+            }
+            P {
+              color: #01215c;
+            }
+          }
+        }
+        nav {
+          & > hr {
+            width: 0px;
+            margin: auto;
+            transition-duration: 0.7s;
+            border-top: 2px solid transparent;
+            background: transparent;
+          }
+          &:hover {
+            & > hr {
+              width: 30px;
+              border-top: 2px solid #01215c;
+              transition-duration: 0.7s;
+              opacity: 1;
+            }
+            .hover-bar {
+              transition-duration: 0.7s;
+              // display: flex !important;
+              z-index: 20;
+              visibility: visible;
+              transform: translate(0, 0);
+              opacity: 1;
+            }
+          }
+        }
       }
       & > nav {
         font-weight: 500;
@@ -131,8 +191,6 @@ $flagSelectColor: white;
           color: #01215c;
           font-size: 2.2rem;
         }
-      }
-      .links-panel {
       }
     }
   }
@@ -213,11 +271,31 @@ $flagSelectColor: white;
           .link-item {
             font-size: 1.6rem;
             color: #000000;
+            span {
+              font-size: 1.6rem;
+              color: #000000;
+            }
           }
         }
         .accordion-button {
           &:focus {
             box-shadow: none;
+          }
+        }
+        .image-panel {
+          img {
+            width: 100%;
+          }
+          .sub_title-panel {
+            h3 {
+              font-size: 1.8rem;
+              font-weight: 500;
+              color: #021825;
+            }
+            p {
+              font-size: 1.8rem;
+              font-weight: 500;
+            }
           }
         }
       }

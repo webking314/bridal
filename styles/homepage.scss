@@ -1,6 +1,8 @@
 $titleSize: 7.2rem;
 .homepage {
   .hero {
+    overflow: hidden;
+    position: relative;
     margin-top: 4rem;
     background: linear-gradient(
         180deg,
@@ -13,6 +15,14 @@ $titleSize: 7.2rem;
     padding-top: 30rem;
     @media (max-width: 425px) {
       padding-top: 20rem;
+    }
+    .bg_video {
+      width: 100%;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 1;
+      position: absolute;
     }
     & .text-panel {
       h1 {
@@ -49,6 +59,27 @@ $titleSize: 7.2rem;
       }
       .rainbow-btn {
         background: #021825;
+      }
+    }
+    @media (max-width: 575px) {
+      background: #00070c;
+      .r-container {
+        position: relative;
+        z-index: 2;
+      }
+      .text-panel {
+        h1 {
+          color: white;
+        }
+        P {
+          color: white;
+        }
+      }
+      .btn-panel {
+        .rainbow-btn {
+          background: white;
+          color: black !important;
+        }
       }
     }
   }
