@@ -11,21 +11,7 @@ import {
 } from "react-icons/ri";
 
 export default function Footer() {
-  let handleAccordion = (e) => {
-    let target = e.target
-      .closest(".accordion-item")
-      .querySelector(".accordion-collapse");
-    if (target.classList.contains("show")) {
-      target.classList.remove("show");
-    } else {
-      target.classList.add("show");
-    }
-    if (e.target.classList.contains("collapsed")) {
-      e.target.classList.remove("collapsed");
-    } else {
-      e.target.classList.add("collapsed");
-    }
-  };
+  
   let paymentLogo = [
     { img: "Frame.png", url: "#" },
     { img: "Frame-1.png", url: "#" },
@@ -212,18 +198,24 @@ export default function Footer() {
                 <h2 className="accordion-header">
                   <button
                     className="accordion-button collapsed py-5 ps-0"
-                    onClick={handleAccordion}
+                    data-bs-toggle="collapse"
+                    data-bs-target={"#footerIndex" + index}
                   >
                     {item.title}
                   </button>
                 </h2>
-                <div className="accordion-collapse collapse">
+                <div
+                  className="accordion-collapse collapse"
+                  id={"footerIndex" + index}
+                >
                   <div className="accordion-body">
                     {item.url.map((link, key) => {
                       return (
                         <Link href={link.url} key={key}>
                           <a>
-                            <div className="link-item mb-5">{link.link}</div>
+                            <div className="link-item mb-5 text-uppercase">
+                              {link.link}
+                            </div>
                           </a>
                         </Link>
                       );
@@ -233,39 +225,38 @@ export default function Footer() {
               </div>
             );
           })}
-          {/* <div className="accordion-item">
-            <h2 className="accordion-header" id="headingOne">
+          <div className="accordion-item">
+            <h2 className="accordion-header">
               <button
-                className="accordion-button"
-                type="button"
+                className="accordion-button collapsed py-5 ps-0"
                 data-bs-toggle="collapse"
-                data-bs-target="#collapseOne"
-                aria-expanded="true"
-                aria-controls="collapseOne"
-                onClick={handleAccordion}
+                data-bs-target="#footerPrivacy"
               >
-                Accordion Item #1
+                Privacy
               </button>
             </h2>
-            <div
-              id="collapseOne"
-              className="accordion-collapse collapse show"
-              aria-labelledby="headingOne"
-              data-bs-parent="#accordionExample"
-            >
+            <div className="accordion-collapse collapse" id="footerPrivacy">
               <div className="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is
-                shown by default, until the collapse plugin adds the appropriate
-                classes that we use to style each element. These classes control
-                the overall appearance, as well as the showing and hiding via
-                CSS transitions. You can modify any of this with custom CSS or
-                overriding our default variables. It's also worth noting that
-                just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <Link href="#">
+                  <a>
+                    <div className="link-item mb-5 text-uppercase">
+                      Privacy Policy
+                    </div>
+                  </a>
+                </Link>
+                <Link href="#">
+                  <a>
+                    <div className="link-item mb-5 text-uppercase">Cookies</div>
+                  </a>
+                </Link>
+                <Link href="#">
+                  <a>
+                    <div className="link-item mb-5 text-uppercase">Terms</div>
+                  </a>
+                </Link>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
         <div className="col-12 py-4 px-0 text-center">
           {paymentLogo.map((item, index) => {
@@ -286,7 +277,7 @@ export default function Footer() {
       </div>
       <div className="footer-bottom py-3">
         <div className="r-container row m-auto p-0">
-          <div className="col-md-6 col-12 text-md-start text-center px-0">
+          <div className="col-md-6 col-12 text-md-start text-center px-0 text-uppercase">
             © 2020 Royal Coster Diamonds - All rights reserved
           </div>
           <div className="col-md-6 d-md-block d-none px-0 mt-md-0 mt-3 text-md-end text-center">

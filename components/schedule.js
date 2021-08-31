@@ -18,7 +18,7 @@ export default function Schedule() {
               <div className="text-panel text-white p-md-5 pt-5 p-0 pb-lg-5 pb-md-0 pb-0">
                 <h3 data-aos="fade-down">Visit</h3>
                 <h2 data-aos="fade-down">Royal Coster</h2>
-                <p className="pt-5">
+                <p className="pt-5 text-capitalize">
                   Book an experience and learn about our heritage or visit us to
                   see more diamonds & jewelry
                 </p>
@@ -35,7 +35,7 @@ export default function Schedule() {
               <div className="text-panel p-md-5 pt-5 p-0 pb-lg-5 pb-md-0 pb-0">
                 <h3 data-aos="fade-down">Sign up for</h3>
                 <h2 data-aos="fade-down">Our Newsletter</h2>
-                <p className="pt-5">
+                <p className="pt-5 text-capitalize">
                   The fascinating world of diamonds presented by Royal Coster.
                   Products, tours and news. We won't spam your inbox.
                 </p>

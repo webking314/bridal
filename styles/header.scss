@@ -132,6 +132,95 @@ $flagSelectColor: white;
           font-size: 2.2rem;
         }
       }
+      .links-panel {
+      }
+    }
+  }
+  .btn {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  #wishListBox {
+    .offcanvas-header {
+      h5 {
+        * {
+          color: #01215c;
+          font-size: 2.4rem;
+        }
+        color: #01215c;
+        font-size: 2.4rem;
+        font-weight: 500;
+      }
+    }
+  }
+  #myCartBox {
+    .offcanvas-header {
+      h5 {
+        * {
+          color: #01215c;
+          font-size: 2.4rem;
+        }
+        color: #01215c;
+        font-size: 2.4rem;
+        font-weight: 500;
+      }
+    }
+  }
+  #searchBox {
+    height: 70px;
+    .offcanvas-header {
+      position: relative;
+      label {
+        position: absolute;
+        right: 40px;
+        * {
+          font-size: 2rem;
+          color: #000000;
+        }
+      }
+    }
+    #searchPanel {
+      font-size: 2rem;
+      color: #000000;
+    }
+  }
+  #mobileBar {
+    * {
+      color: #01215c;
+    }
+    #mobileMenuLabel {
+      font-size: 2.4rem;
+      font-weight: 500;
+    }
+    .offcanvas-body {
+      display: flex;
+      flex-direction: column;
+      .submenu {
+        border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+        font-size: 1.6rem;
+        color: #01215c;
+        font-weight: 500;
+      }
+      .accordion-item {
+        border: 0;
+        .link-group {
+          border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+          h2 {
+            font-size: 2rem;
+            font-weight: 500;
+          }
+          .link-item {
+            font-size: 1.6rem;
+            color: #000000;
+          }
+        }
+        .accordion-button {
+          &:focus {
+            box-shadow: none;
+          }
+        }
+      }
     }
   }
 }

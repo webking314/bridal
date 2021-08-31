@@ -34,6 +34,7 @@ $titleSize: 7.2rem;
         }
         p {
           font-size: 1.4rem;
+          font-weight: 500;
         }
       }
     }
@@ -42,6 +43,9 @@ $titleSize: 7.2rem;
       button {
         font-size: 1.6rem;
         text-transform: uppercase;
+        @media (max-width: 480px) {
+          width: 100%;
+        }
       }
       .rainbow-btn {
         background: #021825;

@@ -22,17 +22,15 @@ export default function Home() {
       duration: 600,
     });
   }, []);
-  useEffect(() => {
-    typeof document !== undefined
-      ? require("bootstrap/dist/js/bootstrap")
-      : null;
-  }, []);
 
   let collectionSliders = [
-    { url: "Rectangle 29.png", title: "Empress Collection" },
-    { url: "Rectangle 30.png", title: "Wedding & Anniversary" },
-    { url: "Rectangle 31.png", title: "Royal Classics" },
-    { url: "Rectangle 32.png", title: "Fine Jewelry" },
+    // { url: "Rectangle 29.png", title: "Empress Collection" },
+    // { url: "Rectangle 30.png", title: "Wedding & Anniversary" },
+    // { url: "Rectangle 31.png", title: "Royal Classics" },
+    // { url: "Rectangle 32.png", title: "Fine Jewelry" },
+    { url: "Rectangle 33.png", title: "Watches" },
+    { url: "Rectangle 33.png", title: "Watches" },
+    { url: "Rectangle 33.png", title: "Watches" },
     { url: "Rectangle 33.png", title: "Watches" },
   ];
 
@@ -249,7 +247,7 @@ export default function Home() {
                     <a className="instagram-link gallery-type-1">
                       <div className="gallery-item round">
                         <img
-                          src="/img/homepage/Rectangle 34.png"
+                          src="/img/homepage/Rectangle 33.png"
                           className="round"
                           alt="gallery-img"
                         />
@@ -264,7 +262,7 @@ export default function Home() {
                     <a className="instagram-link gallery-type-1">
                       <div className="gallery-item round">
                         <img
-                          src="/img/homepage/Rectangle 38.png"
+                          src="/img/homepage/Rectangle 33.png"
                           className="round"
                           alt="gallery-img"
                         />
@@ -280,7 +278,7 @@ export default function Home() {
                   <a className="instagram-link p-0 gallery-type-1">
                     <div className="gallery-item round">
                       <img
-                        src="/img/homepage/Rectangle 37.png"
+                        src="/img/homepage/Rectangle 33.png"
                         className="round"
                         alt="gallery-img"
                       />
@@ -299,7 +297,7 @@ export default function Home() {
                       <a className="instagram-link p-0 gallery-type-1">
                         <div className="gallery-item round">
                           <img
-                            src="/img/homepage/Rectangle 36.png"
+                            src="/img/homepage/Rectangle 33.png"
                             className="round"
                             alt="gallery-img"
                           />
@@ -315,7 +313,7 @@ export default function Home() {
                         {/* <img src="/img/homepage/Rectangle 35.png"  className="round" alt="gallery-img" /> */}
                         <div className="gallery-item round">
                           <img
-                            src="/img/homepage/Rectangle 35.png"
+                            src="/img/homepage/Rectangle 33.png"
                             className="round"
                             alt="gallery-img"
                           />
@@ -330,7 +328,7 @@ export default function Home() {
                     <a className="instagram-link gallery-type-2">
                       <div className="gallery-item round">
                         <img
-                          src="/img/homepage/Rectangle 1.png"
+                          src="/img/homepage/Rectangle 33.png"
                           className="round"
                           alt="gallery-img"
                         />
@@ -353,7 +351,6 @@ export default function Home() {
       {/* Start Schedule section */}
       <Schedule />
       {/* End Schedule section */}
-
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}

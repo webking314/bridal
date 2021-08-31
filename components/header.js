@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import Link from "next/link";
@@ -11,21 +11,144 @@ import {
   RiUser3Line,
   RiMailSendLine,
   RiHeartLine,
-  RiMenu3Line
+  RiMenu3Line,
 } from "react-icons/ri";
 
 export default function Header({ page }) {
   const [selected, setSelected] = useState("LU");
   const [wishListCounter, setWishListCounter] = useState("1");
 
+  useEffect(() => {
+    typeof document !== undefined
+      ? require("bootstrap/dist/js/bootstrap")
+      : null;
+  }, []);
   let submenus = [
-    "ENGAGEMENT",
-    "JEWELRY",
-    "COLLECTIONS",
-    "BESPOKE",
-    "WATCHES",
-    "EDUCATION",
-    "TOURS & WORKSHOPS",
+    {
+      title: "ENGAGEMENT",
+      megaMenu: [
+        {
+          title: "Create a Ring",
+          menu: [
+            { name: "Start with Setting", url: "#" },
+            { name: "Start with a Diamond", url: "#" },
+            { name: "Ring Recommender", url: "#" },
+            { name: "Design your own Engagement Ring", url: "#" },
+          ],
+        },
+        {
+          title: "Shop by Style",
+          menu: [
+            { name: "Halo", url: "#" },
+            { name: "Solitaire", url: "#" },
+            { name: "Slidestone", url: "#" },
+            { name: "Threestone", url: "#" },
+            { name: "Vintage", url: "#" },
+          ],
+        },
+        {
+          title: "Shop by Popular Style",
+          menu: [
+            { name: "Round", url: "#" },
+            { name: "Cushion", url: "#" },
+            { name: "Princess", url: "#" },
+            { name: "Oval", url: "#" },
+            { name: "Emerald", url: "#" },
+          ],
+        },
+        {
+          title: "Quick Links",
+          menu: [
+            { name: "1 Carat Engagement Rings", url: "#" },
+            { name: "1.5 Carat Engagement Rings", url: "#" },
+            { name: "2 Carat Engagement Rings", url: "#" },
+            { name: "3 Carat Engagement Rings", url: "#" },
+          ],
+        },
+      ],
+    },
+    {
+      title: "JEWELRY",
+      megaMenu: [
+        {
+          title: "Rings",
+          menu: [
+            { name: "Diamond rings", url: "#" },
+            { name: "Anniversary rings", url: "#" },
+            { name: "Engagement rings", url: "#" },
+            { name: "Gemstone rings", url: "#" },
+          ],
+        },
+        {
+          title: "Earrings",
+          menu: [
+            { name: "Diamond studs", url: "#" },
+            { name: "Diamond earrings", url: "#" },
+            { name: "Gemstone earrings", url: "#" },
+          ],
+        },
+        {
+          title: "Bracelets",
+          menu: [
+            { name: "Tennis bracelets", url: "#" },
+            { name: "Diamond bracelets", url: "#" },
+          ],
+        },
+        {
+          title: "Necklaces",
+          menu: [
+            { name: "Diamond pendants", url: "#" },
+            { name: "Diamond necklace", url: "#" },
+            { name: "Gemstone necklaces", url: "#" },
+          ],
+        },
+        {
+          title: "Gifts",
+          menu: [
+            { name: "Birth gifts", url: "#" },
+            { name: "Gifts under euro 500", url: "#" },
+            { name: "Gifts under euro 1000", url: "#" },
+          ],
+        },
+      ],
+    },
+    { title: "COLLECTIONS", url: "#" },
+    { title: "BESPOKE", url: "#" },
+    { title: "WATCHES", url: "#" },
+    {
+      title: "EDUCATION",
+      megaMenu: [
+        {
+          title: "The diamond Experts",
+          menu: [
+            { name: "about the C4's", url: "#" },
+            { name: "about colored diamonds & gemstone", url: "#" },
+            { name: "about the price diamonds", url: "#" },
+            { name: "about the sustainability", url: "#" },
+            { name: "about watches", url: "#" },
+          ],
+        },
+        {
+          title: "The history of Royal Coster",
+          menu: [
+            { name: "Our Royal customers through time", url: "#" },
+            { name: "A timeline of brilliance", url: "#" },
+            { name: "Amsterdam City of Diamonds", url: "#" },
+            { name: "The kog I Noor & other legendary diamonds", url: "#" },
+          ],
+        },
+        {
+          title: "Guids",
+          menu: [
+            { name: "Ring size guide", url: "#" },
+            { name: "Diamond buying guide", url: "#" },
+            { name: "Engagement ring buying guide", url: "#" },
+            { name: "Royal Coster Wartches Guide", url: "#" },
+          ],
+        },
+      ],
+    },
+    { title: "TOURS & WORKSHOPS", url: "#" },
   ];
 
   return (
@@ -126,12 +249,24 @@ export default function Header({ page }) {
               </Link>
             </div>
             <div className="col-4 px-0 text-end">
-              <nav className="btn me-5 ">
+              <button
+                className="btn me-4"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#searchBox"
+                aria-controls="searchBox"
+              >
                 <RiSearchLine className="font-icon" />
-              </nav>
-              <nav className="btn px-0">
+              </button>
+              <button
+                className="btn me-4"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#myCartBox"
+                aria-controls="myCartBox"
+              >
                 <RiShoppingCartLine className="font-icon" />
-              </nav>
+              </button>
             </div>
           </div>
         </div>
@@ -140,7 +275,7 @@ export default function Header({ page }) {
             <div className="d-flex p-0 left-menu flex-1 flex-wrap">
               {submenus.map((item, index) => (
                 <nav key={index} className="btn ps-0 pe-5">
-                  {item}
+                  {item.title}
                 </nav>
               ))}
             </div>
@@ -175,32 +310,187 @@ export default function Header({ page }) {
         <div className="mobile__sub-bar d-flex justify-content-between align-items-center px-5 py-4">
           <Link href="#">
             <a>
-              <img src="/img/common/mobile_logo.png" alt="mobile-logo" width="30"/>
+              <img
+                src="/img/common/mobile_logo.png"
+                alt="mobile-logo"
+                width="30"
+              />
             </a>
           </Link>
           <div className="links-panel d-flex align-items-center">
-            <Link href="#">
-              <a className="me-5 d-flex align-items-center">
-                <RiSearchLine/>
-              </a>
-            </Link>
-            <Link href="#">
-              <a className="me-5 d-flex align-items-center">
-                <RiHeartLine/>
-              </a>
-            </Link>
-            <Link href="#">
-              <a className="me-5 d-flex align-items-center">
-                <RiShoppingCartLine/>
-              </a>
-            </Link>
-            <Link href="#">
-              <a className="d-flex align-items-center">
-                <RiMenu3Line/>
-              </a>
-            </Link>
+            <button
+              className="btn me-4 d-flex align-items-center"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#searchBox"
+              aria-controls="searchBox"
+            >
+              <RiSearchLine />
+            </button>
+
+            <button
+              className="btn me-4 d-flex align-items-center"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#wishListBox"
+              aria-controls="wishListBox"
+            >
+              <RiHeartLine />
+            </button>
+
+            <button
+              className="btn me-4 d-flex align-items-center"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#myCartBox"
+              aria-controls="myCartBox"
+            >
+              <RiShoppingCartLine />
+            </button>
+            <button
+              className="d-flex hamburger-btn btn align-items-center"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#mobileBar"
+              aria-controls="mobileBar"
+            >
+              <RiMenu3Line />
+            </button>
           </div>
         </div>
+      </div>
+      <div
+        className="offcanvas offcanvas-end p-3"
+        tabIndex="-1"
+        id="mobileBar"
+        aria-labelledby="mobileMenuLabel"
+      >
+        <div className="offcanvas-header">
+          <h3 id="mobileMenuLabel" className="">
+            Menu
+          </h3>
+          <button
+            type="button"
+            className="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div className="offcanvas-body pt-0">
+          {submenus.map((submenu, index) => {
+            if (submenu.megaMenu) {
+              return (
+                <div className="accordion-item" key={index}>
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button submenu collapsed py-4 ps-0"
+                      data-bs-target={"#index" + index}
+                      data-bs-toggle="collapse"
+                      // onClick={handleAccordion}
+                    >
+                      {submenu.title}
+                    </button>
+                  </h2>
+                  <div
+                    id={"index" + index}
+                    className="accordion-collapse collapse"
+                  >
+                    <div className="accordion-body">
+                      {submenu.megaMenu.map((menu, key) => {
+                        return (
+                          <div className="link-group mb-5" key={key}>
+                            <h2>{menu.title}</h2>
+                            {menu.menu.map((item, id) => {
+                              return (
+                                <Link href={item.url} key={id}>
+                                  <a>
+                                    <div className="link-item my-5 text-uppercase">
+                                      {item.name}
+                                    </div>
+                                  </a>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            } else {
+              return (
+                <Link href={submenu.url} key={index}>
+                  <a className="submenu py-4">{submenu.title}</a>
+                </Link>
+              );
+            }
+          })}
+        </div>
+      </div>
+      <div
+        className="offcanvas offcanvas-top justify-content-center"
+        tabIndex="-1"
+        id="searchBox"
+        aria-labelledby="searchBoxLabel"
+      >
+        <div className="offcanvas-header">
+          <input
+            className="form-control me-2"
+            id="searchPanel"
+            placeholder="Search Royal Coster Diamonds"
+          />
+          <label htmlFor="searchPanel">
+            <RiSearchLine />
+          </label>
+          <button
+            type="button"
+            className="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <div
+        className="offcanvas offcanvas-end p-3"
+        tabIndex="-1"
+        id="wishListBox"
+        aria-labelledby="wisthListLabel"
+      >
+        <div className="offcanvas-header">
+          <h5 id="wisthListLabel" className="d-flex align-items-center">
+            <RiHeartLine className="me-5" />
+            WishList
+          </h5>
+          <button
+            type="button"
+            className="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div className="offcanvas-body"></div>
+      </div>
+      <div
+        className="offcanvas offcanvas-end p-3"
+        tabIndex="-1"
+        id="myCartBox"
+        aria-labelledby="myCartBoxLabel"
+      >
+        <div className="offcanvas-header">
+          <h5 id="myCartBoxLabel" className="d-flex align-items-center">
+            <RiShoppingCartLine className="me-5" />
+            My Cart
+          </h5>
+          <button
+            type="button"
+            className="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div className="offcanvas-body"></div>
       </div>
     </div>
   );

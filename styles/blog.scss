@@ -32,7 +32,7 @@
         }
       }
       .btn--read-more {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
       }
     }
   }
@@ -47,12 +47,14 @@
         p {
           font-size: 1.6rem;
           color: rgba(2, 24, 37, 0.7);
+          font-weight: 500;
         }
       }
       .search-box {
         background: #f2f3f4;
         label {
           font-size: 1.4rem;
+          font-weight: 500;
         }
         .select-search__value {
           input {
@@ -89,7 +91,7 @@
       border: 2px solid transparent;
       &:focus {
         box-shadow: none;
-        font-weight: bold;
+        font-weight: 500;
         border: 2px solid rgba(1, 33, 92, 0.8);
       }
     }

@@ -120,7 +120,7 @@ export default function Blog() {
         <div className="top-bar row align-items-center m-0 p-0 mt-5 pt-5 pb-4">
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-5">
             <h2>Our Recent Blogs</h2>
-            <p>{result} results</p>
+            <p className="text-uppercase">{result} results</p>
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end p-0 pt-5 pt-md-0">
             <div className="search-box round-form d-flex align-items-center">
@@ -159,8 +159,8 @@ export default function Blog() {
         <div className="main-blog-panel row m-0">
           <div className="col-md-8 col-12 p-0">
             <div className="row m-0">
-              <div className="blog-box main-blog pt-5 pe-md-5 pe-0">
-                <img src={"/img/blog/" + images[0].image} alt="blog-image" />
+              <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
+                <img src={"/img/blog/" + images[0].image} className="round" alt="blog-image" />
                 <div className="blog-title py-5">
                   <p className="text-uppercase">{images[0].type}</p>
                   <Link href="#">
@@ -175,7 +175,7 @@ export default function Blog() {
                   if (index % 3 == 2)
                     return (
                       <div className="blog-box pt-5 pe-sm-5" key={index}>
-                        <img src={"/img/blog/" + item.image} alt="blog-image" />
+                        <img src={"/img/blog/" + item.image} className="round" alt="blog-image" />
                         <div className="blog-title py-5">
                           <p className="text-uppercase">{item.type}</p>
                           <Link href="#">
@@ -194,7 +194,7 @@ export default function Blog() {
                         className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
                         key={index}
                       >
-                        <img src={"/img/blog/" + item.image} alt="blog-image" />
+                        <img src={"/img/blog/" + item.image} className="round" alt="blog-image" />
                         <div className="blog-title py-5">
                           <p className="text-uppercase">{item.type}</p>
                           <Link href="#">
@@ -220,7 +220,7 @@ export default function Blog() {
                         className="blog-box pt-5 pe-md-0 pe-sm-5"
                         key={index}
                       >
-                        <img src={"/img/blog/" + item.image} alt="blog-image" />
+                        <img src={"/img/blog/" + item.image} className="round" alt="blog-image" />
                         <div className="blog-title py-5">
                           <p className="text-uppercase">{item.type}</p>
                           <Link href="#">
@@ -242,7 +242,7 @@ export default function Blog() {
                         className="blog-box pt-5 ps-md-0 ps-sm-5"
                         key={index}
                       >
-                        <img src={"/img/blog/" + item.image} alt="blog-image" />
+                        <img src={"/img/blog/" + item.image} className="round" alt="blog-image" />
                         <div className="blog-title py-5">
                           <p className="text-uppercase">{item.type}</p>
                           <Link href="#">
