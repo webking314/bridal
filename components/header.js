@@ -37,20 +37,20 @@ export default function Header({ page }) {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
-      let items = document.querySelectorAll(".hover-bar");
-      let offcanvas = document.querySelectorAll(".offcanvas");
-      document.querySelector(".scroll-header").classList.remove('d-none');
-      document.querySelector(".mobile-header").classList.remove('d-none')
-      for (let i = 0; i < items.length; i++) {
-        items[i].classList.remove('d-none')
-        console.log(items[i]);
-      }
-      for(let i = 0; i < offcanvas.length; i++) {
-        offcanvas[i].classList.remove('d-none')
-        console.log(offcanvas[i]);
-      }
+    //   let items = document.querySelectorAll(".hover-bar");
+    //   let offcanvas = document.querySelectorAll(".offcanvas");
+    //   document.querySelector(".scroll-header").classList.remove('d-none');
+    //   document.querySelector(".mobile-header").classList.remove('d-none')
+    //   for (let i = 0; i < items.length; i++) {
+    //     items[i].classList.remove('d-none')
+    //     console.log(items[i]);
+    //   }
+    //   for(let i = 0; i < offcanvas.length; i++) {
+    //     offcanvas[i].classList.remove('d-none')
+    //     console.log(offcanvas[i]);
+    //   }
 
-    }
+    // }
   }, []);
   let submenus = [
     {
