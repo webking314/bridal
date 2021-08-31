@@ -57,9 +57,6 @@ $titleSize: 7.2rem;
           width: 100%;
         }
       }
-      .rainbow-btn {
-        background: #021825;
-      }
     }
     @media (max-width: 575px) {
       background: #00070c;
@@ -163,7 +160,7 @@ $titleSize: 7.2rem;
       font-size: 3.6rem;
     }
     .swiper {
-      z-index: 10;
+      z-index: 5;
       p {
         font-size: 2rem;
       }
@@ -236,10 +233,10 @@ $titleSize: 7.2rem;
         display: block;
         width: 100%;
         font-size: 1.8rem;
-        background: #fad3da;
-        color: #01215c;
-        &.upgrade-diamond {
-          background: #01215c;
+      }
+      .design-service {
+        &:hover {
+          color: #01215c;
         }
       }
       @media (max-width: 450px) {

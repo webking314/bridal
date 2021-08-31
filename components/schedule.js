@@ -18,18 +18,27 @@ export default function Schedule() {
               </div>
               <div className="p-md-5 p-0 pt-lg-5 pt-md-0 pt-0">
                 <div className="contact-btn-group d-flex justify-content-between mb-5">
-                  <button className="contact-btn btn round-form d-flex align-items-center justify-content-center px-5 py-3">
-                    <RiPhoneFill className="me-3"/>
+                  <button className="contact-btn pink-outline-btn btn round-form d-flex align-items-center justify-content-center px-5 py-3">
+                    <RiPhoneFill className="me-3" />
                     <span className="text-uppercase">Contact Us</span>
                   </button>
-                  <button className="direction-btn btn round-form d-flex align-items-center justify-content-center px-5 py-3">
+                  <button className="direction-btn pink-outline-btn btn round-form d-flex align-items-center justify-content-center px-5 py-3">
                     <RiCompassDiscoverLine className="me-3" />
                     <span className="text-uppercase">Get Direction</span>
                   </button>
                 </div>
-                <button className="btn book-btn round-form d-flex align-items-center justify-content-between px-5 py-3">
+                <button className="btn book-btn round-form pink-btn d-flex align-items-center justify-content-between px-5 py-3">
                   <span className="text-uppercase">Book tours & workshops</span>
-                  <img src="/img/common/rightArrow_blue.png" alt="rightArrow" />
+                  <img
+                    src="/img/common/rightArrow_blue.png"
+                    alt="rightArrow"
+                    className="blue-arrow"
+                  />
+                  <img
+                    src="/img/common/rightArrow.png"
+                    alt="rightArrow"
+                    className="pink-arrow"
+                  />
                 </button>
               </div>
             </div>
@@ -55,9 +64,18 @@ export default function Schedule() {
                   className="form-control round-form p-3 mb-4"
                   placeholder="syedkaift@gmail.com"
                 />
-                <button className="btn round-form px-5 py-3 text-white d-flex justify-content-between align-items-center m-0">
+                <button className="btn round-form px-5 py-3 blue-btn d-flex justify-content-between align-items-center m-0">
                   <span>SUBSCRIBE</span>
-                  <img src="/img/common/rightArrow.png" alt="rightArrow" />
+                  <img
+                    src="/img/common/rightArrow_blue.png"
+                    alt="rightArrow"
+                    className="blue-arrow"
+                  />
+                  <img
+                    src="/img/common/rightArrow.png"
+                    alt="rightArrow"
+                    className="white-arrow"
+                  />
                 </button>
               </div>
             </div>

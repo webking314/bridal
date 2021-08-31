@@ -20,7 +20,20 @@ import {
 export default function Header({ page }) {
   const [selected, setSelected] = useState("LU");
   const [wishListCounter, setWishListCounter] = useState("1");
-
+  useEffect(() => {
+    window.addEventListener("scroll", (e) => {
+      let scrollHeader = document.querySelector(".scroll-header");
+      if (window.scrollY > 270) {
+        if (!scrollHeader.classList.contains("visible")) {
+          scrollHeader.classList.add("visible");
+        }
+      } else {
+        if (scrollHeader.classList.contains("visible")) {
+          scrollHeader.classList.remove("visible");
+        }
+      }
+    });
+  });
   useEffect(() => {
     typeof document !== undefined
       ? require("bootstrap/dist/js/bootstrap")
@@ -64,7 +77,7 @@ export default function Header({ page }) {
           ],
         },
         {
-          title: "Shop by Popular Style",
+          title: "Shop Popular Shapes",
           menu: [
             { name: "Round", img: "mega_logo (10).png", url: "#" },
             { name: "Cushion", img: "mega_logo (11).png", url: "#" },
@@ -163,7 +176,7 @@ export default function Header({ page }) {
           ],
         },
         {
-          title: "Guids",
+          title: "Guides",
           menu: [
             { name: "Ring size guide", url: "#" },
             { name: "Diamond buying guide", url: "#" },
@@ -179,6 +192,110 @@ export default function Header({ page }) {
   return (
     <div id="header" className={!page ? "" : "homepage"}>
       <div className="desktop-header d-lg-block d-none">
+        <div className="scroll-header px-5">
+          <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
+            <div className="d-flex p-0 left-menu flex-1 flex-wrap py-2 ">
+              <Link href="/">
+                <a className="me-5">
+                  <img src="/img/common/mobile_logo.png" alt="logo" />
+                </a>
+              </Link>
+              {submenus.map((submenu, index) => (
+                <nav key={index} className="btn ps-0 py-0 pe-5 pt-3">
+                  <span>{submenu.title}</span>
+                  <hr className="mt-2" />
+                  {submenu.megaMenu && (
+                    <div className="hover-bar px-5">
+                      <div className="d-flex justify-content-between r-container p-5">
+                        {submenu.megaMenu.map((menu, key) => {
+                          return (
+                            <div
+                              className="mega-menu-body text-start px-5"
+                              key={key}
+                            >
+                              <h2 className="text-start mb-4 pb-1">{menu.title}</h2>
+                              {menu.menu.map((item, id) => {
+                                return (
+                                  <Link href={item.url} key={id}>
+                                    <a>
+                                      {item.img ? (
+                                        <div className="link-item mt-4 d-flex align-items-center">
+                                          <img
+                                            src={"/img/common/" + item.img}
+                                            alt="mega-logo"
+                                            className="me-3"
+                                          />
+                                          <span className="text-uppercase">
+                                            {item.name}
+                                          </span>
+                                        </div>
+                                      ) : (
+                                        <div className="link-item mt-4 text-uppercase">
+                                          {item.name}
+                                        </div>
+                                      )}
+                                    </a>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          );
+                        })}
+                        <div className="image-panel text-start">
+                          <img
+                            src={"img/common/" + submenu.imagePanel.image}
+                            alt="mega-image"
+                            className="round"
+                          />
+                          <div className="title-panel">
+                            <h3 className="my-3">{submenu.imagePanel.title}</h3>
+                            <Link href={submenu.imagePanel.url}>
+                              <a>
+                                <p>Learn More</p>
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </nav>
+              ))}
+            </div>
+            <button
+              className="btn me-4 d-flex align-items-center"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#searchBox"
+              aria-controls="searchBox"
+            >
+              <RiSearchLine />
+            </button>
+
+            <button
+              className="btn me-4 d-flex align-items-center"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#wishListBox"
+              aria-controls="wishListBox"
+            >
+              <RiHeartLine />
+            </button>
+
+            <button
+              className="btn me-4 d-flex align-items-center"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#myCartBox"
+              aria-controls="myCartBox"
+            >
+              <RiShoppingCartLine />
+            </button>
+            <button className="btn right-menu btn-consultation text-uppercase px-5 py-5">
+              Schedule consultation
+            </button>
+          </div>
+        </div>
         <div className="row m-0 px-5 py-3 top-bar">
           <div className="r-container d-flex justify-content-between align-items-center">
             <Link href="#">
@@ -245,11 +362,11 @@ export default function Header({ page }) {
                 </Link>
               </nav>
               <button
-                className="btn me-4"
+                className="btn pe-0 d-flex align-items-center"
                 type="button"
                 data-bs-toggle="offcanvas"
-                data-bs-target="#myCartBox"
-                aria-controls="myCartBox"
+                data-bs-target="#wishListBox"
+                aria-controls="wishListBox"
               >
                 <RiHeartLine />
                 WISHLIST ( {wishListCounter} )
@@ -258,7 +375,7 @@ export default function Header({ page }) {
           </div>
         </div>
         <div className="row m-0 logo-bar px-5 py-5 align-items-center">
-          <div className="r-container d-flex">
+          <div className="r-container d-flex align-items-center">
             <div className="col-4 px-0"></div>
             <div className="col-4 px-0 text-center">
               <Link href="#">
@@ -298,14 +415,14 @@ export default function Header({ page }) {
           </div>
         </div>
         <div className="row m-0 px-5 sub-bar">
-          <div className="r-container d-flex justify-content-md-between justify-content-start align-items-center">
-            <div className="d-flex p-0 left-menu flex-1 flex-wrap py-3 ">
+          <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
+            <div className="d-flex p-0 left-menu flex-1 flex-wrap py-2 ">
               {submenus.map((submenu, index) => (
-                <nav key={index} className="btn ps-0 pe-5 mt-2">
+                <nav key={index} className="btn ps-0 py-0 pe-5 pt-3">
                   <span>{submenu.title}</span>
                   <hr className="mt-2" />
                   {submenu.megaMenu && (
-                    <div className="hover-bar p-5">
+                    <div className="hover-bar px-5">
                       <div className="d-flex justify-content-between r-container p-5">
                         {submenu.megaMenu.map((menu, key) => {
                           return (
@@ -313,24 +430,24 @@ export default function Header({ page }) {
                               className="mega-menu-body text-start px-5"
                               key={key}
                             >
-                              <h2 className="text-start mb-5">{menu.title}</h2>
+                              <h2 className="text-start mb-4 pb-2">
+                                {menu.title}
+                              </h2>
                               {menu.menu.map((item, id) => {
                                 return (
                                   <Link href={item.url} key={id}>
                                     <a>
                                       {item.img ? (
-                                        <div className="link-item my-4 d-flex align-items-center">
+                                        <div className="link-item mt-4 d-flex align-items-center">
                                           <img
                                             src={"/img/common/" + item.img}
                                             alt="mega-logo"
                                             className="me-3"
                                           />
-                                          <span className="text-uppercase">
-                                            {item.name}
-                                          </span>
+                                          <span>{item.name}</span>
                                         </div>
                                       ) : (
-                                        <div className="link-item my-4 text-uppercase">
+                                        <div className="link-item mt-4">
                                           {item.name}
                                         </div>
                                       )}
@@ -341,7 +458,7 @@ export default function Header({ page }) {
                             </div>
                           );
                         })}
-                        <div className="image-panel text-start">
+                        <div className="image-panel ps-5 text-start">
                           <img
                             src={"img/common/" + submenu.imagePanel.image}
                             alt="mega-image"
@@ -351,7 +468,7 @@ export default function Header({ page }) {
                             <h3 className="my-3">{submenu.imagePanel.title}</h3>
                             <Link href={submenu.imagePanel.url}>
                               <a>
-                                <p>Learn More</p>
+                                <p className="mb-0">Learn More</p>
                               </a>
                             </Link>
                           </div>
@@ -362,11 +479,9 @@ export default function Header({ page }) {
                 </nav>
               ))}
             </div>
-            <div>
-              <button className="btn right-menu text-uppercase px-0 d-flex">
-                Schedule consultation
-              </button>
-            </div>
+            <button className="btn right-menu btn-consultation text-uppercase px-3 py-4">
+              Schedule consultation
+            </button>
           </div>
         </div>
       </div>

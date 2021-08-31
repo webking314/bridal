@@ -65,10 +65,10 @@ export default function Home() {
             </p>
           </div>
           <div className="btn-panel">
-            <button className="btn rainbow-btn text-white round-form px-5 py-3 me-3 mt-5">
+            <button className="btn rainbow-btn dark-btn round-form px-5 py-3 me-3 mt-5">
               Rainbow Collection
             </button>
-            <button className="btn btn-outline-dark shop-now-btn round-form px-5 py-3 mt-5">
+            <button className="btn blue-outline-btn shop-now-btn round-form px-5 py-3 mt-5">
               SHOP NOW
             </button>
           </div>
@@ -195,14 +195,15 @@ export default function Home() {
                   right diamond and setting.
                 </p>
                 <Link href="#">
-                  <a className="design-service round-form text-uppercase py-4 px-5 mb-4">
+                  <a className="design-service pink-btn round-form text-uppercase py-4 px-5 mb-4">
                     Custom Design Services
                   </a>
                 </Link>
                 <Link href="#">
-                  <a className="upgrade-diamond round-form py-4 text-uppercase px-5 text-white d-flex justify-content-between align-items-center">
+                  <a className="upgrade-diamond blue-btn round-form py-4 text-uppercase px-5 d-flex justify-content-between align-items-center">
                     <p className="m-0 p-0">Upgrade your Diamonds</p>
-                    <img src="/img/common/rightArrow.png" alt="rightArrow" />
+                    <img src="/img/common/rightArrow.png" alt="rightArrow" className="white-arrow" />
+                    <img src="/img/common/rightArrow_blue.png" alt="rightArrow" className="blue-arrow"/>
                   </a>
                 </Link>
               </div>
@@ -346,7 +347,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <button className="btn round-form mt-5 px-5 py-3 follow-btn btn-outline-dark">
+          <button className="btn round-form mt-5 px-5 py-3 follow-btn blue-outline-btn">
             Follow @Costerdiamondsofficial
           </button>
         </div>
