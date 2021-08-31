@@ -197,7 +197,7 @@ export default function Header({ page }) {
   return (
     <div id="header" className={!page ? "" : "homepage"}>
       <div className="desktop-header d-lg-block d-none">
-        <div className="scroll-header px-5">
+        <div className="scroll-header d-none px-5">
           <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
             <div className="d-flex p-0 left-menu flex-1 flex-wrap py-2 ">
               <Link href="/">
