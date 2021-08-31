@@ -134,6 +134,12 @@ $flagSelectColor: white;
     .left-menu {
       flex: 1;
       .hover-bar {
+        &.d-none {
+          height: 0;
+          opacity: 0;
+          visibility: hidden;
+          top: -1000px;
+        }
         position: absolute;
         // display: none !important;
         top: 50px;
@@ -298,12 +304,6 @@ $flagSelectColor: white;
       }
     }
     .hover-bar {
-      &.d-none {
-        height: 0;
-        opacity: 0;
-        visibility: hidden;
-        top: -1000px;
-      }
       a {
         &:hover {
           color: black;
