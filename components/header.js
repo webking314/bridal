@@ -38,11 +38,18 @@ export default function Header({ page }) {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
       let items = document.querySelectorAll(".hover-bar");
+      let offcanvas = document.querySelectorAll(".offcanvas");
+      document.querySelector(".scroll-header").classList.remove('d-none');
+      document.querySelector(".mobile-header").classList.remove('d-none')
       for (let i = 0; i < items.length; i++) {
-        // items[i].classList.remove('d-none')
+        items[i].classList.remove('d-none')
         console.log(items[i]);
-        console.log(111111111)
       }
+      for(let i = 0; i < offcanvas.length; i++) {
+        offcanvas[i].classList.remove('d-none')
+        console.log(offcanvas[i]);
+      }
+
     }
   }, []);
   let submenus = [
@@ -565,8 +572,8 @@ export default function Header({ page }) {
           </div>
         </div>
       </div>
-      {/* <div
-        className="offcanvas offcanvas-end p-3"
+      <div
+        className="offcanvas d-none offcanvas-end p-3"
         tabIndex="-1"
         id="mobileBar"
         aria-labelledby="mobileMenuLabel"
@@ -692,7 +699,7 @@ export default function Header({ page }) {
         </div>
       </div>
       <div
-        className="offcanvas offcanvas-top justify-content-center"
+        className="offcanvas d-none offcanvas-top justify-content-center"
         tabIndex="-1"
         id="searchBox"
         aria-labelledby="searchBoxLabel"
@@ -715,7 +722,7 @@ export default function Header({ page }) {
         </div>
       </div>
       <div
-        className="offcanvas offcanvas-end p-3"
+        className="offcanvas d-none offcanvas-end p-3"
         tabIndex="-1"
         id="wishListBox"
         aria-labelledby="wisthListLabel"
@@ -735,7 +742,7 @@ export default function Header({ page }) {
         <div className="offcanvas-body"></div>
       </div>
       <div
-        className="offcanvas offcanvas-end p-3"
+        className="offcanvas d-none offcanvas-end p-3"
         tabIndex="-1"
         id="myCartBox"
         aria-labelledby="myCartBoxLabel"
@@ -754,7 +761,6 @@ export default function Header({ page }) {
         </div>
         <div className="offcanvas-body"></div>
       </div>
-    </div> */}
     </div>
   );
 }
