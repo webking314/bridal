@@ -40,7 +40,7 @@ export default function Header({ page }) {
       let items = document.querySelectorAll(".hover-bar");
       for (let i = 0; i < items.length; i++) {
         // items[i].classList.remove('d-none')
-        console.log(items[i])
+        console.log(items[i]);
       }
     }
   }, []);
@@ -564,7 +564,7 @@ export default function Header({ page }) {
           </div>
         </div>
       </div>
-      <div
+      {/* <div
         className="offcanvas offcanvas-end p-3"
         tabIndex="-1"
         id="mobileBar"
@@ -753,6 +753,7 @@ export default function Header({ page }) {
         </div>
         <div className="offcanvas-body"></div>
       </div>
+    </div> */}
     </div>
   );
 }
