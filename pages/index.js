@@ -40,13 +40,6 @@ export default function Home() {
       <Header page="homepage" />
       {/* Start hero section */}
       <div className="hero">
-        {/* <video
-          src={videoUrl}
-          type="video/mp4"
-          autoPlay
-          loop
-          className="d-block d-sm-none bg_video"
-        /> */}
         <video
           autoPlay="autoplay"
           loop="loop"

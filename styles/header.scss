@@ -5,10 +5,10 @@ $flagSelectColor: white;
 #header {
   .dr-none {
     height: 0;
-    opacity: 0;
-    visibility: hidden;
-    top: -1000px;
-    display: none;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    top: -1000px !important;
+    display: none !important;
   }
   position: relative;
   z-index: 10;

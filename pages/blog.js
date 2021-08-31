@@ -115,6 +115,7 @@ export default function Blog() {
         </div>
       </div>
       {/* End banner section */}
+
       {/* Start blog section */}
       <div className="blog-section r-container py-5">
         <div className="top-bar row align-items-center m-0 p-0 mt-5 pt-5 pb-4">
@@ -159,30 +160,46 @@ export default function Blog() {
         <div className="main-blog-panel row m-0">
           <div className="col-md-8 col-12 p-0">
             <div className="row m-0">
-              <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
-                <img src={"/img/blog/" + images[0].image} className="round" alt="blog-image" />
-                <div className="blog-title py-5">
-                  <p className="text-uppercase">{images[0].type}</p>
-                  <Link href="#">
-                    <a>{images[0].title}</a>
-                  </Link>
-                </div>
-              </div>
+              <Link href="#">
+                <a>
+                  <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
+                    <div className="round blog-image">
+                      <img
+                        src={"/img/blog/" + images[0].image}
+                        className="round"
+                        alt="blog-image"
+                      />
+                    </div>
+                    <div className="blog-title py-5">
+                      <p className="text-uppercase">{images[0].type}</p>
+                      <h3>{images[0].title}</h3>
+                    </div>
+                  </div>
+                </a>
+              </Link>
             </div>
             <div className="row m-0">
               <div className="col-sm-6 col-12 p-0">
                 {images.map((item, index) => {
                   if (index % 3 == 2)
                     return (
-                      <div className="blog-box pt-5 pe-sm-5" key={index}>
-                        <img src={"/img/blog/" + item.image} className="round" alt="blog-image" />
-                        <div className="blog-title py-5">
-                          <p className="text-uppercase">{item.type}</p>
-                          <Link href="#">
-                            <a>{item.title}</a>
-                          </Link>
-                        </div>
-                      </div>
+                      <Link href="#">
+                        <a>
+                          <div className="blog-box pt-5 pe-sm-5" key={index}>
+                            <div className="round blog-image">
+                              <img
+                                src={"/img/blog/" + item.image}
+                                className="round"
+                                alt="blog-image"
+                              />
+                            </div>
+                            <div className="blog-title py-5">
+                              <p className="text-uppercase">{item.type}</p>
+                              <h3>{item.title}</h3>
+                            </div>
+                          </div>
+                        </a>
+                      </Link>
                     );
                 })}
               </div>
@@ -190,18 +207,26 @@ export default function Blog() {
                 {images.map((item, index) => {
                   if ((index != 0) & (index % 3 == 0))
                     return (
-                      <div
-                        className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
-                        key={index}
-                      >
-                        <img src={"/img/blog/" + item.image} className="round" alt="blog-image" />
-                        <div className="blog-title py-5">
-                          <p className="text-uppercase">{item.type}</p>
-                          <Link href="#">
-                            <a>{item.title}</a>
-                          </Link>
-                        </div>
-                      </div>
+                      <Link href="#">
+                        <a>
+                          <div
+                            className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
+                            key={index}
+                          >
+                            <div className="round blog-image">
+                              <img
+                                src={"/img/blog/" + item.image}
+                                className="round"
+                                alt="blog-image"
+                              />
+                            </div>
+                            <div className="blog-title py-5">
+                              <p className="text-uppercase">{item.type}</p>
+                              <h3>{item.title}</h3>
+                            </div>
+                          </div>
+                        </a>
+                      </Link>
                     );
                 })}
               </div>
@@ -216,18 +241,26 @@ export default function Blog() {
                     (Math.ceil((images.length - 1) / 3) * 3 - 2 > index)
                   )
                     return (
-                      <div
-                        className="blog-box pt-5 pe-md-0 pe-sm-5"
-                        key={index}
-                      >
-                        <img src={"/img/blog/" + item.image} className="round" alt="blog-image" />
-                        <div className="blog-title py-5">
-                          <p className="text-uppercase">{item.type}</p>
-                          <Link href="#">
-                            <a>{item.title}</a>
-                          </Link>
-                        </div>
-                      </div>
+                      <Link href="#">
+                        <a>
+                          <div
+                            className="blog-box pt-5 pe-md-0 pe-sm-5"
+                            key={index}
+                          >
+                            <div className="round blog-image">
+                              <img
+                                src={"/img/blog/" + item.image}
+                                className="round"
+                                alt="blog-image"
+                              />
+                            </div>
+                            <div className="blog-title py-5">
+                              <p className="text-uppercase">{item.type}</p>
+                              <h3>{item.title}</h3>
+                            </div>
+                          </div>
+                        </a>
+                      </Link>
                     );
                 })}
               </div>
@@ -238,18 +271,26 @@ export default function Blog() {
                     (Math.ceil((images.length - 1) / 3) * 3 - 2 <= index)
                   )
                     return (
-                      <div
-                        className="blog-box pt-5 ps-md-0 ps-sm-5"
-                        key={index}
-                      >
-                        <img src={"/img/blog/" + item.image} className="round" alt="blog-image" />
-                        <div className="blog-title py-5">
-                          <p className="text-uppercase">{item.type}</p>
-                          <Link href="#">
-                            <a>{item.title}</a>
-                          </Link>
-                        </div>
-                      </div>
+                      <Link href="#">
+                        <a>
+                          <div
+                            className="blog-box pt-5 ps-md-0 ps-sm-5"
+                            key={index}
+                          >
+                            <div className="round blog-image">
+                              <img
+                                src={"/img/blog/" + item.image}
+                                className="round"
+                                alt="blog-image"
+                              />
+                            </div>
+                            <div className="blog-title py-5">
+                              <p className="text-uppercase">{item.type}</p>
+                              <h3>{item.title}</h3>
+                            </div>
+                          </div>
+                        </a>
+                      </Link>
                     );
                 })}
               </div>
