@@ -50,7 +50,7 @@ export default function Header({ page }) {
     //     console.log(offcanvas[i]);
     //   }
 
-    // }
+    }
   }, []);
   let submenus = [
     {
