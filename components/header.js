@@ -39,7 +39,7 @@ export default function Header({ page }) {
       require("bootstrap/dist/js/bootstrap");
       let items = document.querySelectorAll(".hover-bar");
       for (let i = 0; i < items.length; i++) {
-        // items[i].classList.remove('d-none')
+        items[i].classList.remove('d-none')
         console.log(items[i])
       }
     }
