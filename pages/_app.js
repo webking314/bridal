@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Fragment } from "react";
 import Head from "next/head";
 // import "animate.css"
-import "aos/dist/aos.css";
 import "../styles/globals.scss";
 import "./../styles/header.scss";
 import "./../styles/homepage.scss";
