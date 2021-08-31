@@ -12,6 +12,9 @@ import {
   RiMailSendLine,
   RiHeartLine,
   RiMenu3Line,
+  RiPhoneLine,
+  RiMessageLine,
+  RiMailLine,
 } from "react-icons/ri";
 
 export default function Header({ page }) {
@@ -26,7 +29,8 @@ export default function Header({ page }) {
   let submenus = [
     {
       title: "ENGAGEMENT",
-      megaMenu: [
+      url: "#",
+      megaMenu1: [
         {
           title: "Create a Ring",
           menu: [
@@ -69,7 +73,8 @@ export default function Header({ page }) {
     },
     {
       title: "JEWELRY",
-      megaMenu: [
+      url: "#",
+      megaMenu1: [
         {
           title: "Rings",
           menu: [
@@ -117,7 +122,8 @@ export default function Header({ page }) {
     { title: "WATCHES", url: "#" },
     {
       title: "EDUCATION",
-      megaMenu: [
+      url: "#",
+      megaMenu1: [
         {
           title: "The diamond Experts",
           menu: [
@@ -426,6 +432,36 @@ export default function Header({ page }) {
               );
             }
           })}
+          <button className="btn mobile-schedule-btn text-uppercase round-form px-5 py-3 my-5">
+            Schedule consultation
+          </button>
+
+          <div className="contact-panel text-center mt-5">
+            <h3>Contact Us</h3>
+            <div className="contact-links d-flex justify-content-around mt-5">
+              <Link href="#">
+                <a>
+                  <div className="contact-item d-flex align-items-center justify-content-center">
+                    <RiPhoneLine />
+                  </div>
+                </a>
+              </Link>
+              <Link href="#">
+                <a>
+                  <div className="contact-item d-flex align-items-center justify-content-center">
+                    <RiMessageLine />
+                  </div>
+                </a>
+              </Link>
+              <Link href="#">
+                <a>
+                  <div className="contact-item d-flex align-items-center justify-content-center">
+                    <RiMailLine />
+                  </div>
+                </a>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -436,7 +472,7 @@ export default function Header({ page }) {
       >
         <div className="offcanvas-header">
           <input
-            className="form-control me-2"
+            className="form-control me-3 p-3"
             id="searchPanel"
             placeholder="Search Royal Coster Diamonds"
           />
@@ -451,7 +487,6 @@ export default function Header({ page }) {
           ></button>
         </div>
       </div>
-
       <div
         className="offcanvas offcanvas-end p-3"
         tabIndex="-1"

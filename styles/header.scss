@@ -173,7 +173,7 @@ $flagSelectColor: white;
       position: relative;
       label {
         position: absolute;
-        right: 40px;
+        right: 50px;
         * {
           font-size: 2rem;
           color: #000000;
@@ -181,7 +181,7 @@ $flagSelectColor: white;
       }
     }
     #searchPanel {
-      font-size: 2rem;
+      font-size: 1.6rem;
       color: #000000;
     }
   }
@@ -219,6 +219,29 @@ $flagSelectColor: white;
           &:focus {
             box-shadow: none;
           }
+        }
+      }
+    }
+    .mobile-schedule-btn {
+      border: 1px solid;
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+    .contact-panel {
+      * {
+        color: #01215c;
+      }
+      h3 {
+        font-size: 2rem;
+        font-weight: 500;
+      }
+      .contact-item {
+        width: 50px;
+        height: 50px;
+        background: rgba(235, 235, 235, 0.719);
+        border-radius: 50%;
+        * {
+          font-size: 2rem;
         }
       }
     }
