@@ -18,11 +18,7 @@ $titleSize: 7.2rem;
     }
     .bg_video {
       width: 100%;
-      top: 0;
-      left: 50%;
-      transform: translate(-50%, 0);
       z-index: 1;
-      position: absolute;
     }
     & .text-panel {
       h1 {
@@ -60,6 +56,7 @@ $titleSize: 7.2rem;
     }
     @media (max-width: 575px) {
       background: #00070c;
+      padding-top: 5rem;
       .r-container {
         position: relative;
         // z-index: 2;
