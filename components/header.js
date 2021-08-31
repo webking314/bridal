@@ -33,11 +33,16 @@ export default function Header({ page }) {
         }
       }
     });
-  });
+  }, []);
   useEffect(() => {
-    typeof document !== undefined
-      ? require("bootstrap/dist/js/bootstrap")
-      : null;
+    if (typeof document !== undefined) {
+      require("bootstrap/dist/js/bootstrap");
+      let items = document.querySelectorAll(".hover-bar");
+      for (let i = 0; i < items.length; i++) {
+        items[i].classList.remove('d-none')
+        console.log(items[i])
+      }
+    }
   }, []);
   let submenus = [
     {
@@ -205,7 +210,7 @@ export default function Header({ page }) {
                   <span>{submenu.title}</span>
                   <hr className="mt-2" />
                   {submenu.megaMenu && (
-                    <div className="hover-bar px-5">
+                    <div className="hover-bar d-none px-5">
                       <div className="d-flex justify-content-between r-container p-5">
                         {submenu.megaMenu.map((menu, key) => {
                           return (
@@ -213,7 +218,9 @@ export default function Header({ page }) {
                               className="mega-menu-body text-start px-5"
                               key={key}
                             >
-                              <h2 className="text-start mb-4 pb-1">{menu.title}</h2>
+                              <h2 className="text-start mb-4 pb-1">
+                                {menu.title}
+                              </h2>
                               {menu.menu.map((item, id) => {
                                 return (
                                   <Link href={item.url} key={id}>
@@ -225,9 +232,7 @@ export default function Header({ page }) {
                                             alt="mega-logo"
                                             className="me-3"
                                           />
-                                          <span>
-                                            {item.name}
-                                          </span>
+                                          <span>{item.name}</span>
                                         </div>
                                       ) : (
                                         <div className="link-item mt-4">
@@ -422,7 +427,7 @@ export default function Header({ page }) {
                   <span>{submenu.title}</span>
                   <hr className="mt-2" />
                   {submenu.megaMenu && (
-                    <div className="hover-bar px-5">
+                    <div className="hover-bar d-none px-5">
                       <div className="d-flex justify-content-between r-container p-5">
                         {submenu.megaMenu.map((menu, key) => {
                           return (

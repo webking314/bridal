@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div className="homepage">
       <Head>
-        <title>Home</title>
+        <title>Home | Royal Coster</title>
       </Head>
       <Header page="homepage" />
       {/* Start hero section */}
