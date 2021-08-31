@@ -11,7 +11,6 @@ import {
 } from "react-icons/ri";
 
 export default function Footer() {
-  
   let paymentLogo = [
     { img: "Frame.png", url: "#" },
     { img: "Frame-1.png", url: "#" },
@@ -110,7 +109,7 @@ export default function Footer() {
               </a>
             </Link>
           </div>
-          <div className="col-lg-6 col-12 py-lg-5 py-0 px-0 text-lg-end text-center">
+          <div className="col-lg-6 col-12 py-lg-5 py-0 px-0 text-lg-end payment-links text-center">
             {paymentLogo.map((item, index) => {
               return (
                 <Link key={index} href={item.url}>

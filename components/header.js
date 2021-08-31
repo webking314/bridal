@@ -225,12 +225,12 @@ export default function Header({ page }) {
                                             alt="mega-logo"
                                             className="me-3"
                                           />
-                                          <span className="text-uppercase">
+                                          <span>
                                             {item.name}
                                           </span>
                                         </div>
                                       ) : (
-                                        <div className="link-item mt-4 text-uppercase">
+                                        <div className="link-item mt-4">
                                           {item.name}
                                         </div>
                                       )}
@@ -291,7 +291,7 @@ export default function Header({ page }) {
             >
               <RiShoppingCartLine />
             </button>
-            <button className="btn right-menu btn-consultation text-uppercase px-5 py-5">
+            <button className="btn right-menu btn-consultation text-uppercase px-5 py-4">
               Schedule consultation
             </button>
           </div>
@@ -378,7 +378,7 @@ export default function Header({ page }) {
           <div className="r-container d-flex align-items-center">
             <div className="col-4 px-0"></div>
             <div className="col-4 px-0 text-center">
-              <Link href="#">
+              <Link href="/">
                 <a>
                   <img
                     src={
@@ -479,7 +479,7 @@ export default function Header({ page }) {
                 </nav>
               ))}
             </div>
-            <button className="btn right-menu btn-consultation text-uppercase px-3 py-4">
+            <button className="btn right-menu btn-consultation text-uppercase px-5 py-4">
               Schedule consultation
             </button>
           </div>

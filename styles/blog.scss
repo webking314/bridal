@@ -16,8 +16,11 @@
     }
     .btn--read-more {
       font-size: 1.6rem;
-      background: #fad3da;
-      color: #01215c;
+      &:hover {
+        color: #fad3da;
+        background: #01215c;
+        border-color: #01215c;
+      }
     }
     @media (max-width: 650px) {
       padding-top: 15rem;

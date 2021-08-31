@@ -18,6 +18,17 @@ $flagSelectColor: white;
       color: white;
     }
     .desktop-header {
+      .middle-bar {
+        button {
+          &:hover {
+            color: #fbe9d5;
+            opacity: 1;
+            * {
+              color: #fbe9d5;
+            }
+          }
+        }
+      }
       a {
         &:hover {
           color: #fbe9d5;
@@ -132,8 +143,9 @@ $flagSelectColor: white;
         z-index: 20;
         visibility: hidden;
         transform: translate(0, -10px);
-        box-shadow: 0 0 10px grey;
+        box-shadow: 0 3px 3px rgba(175, 175, 175, 0.685);
         transition-duration: 0.5s;
+        border-top: 1px solid rgba(2, 24, 37, 0.1);
         opacity: 0;
         * {
           color: #021825;
@@ -178,6 +190,7 @@ $flagSelectColor: white;
             z-index: 20;
             visibility: visible;
             transform: translate(0, 0);
+            display: flex;
             opacity: 1;
           }
         }
@@ -265,6 +278,17 @@ $flagSelectColor: white;
   }
 
   .desktop-header {
+    .middle-bar {
+      button {
+        &:hover {
+          opacity: 1;
+          color: #a88b0b;
+          * {
+            color: #a88b0b;
+          }
+        }
+      }
+    }
     a {
       &:hover {
         color: #a88b0b;
@@ -289,7 +313,7 @@ $flagSelectColor: white;
       }
     }
     .btn-consultation {
-      margin-right: -10px;
+      margin-right: -30px;
       font-weight: 500;
       &:hover {
         border-radius: 0;
@@ -318,11 +342,11 @@ $flagSelectColor: white;
       }
       nav {
         .hover-bar {
-          transform: translate(0, 10px);
+          transform: translate(0, 0px);
         }
         &:hover {
           .hover-bar {
-            transform: translate(0, 15px);
+            transform: translate(0, 0px);
           }
         }
       }

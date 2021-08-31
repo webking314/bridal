@@ -15,6 +15,25 @@
             font-size: 2.4rem;
             justify-content: center;
             align-items: center;
+            transform: scale(1);
+          }
+          transition-duration: 0.7s;
+          &:hover {
+            transform: scale(1.2);
+            transition-duration: 0.5s;
+          }
+        }
+      }
+      .payment-links {
+        a {
+          img {
+            transition-duration: 0.7s;
+          }
+          &:hover {
+            img {
+              transform: scale(1.2);
+              transition-duration: 0.7s;
+            }
           }
         }
       }
@@ -28,6 +47,9 @@
       a {
         font-size: 1.6rem;
         color: #021825;
+        &:hover {
+          color: #01215c;
+        }
       }
     }
   }

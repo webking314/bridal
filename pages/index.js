@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import Link from "next/link";
+import Head from "next/head";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Schedule from "../components/schedule";
@@ -33,6 +34,9 @@ export default function Home() {
 
   return (
     <div className="homepage">
+      <Head>
+        <title>Home</title>
+      </Head>
       <Header page="homepage" />
       {/* Start hero section */}
       <div className="hero">
@@ -202,8 +206,16 @@ export default function Home() {
                 <Link href="#">
                   <a className="upgrade-diamond blue-btn round-form py-4 text-uppercase px-5 d-flex justify-content-between align-items-center">
                     <p className="m-0 p-0">Upgrade your Diamonds</p>
-                    <img src="/img/common/rightArrow.png" alt="rightArrow" className="white-arrow" />
-                    <img src="/img/common/rightArrow_blue.png" alt="rightArrow" className="blue-arrow"/>
+                    <img
+                      src="/img/common/rightArrow.png"
+                      alt="rightArrow"
+                      className="white-arrow"
+                    />
+                    <img
+                      src="/img/common/rightArrow_blue.png"
+                      alt="rightArrow"
+                      className="blue-arrow"
+                    />
                   </a>
                 </Link>
               </div>

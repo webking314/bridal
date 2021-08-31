@@ -109,7 +109,7 @@ export default function Blog() {
               Our Royal Legacy
             </p>
           </div>
-          <button className="btn text-uppercase mt-5 px-5 py-3 btn--read-more round-form">
+          <button className="btn text-uppercase mt-5 px-5 py-3 btn--read-more pink-btn round-form">
             Read more
           </button>
         </div>
