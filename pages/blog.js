@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
+import Head from "next/head";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Schedule from "../components/schedule";
@@ -96,6 +97,9 @@ export default function Blog() {
 
   return (
     <div className="blog_page">
+      <Head>
+        <title>Blog | Royal Coster</title>
+      </Head>
       {/*Header */}
       <Header />
       {/* Start banner section */}
