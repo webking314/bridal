@@ -175,6 +175,12 @@ $flagSelectColor: white;
             font-weight: 500;
           }
         }
+        .link-item {
+          &:hover {
+            color: #01215c;
+            text-decoration: underline;
+          }
+        }
       }
       nav {
         & > hr {

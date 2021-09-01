@@ -257,7 +257,7 @@ export default function Header({ page }) {
                             <h3 className="my-3">{submenu.imagePanel.title}</h3>
                             <Link href={submenu.imagePanel.url}>
                               <a>
-                                <p>Learn More</p>
+                                <p className="link-item">Learn More</p>
                               </a>
                             </Link>
                           </div>
@@ -474,7 +474,7 @@ export default function Header({ page }) {
                             <h3 className="my-3">{submenu.imagePanel.title}</h3>
                             <Link href={submenu.imagePanel.url}>
                               <a>
-                                <p className="mb-0">Learn More</p>
+                                <p className="mb-0 link-item">Learn More</p>
                               </a>
                             </Link>
                           </div>
@@ -642,7 +642,7 @@ export default function Header({ page }) {
                           <h3 className="my-5">{submenu.imagePanel.title}</h3>
                           <Link href={submenu.imagePanel.url}>
                             <a>
-                              <p>Learn More</p>
+                              <p className="link-item">Learn More</p>
                             </a>
                           </Link>
                         </div>
