@@ -94,7 +94,7 @@ export default function Brief() {
     },
   ];
   const router = useRouter();
-  const query = router.query.slug;
+  const query = router.query;
 
   const target = React.createRef();
   return (
@@ -121,14 +121,14 @@ export default function Brief() {
           <Link href="/blog">
             <a className="mx-2">BLOG</a>
           </Link>
-          /<span className="title ms-2 text-uppercase blue-text">{title}</span>
+          /<span className="title ms-2 text-uppercase blue-text">{query.slug}</span>
         </div>
         <h1 className="py-5 product-title blue-text text-capitalize">
-          {title}
+          {query.slug}
         </h1>
         <div className="about-panel row m-0 pb-5">
           <div className="col-9 p-0 image-panel pe-5">
-            <img src={"/img/brief/" + mainImage} alt="about-image" />
+            <img src={"/img/blog/" + query.img} className="round" alt="about-image" />
           </div>
           <div className="col-3 p-0 text-panel ps-5 d-flex flex-column justify-content-between">
             <div className="reporter-info">
