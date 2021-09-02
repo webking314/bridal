@@ -1,20 +1,12 @@
 .brief_page {
-  .progress-bar {
-    transform: translate(0, -100%);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 10px;
-    background: rgb(214, 38, 38);
-    z-index: 10;
-    opacity: 0;
-    box-shadow: 0 0 10px grey;
-    transition-duration: 0.7s;
-    &.visible {
-      transform: translate(0, 0);
-      transition-duration: 0.7s;
+  .reading-progress-bar {
+      position: fixed;
+      top: 50px;
+      height: 5px;
+      background: #1db352;
+      z-index: 10;
       opacity: 1;
-    }
+      box-shadow: 0 0 10px grey;
   }
   .about-section {
     border-bottom: 1px solid #01215c;

@@ -18,6 +18,48 @@ import {
   RiLinkedinLine,
   RiWhatsappLine,
 } from "react-icons/ri";
+import ProgressBar from "react-scroll-progress-bar";
+
+const ReadingProgress = ({ target }) => {
+  const [readingProgress, setReadingProgress] = useState(0);
+  useEffect(() => {
+    const header = document.querySelector("#header");
+    const aboutSection = document.querySelector(".about-section");
+    const restHeight = aboutSection.clientHeight + header.clientHeight;
+    const scrollListener = () => {
+      if (!target.current) {
+        return;
+      }
+      const element = target.current;
+      const totalHeight =
+        element.clientHeight - window.innerHeight;
+      const windowScrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;
+      if (windowScrollTop - restHeight <= 0) {
+        return setReadingProgress(0);
+      }
+
+      if ((windowScrollTop - restHeight) > totalHeight) {
+        return setReadingProgress(100);
+      }
+
+      setReadingProgress(((windowScrollTop - restHeight) / totalHeight) * 100);
+    };
+
+    window.addEventListener("scroll", scrollListener);
+    return () => window.removeEventListener("scroll", scrollListener);
+  });
+
+  return (
+    <div
+      className={`reading-progress-bar`}
+      style={{ width: `${readingProgress}%` }}
+    />
+  );
+};
 
 export default function Brief() {
   const [pathName, setPathName] = useState();
@@ -54,17 +96,7 @@ export default function Brief() {
   const router = useRouter();
   const query = router.query.slug;
 
-  useEffect(() => {
-    let progressBar = document.querySelector('.progress-bar');
-    document.addEventListener('scroll', () => {
-      if(window.scrollY > 300) {
-        progressBar.classList.add('visible')
-      } else {
-        progressBar.classList.remove('visible')
-      }
-    })
-  }, [])
-
+  const target = React.createRef();
   return (
     <div className="brief_page">
       <Head>
@@ -72,7 +104,7 @@ export default function Brief() {
       </Head>
       {/*Header */}
       <Header />
-      <div className="progress-bar"></div>
+      {/* <div className="progress-bar"></div> */}
       {/* Start about section */}
       {query && console.log(query)}
       <div className="about-section py-5 mb-5 r-container">
@@ -151,7 +183,8 @@ export default function Brief() {
       </div>
       {/* End about section */}
       {/* Start article section */}
-      <div className="article-section py-5  r-container">
+      <ReadingProgress target={target} />
+      <div ref={target} className="article-section py-5  r-container">
         <div className="link-panel-cover">
           <div className="link-panel">
             <Link href="#">
