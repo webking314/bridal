@@ -28,19 +28,23 @@ $flagSelectColor: white;
       .middle-bar {
         button {
           &:hover {
-            color: #fbe9d5;
+          color: #1787d1;
+          // color: #fbe9d5;
             opacity: 1;
             * {
-              color: #fbe9d5;
+          color: #1787d1;
+          // color: #fbe9d5;
             }
           }
         }
       }
       a {
         &:hover {
-          color: #fbe9d5;
+          color: #1787d1;
+          // color: #fbe9d5;
           * {
-            color: #fbe9d5;
+          color: #1787d1;
+            // color: #fbe9d5;
           }
         }
       }
