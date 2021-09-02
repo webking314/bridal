@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import Header from "../components/header";
-import Footer from "../components/footer";
-import Schedule from "../components/schedule";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import Schedule from "../../components/schedule";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
+import { RiSearchLine } from "react-icons/ri";
 
 export default function Blog() {
   const [result, setResult] = useState(76);
@@ -127,6 +128,16 @@ export default function Blog() {
             <h2>Our Recent Blogs</h2>
             <p className="text-uppercase">{result} results</p>
           </div>
+          <div className=" col-md-6 d-md-flex d-none search-bar justify-content-end align-items-center">
+            <input
+              className="form-control round-form px-3 py-2"
+              id="searchPanel"
+              placeholder="Search Here"
+            />
+            <label htmlFor="searchPanel">
+              <RiSearchLine />
+            </label>
+          </div>
           <div className="col-12 d-md-none d-flex justify-content-end p-0 pt-5 pt-md-0">
             <div className="search-box round-form d-flex align-items-center">
               <label htmlFor="selectSearch" className="px-4">
@@ -154,7 +165,7 @@ export default function Blog() {
             return (
               <button
                 className="btn btn-tab px-5 py-3 round-form text-capitalize mt-3 me-3"
-                key={index}
+                key={"button" + index}
               >
                 {item.tab}
               </button>

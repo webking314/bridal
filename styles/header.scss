@@ -18,12 +18,12 @@ $flagSelectColor: white;
   &.homepage {
     position: absolute;
     background: transparent;
-    * {
-      color: white;
-    }
-    a:hover {
-      color: white;
-    }
+    // * {
+    //   color: white;
+    // }
+    // a:hover {
+    //   color: white;
+    // }
     .desktop-header {
       .middle-bar {
         button {
@@ -45,10 +45,12 @@ $flagSelectColor: white;
         }
       }
       & > .row:not(.top-bar) {
-        border-bottom: $homeHeaderBorderColor;
+        // border-bottom: $homeHeaderBorderColor;
+        border-bottom: $headerBorderColor;
       }
       .sub-bar {
-        border-bottom: $homeHeaderBorderColor !important;
+        // border-bottom: $homeHeaderBorderColor !important;
+        border-bottom: $headerBorderColor !important;
       }
     }
   }

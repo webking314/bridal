@@ -15,6 +15,7 @@ import {
   RiPhoneLine,
   RiMessageLine,
   RiMailLine,
+  RiPhoneFill,
 } from "react-icons/ri";
 
 export default function Header({ page }) {
@@ -249,7 +250,7 @@ export default function Header({ page }) {
                         })}
                         <div className="image-panel text-start">
                           <img
-                            src={"img/common/" + submenu.imagePanel.image}
+                            src={"/img/common/" + submenu.imagePanel.image}
                             alt="mega-image"
                             className="round"
                           />
@@ -390,7 +391,7 @@ export default function Header({ page }) {
                     src={
                       !page
                         ? "/img/common/logo_black.png"
-                        : "/img/common/logo_white.png"
+                        : "/img/common/logo_black.png"
                     }
                     className="logo-img"
                     alt="logo"
@@ -466,7 +467,7 @@ export default function Header({ page }) {
                         })}
                         <div className="image-panel ps-5 text-start">
                           <img
-                            src={"img/common/" + submenu.imagePanel.image}
+                            src={"/img/common/" + submenu.imagePanel.image}
                             alt="mega-image"
                             className="round"
                           />
@@ -525,7 +526,7 @@ export default function Header({ page }) {
           </Link>
           <div className="links-panel d-flex align-items-center">
             <button
-              className="btn me-4 d-flex align-items-center"
+              className="btn me-2 d-flex align-items-center"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#searchBox"
@@ -533,9 +534,14 @@ export default function Header({ page }) {
             >
               <RiSearchLine />
             </button>
-
             <button
-              className="btn me-4 d-flex align-items-center"
+              className="btn me-2 d-flex align-items-center"
+              type="button"
+            >
+              <RiPhoneFill />
+            </button>
+            <button
+              className="btn me-2 d-flex align-items-center"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#wishListBox"
@@ -545,7 +551,7 @@ export default function Header({ page }) {
             </button>
 
             <button
-              className="btn me-4 d-flex align-items-center"
+              className="btn me-2 d-flex align-items-center"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#myCartBox"
@@ -554,7 +560,7 @@ export default function Header({ page }) {
               <RiShoppingCartLine />
             </button>
             <button
-              className="d-flex hamburger-btn btn align-items-center"
+              className="d-flex pe-0 hamburger-btn btn align-items-center"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#mobileBar"

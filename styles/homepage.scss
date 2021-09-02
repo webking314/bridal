@@ -6,10 +6,16 @@ $titleSize: 7.2rem;
     margin-top: 4rem;
     background: linear-gradient(
         180deg,
-        rgba(1, 33, 92, 0.9) 0%,
-        rgba(1, 33, 92, 0) 60.17%
+        rgba(250, 211, 218, 0.9) 0%,
+        rgba(250, 211, 218, 0) 50%
       ),
-      url(/img/homepage/hero_bg.jpg);
+      url(/img/homepage/hero_bg-1.jpg);
+    // background: linear-gradient(
+    //     180deg,
+    //     rgba(1, 33, 92, 0.9) 0%,
+    //     rgba(1, 33, 92, 0) 60.17%
+    //   ),
+    //   url(/img/homepage/hero_bg.jpg);
     background-size: cover;
     background-position: center;
     padding-top: 30rem;

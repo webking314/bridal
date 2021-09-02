@@ -8,6 +8,7 @@ import "./../styles/homepage.scss";
 import "./../styles/footer.scss";
 import "./../styles/schedule.scss";
 import "./../styles/blog.scss";
+import "./../styles/brief.scss";
 import "./../styles/style.css";
 
 function MyApp({ Component, pageProps }) {

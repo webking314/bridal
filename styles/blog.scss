@@ -53,6 +53,24 @@
           font-weight: 500;
         }
       }
+      .search-bar {
+        position: relative;
+        label {
+          position: absolute;
+          right: 20px;
+          * {
+            font-size: 1.8rem;
+            color: #000000;
+          }
+        }
+        #searchPanel {
+          width: 50%;
+          min-width: 300px;
+          font-size: 1.6rem;
+          color: #000000;
+          font-weight: 400;
+        }
+      }
       .search-box {
         background: #f2f3f4;
         label {
@@ -115,7 +133,7 @@
           overflow: hidden;
           img {
             width: 100%;
-            transition-duration: .8s;
+            transition-duration: 0.8s;
             object-fit: cover;
           }
         }
