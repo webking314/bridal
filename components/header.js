@@ -22,6 +22,9 @@ export default function Header({ page }) {
   const [selected, setSelected] = useState("LU");
   const [wishListCounter, setWishListCounter] = useState("1");
   useEffect(() => {
+    const mobileTopbarHeight =
+      document.querySelector(".mobile__top-bar").clientHeight;
+    const mobileSubBar = document.querySelector(".mobile__sub-bar");
     window.addEventListener("scroll", (e) => {
       let scrollHeader = document.querySelector(".scroll-header");
       if (window.scrollY > 270) {
@@ -32,6 +35,14 @@ export default function Header({ page }) {
         if (scrollHeader.classList.contains("visible")) {
           scrollHeader.classList.remove("visible");
         }
+      }
+
+      if (window.scrollY > mobileTopbarHeight) {
+        if (!mobileSubBar.classList.contains("visible"))
+          mobileSubBar.classList.add("visible");
+      } else {
+        if (mobileSubBar.classList.contains("visible"))
+          mobileSubBar.classList.remove("visible");
       }
     });
   }, []);

@@ -1,14 +1,16 @@
 .brief_page {
   .reading-progress-bar {
-      position: fixed;
-      top: 50px;
-      height: 5px;
-      background: #de8325;
-      z-index: 10;
-      opacity: 1;
+    position: fixed;
+    top: 50px;
+    height: 5px;
+    background: #de8325;
+    z-index: 10;
+    opacity: 1;
+    @media (max-width: 991) {
+      top: 60px;
+    }
   }
   .about-section {
-    border-bottom: 1px solid #01215c;
     .link-panel {
       border: 1px solid rgba(0, 0, 0, 0.1);
       font-size: 1.4rem;
@@ -21,12 +23,24 @@
           text-decoration: underline;
         }
       }
+      @media (max-width: 767px) {
+        width: 100%;
+        max-width: auto;
+        border-radius: 0;
+        border-color: #f2f3f4;
+        background: #f2f3f4;
+        font-size: 1.2rem;
+      }
     }
     .product-title {
       font-size: 4.8rem;
       font-weight: 350;
+      @media (max-width: 767px) {
+        font-size: 3.6rem;
+      }
     }
     .about-panel {
+      border-bottom: 1px solid #01215c;
       .image-panel {
         img {
           width: 100%;
@@ -109,6 +123,10 @@
     .article-panel {
       padding-left: 120px;
       padding-right: 120px;
+      @media (max-width: 767px) {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
       img {
         width: 100% !important;
         border-radius: 12px !important;
@@ -149,8 +167,6 @@
       }
     }
     .product-panel {
-      margin-right: -30px !important;
-      margin-left: -30px !important;
       .product-image {
         overflow: hidden;
         img {
@@ -168,13 +184,22 @@
         .product-id {
           color: rgba(2, 24, 37, 0.7);
           font-size: 1.6rem;
+          @media (max-width: 767px) {
+            font-size: 1.4rem;
+          }
         }
         .product-title {
           font-size: 2.4rem;
           font-weight: 350;
+          @media (max-width: 767px) {
+            font-size: 1.8rem;
+          }
         }
         .product-cost {
           font-size: 1.8rem;
+          @media (max-width: 767px) {
+            font-size: 1.4rem;
+          }
         }
       }
       .btn-panel {
@@ -185,6 +210,9 @@
             background: transparent;
             border-color: #01215c;
             color: #01215c;
+          }
+          @media (max-width:767px) {
+            font-size: 1.2rem;
           }
         }
         .btn-more-info {

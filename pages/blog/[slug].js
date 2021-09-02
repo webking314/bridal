@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay, Navigation } from "swiper";
 import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -18,7 +20,9 @@ import {
   RiLinkedinLine,
   RiWhatsappLine,
 } from "react-icons/ri";
-import ProgressBar from "react-scroll-progress-bar";
+import "swiper/css";
+
+SwiperCore.use([Autoplay, Navigation]);
 
 const ReadingProgress = ({ target }) => {
   const [readingProgress, setReadingProgress] = useState(0);
@@ -31,8 +35,7 @@ const ReadingProgress = ({ target }) => {
         return;
       }
       const element = target.current;
-      const totalHeight =
-        element.clientHeight - window.innerHeight;
+      const totalHeight = element.clientHeight - window.innerHeight;
       const windowScrollTop =
         window.pageYOffset ||
         document.documentElement.scrollTop ||
@@ -42,7 +45,7 @@ const ReadingProgress = ({ target }) => {
         return setReadingProgress(0);
       }
 
-      if ((windowScrollTop - restHeight) > totalHeight) {
+      if (windowScrollTop - restHeight > totalHeight) {
         return setReadingProgress(100);
       }
 
@@ -62,7 +65,8 @@ const ReadingProgress = ({ target }) => {
 };
 
 export default function Brief(props) {
-  console.log(props)
+  const navigationPrevRef = React.useRef(null);
+  const navigationNextRef = React.useRef(null);
   const [pathName, setPathName] = useState();
   const title = "How to take care of your watch";
   const mainImage = "blog (1).png";
@@ -107,8 +111,8 @@ export default function Brief(props) {
       <Header />
       {/* <div className="progress-bar"></div> */}
       {/* Start about section */}
-      <div className="about-section py-5 mb-5 r-container">
-        <div className="link-panel px-5 py-3 mb-5 round-form d-flex align-items-center">
+      <div className="about-section pt-md-5 pt-0 mb-5x">
+        <div className="link-panel r-container px-5 py-3 mb-md-5 mb-0 round-form d-flex align-items-center">
           <Link href="/blog">
             <a className="back-arrow d-flex me-4 blue-text">
               <HiOutlineArrowLeft />
@@ -121,61 +125,70 @@ export default function Brief(props) {
           <Link href="/blog">
             <a className="mx-2">BLOG</a>
           </Link>
-          /<span className="title ms-2 text-uppercase blue-text">{query.title}</span>
+          /
+          <span className="title ms-2 text-uppercase blue-text">
+            {query.title}
+          </span>
         </div>
-        <h1 className="py-5 product-title blue-text text-capitalize">
-          {query.title}
-        </h1>
-        <div className="about-panel row m-0 pb-5">
-          <div className="col-9 p-0 image-panel pe-5">
-            <img src={"/img/blog/" + query.img} className="round" alt="about-image" />
-          </div>
-          <div className="col-3 p-0 text-panel ps-5 d-flex flex-column justify-content-between">
-            <div className="reporter-info">
+        <div className="r-container">
+          <h1 className="py-5 product-title blue-text text-capitalize">
+            {query.title}
+          </h1>
+          <div className="about-panel row m-0 pb-5">
+            <div className="col-md-9 col-12 p-0 image-panel pe-md-5 pe-0 ">
               <img
-                src={"/img/brief/" + reporterAvatar}
-                className="reporter-avatar"
-                alt="reporterAvatar"
-                width="50"
-                height="50"
+                src={"/img/blog/" + query.img}
+                className="round"
+                alt="about-image"
               />
-              <h3 className="reporter-name py-4">{reporterName}</h3>
-              <p className="reporter-description text-capitalize">
-                {reporterDescription}
-              </p>
-              <p className="reporter-date blue-text text-uppercase pt-4">
-                {reporterDate}
-              </p>
             </div>
-            <div className="share-panel">
-              <h3 className="blue-text text-uppercase mb-4">Share article</h3>
-              <hr className="line" />
-              <div className="links-panel mt-4 d-flex justify-content-between">
-                <Link href="#">
-                  <a>
-                    <RiFacebookCircleFill />
-                  </a>
-                </Link>
-                <Link href="#">
-                  <a>
-                    <RiTwitterFill />
-                  </a>
-                </Link>
-                <Link href="#">
-                  <a>
-                    <RiInstagramFill />
-                  </a>
-                </Link>
-                <Link href="#">
-                  <a>
-                    <RiLinkedinFill />
-                  </a>
-                </Link>
-                <Link href="#">
-                  <a>
-                    <RiWhatsappFill />
-                  </a>
-                </Link>
+            <div className="col-md-3 col-12 p-0 text-panel mb-5 ps-md-5 ps-0 pt-md-0 pt-5 d-flex flex-column justify-content-between">
+              <div className="reporter-info">
+                <img
+                  src={"/img/brief/" + reporterAvatar}
+                  className="reporter-avatar"
+                  alt="reporterAvatar"
+                  width="50"
+                  height="50"
+                />
+                <h3 className="reporter-name py-4">{reporterName}</h3>
+                <p className="reporter-description text-capitalize">
+                  {reporterDescription}
+                </p>
+                <p className="reporter-date blue-text text-uppercase pt-4">
+                  {reporterDate}
+                </p>
+              </div>
+              <div className="share-panel">
+                <h3 className="blue-text text-uppercase mb-4">Share article</h3>
+                <hr className="line" />
+                <div className="links-panel mt-4 d-flex justify-content-between">
+                  <Link href="#">
+                    <a>
+                      <RiFacebookCircleFill />
+                    </a>
+                  </Link>
+                  <Link href="#">
+                    <a>
+                      <RiTwitterFill />
+                    </a>
+                  </Link>
+                  <Link href="#">
+                    <a>
+                      <RiInstagramFill />
+                    </a>
+                  </Link>
+                  <Link href="#">
+                    <a>
+                      <RiLinkedinFill />
+                    </a>
+                  </Link>
+                  <Link href="#">
+                    <a>
+                      <RiWhatsappFill />
+                    </a>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -185,7 +198,7 @@ export default function Brief(props) {
       {/* Start article section */}
       <ReadingProgress target={target} />
       <div ref={target} className="article-section py-5  r-container">
-        <div className="link-panel-cover">
+        <div className="link-panel-cover d-md-block d-none">
           <div className="link-panel">
             <Link href="#">
               <a>
@@ -316,44 +329,100 @@ export default function Brief(props) {
       {/* Start select product section */}
       <div className="select-product-section py-5 r-container">
         <div className="title-panel row m-0 my-5">
-          <div className="col-6 p-0">
+          <div className="col-md-6 col-12 p-0">
             <h3 className="text-capitalize blue-text">Liked the article?</h3>
             <h2 className="text-capitalize blue-text">
               You'll love the products
             </h2>
           </div>
-          <div className="col-6 p-0 justify-content-end d-flex align-items-end">
+          <div className="col-6 p-0 justify-content-end d-md-flex d-none align-items-end">
             <Link href="#">
               <a>VIEW ALL</a>
             </Link>
           </div>
         </div>
         <div className="product-panel row m-0">
-          {products.map((item, index) => {
-            return (
-              <div className="col-4 p-0 px-5" key={index}>
-                <div className="product-image round">
+          <Swiper
+            navigation={{
+              prevEl: navigationPrevRef.current,
+              nextEl: navigationNextRef.current,
+            }}
+            slidesPerView={3}
+            spaceBetween={30}
+            loop={true}
+            className="mySwiper"
+            breakpoints={{
+              1100: {
+                slidesPerView: 3,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              590: {
+                slidesPerView: 1.4,
+              },
+              350: {
+                slidesPerView: 1.4,
+              },
+              1: {
+                slidesPerView: 1,
+              },
+            }}
+            autoplay={{
+              delay: 2500000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            onSwiper={(swiper) => {
+              // Delay execution for the refs to be defined
+              setTimeout(() => {
+                // Override prevEl & nextEl now that refs are defined
+                swiper.params.navigation.prevEl = navigationPrevRef.current;
+                swiper.params.navigation.nextEl = navigationNextRef.current;
+
+                // Re-init navigation
+                swiper.navigation.destroy();
+                swiper.navigation.init();
+                swiper.navigation.update();
+              });
+            }}
+          >
+            {products.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <div className="product-image round">
                   <img src={"/img/brief/" + item.img} alt="product-image" />
-                </div>
-                <div className="product-info py-4">
-                  <div className="product-id">
-                    <span className="me-2">{item.type}</span>
-                    <span className="ms-2">{item.id}</span>
                   </div>
-                  <h3 className="product-title my-4 blue-text">{item.title}</h3>
-                  <p className="product-cost blue-text">{item.cost}</p>
-                </div>
-                <div className="btn-panel">
-                  <button className="btn btn-cart pink-btn px-5 py-3 me-3 round-form">
-                    ADD TO CART
-                  </button>
-                  <button className="btn btn-more-info px-5 py-3 blue-text round-form">
-                    MORE INFO
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+                  <div className="product-info py-4">
+                    <div className="product-id">
+                      <span className="me-2">{item.type}</span>|
+                      <span className="ms-2">{item.id}</span>
+                    </div>
+                    <h3 className="product-title my-4 blue-text">
+                      {item.title}
+                    </h3>
+                    <p className="product-cost blue-text">{item.cost}</p>
+                  </div>
+                  <div className="btn-panel">
+                    <button className="btn btn-cart pink-btn px-md-5 px-3 py-3 me-3 round-form">
+                      ADD TO CART
+                    </button>
+                    <button className="btn btn-more-info px-md-5 px-3 py-3 blue-text round-form">
+                      MORE INFO
+                    </button>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          <div className="btn-bottom-panel d-md-none d-block mt-5">
+            <button ref={navigationPrevRef} className="btn px-0 me-5">
+              <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
+            </button>
+            <button ref={navigationNextRef} className="btn px-0">
+              <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
+            </button>
+          </div>
         </div>
       </div>
       {/* End select product section */}

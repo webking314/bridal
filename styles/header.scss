@@ -238,6 +238,15 @@ $flagSelectColor: white;
     }
     .mobile__sub-bar {
       background: white;
+      position: static;
+      transition-duration: .7s;
+      &.visible {
+        transition-duration: .7s;
+        position: fixed;
+        top: 0;
+        box-shadow: 0 2px 4px #e4e4e4;
+        width: 100%;
+      }
       .links-panel {
         * {
           color: #01215c;
