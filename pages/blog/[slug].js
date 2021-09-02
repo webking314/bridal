@@ -61,7 +61,8 @@ const ReadingProgress = ({ target }) => {
   );
 };
 
-export default function Brief() {
+export default function Brief(props) {
+  console.log(props)
   const [pathName, setPathName] = useState();
   const title = "How to take care of your watch";
   const mainImage = "blog (1).png";
@@ -106,7 +107,6 @@ export default function Brief() {
       <Header />
       {/* <div className="progress-bar"></div> */}
       {/* Start about section */}
-      {query && console.log(query)}
       <div className="about-section py-5 mb-5 r-container">
         <div className="link-panel px-5 py-3 mb-5 round-form d-flex align-items-center">
           <Link href="/blog">
@@ -121,10 +121,10 @@ export default function Brief() {
           <Link href="/blog">
             <a className="mx-2">BLOG</a>
           </Link>
-          /<span className="title ms-2 text-uppercase blue-text">{query.slug}</span>
+          /<span className="title ms-2 text-uppercase blue-text">{query.title}</span>
         </div>
         <h1 className="py-5 product-title blue-text text-capitalize">
-          {query.slug}
+          {query.title}
         </h1>
         <div className="about-panel row m-0 pb-5">
           <div className="col-9 p-0 image-panel pe-5">

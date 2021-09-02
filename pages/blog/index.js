@@ -175,7 +175,7 @@ export default function Blog() {
         <div className="main-blog-panel row m-0">
           <div className="col-md-8 col-12 p-0">
             <div className="row m-0">
-              <Link href={{pathname: "/blog/[slug]", query: {slug: images[0].title, img: images[0].image}}}>
+              <Link props="sasfd" href={{pathname: "/blog/[slug]", query: {slug: images[0].title, title: images[0].title, img: images[0].image}}} as={"/blog/" + images[0].title}>
                 <a>
                   <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
                     <div className="round blog-image">
@@ -198,7 +198,7 @@ export default function Blog() {
                 {images.map((item, index) => {
                   if (index % 3 == 2)
                     return (
-                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, img: item.image}}}>
+                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, title: images[0].title, img: item.image}}} as={"/blog/" + item.title}>
                         <a>
                           <div className="blog-box pt-5 pe-sm-5" key={index}>
                             <div className="round blog-image">
@@ -222,7 +222,7 @@ export default function Blog() {
                 {images.map((item, index) => {
                   if ((index != 0) & (index % 3 == 0))
                     return (
-                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, img: item.image}}}>
+                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, title: item.title, img: item.image}}} as={"/blog/" + item.title}>
                         <a>
                           <div
                             className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
@@ -256,7 +256,7 @@ export default function Blog() {
                     (Math.ceil((images.length - 1) / 3) * 3 - 2 > index)
                   )
                     return (
-                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, img: item.image}}}>
+                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, title: item.title, img: item.image}}} as={"/blog/" + item.title}>
                         <a>
                           <div
                             className="blog-box pt-5 pe-md-0 pe-sm-5"
@@ -286,7 +286,7 @@ export default function Blog() {
                     (Math.ceil((images.length - 1) / 3) * 3 - 2 <= index)
                   )
                     return (
-                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, img: item.image}}}>
+                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, title: item.title, img: item.image}}} as={"/blog/" + item.title}>
                         <a>
                           <div
                             className="blog-box pt-5 ps-md-0 ps-sm-5"
