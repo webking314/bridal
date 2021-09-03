@@ -28,12 +28,12 @@ $flagSelectColor: white;
       .middle-bar {
         button {
           &:hover {
-          color: #1787d1;
-          // color: #fbe9d5;
+            color: #1787d1;
+            // color: #fbe9d5;
             opacity: 1;
             * {
-          color: #1787d1;
-          // color: #fbe9d5;
+              color: #1787d1;
+              // color: #fbe9d5;
             }
           }
         }
@@ -43,7 +43,7 @@ $flagSelectColor: white;
           color: #1787d1;
           // color: #fbe9d5;
           * {
-          color: #1787d1;
+            color: #1787d1;
             // color: #fbe9d5;
           }
         }
@@ -188,7 +188,7 @@ $flagSelectColor: white;
           }
         }
       }
-      nav {
+      .sub-item {
         & > hr {
           width: 0px;
           margin: auto;
@@ -197,6 +197,9 @@ $flagSelectColor: white;
           background: transparent;
         }
         &:hover {
+          * {
+            color: black;
+          }
           & > hr {
             width: 30px;
             border-top: 2px solid #01215c;
@@ -239,9 +242,9 @@ $flagSelectColor: white;
     .mobile__sub-bar {
       background: white;
       position: static;
-      transition-duration: .7s;
+      transition-duration: 0.7s;
       &.visible {
-        transition-duration: .7s;
+        transition-duration: 0.7s;
         position: fixed;
         top: 0;
         box-shadow: 0 2px 4px #e4e4e4;
@@ -361,6 +364,14 @@ $flagSelectColor: white;
       transition-duration: 0.7s;
       * {
         color: black;
+      }
+      a {
+        color: black;
+        &:hover {
+          * {
+            color: black;
+          }
+        }
       }
       button {
         * {

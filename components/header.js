@@ -205,6 +205,7 @@ export default function Header({ page }) {
       ],
     },
     { title: "TOURS & WORKSHOPS", url: "#" },
+    { title: "BLOG", url: "/blog" },
   ];
 
   return (
@@ -218,67 +219,81 @@ export default function Header({ page }) {
                   <img src="/img/common/mobile_logo.png" alt="logo" />
                 </a>
               </Link>
-              {submenus.map((submenu, index) => (
-                <nav key={index} className="btn ps-0 py-0 pe-5 pt-3">
-                  <span>{submenu.title}</span>
-                  <hr className="mt-2" />
-                  {submenu.megaMenu && (
-                    <div className="hover-bar dr-none px-5">
-                      <div className="d-flex justify-content-between r-container p-5">
-                        {submenu.megaMenu.map((menu, key) => {
-                          return (
-                            <div
-                              className="mega-menu-body text-start px-5"
-                              key={key}
-                            >
-                              <h2 className="text-start mb-4 pb-1">
-                                {menu.title}
-                              </h2>
-                              {menu.menu.map((item, id) => {
-                                return (
-                                  <Link href={item.url} key={id}>
-                                    <a>
-                                      {item.img ? (
-                                        <div className="link-item mt-4 d-flex align-items-center">
-                                          <img
-                                            src={"/img/common/" + item.img}
-                                            alt="mega-logo"
-                                            className="me-3"
-                                          />
-                                          <span>{item.name}</span>
-                                        </div>
-                                      ) : (
-                                        <div className="link-item mt-4">
-                                          {item.name}
-                                        </div>
-                                      )}
-                                    </a>
-                                  </Link>
-                                );
-                              })}
+              {submenus.map((submenu, index) => {
+                if (submenu.megaMenu)
+                  return (
+                    <nav key={index} className="btn sub-item ps-0 py-0 pe-5 pt-3">
+                      <span>{submenu.title}</span>
+                      <hr className="mt-2" />
+                      {submenu.megaMenu && (
+                        <div className="hover-bar dr-none px-5">
+                          <div className="d-flex justify-content-between r-container p-5">
+                            {submenu.megaMenu.map((menu, key) => {
+                              return (
+                                <div
+                                  className="mega-menu-body text-start px-5"
+                                  key={key}
+                                >
+                                  <h2 className="text-start mb-4 pb-1">
+                                    {menu.title}
+                                  </h2>
+                                  {menu.menu.map((item, id) => {
+                                    return (
+                                      <Link href={item.url} key={id}>
+                                        <a>
+                                          {item.img ? (
+                                            <div className="link-item mt-4 d-flex align-items-center">
+                                              <img
+                                                src={"/img/common/" + item.img}
+                                                alt="mega-logo"
+                                                className="me-3"
+                                              />
+                                              <span>{item.name}</span>
+                                            </div>
+                                          ) : (
+                                            <div className="link-item mt-4">
+                                              {item.name}
+                                            </div>
+                                          )}
+                                        </a>
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            })}
+                            <div className="image-panel text-start">
+                              <img
+                                src={"/img/common/" + submenu.imagePanel.image}
+                                alt="mega-image"
+                                className="round"
+                              />
+                              <div className="title-panel">
+                                <h3 className="my-3">
+                                  {submenu.imagePanel.title}
+                                </h3>
+                                <Link href={submenu.imagePanel.url}>
+                                  <a>
+                                    <p className="link-item">Learn More</p>
+                                  </a>
+                                </Link>
+                              </div>
                             </div>
-                          );
-                        })}
-                        <div className="image-panel text-start">
-                          <img
-                            src={"/img/common/" + submenu.imagePanel.image}
-                            alt="mega-image"
-                            className="round"
-                          />
-                          <div className="title-panel">
-                            <h3 className="my-3">{submenu.imagePanel.title}</h3>
-                            <Link href={submenu.imagePanel.url}>
-                              <a>
-                                <p className="link-item">Learn More</p>
-                              </a>
-                            </Link>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  )}
-                </nav>
-              ))}
+                      )}
+                    </nav>
+                  );
+                else
+                  return (
+                    <Link href={submenu.url}>
+                      <a className="pe-5 pt-3 sub-item">
+                        {submenu.title}
+                        <hr className="mt-2"/>
+                      </a>
+                    </Link>
+                  );
+              })}
             </div>
             <button
               className="btn me-4 d-flex align-items-center"
@@ -435,67 +450,84 @@ export default function Header({ page }) {
         <div className="row m-0 px-5 sub-bar">
           <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
             <div className="d-flex p-0 left-menu flex-1 flex-wrap py-2 ">
-              {submenus.map((submenu, index) => (
-                <nav key={index} className="btn ps-0 py-0 pe-5 pt-3">
-                  <span>{submenu.title}</span>
-                  <hr className="mt-2" />
-                  {submenu.megaMenu && (
-                    <div className="hover-bar dr-none px-5">
-                      <div className="d-flex justify-content-between r-container p-5">
-                        {submenu.megaMenu.map((menu, key) => {
-                          return (
-                            <div
-                              className="mega-menu-body text-start px-5"
-                              key={key}
-                            >
-                              <h2 className="text-start mb-4 pb-2">
-                                {menu.title}
-                              </h2>
-                              {menu.menu.map((item, id) => {
-                                return (
-                                  <Link href={item.url} key={id}>
-                                    <a>
-                                      {item.img ? (
-                                        <div className="link-item mt-4 d-flex align-items-center">
-                                          <img
-                                            src={"/img/common/" + item.img}
-                                            alt="mega-logo"
-                                            className="me-3"
-                                          />
-                                          <span>{item.name}</span>
-                                        </div>
-                                      ) : (
-                                        <div className="link-item mt-4">
-                                          {item.name}
-                                        </div>
-                                      )}
-                                    </a>
-                                  </Link>
-                                );
-                              })}
+              {submenus.map((submenu, index) => {
+                if (submenu.megaMenu) {
+                  return (
+                    <nav
+                      key={index}
+                      className="btn sub-item ps-0 py-0 pe-5 pt-3"
+                    >
+                      <span>{submenu.title}</span>
+                      <hr className="mt-2" />
+                      {submenu.megaMenu && (
+                        <div className="hover-bar dr-none px-5">
+                          <div className="d-flex justify-content-between r-container p-5">
+                            {submenu.megaMenu.map((menu, key) => {
+                              return (
+                                <div
+                                  className="mega-menu-body text-start px-5"
+                                  key={key}
+                                >
+                                  <h2 className="text-start mb-4 pb-2">
+                                    {menu.title}
+                                  </h2>
+                                  {menu.menu.map((item, id) => {
+                                    return (
+                                      <Link href={item.url} key={id}>
+                                        <a>
+                                          {item.img ? (
+                                            <div className="link-item mt-4 d-flex align-items-center">
+                                              <img
+                                                src={"/img/common/" + item.img}
+                                                alt="mega-logo"
+                                                className="me-3"
+                                              />
+                                              <span>{item.name}</span>
+                                            </div>
+                                          ) : (
+                                            <div className="link-item mt-4">
+                                              {item.name}
+                                            </div>
+                                          )}
+                                        </a>
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            })}
+                            <div className="image-panel ps-5 text-start">
+                              <img
+                                src={"/img/common/" + submenu.imagePanel.image}
+                                alt="mega-image"
+                                className="round"
+                              />
+                              <div className="title-panel">
+                                <h3 className="my-3">
+                                  {submenu.imagePanel.title}
+                                </h3>
+                                <Link href={submenu.imagePanel.url}>
+                                  <a>
+                                    <p className="mb-0 link-item">Learn More</p>
+                                  </a>
+                                </Link>
+                              </div>
                             </div>
-                          );
-                        })}
-                        <div className="image-panel ps-5 text-start">
-                          <img
-                            src={"/img/common/" + submenu.imagePanel.image}
-                            alt="mega-image"
-                            className="round"
-                          />
-                          <div className="title-panel">
-                            <h3 className="my-3">{submenu.imagePanel.title}</h3>
-                            <Link href={submenu.imagePanel.url}>
-                              <a>
-                                <p className="mb-0 link-item">Learn More</p>
-                              </a>
-                            </Link>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  )}
-                </nav>
-              ))}
+                      )}
+                    </nav>
+                  );
+                } else
+                  return (
+                    <Link href={submenu.url}>
+                      <a className="pt-3 pe-5 sub-item">
+                        <span>{submenu.title}</span>
+                        <hr className="mt-2"/>
+                      </a>
+                    </Link>
+                  );
+              })}
             </div>
             <button className="btn right-menu btn-consultation text-uppercase px-5 py-4">
               Schedule consultation
