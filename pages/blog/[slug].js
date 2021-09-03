@@ -68,6 +68,7 @@ export default function Brief(props) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   const [pathName, setPathName] = useState();
+  const [time, setTime] = useState();
   const title = "How to take care of your watch";
   const mainImage = "blog (1).png";
   const reporterAvatar = "reporter_avatar-1.png";
@@ -100,8 +101,18 @@ export default function Brief(props) {
   ];
   const router = useRouter();
   const query = router.query;
-
   const target = React.createRef();
+
+  useEffect(() => {
+    const text = document.querySelector('.article-panel').innerText;
+    const wpm = 225;
+    const words = text.trim().split(/\s+/).length;
+    const time = Math.ceil(words / wpm);
+    // document.getElementById("time").innerText = time;
+    setTime(time)
+    console.log(time)
+  }, []);
+
   return (
     <div className="brief_page">
       <Head>
@@ -155,8 +166,8 @@ export default function Brief(props) {
                 <p className="reporter-description text-capitalize">
                   {reporterDescription}
                 </p>
-                <p className="reporter-date blue-text text-uppercase pt-4">
-                  {reporterDate}
+                <p className="reporter-date pt-4">
+                  <span className="text-uppercase me-2">{reporterDate}</span>·<span className="ms-2">{time}</span> min read
                 </p>
               </div>
               <div className="share-panel">
@@ -391,7 +402,7 @@ export default function Brief(props) {
               return (
                 <SwiperSlide key={index}>
                   <div className="product-image round">
-                  <img src={"/img/brief/" + item.img} alt="product-image" />
+                    <img src={"/img/brief/" + item.img} alt="product-image" />
                   </div>
                   <div className="product-info py-4">
                     <div className="product-id">

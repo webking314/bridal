@@ -128,7 +128,7 @@ export default function Blog() {
             <h2>Our Recent Blogs</h2>
             <p className="text-uppercase">{result} results</p>
           </div>
-          <div className=" col-md-6 d-md-flex d-none search-bar justify-content-end align-items-center">
+          <div className=" col-md-6 col-12 mt-5 mt-md-0 p-0 d-md-flex search-bar justify-content-end align-items-center">
             <input
               className="form-control round-form px-3 py-2"
               id="searchPanel"
@@ -138,7 +138,7 @@ export default function Blog() {
               <RiSearchLine />
             </label>
           </div>
-          <div className="col-12 d-md-none d-flex justify-content-end p-0 pt-5 pt-md-0">
+          <div className="col-12 d-md-none d-flex justify-content-end p-0 pt-3 pt-md-0">
             <div className="search-box round-form d-flex align-items-center">
               <label htmlFor="selectSearch" className="px-4">
                 FITER BY :{" "}

@@ -57,7 +57,8 @@
         position: relative;
         label {
           position: absolute;
-          right: 20px;
+          right: 11px;
+          top: 9px;
           * {
             font-size: 1.8rem;
             color: #000000;
@@ -69,6 +70,10 @@
           font-size: 1.6rem;
           color: #000000;
           font-weight: 400;
+          @media (max-width: 767px) {
+            width: 100%;
+            min-width: auto;
+          }
         }
       }
       .search-box {
