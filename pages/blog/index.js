@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import Header from "../../components/header";
@@ -6,11 +6,31 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import { RiSearchLine } from "react-icons/ri";
+import head from "next/head";
+
+const blogURL = "https://costerbuilding.com/wordpress/wp-json/wp/v2/posts";
+const categoryURL =
+  "https://costerbuilding.com/wordpress/wp-json/wp/v2/categories";
+const headers = {
+  "Content-Type": "application/json",
+};
 
 export default function Blog() {
+  const [categories, setCategories] = useState();
+  useEffect(() => {
+    fetch(categoryURL + "?orderby=id&exclude=1&per_page=100", {
+      method: "get",
+      headers,
+    })
+      .then((res) => res.json())
+      .then((data) => setCategories(data));
+  }, []);
+
+  const selectCategory = (item) => {
+    console.log(item);
+  };
   const [result, setResult] = useState(76);
   const [selectValue, setSelectValue] = useState("");
-
   const options = [
     { name: "All", value: "All" },
     { name: "Diamond Products", value: "Diamond Products" },
@@ -26,21 +46,21 @@ export default function Blog() {
     { name: "Kennis", value: "Kennis" },
     { name: "Diamanten & Edelstenen", value: "Diamanten & Edelstenen" },
   ];
-  const tabs = [
-    { tab: "All", key: "All" },
-    { tab: "Diamond Products", key: "Diamond Products" },
-    { tab: "To Do in Amsterdam", key: "To Do in Amsterdam" },
-    { tab: "Knowledge", key: "Knowledge" },
-    { tab: "News", key: "News" },
-    { tab: "Craftsmanship", key: "Craftsmanship" },
-    { tab: "Diamonds & Gemstones", key: "Diamonds & Gemstones" },
-    { tab: "Our Royal Legacy", key: "Our Royal Legacy" },
-    { tab: "Blog", key: "Blog" },
-    { tab: "Job opening", key: "Job opening" },
-    { tab: "Tourism", key: "Tourism" },
-    { tab: "Kennis", key: "Kennis" },
-    { tab: "Diamanten & Edelstenen", key: "Diamanten & Edelstenen" },
-  ];
+  // const tabs = [
+  //   { tab: "All", key: "All" },
+  //   { tab: "Diamond Products", key: "Diamond Products" },
+  //   { tab: "To Do in Amsterdam", key: "To Do in Amsterdam" },
+  //   { tab: "Knowledge", key: "Knowledge" },
+  //   { tab: "News", key: "News" },
+  //   { tab: "Craftsmanship", key: "Craftsmanship" },
+  //   { tab: "Diamonds & Gemstones", key: "Diamonds & Gemstones" },
+  //   { tab: "Our Royal Legacy", key: "Our Royal Legacy" },
+  //   { tab: "Blog", key: "Blog" },
+  //   { tab: "Job opening", key: "Job opening" },
+  //   { tab: "Tourism", key: "Tourism" },
+  //   { tab: "Kennis", key: "Kennis" },
+  //   { tab: "Diamanten & Edelstenen", key: "Diamanten & Edelstenen" },
+  // ];
 
   const images = [
     {
@@ -150,7 +170,6 @@ export default function Blog() {
                 onChange={(value) => {
                   {
                     setSelectValue("Filter By :en");
-                    console.log(selectValue);
                   }
                 }}
                 filterOptions={fuzzySearch}
@@ -161,21 +180,40 @@ export default function Blog() {
           </div>
         </div>
         <div className="tab-bar d-md-flex d-none flex-wrap py-4 mb-5">
-          {tabs.map((item, index) => {
-            return (
-              <button
-                className="btn btn-tab px-5 py-3 round-form text-capitalize mt-3 me-3"
-                key={"button" + index}
-              >
-                {item.tab}
-              </button>
-            );
-          })}
+          <button
+            className="btn btn-tab px-5 py-3 round-form text-capitalize mt-3 me-3"
+            onClick={() => selectCategory(1)}
+          >
+            All
+          </button>
+          {categories &&
+            categories.map((item, index) => {
+              return (
+                <button
+                  className="btn btn-tab px-5 py-3 round-form text-capitalize mt-3 me-3"
+                  key={"button" + index}
+                  onClick={() => selectCategory(item.id)}
+                >
+                  {String(item.name)}
+                </button>
+              );
+            })}
         </div>
         <div className="main-blog-panel row m-0">
           <div className="col-md-8 col-12 p-0">
             <div className="row m-0">
-              <Link props="sasfd" href={{pathname: "/blog/[slug]", query: {slug: images[0].title, title: images[0].title, img: images[0].image}}} as={"/blog/" + images[0].title}>
+              <Link
+                props="sasfd"
+                href={{
+                  pathname: "/blog/[slug]",
+                  query: {
+                    slug: images[0].title,
+                    title: images[0].title,
+                    img: images[0].image,
+                  },
+                }}
+                as={"/blog/" + images[0].title}
+              >
                 <a>
                   <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
                     <div className="round blog-image">
@@ -198,7 +236,18 @@ export default function Blog() {
                 {images.map((item, index) => {
                   if (index % 3 == 2)
                     return (
-                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, title: images[0].title, img: item.image}}} as={"/blog/" + item.title}>
+                      <Link
+                        href={{
+                          pathname: "/blog/[slug]",
+                          query: {
+                            slug: item.title,
+                            title: images[0].title,
+                            img: item.image,
+                          },
+                        }}
+                        key={index}
+                        as={"/blog/" + item.title}
+                      >
                         <a>
                           <div className="blog-box pt-5 pe-sm-5" key={index}>
                             <div className="round blog-image">
@@ -222,7 +271,18 @@ export default function Blog() {
                 {images.map((item, index) => {
                   if ((index != 0) & (index % 3 == 0))
                     return (
-                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, title: item.title, img: item.image}}} as={"/blog/" + item.title}>
+                      <Link
+                        href={{
+                          pathname: "/blog/[slug]",
+                          query: {
+                            slug: item.title,
+                            title: item.title,
+                            img: item.image,
+                          },
+                        }}
+                        key={index}
+                        as={"/blog/" + item.title}
+                      >
                         <a>
                           <div
                             className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
@@ -256,12 +316,20 @@ export default function Blog() {
                     (Math.ceil((images.length - 1) / 3) * 3 - 2 > index)
                   )
                     return (
-                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, title: item.title, img: item.image}}} as={"/blog/" + item.title}>
+                      <Link
+                        href={{
+                          pathname: "/blog/[slug]",
+                          query: {
+                            slug: item.title,
+                            title: item.title,
+                            img: item.image,
+                          },
+                        }}
+                        key={index}
+                        as={"/blog/" + item.title}
+                      >
                         <a>
-                          <div
-                            className="blog-box pt-5 pe-md-0 pe-sm-5"
-                            key={index}
-                          >
+                          <div className="blog-box pt-5 pe-md-0 pe-sm-5">
                             <div className="round blog-image">
                               <img
                                 src={"/img/blog/" + item.image}
@@ -286,12 +354,20 @@ export default function Blog() {
                     (Math.ceil((images.length - 1) / 3) * 3 - 2 <= index)
                   )
                     return (
-                      <Link href={{pathname: "/blog/[slug]", query: {slug: item.title, title: item.title, img: item.image}}} as={"/blog/" + item.title}>
+                      <Link
+                        href={{
+                          pathname: "/blog/[slug]",
+                          query: {
+                            slug: item.title,
+                            title: item.title,
+                            img: item.image,
+                          },
+                        }}
+                        as={"/blog/" + item.title}
+                        key={index}
+                      >
                         <a>
-                          <div
-                            className="blog-box pt-5 ps-md-0 ps-sm-5"
-                            key={index}
-                          >
+                          <div className="blog-box pt-5 ps-md-0 ps-sm-5">
                             <div className="round blog-image">
                               <img
                                 src={"/img/blog/" + item.image}

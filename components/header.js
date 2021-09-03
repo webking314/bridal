@@ -286,7 +286,7 @@ export default function Header({ page }) {
                   );
                 else
                   return (
-                    <Link href={submenu.url}>
+                    <Link key={index} href={submenu.url}>
                       <a className="pe-5 pt-3 sub-item">
                         {submenu.title}
                         <hr className="mt-2"/>
@@ -520,7 +520,7 @@ export default function Header({ page }) {
                   );
                 } else
                   return (
-                    <Link href={submenu.url}>
+                    <Link key={index} href={submenu.url}>
                       <a className="pt-3 pe-5 sub-item">
                         <span>{submenu.title}</span>
                         <hr className="mt-2"/>
