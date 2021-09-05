@@ -4,19 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 let collectionSliders = [
-  // { url: "Rectangle 29.png", title: "Empress Collection" },
-  // { url: "Rectangle 30.png", title: "Wedding & Anniversary" },
-  // { url: "Rectangle 31.png", title: "Royal Classics" },
-  // { url: "Rectangle 32.png", title: "Fine Jewelry" },
-  { url: "Rectangle 33.png", title: "Watches" },
-  { url: "Rectangle 33.png", title: "Watches" },
-  { url: "Rectangle 33.png", title: "Watches" },
-  { url: "Rectangle 33.png", title: "Watches" },
-  { url: "Rectangle 33.png", title: "Watches" },
-  { url: "Rectangle 33.png", title: "Watches" },
+  { url: "Rectangle 29.png", title: "Empress Collection" },
+  { url: "Rectangle 30.png", title: "Wedding & Anniversary" },
+  { url: "Rectangle 31.png", title: "Royal Classics" },
+  { url: "Rectangle 32.png", title: "Fine Jewelry" },
   { url: "Rectangle 33.png", title: "Watches" },
 ];
-
 SwiperCore.use([Autoplay, Navigation]);
 
 export default function Collection() {
