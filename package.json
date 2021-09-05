@@ -19,7 +19,7 @@
     "react-icons": "^4.2.0",
     "react-render-html": "^0.6.0",
     "react-select-search-nextjs": "^3.0.9",
-    "sass": "^1.38.1",
+    "sass": "^1.39.0",
     "swiper": "^7.0.1"
   },
   "devDependencies": {

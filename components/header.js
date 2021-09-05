@@ -25,8 +25,8 @@ export default function Header({ page }) {
     const mobileTopbarHeight =
       document.querySelector(".mobile__top-bar").clientHeight;
     const mobileSubBar = document.querySelector(".mobile__sub-bar");
+    let scrollHeader = document.querySelector(".scroll-header");
     window.addEventListener("scroll", (e) => {
-      let scrollHeader = document.querySelector(".scroll-header");
       if (window.scrollY > 270) {
         if (!scrollHeader.classList.contains("visible")) {
           scrollHeader.classList.add("visible");
@@ -117,7 +117,7 @@ export default function Header({ page }) {
     },
     {
       title: "JEWELRY",
-      url: "#",
+      url: "/jewelry",
       imagePanel: {
         image: "mega_img-2.png",
         title: "Jewelry Shopping Guide",
@@ -222,9 +222,13 @@ export default function Header({ page }) {
               {submenus.map((submenu, index) => {
                 if (submenu.megaMenu)
                   return (
-                    <nav key={index} className="btn sub-item ps-0 py-0 pe-5 pt-3">
-                      <span>{submenu.title}</span>
-                      <hr className="mt-2" />
+                    <div className="sub-item" key={index}>
+                      <Link href={submenu.url}>
+                        <a className="btn ps-0 py-0 pe-5 pt-3">
+                          <span>{submenu.title}</span>
+                          <hr className="mt-2" />
+                        </a>
+                      </Link>
                       {submenu.megaMenu && (
                         <div className="hover-bar dr-none px-5">
                           <div className="d-flex justify-content-between r-container p-5">
@@ -282,14 +286,14 @@ export default function Header({ page }) {
                           </div>
                         </div>
                       )}
-                    </nav>
+                    </div>
                   );
                 else
                   return (
                     <Link key={index} href={submenu.url}>
                       <a className="pe-5 pt-3 sub-item">
                         {submenu.title}
-                        <hr className="mt-2"/>
+                        <hr className="mt-2" />
                       </a>
                     </Link>
                   );
@@ -453,12 +457,13 @@ export default function Header({ page }) {
               {submenus.map((submenu, index) => {
                 if (submenu.megaMenu) {
                   return (
-                    <nav
-                      key={index}
-                      className="btn sub-item ps-0 py-0 pe-5 pt-3"
-                    >
-                      <span>{submenu.title}</span>
-                      <hr className="mt-2" />
+                    <div className="sub-item" key={index}>
+                      <Link href={submenu.url}>
+                        <a className="btn ps-0 py-0 pe-5 pt-3">
+                          <span>{submenu.title}</span>
+                          <hr className="mt-2" />
+                        </a>
+                      </Link>
                       {submenu.megaMenu && (
                         <div className="hover-bar dr-none px-5">
                           <div className="d-flex justify-content-between r-container p-5">
@@ -516,14 +521,14 @@ export default function Header({ page }) {
                           </div>
                         </div>
                       )}
-                    </nav>
+                    </div>
                   );
                 } else
                   return (
                     <Link key={index} href={submenu.url}>
                       <a className="pt-3 pe-5 sub-item">
                         <span>{submenu.title}</span>
-                        <hr className="mt-2"/>
+                        <hr className="mt-2" />
                       </a>
                     </Link>
                   );

@@ -1,0 +1,157 @@
+.jewelry_page {
+  .hero-section {
+    padding-top: 114px;
+    padding-bottom: 114px;
+    color: #01215c;
+    background: url(/img/jewelry/hero_bg.jpg);
+    background-size: cover;
+    background-position: center;
+    h1 {
+      font-family: FreeSerif;
+      font-style: italic;
+      font-size: 7.2rem;
+    }
+  }
+  .jewelry-section {
+    .top-bar {
+      border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+      .title-panel {
+        h2 {
+          color: #01215c;
+          font-size: 3.6rem;
+        }
+        p {
+          font-size: 1.6rem;
+          color: rgba(2, 24, 37, 0.7);
+          font-weight: 500;
+        }
+      }
+      .search-box {
+        background: #f2f3f4;
+        @media (max-width: 767px) {
+          width: 100%;
+        }
+        label {
+          font-size: 1.4rem;
+          font-weight: 500;
+        }
+        .select-search {
+          flex: 1;
+          .select-search__value {
+            input {
+              background: #f2f3f4;
+              border-top-right-radius: 8px;
+              border-bottom-right-radius: 8px;
+              font-size: 1.4rem;
+              text-transform: uppercase;
+              color: #01215c;
+            }
+            &::after {
+              right: 15px;
+            }
+          }
+        }
+      }
+    }
+    .filter-bar {
+      .select-search {
+        border-radius: 0.8rem;
+        width: 200px;
+        background: #f2f3f4;
+        margin-top: 1rem;
+        input {
+          background: #f2f3f4;
+          border-top-right-radius: 8px;
+          border-bottom-right-radius: 8px;
+          font-size: 1.4rem;
+          text-transform: uppercase;
+          color: #01215c;
+        }
+        @media (max-width: 471px) {
+          width: 100%;
+        }
+      }
+    }
+    .product-panel {
+      display: grid;
+      grid-column-gap: 20px;
+      grid-row-gap: 40px;
+      grid-template-columns: auto auto auto;
+      @media (max-width: 996px) {
+        grid-template-columns: auto auto;
+      }
+      @media (max-width: 550px) {
+        grid-template-columns: auto;
+      }
+      .product-item {
+        position: relative;
+        .hover-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          opacity: 0;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        &:hover {
+          .hover-image {
+            transition-duration: 0.7s;
+            opacity: 1;
+            z-index: 5;
+          }
+        }
+        .product-image {
+          width: 100%;
+          overflow: hidden;
+          background: #f6f6f6;
+          img {
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+        h3 {
+          font-size: 2rem;
+          font-weight: 400;
+        }
+        p {
+          font-size: 1.4rem;
+          font-weight: 400;
+          color: rgba(2, 24, 37, 0.7);
+        }
+        h4 {
+          font-weight: 400;
+          font-size: 2.4rem;
+        }
+      }
+      .favor-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2.5rem;
+        .favor {
+          color: #eb162e;
+          display: none;
+        }
+        .unfavor {
+          display: block;
+        }
+        &.favor {
+          .favor {
+            display: block;
+          }
+          .unfavor {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  .collection-section {
+    background: #f2ebdf;
+  }
+}

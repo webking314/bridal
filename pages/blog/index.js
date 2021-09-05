@@ -163,7 +163,7 @@ export default function Blog() {
                   value={selectValue}
                   onChange={(value) => {
                     {
-                      setSelectValue("Filter By :en");
+                      setSelectValue(value);
                     }
                   }}
                   filterOptions={fuzzySearch}
