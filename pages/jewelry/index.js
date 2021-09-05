@@ -161,16 +161,16 @@ export default function Jewelry() {
       </div>
       {/* End hero section*/}
       {/* Start jewelry section */}
-      <div className="jewelry-section r-container pt-5 mt-5">
+      <div className="jewelry-section r-container pt-4 mt-5">
         <div className="top-bar row align-items-center m-0 py-3">
-          <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-5">
+          <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
             <h2>Jewelry</h2>
             <p className="text-uppercase">{result} results</p>
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end p-0 pt-3 pt-md-0">
             <div className="search-box round-form d-flex align-items-center">
               <label htmlFor="selectSearch" className="px-4">
-                FITER BY :{" "}
+                SORT BY :{" "}
               </label>
               <SelectSearch
                 id="selectSearch"

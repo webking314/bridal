@@ -228,16 +228,16 @@ export default function Home() {
       {/* End Hero section */}
 
       {/* Start product section */}
-      <div className="product-section r-container py-5">
+      <div className="product-section r-container py-4">
         <div className="top-bar row align-items-center m-0 py-3">
-          <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-5">
+          <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
             <h2>Engagement Rings</h2>
             <p className="text-uppercase">{result} results</p>
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end p-0 pt-3 pt-md-0">
             <div className="search-box round-form d-flex align-items-center">
               <label htmlFor="selectSearch" className="px-4">
-                FITER BY :{" "}
+                SORT BY :{" "}
               </label>
               <SelectSearch
                 id="selectSearch"
@@ -260,7 +260,7 @@ export default function Home() {
                 <div className="image-panel text-center">
                   <img src={"/img/ring/" + item.img} alt="filter-image" />
                 </div>
-                <h3 className="blue-text">{item.text}</h3>
+                <h3 className="blue-text text-uppercase">{item.text}</h3>
               </button>
             );
           })}

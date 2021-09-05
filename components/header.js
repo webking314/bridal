@@ -60,7 +60,7 @@ export default function Header({ page }) {
   let submenus = [
     {
       title: "ENGAGEMENT",
-      url: "#",
+      url: "/ring",
       imagePanel: {
         image: "mega_img-1.png",
         title: "Ring Shopping Guide",

@@ -165,6 +165,13 @@
             }
           }
         }
+        .form-check-input:checked {
+          background-color: #01215c;
+          border-color: #01215c;
+        }
+        .accordion-button:not(.collapsed) {
+          color: #01215c;
+        }
       }
     }
   }
