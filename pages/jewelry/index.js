@@ -9,32 +9,32 @@ import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 
 const options = [
-  { name: "All", value: "All" },
-  { name: "Popular", value: "Popular" },
+  { name: "ALL", value: "ALL" },
+  { name: "POPULAR", value: "POPULAR" },
 ];
 const options1 = [
-  { name: "All", value: "All" },
-  { name: "jewelry", value: "jewelry" },
+  { name: "ALL", value: "ALL" },
+  { name: "JEWELRY", value: "JEWELRY" },
 ];
 const options2 = [
-  { name: "All", value: "All" },
-  { name: "price", value: "price" },
+  { name: "ALL", value: "ALL" },
+  { name: "PRICE", value: "PRICE" },
 ];
 const options3 = [
-  { name: "All", value: "All" },
-  { name: "pearl", value: "pearl" },
+  { name: "ALL", value: "ALL" },
+  { name: "PEARL", value: "PEARL" },
 ];
 const options4 = [
-  { name: "All", value: "All" },
-  { name: "birthstone", value: "birthstone" },
+  { name: "ALL", value: "ALL" },
+  { name: "BIRTHSTONE", value: "BIRTHSTONE" },
 ];
 const options5 = [
-  { name: "All", value: "All" },
-  { name: "metal", value: "metal" },
+  { name: "ALL", value: "ALL" },
+  { name: "METAL", value: "METAL" },
 ];
 const options6 = [
-  { name: "All", value: "All" },
-  { name: "stones", value: "stones" },
+  { name: "ALL", value: "ALL" },
+  { name: "STONES", value: "STONES" },
 ];
 const produdcts = [
   {
@@ -125,23 +125,19 @@ const produdcts = [
 
 export default function Jewelry() {
   const [result, setResult] = useState(73);
-  const [selectValue, setSelectValue] = useState("All");
-  const [selectValue1, setSelectValue1] = useState("All");
-  const [selectValue2, setSelectValue2] = useState("All");
-  const [selectValue3, setSelectValue3] = useState("All");
-  const [selectValue4, setSelectValue4] = useState("All");
-  const [selectValue5, setSelectValue5] = useState("All");
-  const [selectValue6, setSelectValue6] = useState("All");
+  const [selectValue, setSelectValue] = useState("POPULAR");
+  const [selectValue1, setSelectValue1] = useState("JEWELRY");
+  const [selectValue2, setSelectValue2] = useState("PRICE");
+  const [selectValue3, setSelectValue3] = useState("PEARL");
+  const [selectValue4, setSelectValue4] = useState("BIRTHSTONE");
+  const [selectValue5, setSelectValue5] = useState("METAL");
+  const [selectValue6, setSelectValue6] = useState("STONES");
 
   useEffect(() => {
     document.addEventListener("click", (event) => {
-      let productItem = event.target.closest(".product-item");
+      let productItem = event.target.closest(".favor-icon");
       if (productItem) {
-        if (
-          productItem.querySelector(".favor-icon").classList.contains("favor")
-        )
-          productItem.querySelector(".favor-icon").classList.remove("favor");
-        else productItem.querySelector(".favor-icon").classList.add("favor");
+        productItem.classList.toggle("favor");
       }
     });
   }, []);
@@ -259,7 +255,10 @@ export default function Jewelry() {
             return (
               <div className="product-item" key={index}>
                 <div className="hover-image round">
-                  <img src={"/img/jewelry/" + item.hoverImg} alt="hover-image"/>
+                  <img
+                    src={"/img/jewelry/" + item.hoverImg}
+                    alt="hover-image"
+                  />
                 </div>
                 <div className="product-image d-flex justify-content-center align-items-center round">
                   <img src={"/img/jewelry/" + item.img} alt="product-image" />

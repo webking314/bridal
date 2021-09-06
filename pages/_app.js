@@ -10,6 +10,8 @@ import "../styles/blog.scss";
 import "../styles/brief.scss";
 import "../styles/jewelry.scss";
 import "../styles/ring.scss";
+import "../styles/chooseSetting.scss";
+import "../styles/confirmSetting.scss";
 
 
 function MyApp({ Component, pageProps }) {

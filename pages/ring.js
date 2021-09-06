@@ -9,8 +9,8 @@ import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 
 const options = [
-  { name: "All", value: "All" },
-  { name: "Popular", value: "Popular" },
+  { name: "ALL", value: "ALL" },
+  { name: "POPULAR", value: "POPULAR" },
 ];
 
 const filterItems = [
@@ -195,18 +195,14 @@ const leftFilters = [
 ];
 export default function Home() {
   const [result, setResult] = useState("878");
-  const [selectValue, setSelectValue] = useState("All");
+  const [selectValue, setSelectValue] = useState("POPULAR");
 
   useEffect(() => {
     if (typeof document !== undefined) {
       document.addEventListener("click", (event) => {
-        let productItem = event.target.closest(".product-item");
+        let productItem = event.target.closest(".favor-icon");
         if (productItem) {
-          if (
-            productItem.querySelector(".favor-icon").classList.contains("favor")
-          )
-            productItem.querySelector(".favor-icon").classList.remove("favor");
-          else productItem.querySelector(".favor-icon").classList.add("favor");
+          productItem.classList.toggle("favor");
         }
       });
       require("bootstrap/dist/js/bootstrap");
@@ -346,8 +342,8 @@ export default function Home() {
       {/* Start Collection section */}
       <div className="collection-section">
         <Collection />
-        <div className="shadow-pink"/>
-        <div className="shadow-blue"/>
+        <div className="shadow-pink" />
+        <div className="shadow-blue" />
       </div>
       {/* End Collection section */}
       {/* Start Schedule section */}

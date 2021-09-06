@@ -116,6 +116,7 @@
           top: 20px;
           right: 20px;
           font-size: 2.5rem;
+          cursor: pointer;
           .favor {
             color: #eb162e;
             display: none;
@@ -138,6 +139,11 @@
           font-weight: 500;
           border: 1px solid #01215c;
           width: 195px;
+          z-index: 2;
+          &:hover {
+            color: white;
+            background: #01215c;
+          }
         }
       }
       .left-filter-bar {

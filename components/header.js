@@ -80,7 +80,7 @@ export default function Header({ page }) {
             {
               name: "Design your own Engagement Ring",
               img: "mega_logo (4).png",
-              url: "#",
+              url: "/customRing/chooseSetting",
             },
           ],
         },
