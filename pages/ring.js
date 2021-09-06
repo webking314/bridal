@@ -262,7 +262,7 @@ export default function Home() {
           })}
         </div>
         <div className="main-panel row m-0 py-5">
-          <div className="col-3 p-0 pe-4 left-filter-bar">
+          <div className="col-lg-3 col-md-4 col-sm-5 col-12 p-0 pe-sm-4 pe-0 left-filter-bar">
             {leftFilters.map((item, index) => {
               return (
                 <div className="accordion-item mb-3" key={index}>
@@ -304,7 +304,7 @@ export default function Home() {
               );
             })}
           </div>
-          <div className="col-9 p-0 product-panel">
+          <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 product-panel">
             {produdcts.map((item, index) => {
               return (
                 <div className="product-item" key={index}>

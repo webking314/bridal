@@ -6,9 +6,10 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
+import InputRange from 'react-input-range';
+
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-
 const options = [
   { name: "ALL", value: "ALL" },
   { name: "POPULAR", value: "POPULAR" },
@@ -144,7 +145,7 @@ const karats = [
 export default function Home() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
-
+  const [value, setValue] = useState({min: 5, max:25})
   useEffect(() => {
     if (typeof document !== undefined) {
       document.addEventListener("click", (event) => {
@@ -275,7 +276,18 @@ export default function Home() {
               })}
             </div>
           </div>
-          <div className="karat-panel px-5"></div>
+          <div className="cost-panel col-lg-6 col-12 px-5">
+            <form className="form">
+              <InputRange
+                maxValue={20}
+                minValue={0}
+                formatLabel={(value) => `${value} kg`}
+                value={value}
+                onChange={(value) => setValue(value)}
+                onChangeComplete={(value) => console.log(value)}
+              />
+            </form>
+          </div>
         </div>
       </div>
       {/* End Hero section */}
