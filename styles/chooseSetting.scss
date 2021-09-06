@@ -138,28 +138,6 @@
     }
     .product-item {
       position: relative;
-      .hover-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        opacity: 0;
-        overflow: hidden;
-        transition-duration: 0.7s;
-        img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-      &:hover {
-        .hover-image {
-          transition-duration: 0.7s;
-          opacity: 1;
-          z-index: 1;
-        }
-      }
       .product-image {
         width: 100%;
         overflow: hidden;
@@ -204,6 +182,15 @@
         .unfavor {
           display: none;
         }
+      }
+    }
+    .image-panel {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
       }
     }
     .color-panel {

@@ -288,7 +288,7 @@ export default function Jewelry() {
               );
             else
               return (
-                <div className="image-panel round">
+                <div className="image-panel round" key={index}>
                   <img src={"/img/jewelry/" + item.img} />
                 </div>
               );

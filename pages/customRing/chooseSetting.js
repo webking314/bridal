@@ -6,7 +6,7 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
-import InputRange from 'react-input-range';
+import Range from "../../components/range";
 
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
@@ -15,13 +15,14 @@ const options = [
   { name: "POPULAR", value: "POPULAR" },
 ];
 
-const produdcts = [
+const productItems = [
   {
     img: "product(1).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(2).png",
@@ -29,6 +30,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(1).png",
@@ -36,6 +38,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(1).png",
@@ -43,6 +46,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(2).png",
@@ -50,6 +54,10 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
+  },
+  {
+    img: "hover_img-1.png",
   },
   {
     img: "product(1).png",
@@ -57,13 +65,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
-  },
-  {
-    img: "product(1).png",
-    title: "Brilliant Cut Diamond Engagement Ring",
-    categories: ["Diamond", "Engagement", "Rings"],
-    hoverImg: "hover_img-1.png",
-    cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(2).png",
@@ -71,6 +73,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(1).png",
@@ -78,6 +81,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(1).png",
@@ -85,6 +89,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(2).png",
@@ -92,6 +97,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(1).png",
@@ -99,6 +105,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(1).png",
@@ -106,6 +113,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(2).png",
@@ -113,6 +121,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
   {
     img: "product(1).png",
@@ -120,6 +129,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hover_img-1.png",
     cost: "$2500",
+    url: "/customRing/confirmSetting",
   },
 ];
 const filterItems = [
@@ -143,21 +153,16 @@ const karats = [
 ];
 
 export default function Home() {
+  const [products, setProducts] = useState(productItems);
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
-  const [value, setValue] = useState({min: 5, max:25})
-  useEffect(() => {
-    if (typeof document !== undefined) {
-      document.addEventListener("click", (event) => {
-        let productItem = event.target.closest(".favor-icon");
-        if (productItem) {
-          productItem.classList.toggle("favor");
-        }
-      });
-      require("bootstrap/dist/js/bootstrap");
-    }
-  }, []);
-
+  const [value, setValue] = useState({ min: 5, max: 25 });
+  const setFavor = (event) => {
+    event.target.closest(".favor-icon").classList.toggle("favor");
+  };
+  const loadMore = () => {
+    setProducts([...products, ...productItems]);
+  };
   return (
     <div className="chooseSetting_page">
       <Head>
@@ -259,7 +264,7 @@ export default function Home() {
         <div className="setting-karat row m-0">
           <div className="karat-panel col-lg-6 col-12 pe-5">
             <h3 className="title text-uppercase pb-3">karat</h3>
-            <div className="d-flex karat-list py-4 justify-content-between m-0">
+            <div className="d-flex karat-list flex-wrap py-4 justify-content-between m-0">
               {karats.map((item, index) => {
                 return (
                   <button className="btn p-0 karat-item" key={index}>
@@ -276,17 +281,8 @@ export default function Home() {
               })}
             </div>
           </div>
-          <div className="cost-panel col-lg-6 col-12 px-5">
-            <form className="form">
-              <InputRange
-                maxValue={20}
-                minValue={0}
-                formatLabel={(value) => `${value} kg`}
-                value={value}
-                onChange={(value) => setValue(value)}
-                onChangeComplete={(value) => console.log(value)}
-              />
-            </form>
+          <div className="cost-panel d-flex align-items-center col-lg-6 col-12 px-5">
+            <Range min={0} max={109000} />
           </div>
         </div>
       </div>
@@ -294,50 +290,56 @@ export default function Home() {
 
       {/* Start product section */}
       <div className="product-section r-container py-5 ">
-        {produdcts.map((item, index) => {
-          return (
-            <Link href="/customRing/confirmSetting" key={index}>
-              <a className="mb-5 p-0 product-item">
-                <div className="hover-image round">
-                  <img
-                    src={"/img/customRing/chooseSetting/" + item.hoverImg}
-                    alt="hover-image"
-                  />
-                </div>
-                <div className="product-image d-flex justify-content-center align-items-center round">
-                  <img
-                    src={"/img/customRing/chooseSetting/" + item.img}
-                    alt="product-image"
-                  />
-                </div>
-                <h3 className="text-uppercase blue-text py-4 m-0">
-                  {item.title}
-                </h3>
-                <p className="text-uppercase m-0">
-                  {item.categories.map((category, key) => {
-                    return (
-                      <span key={key} className="me-2">
-                        {category}
-                      </span>
-                    );
-                  })}
-                </p>
-                <h4 className="blue-text">{item.cost}</h4>
+        {products.map((item, index) => {
+          if (item.url)
+            return (
+              <div className="mb-5 p-0 product-item" key={index}>
+                <Link href={item.url}>
+                  <a>
+                    <div className="product-image d-flex justify-content-center align-items-center round">
+                      <img
+                        src={"/img/customRing/chooseSetting/" + item.img}
+                        alt="product-image"
+                      />
+                    </div>
+                    <h3 className="text-uppercase blue-text py-4 m-0">
+                      {item.title}
+                    </h3>
+                    <p className="text-uppercase m-0">
+                      {item.categories.map((category, key) => {
+                        return (
+                          <span key={key} className="me-2">
+                            {category}
+                          </span>
+                        );
+                      })}
+                    </p>
+                    <h4 className="blue-text">{item.cost}</h4>
+                  </a>
+                </Link>
                 <div className="color-panel py-4 mb-4">
                   <button className="btn white me-3"></button>
                   <button className="btn yellow me-3"></button>
                   <button className="btn platinium me-3"></button>
                   <button className="btn rose-gold me-3"></button>
                 </div>
-                <div className="favor-icon">
+                <div className="favor-icon " onClick={setFavor}>
                   <RiHeartLine className="unfavor" />
                   <RiHeartFill className="favor" />
                 </div>
-              </a>
-            </Link>
-          );
+              </div>
+            );
+          else
+            return (
+              <div className="image-panel round" key={index}>
+                <img src={"/img/customRing/chooseSetting/" + item.img} />
+              </div>
+            );
         })}
-        <button className="btn load-more-btn text-uppercase mt-5 py-3 px-5 round-form">
+        <button
+          className="btn load-more-btn text-uppercase mt-5 py-3 px-5 round-form"
+          onClick={loadMore}
+        >
           Load More
         </button>
       </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
-import './range.css';
 import Log from './log';
 
 
@@ -9,7 +8,7 @@ export default class Range extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: { min: 0, max: 100 } };
-    this.logSlider = new Log({ minpos: 0, maxpos: 100, minval: 5, maxval: 1600 });
+    this.logSlider = new Log({ minpos: 0, maxpos: 100, minval: this.props.min, maxval: this.props.max });
     this.onChange = this.onChange.bind(this);
     this.formatLabel = this.formatLabel.bind(this);
   }
@@ -32,13 +31,11 @@ export default class Range extends React.Component {
   
   render() {
     return (
-      <div>
       <RangeInput
        value={this.state.value} 
        onChange={this.onChange} 
        formatLabel={this.formatLabel}
       />
-      </div>
     );
   }
 }
