@@ -12,6 +12,7 @@ import "../styles/ring.scss";
 import "../styles/chooseSetting.scss";
 import "../styles/confirmSetting.scss";
 import "../styles/style.css";
+import "../styles/range.css";
 import "../styles/mutiRangeSlider.scss";
 
 function MyApp({ Component, pageProps }) {

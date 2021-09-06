@@ -36,13 +36,14 @@ const options6 = [
   { name: "ALL", value: "ALL" },
   { name: "STONES", value: "STONES" },
 ];
-const produdcts = [
+const productItems = [
   {
     img: "product(1).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(2).png",
@@ -50,6 +51,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
@@ -57,6 +59,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(4).png",
@@ -64,6 +67,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(5).png",
@@ -71,6 +75,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(1).png",
@@ -78,6 +83,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(2).png",
@@ -85,6 +91,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
@@ -92,13 +99,10 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
-    img: "product(4).png",
-    title: "Brilliant Cut Diamond Engagement Ring",
-    categories: ["Diamond", "Engagement", "Rings"],
-    hoverImg: "hoverImage.png",
-    cost: "$2500",
+    img: "ads_image.png",
   },
   {
     img: "product(5).png",
@@ -106,6 +110,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(1).png",
@@ -113,6 +118,7 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(2).png",
@@ -120,10 +126,12 @@ const produdcts = [
     categories: ["Diamond", "Engagement", "Rings"],
     hoverImg: "hoverImage.png",
     cost: "$2500",
+    url: "#",
   },
 ];
 
 export default function Jewelry() {
+  const [products, setProducts] = useState(productItems);
   const [result, setResult] = useState(73);
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [selectValue1, setSelectValue1] = useState("JEWELRY");
@@ -132,15 +140,9 @@ export default function Jewelry() {
   const [selectValue4, setSelectValue4] = useState("BIRTHSTONE");
   const [selectValue5, setSelectValue5] = useState("METAL");
   const [selectValue6, setSelectValue6] = useState("STONES");
-
-  useEffect(() => {
-    document.addEventListener("click", (event) => {
-      let productItem = event.target.closest(".favor-icon");
-      if (productItem) {
-        productItem.classList.toggle("favor");
-      }
-    });
-  }, []);
+  const setFavor = (event) => {
+    event.target.closest(".favor-icon").classList.toggle("favor");
+  };
 
   return (
     <div className="jewelry_page">
@@ -157,7 +159,7 @@ export default function Jewelry() {
       </div>
       {/* End hero section*/}
       {/* Start jewelry section */}
-      <div className="jewelry-section r-container pt-4 mt-5">
+      <div className="jewelry-section r-container pt-4 pb-5 mt-5">
         <div className="top-bar row align-items-center m-0 py-3">
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
             <h2>Jewelry</h2>
@@ -250,38 +252,46 @@ export default function Jewelry() {
             search
           />
         </div>
-        <div className="product-panel py-5">
-          {produdcts.map((item, index) => {
-            return (
-              <div className="product-item" key={index}>
-                <div className="hover-image round">
-                  <img
-                    src={"/img/jewelry/" + item.hoverImg}
-                    alt="hover-image"
-                  />
+        <div className="product-panel py-5 mb-5">
+          {products.map((item, index) => {
+            if (item.url)
+              return (
+                <div className="product-item" key={index}>
+                  <Link href={item.url}>
+                    <a>
+                      <div className="product-image d-flex justify-content-center align-items-center round">
+                        <img
+                          src={"/img/jewelry/" + item.img}
+                          alt="product-image"
+                        />
+                      </div>
+                      <h3 className="text-uppercase blue-text py-4 m-0">
+                        {item.title}
+                      </h3>
+                      <p className="pb-4 text-uppercase m-0">
+                        {item.categories.map((category, key) => {
+                          return (
+                            <span key={key} className="me-2">
+                              {category}
+                            </span>
+                          );
+                        })}
+                      </p>
+                      <h4 className="blue-text">{item.cost}</h4>
+                    </a>
+                  </Link>
+                  <div className="favor-icon " onClick={setFavor}>
+                    <RiHeartLine className="unfavor" />
+                    <RiHeartFill className="favor" />
+                  </div>
                 </div>
-                <div className="product-image d-flex justify-content-center align-items-center round">
-                  <img src={"/img/jewelry/" + item.img} alt="product-image" />
+              );
+            else
+              return (
+                <div className="image-panel round">
+                  <img src={"/img/jewelry/" + item.img} />
                 </div>
-                <h3 className="text-uppercase blue-text py-4 m-0">
-                  {item.title}
-                </h3>
-                <p className="pb-4 text-uppercase m-0">
-                  {item.categories.map((category, key) => {
-                    return (
-                      <span key={key} className="me-2">
-                        {category}
-                      </span>
-                    );
-                  })}
-                </p>
-                <h4 className="blue-text">{item.cost}</h4>
-                <div className="favor-icon">
-                  <RiHeartLine className="unfavor" />
-                  <RiHeartFill className="favor" />
-                </div>
-              </div>
-            );
+              );
           })}
         </div>
       </div>

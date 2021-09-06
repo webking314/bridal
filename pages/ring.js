@@ -24,60 +24,69 @@ const filterItems = [
   { img: "image8.png", text: "fashion" },
   { img: "image9.png", text: "mothers/family" },
 ];
-const produdcts = [
+const productItems = [
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
   {
     img: "product(3).png",
     title: "Brilliant Cut Diamond Engagement Ring",
     categories: ["Diamond", "Engagement", "Rings"],
     cost: "$2500",
+    url: "#",
   },
 ];
 
@@ -193,21 +202,18 @@ const leftFilters = [
     ],
   },
 ];
-export default function Home() {
+export default function Ring() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
+  const [products, setProducts] = useState([...productItems]);
 
-  useEffect(() => {
-    if (typeof document !== undefined) {
-      document.addEventListener("click", (event) => {
-        let productItem = event.target.closest(".favor-icon");
-        if (productItem) {
-          productItem.classList.toggle("favor");
-        }
-      });
-      require("bootstrap/dist/js/bootstrap");
-    }
-  }, []);
+  const setFavor = (event) => {
+    event.target.closest(".favor-icon").classList.toggle("favor");
+  };
+
+  const loadMore = () => {
+    setProducts([...products, ...productItems]);
+  };
 
   return (
     <div className="ring_page">
@@ -305,33 +311,43 @@ export default function Home() {
             })}
           </div>
           <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 product-panel">
-            {produdcts.map((item, index) => {
+            {products.map((item, index) => {
               return (
                 <div className="product-item" key={index}>
-                  <div className="product-image d-flex justify-content-center align-items-center round">
-                    <img src={"/img/ring/" + item.img} alt="product-image" />
-                  </div>
-                  <h3 className="text-uppercase blue-text py-4 m-0">
-                    {item.title}
-                  </h3>
-                  <p className="pb-4 text-uppercase m-0">
-                    {item.categories.map((category, key) => {
-                      return (
-                        <span key={key} className="me-2">
-                          {category}
-                        </span>
-                      );
-                    })}
-                  </p>
-                  <h4 className="blue-text">{item.cost}</h4>
-                  <div className="favor-icon">
+                  <Link href={item.url}>
+                    <a>
+                      <div className="product-image d-flex justify-content-center align-items-center round">
+                        <img
+                          src={"/img/ring/" + item.img}
+                          alt="product-image"
+                        />
+                      </div>
+                      <h3 className="text-uppercase blue-text py-4 m-0">
+                        {item.title}
+                      </h3>
+                      <p className="pb-4 text-uppercase m-0">
+                        {item.categories.map((category, key) => {
+                          return (
+                            <span key={key} className="me-2">
+                              {category}
+                            </span>
+                          );
+                        })}
+                      </p>
+                      <h4 className="blue-text">{item.cost}</h4>
+                    </a>
+                  </Link>
+                  <div className="favor-icon " onClick={setFavor}>
                     <RiHeartLine className="unfavor" />
                     <RiHeartFill className="favor" />
                   </div>
                 </div>
               );
             })}
-            <button className="btn load-more-btn text-uppercase py-3 px-5 round-form">
+            <button
+              className="btn load-more-btn text-uppercase py-3 px-5 round-form"
+              onClick={loadMore}
+            >
               Load More
             </button>
           </div>
