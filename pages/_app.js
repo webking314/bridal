@@ -11,9 +11,8 @@ import "../styles/jewelry.scss";
 import "../styles/ring.scss";
 import "../styles/chooseSetting.scss";
 import "../styles/confirmSetting.scss";
+import "../styles/chooseDiamond.scss";
 import "../styles/style.css";
-import "../styles/range.css";
-import "../styles/mutiRangeSlider.scss";
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;

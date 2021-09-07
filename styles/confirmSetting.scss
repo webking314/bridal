@@ -18,8 +18,7 @@
       }
     }
     .setting-state-panel {
-      box-shadow: 0px 6px 30px rgba(2, 24, 37, 0.12);
-      border-radius: 15px;
+      background: #ebf1f2;
       .setting-state {
         &:not(.setting-state:last-child) {
           border-right: 1px solid rgba(2, 24, 37, 0.1);
@@ -123,6 +122,291 @@
           }
         }
       }
+    }
+  }
+  .confirm-section {
+    .show-product {
+      .tile-product {
+        button {
+          width: 100%;
+          border: 1px solid rgba(2, 24, 37, 0.1);
+          overflow: hidden;
+          img {
+            transition-duration: 0.5s;
+            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+          }
+          &:focus {
+            box-shadow: none;
+            opacity: 0.6;
+          }
+          &:hover {
+            img {
+              transition-duration: 0.7s;
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+      .main-product {
+        .image-panel {
+          border: 1px solid rgba(2, 24, 37, 0.1);
+          overflow: hidden;
+          img {
+            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            transition-duration: 0.5s;
+          }
+          &:hover {
+            img {
+              transition-duration: 0.7s;
+              transform: scale(1.2);
+            }
+          }
+        }
+        .btn-panel {
+          button {
+            background: #f6f6f6;
+            font-size: 1.6rem;
+            font-weight: 400;
+            &:hover {
+              background: rgb(211, 211, 211);
+            }
+          }
+        }
+      }
+    }
+    .show-setting {
+      .title-panel {
+        border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+        h3 {
+          font-size: 3.6rem;
+        }
+        .title,
+        .cost {
+          font-family: FreeSerif, sans-serif;
+          color: rgba(1, 33, 92, 0.5);
+          font-style: italic;
+          font-weight: 400;
+        }
+        .description {
+          font-weight: 350;
+        }
+        .product-id {
+          font-size: 1.6rem;
+          color: rgba(2, 24, 37, 0.5);
+          font-weight: 500;
+        }
+        .cost {
+          color: #01215c;
+        }
+      }
+      .confirm-panel {
+        .selector-panel {
+          font-size: 1.6rem;
+          font-weight: 400;
+          border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+          select {
+            font-size: 1.5rem;
+            font-weight: 400;
+            &:focus {
+              box-shadow: none;
+            }
+          }
+          .select-karat {
+            .select-box {
+              position: relative;
+              .state-circle {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 7px;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: black;
+                &.white {
+                  background: #eeeeee;
+                }
+                &.yellow {
+                  background: #efd9a7;
+                }
+                &.platinium {
+                  background: #dbdbdb;
+                }
+                &.rose-gold {
+                  background: #ffcbcb;
+                }
+              }
+            }
+          }
+        }
+        .confirm-box {
+          border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+          .favor-btn {
+            background: rgba(2, 24, 37, 0.05);
+            color: rgba(1, 33, 92, 0.3);
+            font-size: 2rem;
+          }
+          .setting-btn-panel {
+            a {
+              font-size: 1.8rem;
+              font-weight: 400;
+            }
+            p {
+              font-size: 1.4rem;
+            }
+          }
+          @media (max-width: 818px) {
+            justify-content: center !important;
+            .favor-btn {
+              margin-bottom: 20px;
+            }
+          }
+        }
+        .help-panel {
+          font-size: 1.6rem;
+          border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+        }
+        .schedule-panel {
+          font-size: 1.6rem;
+          button {
+            font-size: 1.4rem;
+            border: 1px solid rgba(2, 24, 37, 0.1);
+            border-radius: 6px;
+          }
+        }
+      }
+    }
+  }
+  .detail-section {
+    .title-panel {
+      font-size: 3.6rem;
+      font-weight: 350;
+      border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+    }
+    .detail-panel {
+      .image-panel {
+        overflow: hidden;
+        img {
+          width: 100%;
+          max-height: 100%;
+          max-width: 100%;
+          transition-duration: 0.5s;
+        }
+        &:hover {
+          img {
+            transition-duration: 0.7s;
+            transform: scale(1.2);
+          }
+        }
+      }
+      .description-panel {
+        .title {
+          font-weight: 500;
+          font-size: 2.4rem;
+        }
+        & > p {
+          font-size: 2rem;
+        }
+        .info-panel {
+          .nav-tabs {
+            .nav-item {
+              border: 0;
+              &.show {
+                .nav-link {
+                  border-color: transparent !important;
+                  border-bottom: 2px solid #01215c !important;
+                }
+              }
+            }
+            .nav-link {
+              border: 0;
+              color: rgba(1, 33, 92, 0.5);
+              font-size: 1.8rem;
+              &.active {
+                color: #01215c;
+                border-color: transparent !important;
+                border-bottom: 2px solid #01215c !important;
+              }
+              &:hover {
+                border: 0;
+              }
+              &:focus {
+                border: 0;
+              }
+            }
+          }
+        }
+        .tab-content {
+          .title {
+            font-size: 1.8rem;
+            font-weight: 400;
+          }
+          .informations {
+            font-size: 1.6rem;
+            .info-title-panel {
+              background: #f6f6f6;
+              border-radius: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .help-section {
+    position: relative;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+    & > .row {
+      z-index: 2;
+      position: relative;
+    }
+    .title-panel {
+      h2 {
+        font-size: 4.8rem;
+        font-weight: 400;
+        color: #01215c;
+      }
+      p {
+        font-size: 1.8rem;
+        font-weight: 350;
+        color: rgba(1, 33, 92, 0.7);
+      }
+    }
+    .help-items {
+      & > div {
+        background: rgba(1, 33, 92, 0.05);
+        font-size: 2rem;
+        border-radius: 1.2rem;
+        display: flex;
+        align-items: center;
+      }
+    }
+    .pink-circle {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 10%;
+      width: 30vw;
+      height: 30vw;
+      background: #fad3da;
+      opacity: 0.7;
+      filter: blur(200px);
+    }
+    .blue-circle {
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      transform: translateY(30%);
+      left: 30%;
+      width: 30vw;
+      height: 30vw;
+      background: #13439b;
+      opacity: 0.2;
+      filter: blur(200px);
     }
   }
 }

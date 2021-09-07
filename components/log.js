@@ -4,7 +4,7 @@ class Log {
     this.maxpos = opts.maxpos || 100;
 
     this.minval = Math.log(opts.minval || 1);
-    this.maxval = Math.log(opts.maxval || 9000);
+    this.maxval = Math.log(opts.maxval || 109000);
 
     this.scale = (this.maxval - this.minval) / (this.maxpos - this.minpos);
   }
