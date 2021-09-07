@@ -44,7 +44,7 @@ const sizeList = [
   { size: 9 },
 ];
 
-export default function Home() {
+export default function ConformSetting() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [mainImage, setMainImage] = useState(products[0]);

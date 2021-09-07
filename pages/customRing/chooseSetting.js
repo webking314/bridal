@@ -152,7 +152,7 @@ const karats = [
   { karat: "RG", title: "ROSE GOLD", key: "rose-gold" },
 ];
 
-export default function Home() {
+export default function ChooseSetting() {
   const [products, setProducts] = useState(productItems);
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");

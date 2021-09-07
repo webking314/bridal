@@ -101,7 +101,7 @@ const productList = [
   },
 ];
 
-export default function Home() {
+export default function ChooseDiamond() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [products, setProducts] = useState(productList);
