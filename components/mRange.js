@@ -10,6 +10,17 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     height: theme.spacing(3),
   },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+    marginTop: -8,
+    marginLeft: -12,
+    "&:focus, &:hover, &$active": {
+      boxShadow: "inherit",
+    },
+  },
 }));
 
 function valuetext(value) {
