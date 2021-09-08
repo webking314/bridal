@@ -193,13 +193,14 @@
             box-shadow: none;
           }
         }
-        // .MuiSlider-valueLabel {
-        //   span {
-        //     span {
-        //       color: transparent;
-        //     }
-        //   }
-        // }
+        .MuiSlider-valueLabel {
+          span {
+            span {
+              color: black;
+              font-weight: 1.6rem;
+            }
+          }
+        }
         // .Mui-focusVisible {
         //   .MuiSlider-valueLabel {
         //     top: -50%;
@@ -333,6 +334,14 @@
           }
           &[data-index="9"] {
             left: 95.4443% !important;
+          }
+        }
+        .MuiSlider-valueLabel {
+          span {
+            span {
+              color: white;
+              font-weight: 1.6rem;
+            }
           }
         }
         // .Mui-focusVisible {
