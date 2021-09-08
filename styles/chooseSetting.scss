@@ -11,6 +11,9 @@
           text-decoration: underline;
         }
       }
+      .back-arrow {
+        font-size: 1.6rem;
+      }
       span {
         white-space: nowrap;
         overflow: hidden;
@@ -119,6 +122,34 @@
               p {
                 color: #01215c;
               }
+            }
+          }
+        }
+      }
+      .cost-panel {
+        .title {
+          color: #01215c;
+          font-weight: 400;
+          font-size: 1.8rem;
+          border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+        }
+        .range-panel {
+          width: 100%;
+          position: relative;
+          .range-pointer {
+            width: 16px;
+            position: absolute;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background: #e6e9ef;
+            z-index: 1;
+            top: 2px;
+            &.range-min-pointer {
+              left: -4px;
+            }
+            &.range-max-pointer {
+              right: -11px;
             }
           }
         }

@@ -7,6 +7,7 @@ import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import Range from "../../components/range";
+import { useRouter } from "next/router";
 
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
@@ -157,6 +158,7 @@ export default function ChooseSetting() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [value, setValue] = useState({ min: 5, max: 25 });
+  const router = useRouter();
   const setFavor = (event) => {
     event.target.closest(".favor-icon").classList.toggle("favor");
   };
@@ -172,11 +174,12 @@ export default function ChooseSetting() {
       {/* Start hero section */}
       <div className="state-section r-container">
         <div className="link-panel py-3 mb-md-5 mb-0 d-flex align-items-center">
-          <Link href="/blog">
-            <a className="back-arrow d-flex me-4 blue-text">
-              <HiOutlineArrowLeft />
-            </a>
-          </Link>
+          <button
+            className="btn back-arrow d-flex me-3 blue-text px-0"
+            onClick={() => router.back()}
+          >
+            <HiOutlineArrowLeft />
+          </button>
           <Link href="/">
             <a className="mx-2">HOME</a>
           </Link>
@@ -281,8 +284,15 @@ export default function ChooseSetting() {
               })}
             </div>
           </div>
-          <div className="cost-panel d-flex align-items-center col-lg-6 col-12 px-5">
-            <Range min={0} max={109000} />
+          <div className="cost-panel col-lg-6 col-12 px-5">
+            <h3 className="title text-uppercase blue-text m-0 pb-4">
+              Cost
+            </h3>
+            <div className="range-panel d-flex align-items-center mt-4">
+              <div className="range-min-pointer range-pointer"/>
+              <div className="range-max-pointer range-pointer"/>
+              <Range min={0} max={109000} unit={"$"} />
+            </div>
           </div>
         </div>
       </div>

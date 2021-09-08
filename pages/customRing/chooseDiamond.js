@@ -6,6 +6,10 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
+import { useRouter } from "next/router";
+import MRange from "../../components/mRange";
+import Range from "../../components/range";
+
 import {
   RiHeartLine,
   RiHeartFill,
@@ -19,6 +23,8 @@ import {
   RiStore2Line,
   RiUser3Line,
   RiMailLine,
+  RiFunctionLine,
+  RiMenuLine,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
@@ -101,11 +107,117 @@ const productList = [
   },
 ];
 
+const colorMarks = [
+  { value: 0, label: null },
+  {
+    value: 10,
+    label: "M",
+  },
+  {
+    value: 20,
+    label: "L",
+  },
+  {
+    value: 30,
+    label: "K",
+  },
+  {
+    value: 40,
+    label: "J",
+  },
+  {
+    value: 50,
+    label: "I",
+  },
+  {
+    value: 60,
+    label: "H",
+  },
+  {
+    value: 70,
+    label: "G",
+  },
+  {
+    value: 80,
+    label: "F",
+  },
+  {
+    value: 90,
+    label: "E",
+  },
+  {
+    value: 100,
+    label: "D",
+  },
+];
+
+const clarityMarks = [
+  { value: 0, label: null },
+  {
+    value: 11.111,
+    label: "L1",
+  },
+  {
+    value: 22.222,
+    label: "S12",
+  },
+  {
+    value: 33.333,
+    label: "SL1",
+  },
+  {
+    value: 44.444,
+    label: "VS2",
+  },
+  {
+    value: 55.555,
+    label: "VS1",
+  },
+  {
+    value: 66.666,
+    label: "VVS2",
+  },
+  {
+    value: 77.777,
+    label: "VVS1",
+  },
+  {
+    value: 88.888,
+    label: "IF",
+  },
+  {
+    value: 99.999,
+    label: "FL",
+  },
+];
+const cutMarks = [
+  {
+    value: 0,
+    label: null,
+  },
+  {
+    value: 25,
+    label: "FAIR",
+  },
+  {
+    value: 50,
+    label: "GOOD",
+  },
+  {
+    value: 75,
+    label: "VERY GOOD",
+  },
+  {
+    value: 100,
+    label: "EXCELLET",
+  },
+];
 export default function ChooseDiamond() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [products, setProducts] = useState(productList);
   const [color, setColor] = useState("white");
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof document !== undefined) {
@@ -116,6 +228,7 @@ export default function ChooseDiamond() {
   const loadMore = () => {
     setProducts([...products, ...productList]);
   };
+
   return (
     <div className="chooseDiamond_page">
       <Head>
@@ -125,11 +238,12 @@ export default function ChooseDiamond() {
       {/* Start state section */}
       <div className="state-section">
         <div className="link-panel  r-container py-3 d-flex align-items-center">
-          <Link href="/blog">
-            <a className="back-arrow d-flex me-4 blue-text">
-              <HiOutlineArrowLeft />
-            </a>
-          </Link>
+          <button
+            className="btn back-arrow d-flex me-3 blue-text px-0"
+            onClick={() => router.back()}
+          >
+            <HiOutlineArrowLeft />
+          </button>
           <Link href="/">
             <a className="mx-2">HOME</a>
           </Link>
@@ -227,29 +341,106 @@ export default function ChooseDiamond() {
             })}
           </div>
         </div>
+        <div className="silder-panel row m-0">
+          <div className="color-filter col-lg-4 col-md-6 col-12 p-0 pe-5 mb-5 pb-5">
+            <h3 className="text-uppercase blue-text d-flex align-items-center mb-4">
+              carat
+              <RiErrorWarningLine className="ms-2" />
+            </h3>
+            <Range max={8} min={0} unit={""} />
+          </div>
+          <div className="color-filter col-lg-4 col-md-6 col-12 p-0 pe-5 mb-5 pb-5">
+            <h3 className="text-uppercase blue-text d-flex align-items-center">
+              colour
+              <RiErrorWarningLine className="ms-2" />
+            </h3>
+            <MRange marks={colorMarks} step={10} />
+          </div>
+          <div className="clarity-filter col-lg-4 col-md-6 col-12 p-0 pe-5 mb-5 pb-5">
+            <h3 className="text-uppercase blue-text d-flex align-items-center">
+              clarity
+              <RiErrorWarningLine className="ms-2" />
+            </h3>
+            <MRange marks={clarityMarks} step={11.111} />
+          </div>
+          <div className="cut-filter col-lg-4 col-md-6 col-12 p-0 pe-5 mb-5 pb-5">
+            <h3 className="text-uppercase blue-text d-flex align-items-center">
+              cut
+              <RiErrorWarningLine className="ms-2" />
+            </h3>
+            <MRange marks={cutMarks} step={25} />
+          </div>
+          <div className="price-filter col-lg-4 col-md-6 col-12 p-0 pe-5 mb-5 pb-5">
+            <h3 className="text-uppercase blue-text d-flex align-items-center mb-4">
+              price
+              <RiErrorWarningLine className="ms-2" />
+            </h3>
+            <Range max={109000} min={0} unit={"$"} />
+          </div>
+        </div>
       </div>
       {/* End choose section */}
       {/* Start products section */}
       <div className="product-section r-container mb-5 pb-5">
-        <div className="row m-0">
+        <div className="top-bar row align-items-center m-0 py-3">
+          <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
+            <h2>Choose Diamond</h2>
+            <p className="text-uppercase">
+              Certified Diamonds ({result} items)
+            </p>
+          </div>
+          <div className="col-md-6 col-12 d-flex justify-content-end p-0 pt-3 pt-md-0">
+            <div className="search-box round-form d-flex align-items-center">
+              <label htmlFor="selectSearch" className="px-4">
+                SORT BY :{" "}
+              </label>
+              <SelectSearch
+                id="selectSearch"
+                options={options}
+                value={selectValue}
+                onChange={(value) => {
+                  setSelectValue(value);
+                }}
+                filterOptions={fuzzySearch}
+                emptyMessage="Not found"
+                search
+              />
+            </div>
+          </div>
+        </div>
+        <div className="list-bar d-flex justify-content-between align-items-center">
+          <div className="tab-group">
+            <button className="btn py-4 px-0 me-4">NATURAL</button>
+            <button className="btn py-4 px-0 me-4">COLOURED</button>
+            <button className="btn py-4 px-0">GEMSTONES</button>
+          </div>
+          <div className="order-btn-group d-flex">
+            <button className="btn btn-show-content d-flex round-form py-3 me-5">
+              <RiMenuLine />
+            </button>
+            <button className="btn btn-show-list d-flex round-form py-3">
+              <RiFunctionLine />
+            </button>
+          </div>
+        </div>
+        <div className="main-panel row py-5 m-0">
           {products.map((item, index) => {
             return (
-              <div
-                className="product-item col-lg-3 col-md-4 col-sm-6 col-12 pe-4 p-0 mb-5"
-                key={index}
-              >
-                <div className="product-image round">
-                  <img
-                    src={"/img/customRing/chooseDiamond/" + item.image}
-                    alt="product-image"
-                  />
-                </div>
-                <h3>{item.title}</h3>
-                <div className="bottom-panel d-flex justify-content-between">
-                  <h4>{item.cost}</h4>
-                  <p>...</p>
-                </div>
-              </div>
+              <Link href="#" key={index}>
+                <a className="product-item col-lg-3 col-md-4 col-sm-6 col-12 pe-4 p-0 mb-5">
+                  <div className="product-image round">
+                    <img
+                      src={"/img/customRing/chooseDiamond/" + item.image}
+                      alt="product-image"
+                    />
+                  </div>
+                  <h3>{item.title}</h3>
+                  <div className="bottom-panel d-flex justify-content-between">
+                    <h4>{item.cost}</h4>
+                    <p>...</p>
+                  </div>
+                </a>
+              </Link>
             );
           })}
           <button

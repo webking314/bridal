@@ -104,13 +104,13 @@ export default function Brief(props) {
   const target = React.createRef();
 
   useEffect(() => {
-    const text = document.querySelector('.article-panel').innerText;
+    const text = document.querySelector(".article-panel").innerText;
     const wpm = 225;
     const words = text.trim().split(/\s+/).length;
     const time = Math.ceil(words / wpm);
     // document.getElementById("time").innerText = time;
-    setTime(time)
-    console.log(time)
+    setTime(time);
+    console.log(time);
   }, []);
 
   return (
@@ -124,11 +124,12 @@ export default function Brief(props) {
       {/* Start about section */}
       <div className="about-section pt-md-5 pt-0 mb-5x">
         <div className="link-panel r-container px-5 py-3 mb-md-5 mb-0 round-form d-flex align-items-center">
-          <Link href="/blog">
-            <a className="back-arrow d-flex me-4 blue-text">
-              <HiOutlineArrowLeft />
-            </a>
-          </Link>
+          <button
+            className="btn back-arrow d-flex me-3 blue-text px-0"
+            onClick={() => router.back()}
+          >
+            <HiOutlineArrowLeft />
+          </button>
           <Link href="/">
             <a className="mx-2">HOME</a>
           </Link>
@@ -167,7 +168,8 @@ export default function Brief(props) {
                   {reporterDescription}
                 </p>
                 <p className="reporter-date pt-4">
-                  <span className="text-uppercase me-2">{reporterDate}</span>·<span className="ms-2">{time}</span> min read
+                  <span className="text-uppercase me-2">{reporterDate}</span>·
+                  <span className="ms-2">{time}</span> min read
                 </p>
               </div>
               <div className="share-panel">

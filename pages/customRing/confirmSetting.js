@@ -6,6 +6,7 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
+import { useRouter } from "next/router";
 import {
   RiHeartLine,
   RiHeartFill,
@@ -49,6 +50,7 @@ export default function ConformSetting() {
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [mainImage, setMainImage] = useState(products[0]);
   const [color, setColor] = useState("white");
+  const router = useRouter();
 
   const showProduct = (product) => {
     setMainImage(product);
@@ -69,11 +71,12 @@ export default function ConformSetting() {
       {/* Start state section */}
       <div className="state-section">
         <div className="link-panel  r-container py-3 d-flex align-items-center">
-          <Link href="/blog">
-            <a className="back-arrow d-flex me-4 blue-text">
-              <HiOutlineArrowLeft />
-            </a>
-          </Link>
+          <button
+            className="btn back-arrow d-flex me-3 blue-text px-0"
+            onClick={() => router.back()}
+          >
+            <HiOutlineArrowLeft />
+          </button>
           <Link href="/">
             <a className="mx-2">HOME</a>
           </Link>

@@ -26,7 +26,7 @@ export default class Range extends React.Component {
   }
 
   formatLabel(value) {
-    return `$${this.calcPos(value)}`;
+    return String(this.props.unit) + String(this.calcPos(value));
   }
   
   render() {
