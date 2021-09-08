@@ -18,7 +18,7 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-export default function mRange({ marks, step }) {
+export default function MRange({ marks, step }) {
   const classes = useStyles();
   const [value, setValue] = useState([0, 100]);
 

@@ -231,7 +231,7 @@ export default function ConformDiamond() {
               <div className="btn-panel">
                 {carats.map((item, index) => {
                   return (
-                    <button className="btn py-4 px-5 me-3">
+                    <button className="btn py-4 px-5 me-3" key={index}>
                       <p className="m-0 pb-2">{item.carat}</p>
                       <span>{item.time.toFixed(2) + "*"}</span>
                     </button>
