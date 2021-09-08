@@ -243,6 +243,9 @@
             }
           }
         }
+        .jss6 {
+          transform: rotate(0deg) !important;
+        }
         .PrivateValueLabel-open-4,
         .jss4,
         .jss3 {
@@ -287,6 +290,7 @@
               span {
                 font-size: 1.6rem;
                 color: black;
+                transform: rotate(0deg);
               }
             }
           }
