@@ -95,7 +95,7 @@ const productList = [
 ];
 
 const colorMarks = [
-  { value: 0, label: "M" },
+  { value: 0, label: "" },
   {
     value: 10,
     label: "M",
@@ -139,7 +139,7 @@ const colorMarks = [
 ];
 
 const clarityMarks = [
-  { value: 0, label: "L1" },
+  { value: 0, label: "" },
   {
     value: 11.111,
     label: "L1",
@@ -180,7 +180,7 @@ const clarityMarks = [
 const cutMarks = [
   {
     value: 0,
-    label: "FAIR",
+    label: "",
   },
   {
     value: 25,
@@ -252,7 +252,7 @@ export default function ChooseDiamond() {
             <div className="pe-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
-                  <RiCheckLine/>
+                  <RiCheckLine />
                 </div>
                 <div className="title text-uppercase">
                   <p className="mb-1">Choose a</p>
