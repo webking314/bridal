@@ -268,6 +268,7 @@
               display: flex;
               align-items: center;
               border-radius: 5px;
+              transform: rotate(0deg);
               justify-content: center;
               background-color: currentColor;
               &::after {
@@ -283,6 +284,7 @@
                 border-top: 5px solid #e5d7bf;
               }
               span {
+                font-size: 1.6rem;
                 color: black;
               }
             }
@@ -334,6 +336,22 @@
               }
               span {
                 // background-color: #01215c;
+                color: white;
+              }
+            }
+          }
+        }
+        .PrivateValueLabel-open-4,
+        .jss4 {
+          .PrivateValueLabel-offset-5,
+          .jss5 {
+            .PrivateValueLabel-circle-6,
+            .jss6 {
+              &::after {
+                border-top-color: #01215c;
+              }
+              span {
+                font-size: 1.6rem;
                 color: white;
               }
             }
