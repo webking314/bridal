@@ -6,23 +6,17 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
+import NeedHelp from "../../components/needHelp";
 import { useRouter } from "next/router";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import {
-  RiHeartLine,
   RiHeartFill,
   RiShareLine,
   RiErrorWarningLine,
-  RiCheckboxBlankCircleFill,
   RiChat1Line,
   RiCustomerService2Fill,
-  RiPhoneLine,
-  RiChatSmile2Line,
-  RiStore2Line,
-  RiUser3Line,
-  RiMailLine,
   RiSubtractFill,
   RiAddFill,
 } from "react-icons/ri";
@@ -337,13 +331,13 @@ export default function Product() {
         <div className="top-panel d-flex justify-content-between">
           <h3 className="title py-5 blue-text">Happy Customers</h3>
           <div className="btn-bottom-panel d-flex align-items-center">
-          <button ref={navigationPrevRef} className="btn px-0 me-5">
-            <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
-          </button>
-          <button ref={navigationNextRef} className="btn px-0">
-            <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
-          </button>
-        </div>
+            <button ref={navigationPrevRef} className="btn px-0 me-5">
+              <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
+            </button>
+            <button ref={navigationNextRef} className="btn px-0">
+              <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
+            </button>
+          </div>
         </div>
         <Swiper
           navigation={{
@@ -417,44 +411,7 @@ export default function Product() {
       {/* End customer section */}
 
       {/* Start help section */}
-      <div className="help-section r-container">
-        <div className="pink-circle" />
-        <div className="blue-circle" />
-        <div className="row m-0">
-          <div className="col-md-4 col-12 title-panel p-0 pe-md-5 pb-md-0 pb-5">
-            <h2>Need help completing your order?</h2>
-            <p>Please contact our diamond specialists:</p>
-          </div>
-          <div className="col-md-4 col-12 p-0 ps-md-3 help-items">
-            <div className="px-5 py-4 blue-text mb-4 text-uppercase">
-              <RiPhoneLine className="me-4" />
-              +31 (0) 203055 555
-            </div>
-            <div className="px-5 py-4 blue-text mb-4 text-uppercase">
-              <RiChatSmile2Line className="me-4" />
-              Live chat
-            </div>
-            <div className="px-5 py-4 blue-text mb-4 text-uppercase">
-              <RiStore2Line className="me-4" />
-              Find a showroom
-            </div>
-          </div>
-          <div className="col-md-4 col-12 p-0 ps-md-3 help-items">
-            <div className="px-5 py-4 blue-text mb-4 text-uppercase">
-              <RiStore2Line className="me-4" />
-              Online Consultation
-            </div>
-            <div className="px-5 py-4 blue-text mb-4 text-uppercase">
-              <RiUser3Line className="me-4" />
-              book an appointment
-            </div>
-            <div className="px-5 py-4 blue-text mb-4 text-uppercase">
-              <RiMailLine className="me-4" />
-              Send as a email
-            </div>
-          </div>
-        </div>
-      </div>
+      <NeedHelp />
       {/* End help section */}
       {/* Start Schedule section */}
       <Schedule />

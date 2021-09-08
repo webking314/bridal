@@ -2,29 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import Header from "../../components/header";
-import Footer from "../../components/footer";
-import Schedule from "../../components/schedule";
-import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import { useRouter } from "next/router";
 import MRange from "../../components/mRange";
 import Range from "../../components/range";
 
 import {
-  RiHeartLine,
-  RiHeartFill,
-  RiShareLine,
   RiErrorWarningLine,
-  RiCheckboxBlankCircleFill,
-  RiChat1Line,
-  RiCustomerService2Fill,
-  RiPhoneLine,
-  RiChatSmile2Line,
-  RiStore2Line,
-  RiUser3Line,
-  RiMailLine,
   RiFunctionLine,
   RiMenuLine,
+  RiCheckLine,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
@@ -108,7 +95,7 @@ const productList = [
 ];
 
 const colorMarks = [
-  { value: 0, label: null },
+  { value: 0, label: "M" },
   {
     value: 10,
     label: "M",
@@ -152,7 +139,7 @@ const colorMarks = [
 ];
 
 const clarityMarks = [
-  { value: 0, label: null },
+  { value: 0, label: "L1" },
   {
     value: 11.111,
     label: "L1",
@@ -193,7 +180,7 @@ const clarityMarks = [
 const cutMarks = [
   {
     value: 0,
-    label: null,
+    label: "FAIR",
   },
   {
     value: 25,
@@ -265,7 +252,7 @@ export default function ChooseDiamond() {
             <div className="pe-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
-                  1
+                  <RiCheckLine/>
                 </div>
                 <div className="title text-uppercase">
                   <p className="mb-1">Choose a</p>
@@ -426,7 +413,7 @@ export default function ChooseDiamond() {
         <div className="main-panel row py-5 m-0">
           {products.map((item, index) => {
             return (
-              <Link href="#" key={index}>
+              <Link href="/customRing/confirmDiamond" key={index}>
                 <a className="product-item col-lg-3 col-md-4 col-sm-6 col-12 pe-4 p-0 mb-5">
                   <div className="product-image round">
                     <img

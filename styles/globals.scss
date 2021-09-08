@@ -138,6 +138,12 @@ a {
   }
 }
 
+.btn {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
 .blue-text {
   color: #01215c;
 }

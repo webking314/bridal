@@ -12,7 +12,9 @@ import "../styles/ring.scss";
 import "../styles/chooseSetting.scss";
 import "../styles/confirmSetting.scss";
 import "../styles/chooseDiamond.scss";
+import "../styles/confirmDiamond.scss";
 import "../styles/product.scss";
+import "../styles/needHelp.scss";
 import "../styles/style.css";
 import "../styles/range.scss";
 

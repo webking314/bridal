@@ -11,9 +11,9 @@ import { useRouter } from "next/router";
 import {
   RiHeartFill,
   RiShareLine,
-  RiErrorWarningLine,
   RiChat1Line,
   RiCustomerService2Fill,
+  RiCheckLine,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
@@ -21,8 +21,8 @@ const options = [
   { name: "ALL", value: "ALL" },
   { name: "POPULAR", value: "POPULAR" },
 ];
-
-const products = ["product-1.png", "product(1).png", "product(2).png"];
+const categories = ["H-Color", "SI1 Clarity", "Excellent Cut"];
+const products = ["product-1.png", "product-1.png"];
 const karat = [
   { title: "14K SILVER", color: "white" },
   { title: "18K SILVER", color: "white" },
@@ -39,12 +39,33 @@ const sizeList = [
   { size: 9 },
 ];
 
-export default function ConformSetting() {
+const carats = [
+  { carat: 0.47, time: 0.3 },
+  { carat: 0.67, time: 0.5 },
+  { carat: 0.87, time: 0.7 },
+  { carat: 1.17, time: 1 },
+];
+
+const informations = [
+  { name: "Shape", value: "ROUND" },
+  { name: "sYMMETRY", value: "vERY gOOD" },
+  { name: "CARAT", value: "1.00" },
+  { name: "fLUORESCENCE", value: "nONE" },
+  { name: "COLOR", value: "H" },
+  { name: "l/w( (MM)", value: "6.31X6.36" },
+  { name: "CLARITY", value: "SI1" },
+  { name: "l/w rATIO", value: "1.01" },
+  { name: "CUT", value: "EXCELLENT" },
+  { name: "cERTIFICATE", value: "igi" },
+  { name: "POLISH", value: "EXCELLET" },
+];
+
+export default function ConformDiamond() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
+  const [favorItem, setFavorItem] = useState();
   const [mainImage, setMainImage] = useState(products[0]);
   const [color, setColor] = useState("white");
-  const [favorItem, setFavorItem] = useState();
   const router = useRouter();
 
   const showProduct = (product) => {
@@ -58,7 +79,7 @@ export default function ConformSetting() {
   }, []);
 
   return (
-    <div className="confirmSetting_page">
+    <div className="confirmDiamond_page">
       <Head>
         <title>chooseSetting | Royal Coster</title>
       </Head>
@@ -93,7 +114,7 @@ export default function ConformSetting() {
             <div className="pe-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
-                  1
+                  <RiCheckLine />
                 </div>
                 <div className="title text-uppercase">
                   <p className="mb-1">Choose a</p>
@@ -101,13 +122,15 @@ export default function ConformSetting() {
                 </div>
               </div>
               <img
-                src="/img/customRing/chooseSetting/choose.png"
+                src="/img/customRing/chooseDiamond/ring.png"
                 width="52"
                 height="52"
                 alt="state-image"
+                style={{ background: "white" }}
+                className="round-form"
               />
             </div>
-            <div className="px-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center">
+            <div className="px-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   2
@@ -118,7 +141,7 @@ export default function ConformSetting() {
                 </div>
               </div>
               <img
-                src="/img/customRing/chooseSetting/diamond.png"
+                src="/img/customRing/chooseDiamond/diamond.png"
                 width="52"
                 height="52"
                 alt="state-image"
@@ -135,7 +158,7 @@ export default function ConformSetting() {
                 </div>
               </div>
               <img
-                src="/img/customRing/chooseSetting/complete.png"
+                src="/img/customRing/chooseDiamond/complete.png"
                 width="52"
                 height="52"
                 alt="state-image"
@@ -158,7 +181,7 @@ export default function ConformSetting() {
                     onClick={() => showProduct(item)}
                   >
                     <img
-                      src={"/img/customRing/confirmSetting/" + item}
+                      src={"/img/customRing/confirmDiamond/" + item}
                       alt="product-image"
                     />
                   </button>
@@ -168,7 +191,7 @@ export default function ConformSetting() {
             <div className="main-product col-10 p-0">
               <div className="image-panel round mb-4">
                 <img
-                  src={"/img/customRing/confirmSetting/" + mainImage}
+                  src={"/img/customRing/confirmDiamond/" + mainImage}
                   alt="main-image"
                 />
               </div>
@@ -186,66 +209,38 @@ export default function ConformSetting() {
         </div>
         <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-5">
           <div className="title-panel">
-            <h3 className="title pb-4 m-0">Solitaire</h3>
+            <h3 className="title pb-4 m-0">Round Shape</h3>
             <h3 className="description text-capitalize pb-4 m-0">
-              18K White Gold 2mm Knife Edge Solitaire Engagement Ring
+              1.00 Carat Round Diamond
             </h3>
             <p className="product-id pb-4 m-0">SKU 1219W14</p>
+            <div className="product-categories pb-4">
+              {categories.map((item, index) => {
+                if (index == 0) return <span key={index}>{item} </span>;
+                else return <span key={index}> | {item}</span>;
+              })}
+            </div>
             <h3 className="cost pb-5 m-0">€ 645.00</h3>
           </div>
           <div className="confirm-panel">
-            <div className="selector-panel row m-0 py-4">
-              <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
-                <label
-                  htmlFor="selectKarat"
-                  className="d-flex align-items-center pb-4 text-uppercase"
-                >
-                  Metal : white Gold 18k
-                  <RiErrorWarningLine className="ms-2" />
-                </label>
-                <div className="select-box">
-                  <div className={"state-circle " + color}></div>
-                  <select
-                    className="form-select blue-text ps-5 round-form py-3"
-                    aria-label="Default select example"
-                    onChange={(e) => {
-                      setColor(karat[e.target.value].color);
-                    }}
-                  >
-                    {karat.map((item, index) => {
-                      return (
-                        <option value={index} key={index}>
-                          {item.title}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
+            <div className="carat-panel row m-0 py-4">
+              <div className="top-bar d-flex justify-content-between align-items-center pb-4">
+                <h3 className="text-uppercase">Total Carat Weight</h3>
+                <button className="btn text-uppercase">change</button>
               </div>
-              <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-md-3 ps-0">
-                <label
-                  htmlFor="selectKarat"
-                  className="d-flex align-items-center pb-4 text-uppercase"
-                >
-                  Size
-                  <RiErrorWarningLine className="ms-2" />
-                </label>
-                <select
-                  className="form-select blue-text ps-4 round-form py-3"
-                  aria-label="Default select example"
-                >
-                  {sizeList.map((item, index) => {
-                    return (
-                      <option value={index} key={index}>
-                        {item.size}
-                      </option>
-                    );
-                  })}
-                </select>
+              <div className="btn-panel">
+                {carats.map((item, index) => {
+                  return (
+                    <button className="btn py-4 px-5 me-3">
+                      <p className="m-0 pb-2">{item.carat}</p>
+                      <span>{item.time.toFixed(2) + "*"}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
             <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
-            <button
+              <button
                 className={
                   "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
                   favorItem
@@ -297,96 +292,95 @@ export default function ConformSetting() {
         </div>
       </div>
       {/* End confirm section */}
-
       {/* Start detail section */}
       <div className="detail-section r-container pb-5 mb-5">
-        <h2 className="title-panel text-capitalize blue-text py-5">
-          Setting Details
-        </h2>
-        <div className="detail-panel row m-0 py-5">
-          <div className="col-md-4 col-12 image-panel round p-0 pe-md-5 mb-5">
-            <img
-              src="/img/customRing/confirmSetting/detail_img.png"
-              alt="detail-image"
-            />
-          </div>
-          <div className="description-panel col-md-8 col-12 p-0 mb-5 ps-md-5">
-            <h3 className="title text-uppercase blue-text m-0">SKU 1219W14</h3>
-            <p className="py-4">
-              This beautiful tapered engagement ring design is channel-set with
-              eight round shaped diamonds. A setting designed to draw the eye to
-              the center diamond or gemstone of your choice. Pair it with the
-              matching wedding band for a contoured look.
-            </p>
-            <nav className="info-panel">
-              <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                <button
-                  className="nav-link active text-uppercase px-0 me-5"
-                  id="nav-home-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#nav-home"
-                  type="button"
-                  role="tab"
-                  aria-controls="nav-home"
-                  aria-selected="true"
-                >
-                  Information
-                </button>
-                <button
-                  className="nav-link text-uppercase px-0"
-                  id="nav-profile-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#nav-profile"
-                  type="button"
-                  role="tab"
-                  aria-controls="nav-profile"
-                  aria-selected="false"
-                >
-                  Can be set with Diamonds
-                </button>
-              </div>
-            </nav>
-            <div className="tab-content" id="nav-tabContent">
-              <div
-                className="tab-pane fade show active"
-                id="nav-home"
-                role="tabpanel"
-                aria-labelledby="nav-home-tab"
+        <h3 className="pb-5 blue-text title">Diamond Details</h3>
+        <div className="py-5 text-panel">
+          <h3 className="blue-text">SKU 10872957</h3>
+          <p className="m-0 pb-5">
+            This beautiful tapered engagement ring design is channel-set with
+            eight round shaped diamonds. A setting designed to draw the eye to
+            the center diamond or gemstone of your choice. Pair it with the
+            matching wedding band for a contoured look.
+          </p>
+          <nav className="info-panel">
+            <div className="nav nav-tabs" id="nav-tab" role="tablist">
+              <button
+                className="nav-link active text-uppercase px-0 me-5"
+                id="nav-information-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-information"
+                type="button"
+                role="tab"
+                aria-controls="nav-information"
+                aria-selected="true"
               >
-                <h3 className="title py-5 text-uppercase m-0">
-                  Ring information
-                </h3>
-                <div className="informations">
-                  <div className="d-flex align-items-center px-4 py-3 justify-content-between info-title-panel">
-                    <p className="text-uppercase m-0">metal</p>
-                    <p className="text-uppercase m-0">14K White Gold</p>
-                  </div>
-                  <div className="width-panel d-flex px-4 py-3 align-items-center justify-content-between">
-                    <p className="text-uppercase m-0">width</p>
-                    <p className="m-0">2mm</p>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="tab-pane fade"
-                id="nav-profile"
-                role="tabpanel"
-                aria-labelledby="nav-profile-tab"
+                Information
+              </button>
+              <button
+                className="nav-link text-uppercase px-0"
+                id="nav-setDiamond-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-setDiamond"
+                type="button"
+                role="tab"
+                aria-controls="nav-setDiamond"
+                aria-selected="false"
               >
-                <h3 className="title py-5 text-uppercase m-0">
-                  Can be set with Diamonds
-                </h3>
-                <div className="informations">
-                  <div className="d-flex align-items-center px-4 py-3 justify-content-between info-title-panel">
-                    <p className="text-uppercase m-0">metal</p>
-                    <p className="text-uppercase m-0">14K White Gold</p>
-                  </div>
-                  <div className="width-panel d-flex px-4 py-3 align-items-center justify-content-between">
-                    <p className="text-uppercase m-0">width</p>
-                    <p className="m-0">2mm</p>
-                  </div>
-                </div>
+                Can be set with
+              </button>
+            </div>
+          </nav>
+          <div className="tab-content" id="nav-tabContent">
+            <div
+              className="tab-pane fade show active"
+              id="nav-information"
+              role="tabpanel"
+              aria-labelledby="nav-information-tab"
+            >
+              <h3 className="title-panel py-5 text-uppercase m-0">
+                Diamond information
+              </h3>
+              <div className="informations row m-0">
+                {informations.map((item, index) => {
+                  return (
+                    <div
+                      className={
+                        index % 2 == 1
+                          ? "col-md-6 col-12 p-0 ps-md-3"
+                          : "col-md-6 col-12 p-0 pe-md-3 pe-0"
+                      }
+                      key={index}
+                    >
+                      <div
+                        className={
+                          (Math.floor(index / 2) % 2 == 0) & (index % 2 == 0)
+                            ? "d-flex align-items-center px-4 py-3 justify-content-between info-title-panel grey-mode md-grey-mode"
+                            : (Math.floor(index / 2) % 2 == 0) &
+                              (index % 2 == 1)
+                            ? "d-flex align-items-center px-4 py-3 justify-content-between info-title-panel grey-mode"
+                            : index % 2 == 0
+                            ? "d-flex align-items-center px-4 py-3 justify-content-between info-title-panel md-grey-mode"
+                            : "d-flex align-items-center px-4 py-3 justify-content-between info-title-panel"
+                        }
+                      >
+                        <p className="text-uppercase information-name m-0">
+                          {item.name}
+                        </p>
+                        <p className="text-uppercase m-0">{item.value}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
+            </div>
+            <div
+              className="tab-pane fade"
+              id="nav-setDiamond"
+              role="tabpanel"
+              aria-labelledby="nav-setDiamond-tab"
+            >
+              <h3 className="title py-5 text-uppercase m-0">Can be set with</h3>
             </div>
           </div>
         </div>
