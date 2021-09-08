@@ -108,10 +108,6 @@ export default function Product() {
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /
-          <Link href="#">
-            <a className="mx-2">MAKE A RING</a>
-          </Link>
-          /
           <span className="title ms-2 text-uppercase blue-text">
             CHOOSE A SETTING
           </span>
