@@ -23,7 +23,7 @@ export default function MRange({ marks, step }) {
 
   function valueLabelFormat(value) {
     let item = marks.find((item) => item.value === value);
-    if (value == 0) return marks[0].label;
+    if (value == 0) return marks[1].label;
     if (item) return item.label;
   }
 
