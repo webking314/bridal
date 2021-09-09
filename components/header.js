@@ -319,15 +319,11 @@ export default function Header({ page }) {
               <RiHeartLine />
             </button>
 
-            <button
-              className="btn me-4 d-flex align-items-center"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#myCartBox"
-              aria-controls="myCartBox"
-            >
-              <RiShoppingCartLine />
-            </button>
+            <Link href="/myCart">
+              <a className="cart-link d-flex me-4">
+                <RiShoppingCartLine className="font-icon" />
+              </a>
+            </Link>
             <button className="btn right-menu btn-consultation text-uppercase px-5 py-4">
               Schedule consultation
             </button>
@@ -439,15 +435,11 @@ export default function Header({ page }) {
               >
                 <RiSearchLine className="font-icon" />
               </button>
-              <button
-                className="btn me-4"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#myCartBox"
-                aria-controls="myCartBox"
-              >
-                <RiShoppingCartLine className="font-icon" />
-              </button>
+              <Link href="/myCart">
+                <a className="btn me-4">
+                  <RiShoppingCartLine className="font-icon" />
+                </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -598,15 +590,11 @@ export default function Header({ page }) {
               <RiHeartLine />
             </button>
 
-            <button
-              className="btn me-2 d-flex align-items-center"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#myCartBox"
-              aria-controls="myCartBox"
-            >
-              <RiShoppingCartLine />
-            </button>
+            <Link href="/myCart">
+              <a className="btn d-flex me-4">
+                <RiShoppingCartLine className="font-icon" />
+              </a>
+            </Link>
             <button
               className="d-flex pe-0 hamburger-btn btn align-items-center"
               type="button"
