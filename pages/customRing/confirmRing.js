@@ -20,6 +20,7 @@ import {
   RiSubtractFill,
   RiAddFill,
   RiCheckLine,
+  RiArrowRightLine
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
@@ -66,11 +67,11 @@ const customerSlider = [
 ];
 
 const caratList = [
-  {carat: 0.47, time: 0.3},
-  {carat: 0.67, time: 0.5},
-  {carat: 0.87, time: 0.7},
-  {carat: 1.17, time: 1},
-]
+  { carat: 0.47, time: 0.3 },
+  { carat: 0.67, time: 0.5 },
+  { carat: 0.87, time: 0.7 },
+  { carat: 1.17, time: 1 },
+];
 export default function ConfirmRing() {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
@@ -280,7 +281,10 @@ export default function ConfirmRing() {
                 </div>
               </div>
               <div className="carat-confirm p-0 col-md-6 col-12">
-                <label htmlFor="caratSelect" className="d-flex align-items-center text-uppercase pb-4">
+                <label
+                  htmlFor="caratSelect"
+                  className="d-flex align-items-center text-uppercase pb-4"
+                >
                   Total Carat Weight
                   <RiErrorWarningLine className="ms-2" />
                 </label>
@@ -312,7 +316,7 @@ export default function ConfirmRing() {
                     <RiErrorWarningLine className="ms-2" />
                   </h3>
                   <button
-                    className="btn text-uppercase btn-find-size"
+                    className="btn text-uppercase btn-find-size py-1"
                     onClick={() => setSize(0)}
                   >
                     find my size
@@ -343,22 +347,11 @@ export default function ConfirmRing() {
                   Free Inscription
                   <RiErrorWarningLine className="ms-2" />
                 </label>
-                <select
-                  className="form-select blue-text ps-4 round-form py-3 text-uppercase"
-                  aria-label="Default select example"
-                >
-                  {inscriptions.map((item, index) => {
-                    return (
-                      <option
-                        className="text-uppercase"
-                        value={index}
-                        key={index}
-                      >
-                        {item.title}
-                      </option>
-                    );
-                  })}
-                </select>
+
+                <button className="btn btn-add-engraving  d-flex justify-content-between align-items-center text-uppercase round-form p-3">
+                  add engraving
+                  <RiArrowRightLine />
+                </button>
               </div>
             </div>
             <div className="cost-panel d-flex justify-content-between align-items-center py-4">

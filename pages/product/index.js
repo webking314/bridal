@@ -19,6 +19,7 @@ import {
   RiCustomerService2Fill,
   RiSubtractFill,
   RiAddFill,
+  RiArrowRightLine,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
@@ -196,7 +197,7 @@ export default function Product() {
                     <RiErrorWarningLine className="ms-2" />
                   </h3>
                   <button
-                    className="btn text-uppercase btn-find-size"
+                    className="btn text-uppercase btn-find-size py-1"
                     onClick={() => setSize(0)}
                   >
                     find my size
@@ -227,22 +228,10 @@ export default function Product() {
                   Free Inscription
                   <RiErrorWarningLine className="ms-2" />
                 </label>
-                <select
-                  className="form-select blue-text ps-4 round-form py-3 text-uppercase"
-                  aria-label="Default select example"
-                >
-                  {inscriptions.map((item, index) => {
-                    return (
-                      <option
-                        className="text-uppercase"
-                        value={index}
-                        key={index}
-                      >
-                        {item.title}
-                      </option>
-                    );
-                  })}
-                </select>
+                <button className="btn btn-add-engraving  d-flex justify-content-between align-items-center text-uppercase round-form p-3">
+                  add engraving
+                  <RiArrowRightLine />
+                </button>
               </div>
             </div>
             <div className="cost-panel d-flex justify-content-between align-items-center py-4">
