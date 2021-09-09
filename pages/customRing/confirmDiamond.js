@@ -252,7 +252,7 @@ export default function ConformDiamond() {
                 <RiHeartFill />
               </button>
               <div className="setting-btn-panel text-end">
-                <Link href="/customRing/chooseDiamond">
+                <Link href="/customRing/confirmRing">
                   <a className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4">
                     select this setting
                   </a>

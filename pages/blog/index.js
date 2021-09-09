@@ -23,19 +23,19 @@ export default function Blog() {
   const [result, setResult] = useState(76);
   const [selectValue, setSelectValue] = useState("");
 
-  useEffect(() => {
-    // Get categories
-    fetch(categoryURL + "?orderby=id&exclude=1&per_page=100&hide_empty=true", {
-      method: "get",
-      headers,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data);
-        setLoading(false);
-        console.log(123);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // Get categories
+  //   fetch(categoryURL + "?orderby=id&exclude=1&per_page=100&hide_empty=true", {
+  //     method: "get",
+  //     headers,
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setCategories(data);
+  //       setLoading(false);
+  //       console.log(123);
+  //     });
+  // }, []);
   const selectCategory = (item) => {
     console.log(item);
   };
@@ -108,8 +108,8 @@ export default function Blog() {
       title: "How to take care of your watch",
     },
   ];
-  if (loading) return <Loading />;
-  else
+  // if (loading) return <Loading />;
+  // else
     return (
       <div className="blog_page">
         <Head>
