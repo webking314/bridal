@@ -290,6 +290,11 @@
             font-size: 1.4rem;
             border: 1px solid rgba(2, 24, 37, 0.1);
             border-radius: 6px;
+            &:hover {
+              background: #01215c;
+              color: white;
+              border-color: #01215c;
+            }
           }
         }
       }

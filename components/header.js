@@ -1,5 +1,6 @@
 import React, { Component, useEffect } from "react";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import ReactFlagsSelect from "react-flags-select";
 import Link from "next/link";
 import {
@@ -17,10 +18,172 @@ import {
   RiMailLine,
   RiPhoneFill,
 } from "react-icons/ri";
+import { flushSync } from "react-dom";
+import { querySelectorAll } from "dom-helpers";
+let submenus = [
+  {
+    title: "ENGAGEMENT",
+    url: "/ring",
+    imagePanel: {
+      image: "mega_img-1.png",
+      title: "Ring Shopping Guide",
+      url: "#",
+    },
+    megaMenu: [
+      {
+        title: "Create a Ring",
+        menu: [
+          {
+            name: "Start with Setting",
+            img: "mega_logo (1).png",
+            url: "/customRing/chooseSetting",
+          },
+          {
+            name: "Start with a Diamond",
+            img: "mega_logo (2).png",
+            url: "/customRing/chooseDiamond",
+          },
+          {
+            name: "Ring Recommender",
+            img: "mega_logo (3).png",
+            url: "/customRing/confirmRing",
+          },
+          {
+            name: "Design your own Engagement Ring",
+            img: "mega_logo (4).png",
+            url: "#",
+          },
+        ],
+      },
+      {
+        title: "Shop by Style",
+        menu: [
+          { name: "Halo", img: "mega_logo (5).png", url: "#" },
+          { name: "Solitaire", img: "mega_logo (6).png", url: "#" },
+          { name: "Slidestone", img: "mega_logo (7).png", url: "#" },
+          { name: "Threestone", img: "mega_logo (8).png", url: "#" },
+          { name: "Vintage", img: "mega_logo (9).png", url: "#" },
+        ],
+      },
+      {
+        title: "Shop Popular Shapes",
+        menu: [
+          { name: "Round", img: "mega_logo (10).png", url: "#" },
+          { name: "Cushion", img: "mega_logo (11).png", url: "#" },
+          { name: "Princess", img: "mega_logo (12).png", url: "#" },
+          { name: "Oval", img: "mega_logo (13).png", url: "#" },
+          { name: "Emerald", img: "mega_logo (14).png", url: "#" },
+        ],
+      },
+      {
+        title: "Quick Links",
+        menu: [
+          { name: "1 Carat Engagement Rings", url: "#" },
+          { name: "1.5 Carat Engagement Rings", url: "#" },
+          { name: "2 Carat Engagement Rings", url: "#" },
+          { name: "3 Carat Engagement Rings", url: "#" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "JEWELRY",
+    url: "/jewelry",
+    imagePanel: {
+      image: "mega_img-2.png",
+      title: "Jewelry Shopping Guide",
+      url: "#",
+    },
+    megaMenu: [
+      {
+        title: "Rings",
+        menu: [
+          { name: "Diamond rings", url: "#" },
+          { name: "Anniversary rings", url: "#" },
+          { name: "Engagement rings", url: "#" },
+          { name: "Gemstone rings", url: "#" },
+        ],
+      },
+      {
+        title: "Earrings",
+        menu: [
+          { name: "Diamond studs", url: "#" },
+          { name: "Diamond earrings", url: "#" },
+          { name: "Gemstone earrings", url: "#" },
+        ],
+      },
+      {
+        title: "Bracelets",
+        menu: [
+          { name: "Tennis bracelets", url: "#" },
+          { name: "Diamond bracelets", url: "#" },
+        ],
+      },
+      {
+        title: "Necklaces",
+        menu: [
+          { name: "Diamond pendants", url: "#" },
+          { name: "Diamond necklace", url: "#" },
+          { name: "Gemstone necklaces", url: "#" },
+        ],
+      },
+      {
+        title: "Gifts",
+        menu: [
+          { name: "Birth gifts", url: "#" },
+          { name: "Gifts under euro 500", url: "#" },
+          { name: "Gifts under euro 1000", url: "#" },
+        ],
+      },
+    ],
+  },
+  { title: "COLLECTIONS", url: "#" },
+  { title: "BESPOKE", url: "#" },
+  { title: "WATCHES", url: "#" },
+  {
+    title: "EDUCATION",
+    url: "#",
+    imagePanel: { image: "mega_img-3.png", title: "Timeline", url: "#" },
+    megaMenu: [
+      {
+        title: "The diamond Experts",
+        menu: [
+          { name: "about the C4's", url: "#" },
+          { name: "about colored diamonds & gemstone", url: "#" },
+          { name: "about the price diamonds", url: "#" },
+          { name: "about the sustainability", url: "#" },
+          { name: "about watches", url: "#" },
+        ],
+      },
+      {
+        title: "The history of Royal Coster",
+        menu: [
+          { name: "Our Royal customers through time", url: "#" },
+          { name: "A timeline of brilliance", url: "#" },
+          { name: "Amsterdam City of Diamonds", url: "#" },
+          { name: "The kog I Noor & other legendary diamonds", url: "#" },
+        ],
+      },
+      {
+        title: "Guides",
+        menu: [
+          { name: "Ring size guide", url: "#" },
+          { name: "Diamond buying guide", url: "#" },
+          { name: "Engagement ring buying guide", url: "#" },
+          { name: "Royal Coster Wartches Guide", url: "#" },
+        ],
+      },
+    ],
+  },
+  { title: "TOURS & WORKSHOPS", url: "#" },
+  { title: "BLOG", url: "/blog" },
+];
 
 export default function Header({ page }) {
   const [selected, setSelected] = useState("LU");
   const [wishListCounter, setWishListCounter] = useState("1");
+  const router = useRouter();
+
   useEffect(() => {
     const mobileTopbarHeight =
       document.querySelector(".mobile__top-bar").clientHeight;
@@ -57,157 +220,34 @@ export default function Header({ page }) {
       }, 1000);
     }
   }, []);
-  let submenus = [
-    {
-      title: "ENGAGEMENT",
-      url: "/ring",
-      imagePanel: {
-        image: "mega_img-1.png",
-        title: "Ring Shopping Guide",
-        url: "#",
-      },
-      megaMenu: [
-        {
-          title: "Create a Ring",
-          menu: [
-            { name: "Start with Setting", img: "mega_logo (1).png", url: "#" },
-            {
-              name: "Start with a Diamond",
-              img: "mega_logo (2).png",
-              url: "#",
-            },
-            { name: "Ring Recommender", img: "mega_logo (3).png", url: "#" },
-            {
-              name: "Design your own Engagement Ring",
-              img: "mega_logo (4).png",
-              url: "/customRing/chooseSetting",
-            },
-          ],
-        },
-        {
-          title: "Shop by Style",
-          menu: [
-            { name: "Halo", img: "mega_logo (5).png", url: "#" },
-            { name: "Solitaire", img: "mega_logo (6).png", url: "#" },
-            { name: "Slidestone", img: "mega_logo (7).png", url: "#" },
-            { name: "Threestone", img: "mega_logo (8).png", url: "#" },
-            { name: "Vintage", img: "mega_logo (9).png", url: "#" },
-          ],
-        },
-        {
-          title: "Shop Popular Shapes",
-          menu: [
-            { name: "Round", img: "mega_logo (10).png", url: "#" },
-            { name: "Cushion", img: "mega_logo (11).png", url: "#" },
-            { name: "Princess", img: "mega_logo (12).png", url: "#" },
-            { name: "Oval", img: "mega_logo (13).png", url: "#" },
-            { name: "Emerald", img: "mega_logo (14).png", url: "#" },
-          ],
-        },
-        {
-          title: "Quick Links",
-          menu: [
-            { name: "1 Carat Engagement Rings", url: "#" },
-            { name: "1.5 Carat Engagement Rings", url: "#" },
-            { name: "2 Carat Engagement Rings", url: "#" },
-            { name: "3 Carat Engagement Rings", url: "#" },
-          ],
-        },
-      ],
-    },
-    {
-      title: "JEWELRY",
-      url: "/jewelry",
-      imagePanel: {
-        image: "mega_img-2.png",
-        title: "Jewelry Shopping Guide",
-        url: "#",
-      },
-      megaMenu: [
-        {
-          title: "Rings",
-          menu: [
-            { name: "Diamond rings", url: "#" },
-            { name: "Anniversary rings", url: "#" },
-            { name: "Engagement rings", url: "#" },
-            { name: "Gemstone rings", url: "#" },
-          ],
-        },
-        {
-          title: "Earrings",
-          menu: [
-            { name: "Diamond studs", url: "#" },
-            { name: "Diamond earrings", url: "#" },
-            { name: "Gemstone earrings", url: "#" },
-          ],
-        },
-        {
-          title: "Bracelets",
-          menu: [
-            { name: "Tennis bracelets", url: "#" },
-            { name: "Diamond bracelets", url: "#" },
-          ],
-        },
-        {
-          title: "Necklaces",
-          menu: [
-            { name: "Diamond pendants", url: "#" },
-            { name: "Diamond necklace", url: "#" },
-            { name: "Gemstone necklaces", url: "#" },
-          ],
-        },
-        {
-          title: "Gifts",
-          menu: [
-            { name: "Birth gifts", url: "#" },
-            { name: "Gifts under euro 500", url: "#" },
-            { name: "Gifts under euro 1000", url: "#" },
-          ],
-        },
-      ],
-    },
-    { title: "COLLECTIONS", url: "#" },
-    { title: "BESPOKE", url: "#" },
-    { title: "WATCHES", url: "#" },
-    {
-      title: "EDUCATION",
-      url: "#",
-      imagePanel: { image: "mega_img-3.png", title: "Timeline", url: "#" },
-      megaMenu: [
-        {
-          title: "The diamond Experts",
-          menu: [
-            { name: "about the C4's", url: "#" },
-            { name: "about colored diamonds & gemstone", url: "#" },
-            { name: "about the price diamonds", url: "#" },
-            { name: "about the sustainability", url: "#" },
-            { name: "about watches", url: "#" },
-          ],
-        },
-        {
-          title: "The history of Royal Coster",
-          menu: [
-            { name: "Our Royal customers through time", url: "#" },
-            { name: "A timeline of brilliance", url: "#" },
-            { name: "Amsterdam City of Diamonds", url: "#" },
-            { name: "The kog I Noor & other legendary diamonds", url: "#" },
-          ],
-        },
-        {
-          title: "Guides",
-          menu: [
-            { name: "Ring size guide", url: "#" },
-            { name: "Diamond buying guide", url: "#" },
-            { name: "Engagement ring buying guide", url: "#" },
-            { name: "Royal Coster Wartches Guide", url: "#" },
-          ],
-        },
-      ],
-    },
-    { title: "TOURS & WORKSHOPS", url: "#" },
-    { title: "BLOG", url: "/blog" },
-  ];
-
+  useEffect(() => {
+    let tagetStr =
+      router.pathname.indexOf("/", 1) == -1
+        ? router.pathname
+        : router.pathname.slice(0, router.pathname.indexOf("/", 1));
+    let allSubItems = document.querySelectorAll(".sub-item");
+    let tags = submenus.find((post, index) => {
+      if (post.url.includes(tagetStr)) return true;
+      else {
+        if (post.megaMenu) {
+          if (
+            post.megaMenu.find((sublink, id) => {
+              if (sublink.menu.find((url, key) => url.url.includes(tagetStr))) {
+                return true;
+              }
+            })
+          )
+            return true;
+          else false;
+        } else return false;
+      }
+    });
+    allSubItems.forEach((element) => {
+      if (String(element.innerText) == String(tags.title).toUpperCase()) {
+        element.classList.add("active");
+      }
+    });
+  }, []);
   return (
     <div id="header" className={!page ? "" : "homepage"}>
       <div className="desktop-header d-lg-block d-none">
@@ -244,7 +284,11 @@ export default function Header({ page }) {
                                   {menu.menu.map((item, id) => {
                                     return (
                                       <Link href={item.url} key={id}>
-                                        <a>
+                                        <a
+                                          onClick={(event) =>
+                                            handleLink(event, index)
+                                          }
+                                        >
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
                                               <img
@@ -471,7 +515,11 @@ export default function Header({ page }) {
                                   {menu.menu.map((item, id) => {
                                     return (
                                       <Link href={item.url} key={id}>
-                                        <a>
+                                        <a
+                                          onClick={(event) =>
+                                            handleLink(event, index)
+                                          }
+                                        >
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
                                               <img

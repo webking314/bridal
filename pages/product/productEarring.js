@@ -19,12 +19,18 @@ import {
   RiCustomerService2Fill,
   RiSubtractFill,
   RiAddFill,
+  RiErrorWarningLine,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
 SwiperCore.use([Autoplay, Navigation]);
 
-const products = ["product_earring-1.png", "product_earring-2.png", "product_earring-3.png", "product_earring-4.png"];
+const products = [
+  "product_earring-1.png",
+  "product_earring-2.png",
+  "product_earring-3.png",
+  "product_earring-4.png",
+];
 const customerSlider = [
   {
     name: "Ayesha",
@@ -109,6 +115,12 @@ const productItems = [
     cost: "$2500",
     url: "/customRing/confirmSetting",
   },
+];
+const meterials = [
+  { meterial: "material-1.png" },
+  { meterial: "material-2.png" },
+  { meterial: "material-3.png" },
+  { meterial: "material-4.png" },
 ];
 export default function ProductEarring() {
   const navigationPrevRef = React.useRef(null);
@@ -212,6 +224,30 @@ export default function ProductEarring() {
             </p>
           </div>
           <div className="confirm-panel">
+            <div className="material-setting-panel py-4">
+              <label
+                htmlFor="selectKarat"
+                className="d-flex align-items-center pb-4 text-uppercase"
+              >
+                Metal : white Gold 18k
+                <RiErrorWarningLine className="ms-2" />
+              </label>
+              <div className="material-box d-flex">
+                {meterials.map((item, index) => {
+                  return (
+                    <button
+                      className="btn btn-material d-flex align-items-center justify-content-center p-2 me-3"
+                      key={index}
+                    >
+                      <img
+                        src={"/img/product/" + item.meterial}
+                        alt="metarial-image"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             <div className="cost-panel d-flex justify-content-between align-items-center py-5">
               <div className="price-panel">
                 <h4 className="text-uppercase">total</h4>

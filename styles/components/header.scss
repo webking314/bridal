@@ -196,6 +196,14 @@ $flagSelectColor: white;
           border-top: 2px solid transparent;
           background: transparent;
         }
+        &.active {
+          hr {
+            width: 30px;
+            border-top: 2px solid #01215c;
+            transition-duration: 0.7s;
+            opacity: 1;
+          }
+        }
         &:hover {
           * {
             color: black;
@@ -373,7 +381,8 @@ $flagSelectColor: white;
           }
         }
       }
-      button, .cart-link {
+      button,
+      .cart-link {
         * {
           font-size: 2rem;
           color: #01215c;

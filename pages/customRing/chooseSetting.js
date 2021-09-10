@@ -152,6 +152,9 @@ const karats = [
   { karat: "18k", title: "18K Yellow", key: "yellow" },
   { karat: "PT", title: "PLATINIUM", key: "platinium" },
   { karat: "RG", title: "ROSE GOLD", key: "rose-gold" },
+  { karat: "18k", title: "18K White", key: "white" },
+  { karat: "14k", title: "14K Yellow", key: "yellow" },
+  { karat: "18k", title: "18K Yellow", key: "yellow" },
 ];
 
 export default function ChooseSetting() {
@@ -308,7 +311,7 @@ export default function ChooseSetting() {
           })}
         </div>
         <div className="setting-karat row m-0">
-          <div className="karat-panel col-lg-7 col-12 pe-5">
+          <div className="karat-panel col-lg-8 col-12 pe-5">
             <h3 className="title text-uppercase pb-3">material</h3>
             <div className="d-flex karat-list flex-wrap py-4 justify-content-between m-0">
               {karats.map((item, index) => {
@@ -327,7 +330,7 @@ export default function ChooseSetting() {
               })}
             </div>
           </div>
-          <div className="cost-panel col-lg-5 col-12 px-5">
+          <div className="cost-panel col-lg-4 col-12 px-5">
             <h3 className="title text-uppercase blue-text m-0 pb-4">Cost</h3>
             <div className="range-panel d-flex align-items-center mt-4">
               <div className="range-min-pointer range-pointer" />
