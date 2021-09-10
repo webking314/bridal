@@ -243,8 +243,13 @@ export default function Header({ page }) {
       }
     });
     allSubItems.forEach((element) => {
-      if (String(element.innerText) == String(tags.title).toUpperCase()) {
-        element.classList.add("active");
+      if (tags) {
+        if (
+          String(element.innerText).indexOf(String(tags.title).toUpperCase()) ==
+          0
+        ) {
+          element.classList.add("active");
+        }
       }
     });
   }, []);
