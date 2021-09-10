@@ -8,6 +8,8 @@ import "../styles/components/footer.scss";
 import "../styles/components/needHelp.scss";
 import "../styles/components/range.scss";
 import "../styles/components/selectSearch.css";
+import "../styles/components/productDetail.scss";
+import "../styles/components/customer.scss";
 
 import "../styles/pages/homepage.scss";
 import "../styles/pages/blog/blog.scss";
@@ -15,13 +17,12 @@ import "../styles/pages/blog/brief.scss";
 import "../styles/pages/jewelry.scss";
 import "../styles/pages/ring.scss";
 import "../styles/pages/myCart.scss";
-import "../styles/pages/product.scss";
+import "../styles/pages/product/index.scss";
 import "../styles/pages/customRing/chooseSetting.scss";
 import "../styles/pages/customRing/confirmSetting.scss";
 import "../styles/pages/customRing/chooseDiamond.scss";
 import "../styles/pages/customRing/confirmDiamond.scss";
 import "../styles/pages/customRing/confirmRing.scss";
-
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;

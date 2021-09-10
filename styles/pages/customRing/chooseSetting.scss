@@ -70,7 +70,7 @@
           font-size: 1.2rem;
           font-weight: 400;
         }
-        &:focus {
+        &.active {
           border: 1px solid #01215c;
           h3 {
             font-weight: 500;
@@ -114,7 +114,7 @@
               font-size: 1.4rem;
               color: rgba(1, 33, 92, 0.5);
             }
-            &:focus {
+            &.active {
               box-shadow: none;
               .karat {
                 border: 2px solid #01215c;

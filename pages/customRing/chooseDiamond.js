@@ -204,6 +204,7 @@ export default function ChooseDiamond() {
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [products, setProducts] = useState(productList);
   const [color, setColor] = useState("white");
+  const [selectShape, setSelectShape] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -216,6 +217,22 @@ export default function ChooseDiamond() {
     setProducts([...products, ...productList]);
   };
 
+  const shapeHandle = (event, index) => {
+    let target = event.target.closest(".btn-shape");
+    if (target.classList.contains("active")) {
+      let removeItem = selectShape.indexOf(shapes[index].name);
+      if (removeItem != 0) {
+        selectShape.splice(removeItem, 1);
+        setSelectShape([...selectShape]);
+      } else {
+        selectShape.splice(-1, 1);
+      }
+      target.classList.remove("active");
+    } else {
+      target.classList.add("active");
+      setSelectShape([...selectShape, shapes[index].name]);
+    }
+  };
   return (
     <div className="chooseDiamond_page">
       <Head>
@@ -318,7 +335,7 @@ export default function ChooseDiamond() {
           <div className="shapes-box py-4 d-flex align-items-center d-flex flex-wrap">
             {shapes.map((item, index) => {
               return (
-                <button className="btn btn-shape me-3 round mb-3" key={index}>
+                <button className="btn btn-shape me-3 round mb-3" key={index} onClick={(event) => shapeHandle(event, index)}>
                   <div className="image-box pb-3">
                     <img src={"/img/customRing/chooseDiamond/" + item.image} />
                   </div>

@@ -4,9 +4,9 @@ import Head from "next/head";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
-import Collection from "../../components/collection";
 import NeedHelp from "../../components/needHelp";
-import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
+import ProductDetail from "../../components/productDetail";
+import Customer from "../../components/customer";
 import { useRouter } from "next/router";
 import {
   RiHeartFill,
@@ -59,7 +59,28 @@ const informations = [
   { name: "cERTIFICATE", value: "igi" },
   { name: "POLISH", value: "EXCELLET" },
 ];
+const customerSlider = [
+  {
+    name: "Ayesha",
+    location: "Amsterdam, Netherlands",
+    coverImage: "customer_cover-2.png",
+    customerImage: "customer-1.png",
+    description:
+      "Finding jewelry that just finishes your outfit.. Isn't that a great feeling? 😍 At Royal Coster Diamonds we have an extensive collection of (diamond) jewelry. If you'd rather choose the diamond and setting yourself, that's also possible.",
+  },
+  {
+    name: "costerdiamondsofficial",
+    location: "Amsterdam, Netherlands",
+    coverImage: "customer_cover-2.png",
+    customerImage: "customer-2.png",
+    description:
+      "This 2 carat Royal 201 diamond ring is a must for everyone 😍 Tag the person who you think should have this ring!⁠",
+  },
+];
 
+const productID = "SKU 10872957";
+const productDescription =
+  "This beautiful tapered engagement ring design is channel-set with eight round shaped diamonds. A setting designed to draw the eye to the center diamond or gemstone of your choice. Pair it with the matching wedding band for a contoured look.";
 export default function ConformDiamond() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
@@ -81,9 +102,10 @@ export default function ConformDiamond() {
   return (
     <div className="confirmDiamond_page">
       <Head>
-        <title>chooseSetting | Royal Coster</title>
+        <title>ConfirmDiamond | Royal Coster</title>
       </Head>
       <Header />
+
       {/* Start state section */}
       <div className="state-section">
         <div className="link-panel  r-container py-3 d-flex align-items-center">
@@ -168,6 +190,7 @@ export default function ConformDiamond() {
         </div>
       </div>
       {/* End state section */}
+
       {/* Start confirm section */}
       <div className="confirm-section py-5 mb-5 row r-container">
         <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
@@ -252,9 +275,9 @@ export default function ConformDiamond() {
                 <RiHeartFill />
               </button>
               <div className="setting-btn-panel text-end">
-                <Link href="/customRing/confirmRing">
+                <Link href="/customRing/chooseDiamond">
                   <a className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4">
-                    select this setting
+                    select this diamond
                   </a>
                 </Link>
                 <p className="m-0">
@@ -292,106 +315,23 @@ export default function ConformDiamond() {
         </div>
       </div>
       {/* End confirm section */}
+
       {/* Start detail section */}
-      <div className="detail-section r-container pb-5 mb-5">
-        <h3 className="pb-5 blue-text title">Diamond Details</h3>
-        <div className="py-5 text-panel">
-          <h3 className="blue-text">SKU 10872957</h3>
-          <p className="m-0 pb-5">
-            This beautiful tapered engagement ring design is channel-set with
-            eight round shaped diamonds. A setting designed to draw the eye to
-            the center diamond or gemstone of your choice. Pair it with the
-            matching wedding band for a contoured look.
-          </p>
-          <nav className="info-panel">
-            <div className="nav nav-tabs" id="nav-tab" role="tablist">
-              <button
-                className="nav-link active text-uppercase px-0 me-5"
-                id="nav-information-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#nav-information"
-                type="button"
-                role="tab"
-                aria-controls="nav-information"
-                aria-selected="true"
-              >
-                Information
-              </button>
-              <button
-                className="nav-link text-uppercase px-0"
-                id="nav-setDiamond-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#nav-setDiamond"
-                type="button"
-                role="tab"
-                aria-controls="nav-setDiamond"
-                aria-selected="false"
-              >
-                Can be set with
-              </button>
-            </div>
-          </nav>
-          <div className="tab-content" id="nav-tabContent">
-            <div
-              className="tab-pane fade show active"
-              id="nav-information"
-              role="tabpanel"
-              aria-labelledby="nav-information-tab"
-            >
-              <h3 className="title-panel py-5 text-uppercase m-0">
-                Diamond information
-              </h3>
-              <div className="informations row m-0">
-                {informations.map((item, index) => {
-                  return (
-                    <div
-                      className={
-                        index % 2 == 1
-                          ? "col-md-6 col-12 p-0 ps-md-3"
-                          : "col-md-6 col-12 p-0 pe-md-3 pe-0"
-                      }
-                      key={index}
-                    >
-                      <div
-                        className={
-                          (Math.floor(index / 2) % 2 == 0) & (index % 2 == 0)
-                            ? "d-flex align-items-center px-4 py-3 justify-content-between info-title-panel grey-mode md-grey-mode"
-                            : (Math.floor(index / 2) % 2 == 0) &
-                              (index % 2 == 1)
-                            ? "d-flex align-items-center px-4 py-3 justify-content-between info-title-panel grey-mode"
-                            : index % 2 == 0
-                            ? "d-flex align-items-center px-4 py-3 justify-content-between info-title-panel md-grey-mode"
-                            : "d-flex align-items-center px-4 py-3 justify-content-between info-title-panel"
-                        }
-                      >
-                        <p className="text-uppercase information-name m-0">
-                          {item.name}
-                        </p>
-                        <p className="text-uppercase m-0">{item.value}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div
-              className="tab-pane fade"
-              id="nav-setDiamond"
-              role="tabpanel"
-              aria-labelledby="nav-setDiamond-tab"
-            >
-              <h3 className="title py-5 text-uppercase m-0">Can be set with</h3>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProductDetail informations={informations} productID={productID} productDescription={productDescription} />
       {/* End detail section */}
+
+      {/* Start customer section */}
+      <Customer customerSlider={customerSlider} />
+      {/* End customer section */}
+
       {/* Start help section */}
       <NeedHelp />
       {/* End help section */}
+
       {/* Start Schedule section */}
       <Schedule />
       {/* End Schedule section */}
+      
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}

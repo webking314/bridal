@@ -4,8 +4,8 @@ import Head from "next/head";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
-import Collection from "../../components/collection";
-import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
+import Customer from "../../components/customer";
+import ProductDetail from "../../components/productDetail";
 import NeedHelp from "../../components/needHelp";
 import { useRouter } from "next/router";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
@@ -26,12 +26,6 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 SwiperCore.use([Autoplay, Navigation]);
 
 const products = ["product-1.png", "product-2.png", "product-3.png"];
-const inscriptions = [
-  { title: "Add Engraving" },
-  { title: "Add Engraving" },
-  { title: "Add Engraving" },
-  { title: "Add Engraving" },
-];
 const sizeList = [
   { size: 5 },
   { size: 6 },
@@ -64,15 +58,29 @@ const customerSlider = [
       "This 2 carat Royal 201 diamond ring is a must for everyone 😍 Tag the person who you think should have this ring!⁠",
   },
 ];
-export default function Product() {
-  const navigationPrevRef = React.useRef(null);
-  const navigationNextRef = React.useRef(null);
-  const [result, setResult] = useState("878");
+
+const informations = [
+  { name: "Shape", value: "ROUND" },
+  { name: "sYMMETRY", value: "vERY gOOD" },
+  { name: "CARAT", value: "1.00" },
+  { name: "fLUORESCENCE", value: "nONE" },
+  { name: "COLOR", value: "H" },
+  { name: "l/w( (MM)", value: "6.31X6.36" },
+  { name: "CLARITY", value: "SI1" },
+  { name: "l/w rATIO", value: "1.01" },
+  { name: "CUT", value: "EXCELLENT" },
+  { name: "cERTIFICATE", value: "igi" },
+  { name: "POLISH", value: "EXCELLET" },
+];
+const productID = "SKU 10872957";
+const productDescription =
+  "This beautiful tapered engagement ring design is channel-set with eight round shaped diamonds. A setting designed to draw the eye to the center diamond or gemstone of your choice. Pair it with the matching wedding band for a contoured look.";
+
+export default function ProductRing() {
   const [size, setSize] = useState(0);
   const [favorItem, setFavorItem] = useState();
   const [itemAmount, setItemAmount] = useState(1);
   const [itemPrice, setItemPrice] = useState(645);
-  const [selectValue, setSelectValue] = useState("POPULAR");
   const [mainImage, setMainImage] = useState(products[0]);
   const router = useRouter();
 
@@ -87,11 +95,12 @@ export default function Product() {
   }, []);
 
   return (
-    <div className="product_page">
+    <div className="productRing_page" id="productPage">
       <Head>
-        <title>chooseSetting | Royal Coster</title>
+        <title>ProductRing | Royal Coster</title>
       </Head>
       <Header />
+
       {/* Start state section */}
       <div className="state-section">
         <div className="link-panel  r-container py-3 d-flex align-items-center">
@@ -115,6 +124,7 @@ export default function Product() {
         </div>
       </div>
       {/* End state section */}
+
       {/* Start confirm section */}
       <div className="confirm-section py-5 mb-5 row r-container">
         <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
@@ -311,93 +321,22 @@ export default function Product() {
       </div>
       {/* End confirm section */}
 
-      {/* Start customer section */}
-      <div className="customer-section r-container py-5">
-        <div className="top-panel d-flex justify-content-between">
-          <h3 className="title py-5 blue-text">Happy Customers</h3>
-          <div className="btn-bottom-panel d-flex align-items-center">
-            <button ref={navigationPrevRef} className="btn px-0 me-5">
-              <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
-            </button>
-            <button ref={navigationNextRef} className="btn px-0">
-              <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
-            </button>
-          </div>
-        </div>
-        <Swiper
-          navigation={{
-            prevEl: navigationPrevRef.current,
-            nextEl: navigationNextRef.current,
-          }}
-          slidesPerView={1.6}
-          spaceBetween={30}
-          loop={true}
-          className="mySwiper py-5"
-          breakpoints={{
-            1208: {
-              slidesPerView: 1.6,
-            },
-            1: {
-              slidesPerView: 1,
-            },
-          }}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          onSwiper={(swiper) => {
-            // Delay execution for the refs to be defined
-            setTimeout(() => {
-              // Override prevEl & nextEl now that refs are defined
-              swiper.params.navigation.prevEl = navigationPrevRef.current;
-              swiper.params.navigation.nextEl = navigationNextRef.current;
+      {/* Start product detail section */}
+      <ProductDetail
+        informations={informations}
+        productID={productID}
+        productDescription={productDescription}
+      />
+      {/* End product detail section */}
 
-              // Re-init navigation
-              swiper.navigation.destroy();
-              swiper.navigation.init();
-              swiper.navigation.update();
-            });
-          }}
-        >
-          {customerSlider.map((item, index) => {
-            return (
-              <SwiperSlide key={index}>
-                <div className="customer-slider-item row m-0">
-                  <div className="col-lg-5 col-md-3 col-sm-4 col-12 cover-image p-0">
-                    <img
-                      src={"/img/product/" + item.coverImage}
-                      alt="cover-image"
-                    />
-                  </div>
-                  <div className="col-lg-7 col-md-9 col-sm-8 col-12 text-panel p-0 p-5">
-                    <div className="customer-title d-flex">
-                      <div className="avatar">
-                        <img
-                          src={"/img/product/" + item.customerImage}
-                          alt="customer-avatar"
-                        />
-                      </div>
-                      <div className="customer-info">
-                        <h3 className="blue-text">{item.name}</h3>
-                        <h4>{item.location}</h4>
-                      </div>
-                    </div>
-                    <p className="description m-0 mt-5 text-capitalize">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </div>
+      {/* Start customer section */}
+      <Customer customerSlider={customerSlider} />
       {/* End customer section */}
 
       {/* Start help section */}
       <NeedHelp />
       {/* End help section */}
+
       {/* Start Schedule section */}
       <Schedule />
       {/* End Schedule section */}

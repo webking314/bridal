@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { filter } from "dom-helpers";
 const options = [
   { name: "ALL", value: "ALL" },
   { name: "POPULAR", value: "POPULAR" },
@@ -158,13 +159,51 @@ export default function ChooseSetting() {
   const [result, setResult] = useState("878");
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [value, setValue] = useState({ min: 5, max: 25 });
+  const [selectRingType, setSelectRingType] = useState([]);
+  const [selectKarat, setSelectKarat] = useState([]);
   const router = useRouter();
   const setFavor = (event) => {
     event.target.closest(".favor-icon").classList.toggle("favor");
   };
+
   const loadMore = () => {
     setProducts([...products, ...productItems]);
   };
+
+  const ringTypeHandle = (event, index) => {
+    let target = event.target.closest(".filter-item");
+    if (target.classList.contains("active")) {
+      let removeItem = selectRingType.indexOf(filterItems[index].text);
+      if (removeItem != 0) {
+        selectRingType.splice(removeItem, 1);
+        setSelectRingType([...selectRingType]);
+      } else {
+        selectRingType.splice(-1, 1);
+      }
+      target.classList.remove("active");
+    } else {
+      target.classList.add("active");
+      setSelectRingType([...selectRingType, filterItems[index].text]);
+    }
+  };
+
+  const karatItemHandle = (event, index) => {
+    let target = event.target.closest(".karat-item");
+    if (target.classList.contains("active")) {
+      let removeItem = selectKarat.indexOf(karats[index].title);
+      if (removeItem != 0) {
+        selectKarat.splice(removeItem, 1);
+        setSelectKarat([...selectKarat]);
+      } else {
+        selectKarat.splice(-1, 1);
+      }
+      target.classList.remove("active");
+    } else {
+      target.classList.add("active");
+      setSelectKarat([...selectKarat, karats[index].title]);
+    }
+  };
+
   return (
     <div className="chooseSetting_page">
       <Head>
@@ -252,7 +291,11 @@ export default function ChooseSetting() {
         <div className="ring-types d-flex justify-content-between align-items-center flex-wrap py-5">
           {filterItems.map((item, index) => {
             return (
-              <button className="btn filter-item round-form mt-3" key={index}>
+              <button
+                className="btn filter-item round-form mt-3"
+                key={index}
+                onClick={(event) => ringTypeHandle(event, index)}
+              >
                 <div className="image-panel text-center mb-3">
                   <img
                     src={"/img/customRing/chooseSetting/" + item.img}
@@ -265,12 +308,12 @@ export default function ChooseSetting() {
           })}
         </div>
         <div className="setting-karat row m-0">
-          <div className="karat-panel col-lg-6 col-12 pe-5">
-            <h3 className="title text-uppercase pb-3">karat</h3>
+          <div className="karat-panel col-lg-7 col-12 pe-5">
+            <h3 className="title text-uppercase pb-3">material</h3>
             <div className="d-flex karat-list flex-wrap py-4 justify-content-between m-0">
               {karats.map((item, index) => {
                 return (
-                  <button className="btn p-0 karat-item" key={index}>
+                  <button className="btn p-0 karat-item" key={index} onClick={(event) => karatItemHandle(event, index)}>
                     <div
                       className={
                         "round-form karat px-lg-4 px-5 py-2 " + item.key
@@ -284,13 +327,11 @@ export default function ChooseSetting() {
               })}
             </div>
           </div>
-          <div className="cost-panel col-lg-6 col-12 px-5">
-            <h3 className="title text-uppercase blue-text m-0 pb-4">
-              Cost
-            </h3>
+          <div className="cost-panel col-lg-5 col-12 px-5">
+            <h3 className="title text-uppercase blue-text m-0 pb-4">Cost</h3>
             <div className="range-panel d-flex align-items-center mt-4">
-              <div className="range-min-pointer range-pointer"/>
-              <div className="range-max-pointer range-pointer"/>
+              <div className="range-min-pointer range-pointer" />
+              <div className="range-max-pointer range-pointer" />
               <Range min={0} max={109000} unit={"$"} />
             </div>
           </div>
