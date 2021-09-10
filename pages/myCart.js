@@ -146,7 +146,7 @@ export default function MyCart() {
                       <div className="mb-sm-0 mb-5 amount-panel ps-lg-5 ps-0">
                         <div className="d-flex justify-content-sm-start justify-content-center align-items-center">
                           <button
-                            className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-4"
+                            className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-2"
                             onClick={() => {
                               if (item.amount > 1) {
                                 items[index].amount = item.amount - 1;
@@ -158,7 +158,7 @@ export default function MyCart() {
                           </button>
                           <span className="mx-4">{item.amount}</span>
                           <button
-                            className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-4"
+                            className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-2"
                             onClick={() => {
                               items[index].amount = item.amount + 1;
                               setItems([...items]);
