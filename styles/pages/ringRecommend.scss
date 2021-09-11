@@ -1,0 +1,34 @@
+.ringRecommend_page {
+  .hero-section {
+    margin-top: 4rem;
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 41.07%),
+      url(/img/ringRecommend/hero_bg.jpg);
+    background-size: cover;
+    .r-container {
+      padding-top: 40rem;
+      padding-bottom: 15rem;
+      @media (max-width: 991px) {
+        padding-top: 20rem;
+      }
+      .title {
+        font-size: 7.2rem;
+        font-weight: 400;
+        color: white;
+      }
+    }
+  }
+  .guide-section {
+    background: #f7f3ec;
+    .title {
+      font-size: 4.8rem;
+      font-weight: 400;
+      color: #01215c;
+    }
+    .guide-text {
+      font-size: 24px;
+      line-height: 150%;
+      font-weight: 400;
+      color: rgba(2, 24, 37, 0.8);
+    }
+  }
+}

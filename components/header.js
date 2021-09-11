@@ -46,7 +46,7 @@ let submenus = [
           {
             name: "Ring Recommender",
             img: "mega_logo (3).png",
-            url: "/customRing/confirmRing",
+            url: "/ringRecommend",
           },
           {
             name: "Design your own Engagement Ring",
@@ -138,7 +138,7 @@ let submenus = [
     ],
   },
   { title: "COLLECTIONS", url: "#" },
-  { title: "BESPOKE", url: "#" },
+  { title: "BESPOKE", url: "/bespoke" },
   { title: "WATCHES", url: "#" },
   {
     title: "EDUCATION",
@@ -289,11 +289,7 @@ export default function Header({ page }) {
                                   {menu.menu.map((item, id) => {
                                     return (
                                       <Link href={item.url} key={id}>
-                                        <a
-                                          onClick={(event) =>
-                                            handleLink(event, index)
-                                          }
-                                        >
+                                        <a>
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
                                               <img
@@ -466,7 +462,7 @@ export default function Header({ page }) {
                     src={
                       !page
                         ? "/img/common/logo_black.png"
-                        : "/img/common/logo_black.png"
+                        : "/img/common/logo_white.png"
                     }
                     className="logo-img"
                     alt="logo"
@@ -520,11 +516,7 @@ export default function Header({ page }) {
                                   {menu.menu.map((item, id) => {
                                     return (
                                       <Link href={item.url} key={id}>
-                                        <a
-                                          onClick={(event) =>
-                                            handleLink(event, index)
-                                          }
-                                        >
+                                        <a>
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
                                               <img
@@ -579,7 +571,11 @@ export default function Header({ page }) {
                   );
               })}
             </div>
-            <button className="btn right-menu btn-consultation text-uppercase px-5 py-4">
+            <button
+              className="btn right-menu btn-consultation text-uppercase px-5 py-4"
+              data-bs-toggle="modal"
+              data-bs-target="#appointment"
+            >
               Schedule consultation
             </button>
           </div>
@@ -848,6 +844,133 @@ export default function Header({ page }) {
           ></button>
         </div>
         <div className="offcanvas-body"></div>
+      </div>
+      <div
+        className="modal fade"
+        id="appointment"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div
+          className="modal-dialog modal-dialog-centered r-container"
+          id="appointmentModal"
+        >
+          <div className="modal-content px-5 py-4 round">
+            <div className="modal-header  py-3">
+              <h3 className="modal-title">Request an Appointment</h3>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <div class="d-flex align-items-start">
+                <div
+                  class="nav flex-column nav-pills me-3"
+                  id="v-pills-tab"
+                  role="tablist"
+                  aria-orientation="vertical"
+                >
+                  <button
+                    class="nav-link active mb-4 text-uppercase"
+                    id="location-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#location"
+                    type="button"
+                    role="tab"
+                    aria-controls="location"
+                    aria-selected="true"
+                  >
+                    Location
+                  </button>
+                  <button
+                    class="nav-link mb-4 text-uppercase"
+                    id="service-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#service"
+                    type="button"
+                    role="tab"
+                    aria-controls="service"
+                    aria-selected="false"
+                  >
+                    Service
+                  </button>
+                  <button
+                    class="nav-link mb-4 text-uppercase"
+                    id="timeDate-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#timeDate"
+                    type="button"
+                    role="tab"
+                    aria-controls="timeDate"
+                    aria-selected="false"
+                  >
+                    time & date
+                  </button>
+                  <button
+                    class="nav-link mb-4 text-uppercase"
+                    id="contactDetails-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#contactDetails"
+                    type="button"
+                    role="tab"
+                    aria-controls="contactDetails"
+                    aria-selected="false"
+                  >
+                    contact Details
+                  </button>
+                </div>
+                <div class="tab-content" id="v-pills-tabContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="location"
+                    role="tabpanel"
+                    aria-labelledby="location-tab"
+                  >
+                    <h3 className="title">Select Showroom</h3>
+                    <p className="description">
+                      Covid-19 Update: our showrooms are temporarily closed, but
+                      you now can book in advance for when we reopen. If you
+                      wish to speak to our experts urgently, we recommend you
+                      choose an online consultation.
+                    </p>
+                    <button>Offline appointments unavailable</button>
+                    <button className="d-flex justify-content-between align-items-center">
+                      <span>ONLINE CONSULTATION</span>
+                    </button>
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="service"
+                    role="tabpanel"
+                    aria-labelledby="service-tab"
+                  >
+                    service
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="timeDate"
+                    role="tabpanel"
+                    aria-labelledby="timeDate-tab"
+                  >
+                    time & date
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="contactDetails"
+                    role="tabpanel"
+                    aria-labelledby="contactDetails-tab"
+                  >
+                    contact details
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

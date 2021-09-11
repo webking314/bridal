@@ -10,6 +10,9 @@ import "../styles/components/range.scss";
 import "../styles/components/selectSearch.css";
 import "../styles/components/productDetail.scss";
 import "../styles/components/customer.scss";
+import "../styles/components/help.scss";
+import "../styles/components/instagram.scss";
+import "../styles/components/craftingIdea.scss";
 
 import "../styles/pages/homepage.scss";
 import "../styles/pages/blog/blog.scss";
@@ -17,6 +20,8 @@ import "../styles/pages/blog/brief.scss";
 import "../styles/pages/jewelry.scss";
 import "../styles/pages/ring.scss";
 import "../styles/pages/myCart.scss";
+import "../styles/pages/bespoke.scss";
+import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
 import "../styles/pages/customRing/chooseSetting.scss";
 import "../styles/pages/customRing/confirmSetting.scss";

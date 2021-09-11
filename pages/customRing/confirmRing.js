@@ -17,7 +17,7 @@ import {
   RiSubtractFill,
   RiAddFill,
   RiCheckLine,
-  RiArrowRightLine
+  RiArrowRightSLine
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
@@ -364,7 +364,7 @@ export default function ConfirmRing() {
 
                 <button className="btn btn-add-engraving  d-flex justify-content-between align-items-center text-uppercase round-form p-3">
                   add engraving
-                  <RiArrowRightLine />
+                  <RiArrowRightSLine />
                 </button>
               </div>
             </div>

@@ -1,0 +1,128 @@
+.bespoke_page {
+  .hero-section {
+    margin-top: 4rem;
+    background: linear-gradient(
+        47.22deg,
+        #01215c -1.89%,
+        rgba(1, 33, 92, 0) 39.58%
+      ),
+      url(/img/bespoke/hero_bg.jpg);
+    background-size: cover;
+    .r-container {
+      padding-top: 40rem;
+      padding-bottom: 15rem;
+      @media (max-width: 991px) {
+        padding-top: 20rem;
+      }
+      .title {
+        font-size: 7.2rem;
+        font-weight: 400;
+        color: white;
+        & > span {
+          font-family: FreeSerif;
+          font-weight: 400;
+          font-size: 7.6rem;
+          line-height: 91.2px;
+        }
+      }
+    }
+  }
+  .guide-section {
+    background: #f7f3ec;
+    .title {
+      font-size: 4.8rem;
+      font-weight: 400;
+      color: #01215c;
+    }
+    .guide-text {
+      font-size: 24px;
+      line-height: 150%;
+      font-weight: 400;
+      color: rgba(2, 24, 37, 0.8);
+    }
+  }
+  .journey-section {
+    .title {
+      font-size: 7.2rem;
+      font-weight: 400;
+      color: #01215c;
+      & > span {
+        font-family: FreeSerif;
+        font-weight: 400;
+        font-size: 7.6rem;
+        line-height: 91.2px;
+      }
+    }
+    .time-line {
+      margin-top: 120px;
+      .MuiTimelineSeparator-root {
+        margin-left: 50px;
+        margin-right: 50px;
+        .MuiTimelineConnector-root {
+          width: 5px;
+          background: rgba(1, 33, 92, 0.1);
+        }
+        .MuiTimelineDot-defaultGrey {
+          border: 5px solid #acbad6;
+          width: 30px;
+          height: 30px;
+          background: white;
+          box-shadow: none;
+          margin: 0;
+          &.line-dot-0 {
+            background: #01215c;
+            border: 0;
+          }
+        }
+      }
+      .text-panel {
+        margin-top: -70px;
+        .item-title {
+          font-size: 4.8rem;
+          font-weight: 400;
+          color: #01215c;
+        }
+        .item-step {
+          color: rgba(2, 24, 37, 0.5);
+          font-size: 1.6rem;
+          font-weight: 500;
+        }
+        .item-description {
+          font-size: 1.8rem;
+          color: rgba(2, 24, 37, 0.5);
+        }
+      }
+      .item-image {
+        margin-top: -70px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 140px;
+      }
+    }
+    .btn-panel {
+      button {
+        font-size: 1.6rem;
+        font-weight: 500;
+      }
+    }
+  }
+  .signature-section {
+    .title-panel {
+      background: #f7f3ec;
+      padding-bottom: 40rem !important;
+      h3 {
+        font-size: 4.8rem;
+        font-weight: 400;
+        color: #01215c;
+      }
+      p {
+        color: rgba(2, 24, 37, 0.8);
+        font-size: 2.4rem;
+        font-weight: 350;
+      }
+    }
+    .slider-panel {
+      margin-top: -35rem;
+    }
+  }
+}

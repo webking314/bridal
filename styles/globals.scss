@@ -5,6 +5,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-size: 10px;
+  padding-right: 0 !important;
 }
 
 a {
@@ -322,4 +323,13 @@ $repetition: infinite;
     bottom: 100%;
     top: 0;
   }
+}
+
+.modal {
+  background: rgba(0, 0, 0, .7);
+}
+
+.modal-backdrop {
+  z-index: 9 !important;
+  background: transparent;
 }
