@@ -14,6 +14,12 @@
         font-size: 7.2rem;
         font-weight: 400;
         color: white;
+        @media (max-width: 767px) {
+          font-size: 5rem;
+        }
+        @media (max-width: 380px) {
+          font-size: 3.5rem;
+        }
       }
     }
   }
@@ -29,6 +35,83 @@
       line-height: 150%;
       font-weight: 400;
       color: rgba(2, 24, 37, 0.8);
+    }
+  }
+  .pick-choice-section {
+    .title-panel {
+      border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+      h3 {
+        font-size: 3.6rem;
+        font-weight: 400;
+      }
+    }
+    .setting-panel {
+      label {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #021825;
+      }
+      select {
+        font-size: 1.8rem;
+        color: #01215c;
+        &:focus {
+          border: 1px solid #01215c;
+          box-shadow: none;
+        }
+      }
+      .btn-myRing {
+        font-size: 1.8rem;
+        font-weight: 400;
+        width: 100%;
+      }
+      .need-help-panel {
+        border: 1px solid rgba(2, 24, 37, 0.1);
+        .title-panel {
+          border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+          h3 {
+            font-size: 1.6rem;
+            font-weight: 400;
+          }
+          .link-panel {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #01215c;
+          }
+        }
+        .purchase-panel {
+          h3 {
+            font-size: 1.6rem;
+            font-weight: 400;
+          }
+          button {
+            background: #fad3da;
+            border-radius: 0.6rem;
+            font-weight: 400;
+            font-size: 1.4rem;
+            border: 1px solid transparent;
+            &:hover {
+              border-color: #01215c;
+              background: transparent;
+            }
+          }
+        }
+      }
+    }
+    .image-panel {
+      .image-cover {
+        position: relative;
+        img {
+          position: relative;
+          z-index: 2;
+          box-shadow: 30px 30px 0 rgba(250, 211, 218, 0.31);
+          height: 100%;
+          max-height: 690px;
+          object-fit: cover;
+          @media (max-width: 991px) {
+            width: 100%;
+          }
+        }
+      }
     }
   }
 }

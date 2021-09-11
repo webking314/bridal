@@ -9,13 +9,16 @@
   .title {
     font-size: 6.4rem;
     font-weight: 400;
-    @media (max-width: 425px) {
-      font-size: 5rem;
-    }
     span {
       font-family: FreeSerif;
       font-style: italic;
       font-size: 7rem;
+    }
+    @media (max-width: 425px) {
+      font-size: 4.2rem;
+      span {
+        font-size: 4.5rem;
+      }
     }
   }
   .description {

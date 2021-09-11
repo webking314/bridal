@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import Header from "../components/header";
-import Footer from "../components/footer";
-import Schedule from "../components/schedule";
-import NeedHelp from "../components/needHelp";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import Schedule from "../../components/schedule";
+import NeedHelp from "../../components/needHelp";
 import { useRouter } from "next/router";
 import {
   RiSubtractFill,
@@ -90,7 +90,7 @@ export default function MyCart() {
   return (
     <div className="myCart_page">
       <Head>
-        <title>chooseSetting | Royal Coster</title>
+        <title>My Cart | Royal Coster</title>
       </Head>
       <Header />
       {/* Start link section */}
@@ -224,7 +224,9 @@ export default function MyCart() {
               </div>
             </div>
             <div className="instruction-panel round px-5 py-5">
-              <h3 className="title m-0 pb-5 text-sm-start text-center">SPECIAL INSTRUCTIONS FOR US</h3>
+              <h3 className="title m-0 pb-5 text-sm-start text-center">
+                SPECIAL INSTRUCTIONS FOR US
+              </h3>
               <textarea
                 className="form-control round p-4"
                 placeholder="Write Here..."
@@ -253,9 +255,11 @@ export default function MyCart() {
                 <h3 className="m-0">To be paid:</h3>
                 <p className="m-0">€ {total}</p>
               </div>
-              <button className="btn blue-btn round p-4 text-uppercase">
-                Check OUT
-              </button>
+              <Link href="/myCart/checkout/information">
+                <a className="btn blue-btn round p-4 text-uppercase">
+                  Check OUT
+                </a>
+              </Link>
             </div>
           </div>
         </div>

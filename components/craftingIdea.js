@@ -3,7 +3,7 @@ export default function CraftingIdea() {
     <div className="crafting-idea-section">
       <div className="r-container">
         <div className="row mx-0 justify-content-end">
-          <div className="col-lg-6 col-md-8 col-sm-10 col-12 px-0">
+          <div className="col-lg-6 col-md-8 col-sm-10 col-12 text-sm-start text-center px-0">
             <h2 className="title text-capitalize blue-text m-0 mb-5">
               Crafting <span>Ideas</span> into Existence
             </h2>
@@ -17,8 +17,8 @@ export default function CraftingIdea() {
               our award-winning team of designers and expert craftsmen are
               committed to creating the perfect jewel to suit your moment.
             </p>
-            <div className="btn-panel mt-5">
-              <button className="btn blue-btn px-5 py-3 text-uppercase round-form me-4">
+            <div className="btn-panel mt-5 d-sm-block d-flex flex-column align-items-center">
+              <button className="btn blue-btn px-5 py-3 text-uppercase round-form me-sm-4 me-0 mb-sm-0 mb-4">
                 Send an enquiry
               </button>
               <button className="btn pink-btn px-5 py-3 text-uppercase round-form">
