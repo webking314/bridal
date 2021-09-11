@@ -867,15 +867,15 @@ export default function Header({ page }) {
               ></button>
             </div>
             <div className="modal-body">
-              <div class="d-flex align-items-start">
+              <div className="d-flex align-items-start">
                 <div
-                  class="nav flex-column nav-pills me-3"
+                  className="nav flex-column nav-pills me-3"
                   id="v-pills-tab"
                   role="tablist"
                   aria-orientation="vertical"
                 >
                   <button
-                    class="nav-link active mb-4 text-uppercase"
+                    className="nav-link active mb-4 text-uppercase"
                     id="location-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#location"
@@ -887,7 +887,7 @@ export default function Header({ page }) {
                     Location
                   </button>
                   <button
-                    class="nav-link mb-4 text-uppercase"
+                    className="nav-link mb-4 text-uppercase"
                     id="service-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#service"
@@ -899,7 +899,7 @@ export default function Header({ page }) {
                     Service
                   </button>
                   <button
-                    class="nav-link mb-4 text-uppercase"
+                    className="nav-link mb-4 text-uppercase"
                     id="timeDate-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#timeDate"
@@ -911,7 +911,7 @@ export default function Header({ page }) {
                     time & date
                   </button>
                   <button
-                    class="nav-link mb-4 text-uppercase"
+                    className="nav-link mb-4 text-uppercase"
                     id="contactDetails-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#contactDetails"
@@ -923,9 +923,9 @@ export default function Header({ page }) {
                     contact Details
                   </button>
                 </div>
-                <div class="tab-content" id="v-pills-tabContent">
+                <div className="tab-content" id="v-pills-tabContent">
                   <div
-                    class="tab-pane fade show active"
+                    className="tab-pane fade show active"
                     id="location"
                     role="tabpanel"
                     aria-labelledby="location-tab"
@@ -943,7 +943,7 @@ export default function Header({ page }) {
                     </button>
                   </div>
                   <div
-                    class="tab-pane fade"
+                    className="tab-pane fade"
                     id="service"
                     role="tabpanel"
                     aria-labelledby="service-tab"
@@ -951,7 +951,7 @@ export default function Header({ page }) {
                     service
                   </div>
                   <div
-                    class="tab-pane fade"
+                    className="tab-pane fade"
                     id="timeDate"
                     role="tabpanel"
                     aria-labelledby="timeDate-tab"
@@ -959,7 +959,7 @@ export default function Header({ page }) {
                     time & date
                   </div>
                   <div
-                    class="tab-pane fade"
+                    className="tab-pane fade"
                     id="contactDetails"
                     role="tabpanel"
                     aria-labelledby="contactDetails-tab"

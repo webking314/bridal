@@ -84,7 +84,7 @@ export default function RingRecommend() {
                 My Price point is...
               </label>
               <select
-                class="form-select price-point round-form px-4 py-3 text-capitalize"
+                className="form-select price-point round-form px-4 py-3 text-capitalize"
                 id="pricePoint"
                 aria-label="Default select example"
                 placeholder="Price Point"
@@ -107,7 +107,7 @@ export default function RingRecommend() {
                 My Diamonds is...
               </label>
               <select
-                class="form-select diamond-shape round-form px-4 py-3 text-capitalize"
+                className="form-select diamond-shape round-form px-4 py-3 text-capitalize"
                 id="diamondShape"
                 aria-label="Default select example"
                 placeholder="Pick a diamond shape"
@@ -130,7 +130,7 @@ export default function RingRecommend() {
                 My Looking for is...
               </label>
               <select
-                class="form-select looking-for round-form px-4 py-3 text-capitalize"
+                className="form-select looking-for round-form px-4 py-3 text-capitalize"
                 id="lookingFor"
                 aria-label="Default select example"
                 placeholder="Looking for..."
@@ -153,7 +153,7 @@ export default function RingRecommend() {
                 My Setting is... *Optional
               </label>
               <select
-                class="form-select price-point round-form px-4 py-3 text-capitalize"
+                className="form-select price-point round-form px-4 py-3 text-capitalize"
                 id="ringStyle"
                 aria-label="Default select example"
                 placeholder="Pick a ring Style"
