@@ -2,8 +2,8 @@ $titleSize: 7.2rem;
 
 .instagram {
   padding-top: 15rem;
-  @media (max-width: 425px) {
-    padding-top: 10rem;
+  @media (max-width: 767px) {
+    padding-top: 7rem;
   }
   .text-panel {
     h1 {

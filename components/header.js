@@ -2,6 +2,7 @@ import React, { Component, useEffect } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ReactFlagsSelect from "react-flags-select";
+import DropHintModal from "./dropHintModal";
 import Link from "next/link";
 import {
   RiCustomerService2Fill,
@@ -972,6 +973,10 @@ export default function Header({ page }) {
           </div>
         </div>
       </div>
+
+      {/* Start drop hint modal */}
+      <DropHintModal />
+      {/* End drop hint modal */}
     </div>
   );
 }

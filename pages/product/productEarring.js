@@ -10,6 +10,7 @@ import NeedHelp from "../../components/needHelp";
 import { useRouter } from "next/router";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import DropHintModal from "../../components/dropHintModal";
 import "swiper/css";
 import {
   RiHeartLine,
@@ -205,7 +206,11 @@ export default function ProductEarring() {
                   <RiShareLine className="me-2" />
                   share
                 </button>
-                <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                <button
+                  className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                  data-bs-toggle="modal"
+                  data-bs-target="#dropHint"
+                >
                   drop a hint
                 </button>
               </div>

@@ -24,91 +24,184 @@
     }
   }
   .main-panel {
-    .my-cart-list {
-      background: #f6f6f6;
-      border: 1px solid rgba(2, 24, 37, 0.1);
-      .item-detail {
-        .item-info {
-          .cart-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-          }
-          .text-panel {
+    .form-panel {
+      form {
+        border: 0;
+        .contact-panel {
+          .title-panel {
+            border-bottom: 1px solid rgba(2, 24, 37, 0.1);
             .title {
-              font-size: 1.6rem;
+              font-size: 2.4rem;
+              font-weight: 400;
+              color: #01215c;
+            }
+            a {
+              font-size: 1.8rem;
               font-weight: 400;
             }
-            p {
-              font-size: 1.4rem;
-              color: rgba(2, 24, 37, 0.7);
+          }
+          .email-form {
+            font-size: 1.6rem;
+            font-weight: 400;
+            &:focus {
+              box-shadow: none;
+              border: 1px solid #01215c;
+            }
+          }
+          .form-check {
+            font-size: 1.6rem;
+            font-weight: 350;
+            input {
+              &:focus {
+                box-shadow: none;
+              }
+              &:checked {
+                background-color: #01215c;
+                border: #01215c;
+              }
             }
           }
         }
-        .item-price {
-          span {
-            font-family: FreeSerif;
-            font-style: italic;
-            font-size: 1.8rem;
+        .delivery-panel {
+          .invalid-feedback {
+            display: block;
+            font-size: 1.6rem;
+          }
+          input,
+          select {
+            font-size: 1.6rem;
             font-weight: 400;
+            &:focus {
+              box-shadow: none;
+              border: 1px solid #01215c;
+            }
+          }
+          .title-panel {
+            border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+            h3 {
+              font-weight: 400;
+              font-size: 2.4rem;
+            }
           }
         }
       }
     }
-    .discount-panel {
-      border-top: 1px solid rgba(2, 24, 37, 0.1);
-      border-bottom: 1px solid rgba(2, 24, 37, 0.1);
-      .discount-code {
-        font-size: 1.6rem;
-        font-weight: 400;
+    .btn-panel {
+      .btn {
+        font-size: 1.8rem;
+        font-weight: 500;
       }
-      .btn-discount {
-        background: rgba(2, 24, 37, 0.1);
+      .back-btn {
+        border: 1px solid rgba(2, 24, 37, 0.1);
         color: rgba(2, 24, 37, 0.5);
-        font-size: 1.6rem;
         &:hover {
           background: rgba(2, 24, 37, 0.5);
           color: white;
         }
       }
     }
-    .sub-price {
-      border-bottom: 1px solid rgba(2, 24, 37, 0.1);
-      .sub-total {
-        * {
-          font-size: 1.8rem;
+    .round-panel {
+      border: 1px solid rgba(2, 24, 37, 0.1);
+      h3 {
+        color: rgba(1, 33, 92, 0.5);
+        font-weight: 400;
+        font-size: 1.6rem;
+      }
+      p {
+        color: #021825;
+        font-size: 1.6rem;
+        font-weight: 400;
+        flex: 1;
+      }
+      a {
+        color: #3086c8;
+        font-size: 1.6rem;
+        font-weight: 400;
+      }
+    }
+    .shipping-panel {
+      .title-panel {
+        border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+        h3 {
+          font-size: 2.4rem;
           font-weight: 400;
+          color: #01215c;
         }
       }
-      .shipping-price {
-        color: rgba(2, 24, 37, 0.5);
-        .title {
-          font-size: 1.8rem;
+
+      .standard-shipping-panel {
+        border: 1px solid rgba(2, 24, 37, 0.1);
+        input {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          border: 2px solid rgba(1, 33, 92, 0.2);
+          &:checked {
+            background-color: #01215c;
+            box-shadow: none;
+          }
+          &:focus {
+            box-shadow: none;
+          }
+        }
+        h3 {
+          font-size: 1.6rem;
           font-weight: 400;
         }
-        .content {
-          font-size: 1.4rem;
+        a {
+          font-size: 1.6rem;
           font-weight: 400;
         }
       }
     }
-    .final-price {
-      .total-price {
-        * {
-          font-size: 1.8rem;
-          font-weight: 500;
+    .payment-method,
+    .billing-address-panel,
+    .remember-panel {
+      .title-panel {
+        border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+        h3 {
+          font-size: 2.4rem;
+          font-weight: 400;
+          color: #01215c;
+        }
+        p {
+          font-size: 1.4rem;
+          font-weight: 400;
         }
       }
-      .result-panel {
+      .payment-panel {
         border: 1px solid rgba(2, 24, 37, 0.1);
-        border-radius: 1.2rem;
-        .title {
-          font-size: 1.8rem;
-          font-weight: 500;
+        img {
+          width: 35px;
+          height: 20px;
         }
-        .content {
-          font-family: FreeSerif;
-          font-size: 2.4rem;
+        .form-check {
+          &:not(.form-check:last-child) {
+            border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+          }
+          .form-check-input {
+            width: 20px;
+            height: 20px;
+            &:checked {
+              background-image: url(/img/common/customRadio.png);
+              background-color: white;
+              border: 2px solid #3086c8;
+            }
+            &:focus {
+              box-shadow: none;
+            }
+          }
+          h3 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            &.payment-label {
+              color: rgba(2, 24, 37, 0.5);
+              font-size: 1.8rem;
+            }
+            &.remember-label {
+              color: #01215c;
+            }
+          }
         }
       }
     }

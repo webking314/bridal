@@ -51,14 +51,14 @@ export default function RingRecommend() {
       {/* End Hero section */}
 
       {/* Start guide section */}
-      <div className="guide-section py-5">
+      <div className="guide-section py-md-5">
         <div className="row r-container py-5">
           <div className="col-lg-3 col-md-4 col-12 p-0 pe-md-5 pe-5 py-5">
             <h3 className="title text-capitalize text-md-start text-center">
               We’ll find for you
             </h3>
           </div>
-          <div className="col-lg-9 col-md-8 col-12 p-0 ps-md-5 ps-0 py-5">
+          <div className="col-lg-9 col-md-8 col-12 p-0 ps-md-5 ps-0 pt-md-5 pb-5">
             <p className="guide-text text-md-start text-center">
               We’ll find the perfect diamond and setting within your budget.
               Just answer a few simple questions and we’ll put together a
@@ -71,13 +71,13 @@ export default function RingRecommend() {
       {/* End guide section */}
 
       {/* Start pick choice section */}
-      <div className="pick-choice-section r-container py-5">
-        <div className="title-panel my-5 pt-5">
+      <div className="pick-choice-section r-container py-md-5">
+        <div className="title-panel my-5 pt-md-5">
           <h3 className="title blue-text text-capitalize py-4 m-0">
             Pick your choice
           </h3>
         </div>
-        <div className="row pick-panel m-0 pt-5">
+        <div className="row pick-panel m-0 pt-md-5">
           <div className="setting-panel col-lg-6 col-12 order-lg-first order-last p-0">
             <div className="price-point-panel mb-5">
               <label htmlFor="pricePoint" className="text-uppercase pb-3">

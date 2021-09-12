@@ -50,7 +50,7 @@ const customerSlider = [
     customerImage: "customer-1.png",
     description:
       "Finding jewelry that just finishes your outfit.. Isn't that a great feeling? 😍 At Royal Coster Diamonds we have an extensive collection of (diamond) jewelry. If you'd rather choose the diamond and setting yourself, that's also possible.",
-  }
+  },
 ];
 
 const informations = [
@@ -147,7 +147,11 @@ export default function ProductWatch() {
                   <RiShareLine className="me-2" />
                   share
                 </button>
-                <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                <button
+                  className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                  data-bs-toggle="modal"
+                  data-bs-target="#dropHint"
+                >
                   drop a hint
                 </button>
               </div>

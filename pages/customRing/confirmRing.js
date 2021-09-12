@@ -17,10 +17,9 @@ import {
   RiSubtractFill,
   RiAddFill,
   RiCheckLine,
-  RiArrowRightSLine
+  RiArrowRightSLine,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-
 
 const products = ["product-1.png", "product-2.png", "product-3.png"];
 const inscriptions = [
@@ -228,7 +227,11 @@ export default function ConfirmRing() {
                   <RiShareLine className="me-2" />
                   share
                 </button>
-                <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                <button
+                  className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                  data-bs-toggle="modal"
+                  data-bs-target="#dropHint"
+                >
                   drop a hint
                 </button>
               </div>
@@ -446,9 +449,13 @@ export default function ConfirmRing() {
       {/* End confirm section */}
 
       {/* Start product detail section */}
-      <ProductDetail informations={informations} productID={productID} productDescription={productDescription} />
+      <ProductDetail
+        informations={informations}
+        productID={productID}
+        productDescription={productDescription}
+      />
       {/* End product detail section */}
-  
+
       {/* Start customer section */}
       <Customer customerSlider={customerSlider} />
       {/* End customer section */}

@@ -58,6 +58,9 @@ a {
   @media (max-width: 960px) {
     width: 85%;
   }
+  @media (max-width: 450px) {
+    width: 95%;
+  }
 }
 
 // img {
@@ -139,7 +142,8 @@ a {
   }
 }
 
-.btn {
+.btn,
+.form-control {
   &:focus {
     box-shadow: none;
   }
@@ -326,7 +330,7 @@ $repetition: infinite;
 }
 
 .modal {
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .modal-backdrop {

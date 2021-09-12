@@ -1,5 +1,8 @@
 .crafting-idea-section {
   padding-top: 10rem;
+  @media (max-width:767px) {
+    padding-top: 5rem;
+  }
   & .row {
     background: url(/img/bespoke/idea_bg.png);
     background-size: contain;

@@ -177,7 +177,11 @@ export default function ConformSetting() {
                   <RiShareLine className="me-2" />
                   share
                 </button>
-                <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                <button
+                  className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                  data-bs-toggle="modal"
+                  data-bs-target="#dropHint"
+                >
                   drop a hint
                 </button>
               </div>
@@ -245,7 +249,7 @@ export default function ConformSetting() {
               </div>
             </div>
             <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
-            <button
+              <button
                 className={
                   "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
                   favorItem

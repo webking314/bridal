@@ -1,6 +1,10 @@
 .schedule {
   padding-top: 10rem;
   padding-bottom: 10rem;
+  @media (max-width: 767px) {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
   .text-panel {
     h3 {
       font-size: 3.6rem;

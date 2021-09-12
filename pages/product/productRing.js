@@ -153,7 +153,11 @@ export default function ProductRing() {
                   <RiShareLine className="me-2" />
                   share
                 </button>
-                <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                <button
+                  className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                  data-bs-toggle="modal"
+                  data-bs-target="#dropHint"
+                >
                   drop a hint
                 </button>
               </div>
