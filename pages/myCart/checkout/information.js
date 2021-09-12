@@ -47,7 +47,7 @@ export default function Information() {
       !country |
       !phoneNumber
     ) {
-      e.preventDefault()
+      // e.preventDefault()
       console.log(e)
     } else {
       e.preventDefault();
@@ -78,10 +78,6 @@ export default function Information() {
     }
   };
 
-  useEffect(() => {
-    setEmail(localStorage.email);
-    console.log(localStorage.country);
-  }, []);
   return (
     <div className="checkout_page checkout-information">
       <div className="checkout_header">
@@ -133,6 +129,8 @@ export default function Information() {
                   type="email"
                   className="form-control px-4 py-3 round-form email-form my-4"
                   placeholder="Email"
+                  value={email}
+                  onChange={(val) => setEmail(val)}
                   required
                 />
                 <div className="form-check">
@@ -140,8 +138,6 @@ export default function Information() {
                     className="form-check-input"
                     type="checkbox"
                     id="flexCheckChecked"
-                    value={email}
-                    onChange={(val) => setEmail(val)}
                   />
                   <label
                     className="form-check-label text-capitalize"
