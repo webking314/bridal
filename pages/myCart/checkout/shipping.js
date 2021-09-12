@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -36,6 +37,9 @@ export default function Shipping() {
   //   } else
   return (
     <div className="checkout_page checkout-shipping">
+    <Head>
+      <title>MyCart Checkout Shipping | Royal Coster</title>
+    </Head>
       <div className="checkout_header">
         <div className="r-container py-5">
           <Link href="/">

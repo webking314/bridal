@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import MyCartList from "../../../components/myCartList";
@@ -48,7 +49,7 @@ export default function Information() {
       !phoneNumber
     ) {
       // e.preventDefault()
-      console.log(e)
+      console.log(e);
     } else {
       e.preventDefault();
       if (typeof phoneNumber !== "undefined") {
@@ -80,6 +81,9 @@ export default function Information() {
 
   return (
     <div className="checkout_page checkout-information">
+      <Head>
+        <title>MyCart Checkout Information | Royal Coster</title>
+      </Head>
       <div className="checkout_header">
         <div className="r-container py-5">
           <Link href="/">
@@ -130,7 +134,7 @@ export default function Information() {
                   className="form-control px-4 py-3 round-form email-form my-4"
                   placeholder="Email"
                   value={email}
-                  onChange={(val) => setEmail(val)}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
                 <div className="form-check">

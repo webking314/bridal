@@ -26,6 +26,7 @@ import "../styles/pages/myCart/checkout.scss";
 import "../styles/pages/bespoke.scss";
 import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
+import "../styles/pages/timeline.scss";
 import "../styles/pages/customRing/chooseSetting.scss";
 import "../styles/pages/customRing/confirmSetting.scss";
 import "../styles/pages/customRing/chooseDiamond.scss";

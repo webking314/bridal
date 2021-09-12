@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -36,6 +37,9 @@ export default function Payment() {
   //   } else
   return (
     <div className="checkout_page checkout-payment">
+    <Head>
+      <title>MyCart Checkout Payment | Royal Coster</title>
+    </Head>
       <div className="checkout_header">
         <div className="r-container py-5">
           <Link href="/">
