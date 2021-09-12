@@ -47,10 +47,9 @@ export default function Information() {
       !country |
       !phoneNumber
     ) {
-      console.log("required");
-      console.log(surName, email, street, zipCode, town, country, phoneNumber);
+      e.preventDefault()
+      console.log(e)
     } else {
-      console.log(123123)
       e.preventDefault();
       if (typeof phoneNumber !== "undefined") {
         var pattern = new RegExp(/^[0-9\b]+$/);
