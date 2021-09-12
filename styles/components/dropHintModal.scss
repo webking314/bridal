@@ -1,7 +1,7 @@
 #dropHintModal {
   width: 50%;
-  max-width: 630px;
-  min-width: 350px;
+  max-width: 630px !important;
+  min-width: 350px !important;
   label {
     font-size: 1.6rem;
     font-weight: 500;
@@ -11,16 +11,21 @@
     width: 100%;
     font-size: 1.4rem;
     font-weight: 400;
+    color: #01215c !important;
     &:hover {
       background: transparent;
       border-color: #01215c;
-      color: #01215c;
+      color: #01215c !important;
     }
   }
   .btn-send {
     font-size: 1.8rem;
     width: 100%;
     font-weight: 400;
+    color: #01215c !important;
+    &:hover {
+      color: #01215c !important;
+    }
   }
   .form-control {
     border: 1px solid rgba(1, 33, 92, 0.2);
