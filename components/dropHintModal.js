@@ -54,7 +54,7 @@ export default function DropHintModal() {
               placeholder="Something Here..."
             ></textarea>
             <div className="your-info row m-0 pt-5 py-4">
-              <div className="your-name col-sm-6 col-12 px-0 ps-sm-3 ps-0">
+              <div className="your-name col-sm-6 col-12 px-0 ps-sm-3 pe-0">
                 <label htmlFor="yourName">Your Name</label>
                 <input
                   type="text"
@@ -63,7 +63,7 @@ export default function DropHintModal() {
                   placeholder="Name"
                 />
               </div>
-              <div className="your-name col-sm-6 col-12 px-0 pe-sm-3 pe-0">
+              <div className="your-name col-sm-6 col-12 px-0 pe-sm-3 ps-0">
                 <label htmlFor="yourName">Your Email</label>
                 <input
                   type="text"
