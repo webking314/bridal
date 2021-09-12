@@ -28,7 +28,7 @@ const items = [
 export default function Information() {
   const [firstName, setFirstName] = useState();
   const [surName, setSurName] = useState();
-  const [email, setEmail] = useState();
+  const [emailVal, setEmailVal] = useState();
   const [street, setStreet] = useState();
   const [apartment, setApartment] = useState();
   const [zipCode, setZipCode] = useState();
@@ -41,7 +41,7 @@ export default function Information() {
     if (
       !firstName |
       !surName |
-      !email |
+      !emailVal |
       !street |
       !apartment |
       !zipCode |
@@ -60,19 +60,20 @@ export default function Information() {
         } else {
           setErrorPhone("");
           e.preventDefault();
-          localStorage.setItem("personInfo", {
-            email: email,
-            firstName: firstName,
-            surName: surName,
-            phoneNumber: phoneNumber,
-          });
-          localStorage.setItem("address", {
-            street: street,
-            apartment: apartment,
-            zipCode: zipCode,
-            town: town,
-            country: country,
-          });
+
+          // localStorage.setItem("personInfo", {
+          //   email: email,
+          //   firstName: firstName,
+          //   surName: surName,
+          //   phoneNumber: phoneNumber,
+          // });
+          // localStorage.setItem("address", {
+          //   street: street,
+          //   apartment: apartment,
+          //   zipCode: zipCode,
+          //   town: town,
+          //   country: country,
+          // });
           router.push("/myCart/checkout/shipping");
         }
       }
@@ -140,10 +141,9 @@ export default function Information() {
                   <input
                     className="form-check-input"
                     type="checkbox"
-                    value=""
                     id="flexCheckChecked"
-                    value={email}
-                    onChange={(val) => setEmail(val)}
+                    value={emailVal}
+                    onChange={(val) => setEmailVal(val)}
                     required
                   />
                   <label
