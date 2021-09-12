@@ -28,7 +28,7 @@ const items = [
 export default function Information() {
   const [firstName, setFirstName] = useState();
   const [surName, setSurName] = useState();
-  const [emailVal, setEmailVal] = useState();
+  const [email, setEmail] = useState();
   const [street, setStreet] = useState();
   const [apartment, setApartment] = useState();
   const [zipCode, setZipCode] = useState();
@@ -41,7 +41,7 @@ export default function Information() {
     if (
       !firstName |
       !surName |
-      !emailVal |
+      !email |
       !street |
       !apartment |
       !zipCode |
@@ -60,7 +60,7 @@ export default function Information() {
         } else {
           setErrorPhone("");
           e.preventDefault();
-
+          
           // localStorage.setItem("personInfo", {
           //   email: email,
           //   firstName: firstName,
@@ -142,8 +142,8 @@ export default function Information() {
                     className="form-check-input"
                     type="checkbox"
                     id="flexCheckChecked"
-                    value={emailVal}
-                    onChange={(val) => setEmailVal(val)}
+                    value={email}
+                    onChange={(val) => setEmail(val)}
                     required
                   />
                   <label
