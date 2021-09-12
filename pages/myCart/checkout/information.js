@@ -38,6 +38,23 @@ export default function Information() {
   const [phoneNumber, setPhoneNumber] = useState();
   const [errorPhone, setErrorPhone] = useState();
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.personInfo) {
+      let personInfo = JSON.parse(localStorage.personInfo);
+      let address = JSON.parse(localStorage.address);
+      setFirstName(personInfo.firstName);
+      setSurName(personInfo.surName);
+      setEmail(personInfo.email);
+      setPhoneNumber(personInfo.phoneNumber);
+      setStreet(address.street);
+      setApartment(address.apartment);
+      setCountry(address.country);
+      setTown(address.town);
+      setZipCode(address.zipCode);
+    }
+  }, []);
+
   const nextStep = (e) => {
     if (
       !surName |
@@ -48,7 +65,6 @@ export default function Information() {
       !country |
       !phoneNumber
     ) {
-      // e.preventDefault()
       console.log(e);
     } else {
       e.preventDefault();
@@ -60,20 +76,26 @@ export default function Information() {
           setErrorPhone("Please enter valid phone number.");
         } else {
           setErrorPhone("");
+          localStorage.setItem(
+            "personInfo",
+            JSON.stringify({
+              email: email,
+              firstName: firstName,
+              surName: surName,
+              phoneNumber: phoneNumber,
+            })
+          );
+          localStorage.setItem(
+            "address",
+            JSON.stringify({
+              street: street,
+              apartment: apartment,
+              zipCode: zipCode,
+              town: town,
+              country: country,
+            })
+          );
           router.push("/myCart/checkout/shipping");
-          // localStorage.setItem("personInfo", {
-          //   email: email,
-          //   firstName: firstName,
-          //   surName: surName,
-          //   phoneNumber: phoneNumber,
-          // });
-          // localStorage.setItem("address", {
-          //   street: street,
-          //   apartment: apartment,
-          //   zipCode: zipCode,
-          //   town: town,
-          //   country: country,
-          // });
         }
       }
     }
@@ -109,11 +131,11 @@ export default function Information() {
             information
           </span>
           /
-          <Link href="#">
+          <Link href="/myCart/checkout/shipping">
             <a className="mx-2 text-uppercase">Shipping</a>
           </Link>
           /
-          <Link href="#">
+          <Link href="/myCart/checkout/payment">
             <a className="mx-2 text-uppercase">Payment</a>
           </Link>
         </div>
