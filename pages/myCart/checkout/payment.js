@@ -30,17 +30,15 @@ export default function Payment() {
     setStorage(localStorage);
   }, []);
   if (storage) {
-    if (!localStorage.personInfo) {
+    if (!localStorage.shipping) {
       router.push("/myCart/checkout/information");
       return <div></div>;
     } else {
-      const address = JSON.parse(localStorage.address);
-      const personInfo = JSON.parse(localStorage.personInfo);
-      const shipping = localStorage.shipping;
+      const shippingData = JSON.parse(localStorage.shipping);
       return (
         <div className="checkout_page checkout-payment">
           <Head>
-            <title>MyCart Checkout Payment | Royal Coster</title>
+            <title>Checkout Payment | Royal Coster</title>
           </Head>
           <div className="checkout_header">
             <div className="r-container py-5">
@@ -82,7 +80,7 @@ export default function Payment() {
                 <div className="contact-panel round-panel round-form d-flex justify-content-between py-4 px-5 mt-4 flex-sm-row flex-column">
                   <div className="text-panel d-flex align-items-center">
                     <h3 className="m-0 me-4">Contact</h3>
-                    <p className="m-0">{personInfo.email}</p>
+                    <p className="m-0">{shippingData.contact.email}</p>
                   </div>
                   <Link href="/myCart/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
@@ -94,13 +92,13 @@ export default function Payment() {
                   <div className="text-panel d-flex">
                     <h3 className="m-0 me-4">Send To</h3>
                     <p className="m-0">
-                      {address.street +
+                      {shippingData.address.street +
                         ", " +
-                        address.zipCode +
+                        shippingData.address.zipCode +
                         ", " +
-                        address.town +
+                        shippingData.address.town +
                         ", " +
-                        address.country}
+                        shippingData.address.country}
                     </p>
                   </div>
                   <Link href="/myCart/checkout/information">
@@ -113,7 +111,8 @@ export default function Payment() {
                   <div className="text-panel d-flex">
                     <h3 className="m-0 me-4">Manner</h3>
                     <p className="m-0">
-                      Standard : {shipping == "free" ? "free" : "none"}
+                      Standard :{" "}
+                      {shippingData.shippingMethod == "free" ? "Free" : "None"}
                     </p>
                   </div>
                   <Link href="/myCart/checkout/shipping">
@@ -156,6 +155,7 @@ export default function Payment() {
                           type="radio"
                           name="flexRadioDefault"
                           id="paymentMethod-2"
+                          defaultChecked
                         />
                         <img src="/img/myCart/payment-2.png" className="ms-3" />
                         <img src="/img/myCart/payment-3.png" className="ms-3" />
@@ -213,7 +213,8 @@ export default function Payment() {
                         type="radio"
                         name="billingRadio"
                         id="defaultAddress"
-                      />
+                        defaultChecked
+                        />
                       <h3 className="m-0 ms-3">Same as delivery address</h3>
                     </label>
                   </div>
@@ -267,7 +268,7 @@ export default function Payment() {
                 </button>
                 <button
                   className="btn round-form px-4 py-3 back-btn text-uppercase"
-                  onClick={() => router.push("/myCart/checkout/information")}
+                  onClick={() => router.push("/myCart/checkout/shipping")}
                 >
                   Back to ship
                 </button>

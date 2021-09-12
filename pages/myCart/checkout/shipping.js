@@ -24,31 +24,53 @@ const items = [
 
 export default function Shipping() {
   const [storage, setStorage] = useState();
-  const [freeShippingMethod, setFreeShippingMethod] = useState();
+  const [freeShippingMethod, setFreeShippingMethod] = useState(true);
   const router = useRouter();
 
   const goPay = () => {
     router.push("/myCart/checkout/payment");
-    if (freeShippingMethod) {
-      localStorage.setItem("shipping", "free");
+    let shippingData = JSON.parse(localStorage.shipping);
+    if (!shippingData.shippingMethod) {
+      if (freeShippingMethod == true) {
+        shippingData = Object.assign({ shippingMethod: "free" }, shippingData);
+        localStorage.setItem("shipping", JSON.stringify(shippingData));
+      } else {
+        shippingData = Object.assign({ shippingMethod: "none" }, shippingData);
+        localStorage.setItem("shipping", JSON.stringify(shippingData));
+      }
+    } else {
+      if (freeShippingMethod == true) {
+        console.log(1111111111)
+        shippingData.shippingMethod = "free";
+        localStorage.setItem("shipping", JSON.stringify(shippingData));
+      } else {
+        shippingData.shippingMethod = "none";
+        localStorage.setItem("shipping", JSON.stringify(shippingData));
+      }
     }
   };
 
   useEffect(() => {
+    if (localStorage.shipping) {
+      if (JSON.parse(localStorage.shipping).shippingMethod == "free") {
+        setFreeShippingMethod(true);
+      } else {
+        setFreeShippingMethod(false);
+      }
+    }
     setStorage(localStorage);
   }, []);
 
   if (storage) {
-    if (!localStorage.personInfo) {
+    if (!localStorage.shipping) {
       router.push("/myCart/checkout/information");
       return <div></div>;
     } else {
-      const address = JSON.parse(localStorage.address);
-      const personInfo = JSON.parse(localStorage.personInfo);
+      const shippingData = JSON.parse(localStorage.shipping);
       return (
         <div className="checkout_page checkout-shipping">
           <Head>
-            <title>MyCart Checkout Shipping | Royal Coster</title>
+            <title>Checkout Shipping | Royal Coster</title>
           </Head>
           <div className="checkout_header">
             <div className="r-container py-5">
@@ -79,7 +101,7 @@ export default function Shipping() {
                 Shipping
               </span>
               /
-              <Link href="#">
+              <Link href="/myCart/checkout/payment">
                 <a className="mx-2 text-uppercase">Payment</a>
               </Link>
             </div>
@@ -93,7 +115,7 @@ export default function Shipping() {
                 <div className="contact-panel round-panel round-form d-flex justify-content-between py-4 px-5 mt-4 flex-sm-row flex-column">
                   <div className="text-panel d-flex align-items-center">
                     <h3 className="m-0 me-4">Contact</h3>
-                    <p className="m-0">{personInfo.email}</p>
+                    <p className="m-0">{shippingData.contact.email}</p>
                   </div>
                   <Link href="/myCart/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
@@ -105,13 +127,13 @@ export default function Shipping() {
                   <div className="text-panel d-flex">
                     <h3 className="m-0 me-4">Send To</h3>
                     <p className="m-0">
-                      {address.street +
+                      {shippingData.address.street +
                         ", " +
-                        address.zipCode +
+                        shippingData.address.zipCode +
                         ", " +
-                        address.town +
+                        shippingData.address.town +
                         ", " +
-                        address.country}
+                        shippingData.address.country}
                     </p>
                   </div>
                   <Link href="/myCart/checkout/information">
@@ -133,10 +155,10 @@ export default function Shipping() {
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      value={freeShippingMethod}
+                      checked={freeShippingMethod}
                       id="checkbox"
                       onChange={(e) => setFreeShippingMethod(e.target.checked)}
-                    />
+                      />
                     <h3 className="ps-5 m-0 ms-5">Standard</h3>
                   </div>
                   <Link href="#">

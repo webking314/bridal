@@ -40,9 +40,9 @@ export default function Information() {
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.personInfo) {
-      let personInfo = JSON.parse(localStorage.personInfo);
-      let address = JSON.parse(localStorage.address);
+    if (localStorage.shipping) {
+      let personInfo = JSON.parse(localStorage.shipping).contact;
+      let address = JSON.parse(localStorage.shipping).address;
       setFirstName(personInfo.firstName);
       setSurName(personInfo.surName);
       setEmail(personInfo.email);
@@ -77,22 +77,21 @@ export default function Information() {
         } else {
           setErrorPhone("");
           localStorage.setItem(
-            "personInfo",
+            "shipping",
             JSON.stringify({
-              email: email,
-              firstName: firstName,
-              surName: surName,
-              phoneNumber: phoneNumber,
-            })
-          );
-          localStorage.setItem(
-            "address",
-            JSON.stringify({
-              street: street,
-              apartment: apartment,
-              zipCode: zipCode,
-              town: town,
-              country: country,
+              contact: {
+                email: email,
+                firstName: firstName,
+                surName: surName,
+                phoneNumber: phoneNumber,
+              },
+              address: {
+                street: street,
+                apartment: apartment,
+                zipCode: zipCode,
+                town: town,
+                country: country,
+              },
             })
           );
           router.push("/myCart/checkout/shipping");
@@ -104,7 +103,7 @@ export default function Information() {
   return (
     <div className="checkout_page checkout-information">
       <Head>
-        <title>MyCart Checkout Information | Royal Coster</title>
+        <title>Checkout Information | Royal Coster</title>
       </Head>
       <div className="checkout_header">
         <div className="r-container py-5">

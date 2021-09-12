@@ -69,6 +69,15 @@ export default function MyCart() {
     setMainImage(product);
   };
 
+  const checkOut = (e) => {
+    e.preventDefault();
+    router.push("/myCart/checkout/information");
+    localStorage.setItem(
+      "cart",
+      JSON.stringify({ cartData: items, subTotal: subTotal })
+    );
+  };
+
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
@@ -255,11 +264,12 @@ export default function MyCart() {
                 <h3 className="m-0">To be paid:</h3>
                 <p className="m-0">€ {total}</p>
               </div>
-              <Link href="/myCart/checkout/information">
-                <a className="btn blue-btn round p-4 text-uppercase">
-                  Check OUT
-                </a>
-              </Link>
+              <button
+                className="btn blue-btn round p-4 text-uppercase"
+                onClick={checkOut}
+              >
+                Check OUT
+              </button>
             </div>
           </div>
         </div>
