@@ -49,8 +49,9 @@ export default function Information() {
       !country |
       !phoneNumber
     ) {
-      setFirstStep("");
+      console.log("required")
     } else {
+      e.preventDefault();
       if (typeof phoneNumber !== "undefined") {
         var pattern = new RegExp(/^[0-9\b]+$/);
         if (!pattern.test(phoneNumber)) {
@@ -59,8 +60,7 @@ export default function Information() {
           setErrorPhone("Please enter valid phone number.");
         } else {
           setErrorPhone("");
-          e.preventDefault();
-          
+          router.push("/myCart/checkout/shipping");
           // localStorage.setItem("personInfo", {
           //   email: email,
           //   firstName: firstName,
@@ -74,7 +74,6 @@ export default function Information() {
           //   town: town,
           //   country: country,
           // });
-          router.push("/myCart/checkout/shipping");
         }
       }
     }
@@ -144,7 +143,6 @@ export default function Information() {
                     id="flexCheckChecked"
                     value={email}
                     onChange={(val) => setEmail(val)}
-                    required
                   />
                   <label
                     className="form-check-label text-capitalize"
@@ -168,7 +166,6 @@ export default function Information() {
                       placeholder="First Name (Optional)"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      required
                     />
                   </div>
                   <div className="p-0 ps-md-3 ps-0 pt-md-0 pt-4 col-md-6">
@@ -197,7 +194,6 @@ export default function Information() {
                   placeholder="Apartment no. etc... (Optional)"
                   value={apartment}
                   onChange={(e) => setApartment(e.target.value)}
-                  required
                 />
                 <div className="zipCode-input row m-0 mt-4">
                   <div className="p-0 pe-md-3 pe-0 col-md-6 ">
