@@ -39,11 +39,9 @@ export default function Information() {
   const router = useRouter();
   const nextStep = (e) => {
     if (
-      !firstName |
       !surName |
       !email |
       !street |
-      !apartment |
       !zipCode |
       !town |
       !country |
