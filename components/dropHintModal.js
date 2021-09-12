@@ -12,7 +12,7 @@ export default function DropHintModal() {
         id="dropHintModal"
       >
         <div className="modal-content px-sm-5 px-4 py-4 round-form">
-          <div className="modal-header  py-3">
+          <div className="modal-header  py-3 px-0">
             <h3 className="modal-title">DROP A HINT</h3>
             <button
               type="button"
