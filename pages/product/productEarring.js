@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import DropHintModal from "../../components/dropHintModal";
+import NumberFormat from "react-number-format";
 import "swiper/css";
 import {
   RiHeartLine,
@@ -26,12 +27,6 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 
 SwiperCore.use([Autoplay, Navigation]);
 
-const products = [
-  "product_earring-1.png",
-  "product_earring-2.png",
-  "product_earring-3.png",
-  "product_earring-4.png",
-];
 const customerSlider = [
   {
     name: "Ayesha",
@@ -123,14 +118,29 @@ const meterials = [
   { meterial: "material-3.png" },
   { meterial: "material-4.png" },
 ];
+const products = {
+  id: 4,
+  images: [
+    "product_earring-1.png",
+    "product_earring-2.png",
+    "product_earring-3.png",
+    "product_earring-4.png",
+  ],
+  style: "Royal Coster Diamonds",
+  title: "Rainbow Earrings (1510386)",
+  description:
+    "These 18 carat rose gold diamond earrings consist of a single row of chic colored sapphires in all the colors of the rainbow. Show your uniqueness and wear it with pride!",
+  price: 2278,
+};
+
 export default function ProductEarring() {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   const [size, setSize] = useState(0);
   const [favorItem, setFavorItem] = useState();
   const [itemAmount, setItemAmount] = useState(1);
-  const [itemPrice, setItemPrice] = useState(645);
-  const [mainImage, setMainImage] = useState(products[0]);
+  const [itemPrice, setItemPrice] = useState();
+  const [mainImage, setMainImage] = useState(products.images[0]);
   const router = useRouter();
 
   const showProduct = (product) => {
@@ -141,9 +151,44 @@ export default function ProductEarring() {
     event.target.closest(".favor-icon").classList.toggle("favor");
   };
 
+  const addCart = (e) => {
+    e.preventDefault();
+    router.push("/myCart");
+    if (localStorage.products) {
+      let productStore = JSON.parse(localStorage.products);
+      let setItem = productStore.find((item, index) => item.id == products.id);
+      if (setItem) {
+        setItem.amount = itemAmount;
+        localStorage.setItem("products", JSON.stringify(productStore));
+      } else {
+        localStorage.setItem(
+          "products",
+          JSON.stringify([
+            ...productStore,
+            {
+              ...products,
+              amount: itemAmount,
+            },
+          ])
+        );
+      }
+    } else {
+      localStorage.setItem(
+        "products",
+        JSON.stringify([
+          {
+            ...products,
+            amount: itemAmount,
+          },
+        ])
+      );
+    }
+  };
+
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
+      setItemPrice(products.price);
     }
   }, []);
 
@@ -183,7 +228,7 @@ export default function ProductEarring() {
         <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
           <div className="row m-0">
             <div className="tile-product col-2 p-0 pe-3">
-              {products.map((item, index) => {
+              {products.images.map((item, index) => {
                 return (
                   <button
                     className="btn btn-show-product mb-3 p-0 round-form"
@@ -219,14 +264,9 @@ export default function ProductEarring() {
         </div>
         <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-5">
           <div className="title-panel">
-            <h3 className="type pb-4 m-0">Halo style</h3>
-            <h3 className="title text-capitalize pb-4 m-0">
-              Brilliant Cut Diamond Engagement Ring
-            </h3>
-            <p className="description pb-4 m-0">
-              Exude grace with this round Aphrodite band, set with round,
-              brilliant diamonds and halo to lend eternal style.
-            </p>
+            <h3 className="type pb-4 m-0">{products.style}</h3>
+            <h3 className="title text-capitalize pb-4 m-0">{products.title}</h3>
+            <p className="description pb-4 m-0">{products.description}</p>
           </div>
           <div className="confirm-panel">
             <div className="material-setting-panel py-4">
@@ -257,7 +297,14 @@ export default function ProductEarring() {
               <div className="price-panel">
                 <h4 className="text-uppercase">total</h4>
                 <h3 className="blue-text">
-                  {"€" + (itemPrice * itemAmount).toFixed(2)}
+                  <NumberFormat
+                    value={itemPrice * itemAmount}
+                    displayType="text"
+                    decimalScale={2}
+                    fixedDecimalScale={true}
+                    thousandSeparator={true}
+                    prefix="€ "
+                  />
                 </h3>
               </div>
               <div className="amount-panel d-flex align-items-center">
@@ -291,11 +338,12 @@ export default function ProductEarring() {
                 <RiHeartFill />
               </button>
               <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
-                <Link href="#">
-                  <a className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4">
-                    add to cart
-                  </a>
-                </Link>
+                <button
+                  className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4"
+                  onClick={addCart}
+                >
+                  add to cart
+                </button>
                 <p className="m-0">Price excludes VAT</p>
               </div>
             </div>

@@ -49,6 +49,7 @@ let signatureSliders = [
 ];
 
 SwiperCore.use([Autoplay, Navigation]);
+
 export default function Bespoke() {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
@@ -58,6 +59,24 @@ export default function Bespoke() {
       duration: 600,
       easing: "ease-in-sine",
       delay: 100,
+    });
+    document.addEventListener("scroll", () => {
+      if (document.querySelectorAll(".MuiTimelineItem-root"))
+        document
+          .querySelectorAll(".MuiTimelineItem-root")
+          .forEach((element) => {
+            if (
+              element.offsetTop - element.offsetHeight < window.scrollY &&
+              window.scrollY < element.offsetTop + element.offsetHeight
+            ) {
+              if (!element.classList.contains("active")) {
+                element.classList.add("active");
+              } else {
+              }
+            } else
+              element.classList.contains("active") &&
+                element.classList.remove("active");
+          });
     });
   }, []);
   return (
@@ -110,19 +129,18 @@ export default function Bespoke() {
             return (
               <TimelineItem key={index}>
                 <TimelineOppositeContent>
-                  <Typography>
-                    <div
-                      className="text-panel"
-                      data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}
-                      data-aos-duration={400}
-                    >
-                      <p className="item-step m-0 pb-4 text-uppercase">
-                        Step {index + 1}
-                      </p>
-                      <h3 className="item-title m-0 pb-5">{item.title}</h3>
-                      <p className="item-description">{item.description}</p>
-                    </div>
-                  </Typography>
+                  <div
+                    className="text-panel"
+                    data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}
+                    data-aos-duration={400}
+                    data-aos-once={true}
+                  >
+                    <p className="item-step m-0 pb-4 text-uppercase">
+                      Step {index + 1}
+                    </p>
+                    <h3 className="item-title m-0 pb-5">{item.title}</h3>
+                    <p className="item-description">{item.description}</p>
+                  </div>
                 </TimelineOppositeContent>
 
                 <TimelineSeparator>
@@ -135,8 +153,8 @@ export default function Bespoke() {
                       src={"/img/bespoke/" + item.image}
                       className="item-image"
                       alt="timeLine-image"
-                      data-aos-delay={500}
-                      data-aos-duration={500}
+                      data-aos-duration={700}
+                      data-aos-once={true}
                       data-aos={index % 2 == 1 ? "fade-right" : "fade-left"}
                     />
                   </Typography>

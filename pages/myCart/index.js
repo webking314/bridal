@@ -4,6 +4,7 @@ import Head from "next/head";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
+import NumberFormat from "react-number-format";
 import NeedHelp from "../../components/needHelp";
 import { useRouter } from "next/router";
 import {
@@ -39,7 +40,7 @@ const cartItems = [
 let subTotalPrice = 0;
 
 export default function MyCart() {
-  const [items, setItems] = useState(cartItems);
+  const [items, setItems] = useState();
   const [subTotal, setSubTotal] = useState(0);
   const [vat, setVat] = useState(4356);
   const [total, setTotal] = useState();
@@ -61,21 +62,22 @@ export default function MyCart() {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
+      if (localStorage.products) setItems(JSON.parse(localStorage.products));
     }
   }, []);
 
   useEffect(() => {
-    items.map((item, index) => {
-      if (index == 0) subTotalPrice = 0;
-      subTotalPrice += item.price * item.amount;
-      setSubTotal(subTotalPrice);
-    });
+    items &&
+      items.map((item, index) => {
+        if (index == 0) subTotalPrice = 0;
+        subTotalPrice += item.price * item.amount;
+        setSubTotal(subTotalPrice);
+      });
   }, [items]);
 
   useEffect(() => {
     setTotal(subTotal - vat);
   }, [subTotal]);
-
   return (
     <div className="myCart_page">
       <Head>
@@ -93,7 +95,7 @@ export default function MyCart() {
             continue shopping
           </button>
           <span className="text-uppercase blue-text">
-            <span>{items.length}</span> items in shopping cart
+            <span>{items ? items.length : 0}</span> items in shopping cart
           </span>
         </div>
       </div>
@@ -102,81 +104,92 @@ export default function MyCart() {
       <div className="my-cart-section r-container py-5 mb-5">
         <div className="title-panel pb-3">
           <h3 className="title text-capitalize blue-text">My shopping cart</h3>
-          <p className="text-uppercase">{items.length} items</p>
+          <p className="text-uppercase">{items ? items.length : 0} items</p>
         </div>
         <div className="cart-panel">
-          {items.map((item, index) => {
-            return (
-              <div
-                className="cart-info py-5 d-flex align-items-center justify-content-center flex-md-row flex-column"
-                key={index}
-              >
-                <img
-                  src={"/img/myCart/" + item.image}
-                  alt="item-image"
-                  className="item-image me-4 mb-md-0 mb-5"
-                  width="200"
-                  height="200"
-                />
-                <div className="info-panel">
-                  <div className="info_text-panel row m-0 mb-lg-5 mb-3">
-                    <div className="col-lg-6 col-12 text-panel">
-                      <h3 className="blue-text title m-0 text-md-left text-center text-capitalize">
-                        {item.title}
-                      </h3>
-                      <p className="cart-style m-0 py-4 text-capitalize">
-                        {item.style}
-                      </p>
-                      <p className="cart-description m-0 text-capitalize">
-                        {item.description}
-                      </p>
-                    </div>
-                    <div className="col-lg-6 col-12 cost-panel p-0 d-flex justify-content-between flex-sm-row flex-column ps-lg-5 ps-0 pt-lg-0 pt-5">
-                      <div className="mb-sm-0 mb-5 amount-panel ps-lg-5 ps-0">
-                        <div className="d-flex justify-content-sm-start justify-content-center align-items-center">
-                          <button
-                            className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-2"
-                            onClick={() => {
-                              if (item.amount > 1) {
-                                items[index].amount = item.amount - 1;
-                                setItems([...items]);
-                              }
-                            }}
-                          >
-                            <RiSubtractFill />
-                          </button>
-                          <span className="mx-4">{item.amount}</span>
-                          <button
-                            className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-2"
-                            onClick={() => {
-                              items[index].amount = item.amount + 1;
-                              setItems([...items]);
-                            }}
-                          >
-                            <RiAddFill />
-                          </button>
-                        </div>
+          {items ? (
+            items.map((item, index) => {
+              return (
+                <div
+                  className="cart-info py-5 d-flex align-items-center justify-content-center flex-md-row flex-column"
+                  key={index}
+                >
+                  <img
+                    src={"/img/myCart/" + item.images[0]}
+                    alt="item-image"
+                    className="item-image me-4 mb-md-0 mb-5"
+                    width="200"
+                    height="200"
+                  />
+                  <div className="info-panel">
+                    <div className="info_text-panel row m-0 mb-lg-5 mb-3">
+                      <div className="col-lg-6 col-12 text-panel">
+                        <h3 className="blue-text title m-0 text-center text-md-start text-capitalize">
+                          {item.title}
+                        </h3>
+                        <p className="cart-style m-0 py-4 text-capitalize">
+                          {item.style}
+                        </p>
+                        <p className="cart-description m-0 text-capitalize">
+                          {item.description}
+                        </p>
                       </div>
-                      <h3 className="text-sm-end text-center cart-price blue-text">
-                        {"€" + (item.price * item.amount).toFixed(2)}
-                      </h3>
+                      <div className="col-lg-6 col-12 cost-panel p-0 d-flex justify-content-between flex-sm-row flex-column ps-lg-5 ps-0 pt-lg-0 pt-5">
+                        <div className="mb-sm-0 mb-5 amount-panel ps-lg-5 ps-0">
+                          <div className="d-flex justify-content-sm-start justify-content-center align-items-center">
+                            <button
+                              className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-2"
+                              onClick={() => {
+                                if (item.amount > 1) {
+                                  items[index].amount = item.amount - 1;
+                                  setItems([...items]);
+                                }
+                              }}
+                            >
+                              <RiSubtractFill />
+                            </button>
+                            <span className="mx-4">{item.amount}</span>
+                            <button
+                              className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-2"
+                              onClick={() => {
+                                items[index].amount = item.amount + 1;
+                                setItems([...items]);
+                              }}
+                            >
+                              <RiAddFill />
+                            </button>
+                          </div>
+                        </div>
+                        <h3 className="text-sm-end text-center cart-price blue-text">
+                          <NumberFormat
+                            value={item.price * item.amount}
+                            displayType="text"
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            thousandSeparator={true}
+                            prefix="€ "
+                          />
+                        </h3>
+                      </div>
                     </div>
-                  </div>
-                  <div className="link-panel d-flex justify-content-end">
-                    <button
-                      className="btn btn-remove d-flex align-items-center text-uppercase"
-                      onClick={() => {
-                        items.splice(index, 1);
-                        setItems([...items]);
-                      }}
-                    >
-                      Remove <RiCloseFill className="ms-2" />
-                    </button>
+                    <div className="link-panel d-flex justify-content-end">
+                      <button
+                        className="btn btn-remove d-flex align-items-center text-uppercase"
+                        onClick={() => {
+                          items.splice(index, 1);
+                          setItems([...items]);
+                        }}
+                      >
+                        Remove <RiCloseFill className="ms-2" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <h3 className="none-text m-0 py-5 text-center text-capitalize">My Cart items none</h3>
+          )}
         </div>
       </div>
       {/* End my cart section */}
@@ -247,6 +260,7 @@ export default function MyCart() {
               <button
                 className="btn blue-btn round p-4 text-uppercase"
                 onClick={checkOut}
+                disabled={items ? false : true}
               >
                 Check OUT
               </button>

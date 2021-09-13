@@ -69,9 +69,15 @@
           background: white;
           box-shadow: none;
           margin: 0;
-          &.line-dot-0 {
+          transition-duration: 0.8s;
+        }
+      }
+      .MuiTimelineItem-root {
+        &.active {
+          .MuiTimelineDot-defaultGrey {
             background: #01215c;
             border: 0;
+            transition-duration: 0.7s;
           }
         }
       }

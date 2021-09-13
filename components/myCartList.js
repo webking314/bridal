@@ -27,7 +27,7 @@ export default function MyCartList() {
                   >
                     <div className="item-info col-sm-7 p-0 d-flex align-items-center">
                       <img
-                        src={"/img/myCart/" + item.image}
+                        src={"/img/myCart/" + item.images[0]}
                         className="cart-image me-4 round-form"
                         alt="cart-image"
                       />
