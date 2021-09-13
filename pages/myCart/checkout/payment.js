@@ -5,23 +5,6 @@ import Link from "next/link";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import MyCartList from "../../../components/myCartList";
 
-const items = [
-  {
-    title: "Brilliant Cut Diamond Engagement Ring",
-    image: "item-1.png",
-    type: "18k rose gold",
-    amount: 1,
-    price: 2895,
-  },
-  {
-    title: "Brilliant Cut Diamond Engagement Ring",
-    image: "item-2.png",
-    type: "18k rose gold",
-    amount: 1,
-    price: 2895,
-  },
-];
-
 export default function Payment() {
   const [storage, setStorage] = useState();
   const router = useRouter();
@@ -30,7 +13,10 @@ export default function Payment() {
     setStorage(localStorage);
   }, []);
   if (storage) {
-    if (!localStorage.shipping) {
+    if (!localStorage.cart) {
+      router.push("/myCart");
+      return <div></div>;
+    } else if (!localStorage.shipping) {
       router.push("/myCart/checkout/information");
       return <div></div>;
     } else {
@@ -214,7 +200,7 @@ export default function Payment() {
                         name="billingRadio"
                         id="defaultAddress"
                         defaultChecked
-                        />
+                      />
                       <h3 className="m-0 ms-3">Same as delivery address</h3>
                     </label>
                   </div>
@@ -275,7 +261,7 @@ export default function Payment() {
               </div>
             </div>
             <div className="col-lg-6 col-12 ps-lg-5 mb-lg-0 mb-5 order-lg-last order-first">
-              <MyCartList items={items} />
+              <MyCartList />
             </div>
           </div>
         </div>

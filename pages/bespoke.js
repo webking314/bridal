@@ -16,6 +16,8 @@ import TimelineOppositeContent from "@material-ui/lab/TimelineOppositeContent";
 import Typography from "@material-ui/core/Typography";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "swiper/css";
 
 const timeLineLists = [
@@ -50,6 +52,14 @@ SwiperCore.use([Autoplay, Navigation]);
 export default function Bespoke() {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
+  useEffect(() => {
+    AOS.init({
+      offset: 200,
+      duration: 600,
+      easing: "ease-in-sine",
+      delay: 100,
+    });
+  }, []);
   return (
     <div className="bespoke_page">
       <Head>
@@ -101,12 +111,16 @@ export default function Bespoke() {
               <TimelineItem key={index}>
                 <TimelineOppositeContent>
                   <Typography>
-                    <div className="text-panel">
+                    <div
+                      className="text-panel"
+                      data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}
+                      data-aos-duration={400}
+                    >
                       <p className="item-step m-0 pb-4 text-uppercase">
                         Step {index + 1}
                       </p>
                       <h3 className="item-title m-0 pb-5">{item.title}</h3>
-                      <p className="item-description">{item.description}f</p>
+                      <p className="item-description">{item.description}</p>
                     </div>
                   </Typography>
                 </TimelineOppositeContent>
@@ -121,6 +135,8 @@ export default function Bespoke() {
                       src={"/img/bespoke/" + item.image}
                       className="item-image"
                       alt="timeLine-image"
+                      data-aos-duration={700}
+                      data-aos={index % 2 == 1 ? "fade-right" : "fade-left"}
                     />
                   </Typography>
                 </TimelineContent>

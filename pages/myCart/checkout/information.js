@@ -3,28 +3,8 @@ import Link from "next/link";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import MyCartList from "../../../components/myCartList";
 import { useRouter } from "next/router";
-import {
-  CountryDropdown,
-  RegionDropdown,
-  CountryRegionData,
-} from "react-country-region-selector";
+import { CountryDropdown } from "react-country-region-selector";
 import { useEffect, useState } from "react";
-const items = [
-  {
-    title: "Brilliant Cut Diamond Engagement Ring",
-    image: "item-1.png",
-    type: "18k rose gold",
-    amount: 1,
-    price: 2895,
-  },
-  {
-    title: "Brilliant Cut Diamond Engagement Ring",
-    image: "item-2.png",
-    type: "18k rose gold",
-    amount: 1,
-    price: 2895,
-  },
-];
 
 export default function Information() {
   const [firstName, setFirstName] = useState();
@@ -36,10 +16,12 @@ export default function Information() {
   const [town, setTown] = useState();
   const [country, setCountry] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
+  const [localStore, setLocalStore] = useState();
   const [errorPhone, setErrorPhone] = useState();
   const router = useRouter();
 
   useEffect(() => {
+    setLocalStore(localStorage);
     if (localStorage.shipping) {
       let personInfo = JSON.parse(localStorage.shipping).contact;
       let address = JSON.parse(localStorage.shipping).address;
@@ -100,180 +82,190 @@ export default function Information() {
     }
   };
 
-  return (
-    <div className="checkout_page checkout-information">
-      <Head>
-        <title>Checkout Information | Royal Coster</title>
-      </Head>
-      <div className="checkout_header">
-        <div className="r-container py-5">
-          <Link href="/">
-            <a>
-              <img src="/img/common/mobile_logo.png" alt="logo" />
-            </a>
-          </Link>
-        </div>
-      </div>
-      <div className="link-panel py-4">
-        <div className="r-container d-flex align-items-center">
-          <button
-            className="btn back-arrow d-flex me-3 blue-text px-0"
-            onClick={() => router.back()}
-          >
-            <HiOutlineArrowLeft />
-          </button>
-          <Link href="/myCart">
-            <a className="mx-2 text-uppercase">Shopping cart</a>
-          </Link>
-          /
-          <span className="title ms-2 text-uppercase blue-text">
-            information
-          </span>
-          /
-          <Link href="/myCart/checkout/shipping">
-            <a className="mx-2 text-uppercase">Shipping</a>
-          </Link>
-          /
-          <Link href="/myCart/checkout/payment">
-            <a className="mx-2 text-uppercase">Payment</a>
-          </Link>
-        </div>
-      </div>
-      <div className="row main-panel r-container py-5">
-        <div className="col-lg-6 col-12 form-panel pt-lg-0 pt-sm-5">
-          <form className="form-control">
-            <div className="contact-panel">
-              <div className="title-panel d-flex justify-content-between py-4">
-                <h3 className="title m-0">Contact</h3>
-                <Link href="#">
-                  <a className="blue-text text-decoration-underline">Sign In</a>
-                </Link>
-              </div>
-              <div className="input-panel pt-3">
-                <input
-                  type="email"
-                  className="form-control px-4 py-3 round-form email-form my-4"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="flexCheckChecked"
-                  />
-                  <label
-                    className="form-check-label text-capitalize"
-                    htmlFor="flexCheckChecked"
-                  >
-                    Keep me informed of news and offers
-                  </label>
-                </div>
-              </div>
+  if (localStore) {
+    if (!localStore.cart) {
+      router.push("/myCart");
+      return <></>;
+    } else
+      return (
+        <div className="checkout_page checkout-information">
+          <Head>
+            <title>Checkout Information | Royal Coster</title>
+          </Head>
+          <div className="checkout_header">
+            <div className="r-container py-5">
+              <Link href="/">
+                <a>
+                  <img src="/img/common/mobile_logo.png" alt="logo" />
+                </a>
+              </Link>
             </div>
-            <div className="delivery-panel mt-sm-5 py-4">
-              <div className="title-panel py-4">
-                <h3 className="blue-text m-0">Delivery address</h3>
-              </div>
-              <div className="input-panel pt-3">
-                <div className="name-input row m-0 pt-4">
-                  <div className="p-0 pe-md-3 pe-0 col-md-6 ">
-                    <input
-                      type="text"
-                      className="form-control col-12 px-4 py-3 me-2 round-form first-name-form"
-                      placeholder="First Name (Optional)"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
+          </div>
+          <div className="link-panel py-4">
+            <div className="r-container d-flex align-items-center">
+              <button
+                className="btn back-arrow d-flex me-3 blue-text px-0"
+                onClick={() => router.back()}
+              >
+                <HiOutlineArrowLeft />
+              </button>
+              <Link href="/myCart">
+                <a className="mx-2 text-uppercase">Shopping cart</a>
+              </Link>
+              /
+              <span className="title ms-2 text-uppercase blue-text">
+                information
+              </span>
+              /
+              <Link href="/myCart/checkout/shipping">
+                <a className="mx-2 text-uppercase">Shipping</a>
+              </Link>
+              /
+              <Link href="/myCart/checkout/payment">
+                <a className="mx-2 text-uppercase">Payment</a>
+              </Link>
+            </div>
+          </div>
+          <div className="row main-panel r-container py-5">
+            <div className="col-lg-6 col-12 form-panel pt-lg-0 pt-sm-5">
+              <form className="form-control">
+                <div className="contact-panel">
+                  <div className="title-panel d-flex justify-content-between py-4">
+                    <h3 className="title m-0">Contact</h3>
+                    <Link href="#">
+                      <a className="blue-text text-decoration-underline">
+                        Sign In
+                      </a>
+                    </Link>
                   </div>
-                  <div className="p-0 ps-md-3 ps-0 pt-md-0 pt-4 col-md-6">
+                  <div className="input-panel pt-3">
                     <input
-                      type="text"
-                      className="form-control col-12 px-4 py-3 round-form surname-name-form"
-                      placeholder="Surname"
-                      value={surName}
-                      onChange={(e) => setSurName(e.target.value)}
+                      type="email"
+                      className="form-control px-4 py-3 round-form email-form my-4"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="flexCheckChecked"
+                      />
+                      <label
+                        className="form-check-label text-capitalize"
+                        htmlFor="flexCheckChecked"
+                      >
+                        Keep me informed of news and offers
+                      </label>
+                    </div>
                   </div>
                 </div>
-                <input
-                  type="text"
-                  className="form-control px-4 py-3 me-2 round-form street-form mt-4"
-                  placeholder="Street and  house number"
-                  value={street}
-                  onChange={(e) => setStreet(e.target.value)}
-                  required
-                />
+                <div className="delivery-panel mt-sm-5 py-4">
+                  <div className="title-panel py-4">
+                    <h3 className="blue-text m-0">Delivery address</h3>
+                  </div>
+                  <div className="input-panel pt-3">
+                    <div className="name-input row m-0 pt-4">
+                      <div className="p-0 pe-md-3 pe-0 col-md-6 ">
+                        <input
+                          type="text"
+                          className="form-control col-12 px-4 py-3 me-2 round-form first-name-form"
+                          placeholder="First Name (Optional)"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                        />
+                      </div>
+                      <div className="p-0 ps-md-3 ps-0 pt-md-0 pt-4 col-md-6">
+                        <input
+                          type="text"
+                          className="form-control col-12 px-4 py-3 round-form surname-name-form"
+                          placeholder="Surname"
+                          value={surName}
+                          onChange={(e) => setSurName(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      className="form-control px-4 py-3 me-2 round-form street-form mt-4"
+                      placeholder="Street and  house number"
+                      value={street}
+                      onChange={(e) => setStreet(e.target.value)}
+                      required
+                    />
 
-                <input
-                  type="text"
-                  className="form-control px-4 py-3 me-2 round-form apartment-form mt-4"
-                  placeholder="Apartment no. etc... (Optional)"
-                  value={apartment}
-                  onChange={(e) => setApartment(e.target.value)}
-                />
-                <div className="zipCode-input row m-0 mt-4">
-                  <div className="p-0 pe-md-3 pe-0 col-md-6 ">
                     <input
                       type="text"
-                      className="form-control px-4 py-3 me-2 round-form zipCode-form"
-                      placeholder="Zip Code"
-                      value={zipCode}
-                      onChange={(e) => setZipCode(e.target.value)}
+                      className="form-control px-4 py-3 me-2 round-form apartment-form mt-4"
+                      placeholder="Apartment no. etc... (Optional)"
+                      value={apartment}
+                      onChange={(e) => setApartment(e.target.value)}
+                    />
+                    <div className="zipCode-input row m-0 mt-4">
+                      <div className="p-0 pe-md-3 pe-0 col-md-6 ">
+                        <input
+                          type="text"
+                          className="form-control px-4 py-3 me-2 round-form zipCode-form"
+                          placeholder="Zip Code"
+                          value={zipCode}
+                          onChange={(e) => setZipCode(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="p-0 ps-md-3 ps-0 pt-md-0 pt-4 col-md-6">
+                        <input
+                          type="text"
+                          className="form-control px-4 py-3 round-form town-form"
+                          placeholder="Town"
+                          value={town}
+                          onChange={(e) => setTown(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <CountryDropdown
+                      className="form-control px-4 py-3 round-form country-form mt-4"
+                      value={country}
+                      onChange={(e) => setCountry(e)}
                       required
                     />
-                  </div>
-                  <div className="p-0 ps-md-3 ps-0 pt-md-0 pt-4 col-md-6">
                     <input
-                      type="text"
-                      className="form-control px-4 py-3 ms-2 round-form town-form"
-                      placeholder="Town"
-                      value={town}
-                      onChange={(e) => setTown(e.target.value)}
+                      className="form-control px-4 py-3 me-2 round-form phone-form mt-4"
+                      placeholder="Telephone Number"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
                       required
                     />
+                    <div className="invalid-feedback">{errorPhone}</div>
                   </div>
                 </div>
-                <CountryDropdown
-                  className="form-control px-4 py-3 round-form country-form mt-4"
-                  value={country}
-                  onChange={(e) => setCountry(e)}
-                  required
-                />
-                <input
-                  className="form-control px-4 py-3 me-2 round-form phone-form mt-4"
-                  placeholder="Telephone Number"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  required
-                />
-                <div className="invalid-feedback">{errorPhone}</div>
-              </div>
+                <div className="btn-panel pt-5 d-flex flex-sm-row flex-column">
+                  <button
+                    type="submit"
+                    className="btn round-form blue-btn px-5 py-3 next-btn text-uppercase me-sm-4 me-0 mb-sm-0 mb-4"
+                    onClick={nextStep}
+                  >
+                    Next step
+                  </button>
+                  <button
+                    className="btn round-form px-4 py-3 back-btn text-uppercase"
+                    onClick={() => router.push("/myCart")}
+                  >
+                    Back to cart
+                  </button>
+                </div>
+              </form>
             </div>
-            <div className="btn-panel pt-5 d-flex flex-sm-row flex-column">
-              <button
-                type="submit"
-                className="btn round-form blue-btn px-5 py-3 next-btn text-uppercase me-sm-4 me-0 mb-sm-0 mb-4"
-                onClick={nextStep}
-              >
-                Next step
-              </button>
-              <button
-                className="btn round-form px-4 py-3 back-btn text-uppercase"
-                onClick={() => router.push("/myCart")}
-              >
-                Back to cart
-              </button>
+            <div className="col-lg-6 col-12 ps-lg-5 mb-lg-0 mb-5 order-lg-last order-first">
+              <MyCartList />
             </div>
-          </form>
+          </div>
         </div>
-        <div className="col-lg-6 col-12 ps-lg-5 mb-lg-0 mb-5 order-lg-last order-first">
-          <MyCartList items={items} />
-        </div>
-      </div>
-    </div>
-  );
+      );
+  } else {
+    return <></>;
+  }
 }

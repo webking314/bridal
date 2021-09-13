@@ -14,28 +14,8 @@ import {
   RiCloseFill,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-import { Cn } from "react-flags-select";
-import { val } from "dom7";
 
 const cartItems = [
-  {
-    title: "Brilliant Cut Diamond Engagement Ring",
-    image: "item-1.png",
-    style: "Halo style",
-    description:
-      "Exude grace with this round Aphrodite band, set with round, brilliant diamonds and halo to lend eternal style.",
-    price: 2895,
-    amount: 1,
-  },
-  {
-    title: "Brilliant Cut Diamond Engagement Ring",
-    image: "item-2.png",
-    style: "Halo style",
-    description:
-      "Exude grace with this round Aphrodite band, set with round, brilliant diamonds and halo to lend eternal style.",
-    price: 2895,
-    amount: 1,
-  },
   {
     title: "Brilliant Cut Diamond Engagement Ring",
     image: "item-1.png",
