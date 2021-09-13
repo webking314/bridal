@@ -2,6 +2,8 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Header from "../../../components/header";
+import Footer from "../../../components/footer";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import MyCartList from "../../../components/myCartList";
 
@@ -26,15 +28,7 @@ export default function Payment() {
           <Head>
             <title>Checkout Payment | Royal Coster</title>
           </Head>
-          <div className="checkout_header">
-            <div className="r-container py-5">
-              <Link href="/">
-                <a>
-                  <img src="/img/common/mobile_logo.png" alt="logo" />
-                </a>
-              </Link>
-            </div>
-          </div>
+          <Header />
           <div className="link-panel py-4">
             <div className="r-container d-flex align-items-center">
               <button
@@ -63,7 +57,7 @@ export default function Payment() {
           <div className="row main-panel r-container py-5">
             <div className="col-lg-6 col-12 pt-lg-0 pt-sm-5 shipping-panel">
               <div className="pay-info">
-                <div className="contact-panel round-panel round-form d-flex justify-content-between py-4 px-5 mt-4 flex-sm-row flex-column">
+                <div className="contact-panel round-panel round-form d-flex justify-content-between py-4 px-5 flex-sm-row flex-column">
                   <div className="text-panel d-flex align-items-center">
                     <h3 className="m-0 me-4">Contact</h3>
                     <p className="m-0">{shippingData.contact.email}</p>
@@ -264,6 +258,7 @@ export default function Payment() {
               <MyCartList />
             </div>
           </div>
+          <Footer />
         </div>
       );
     }

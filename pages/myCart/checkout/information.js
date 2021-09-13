@@ -3,6 +3,8 @@ import Link from "next/link";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import MyCartList from "../../../components/myCartList";
 import { useRouter } from "next/router";
+import Header from "../../../components/header";
+import Footer from "../../../components/footer";
 import { CountryDropdown } from "react-country-region-selector";
 import { useEffect, useState } from "react";
 
@@ -92,15 +94,7 @@ export default function Information() {
           <Head>
             <title>Checkout Information | Royal Coster</title>
           </Head>
-          <div className="checkout_header">
-            <div className="r-container py-5">
-              <Link href="/">
-                <a>
-                  <img src="/img/common/mobile_logo.png" alt="logo" />
-                </a>
-              </Link>
-            </div>
-          </div>
+          <Header/>
           <div className="link-panel py-4">
             <div className="r-container d-flex align-items-center">
               <button
@@ -263,6 +257,7 @@ export default function Information() {
               <MyCartList />
             </div>
           </div>
+          <Footer/>
         </div>
       );
   } else {

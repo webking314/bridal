@@ -135,7 +135,8 @@ export default function Bespoke() {
                       src={"/img/bespoke/" + item.image}
                       className="item-image"
                       alt="timeLine-image"
-                      data-aos-duration={700}
+                      data-aos-delay={500}
+                      data-aos-duration={500}
                       data-aos={index % 2 == 1 ? "fade-right" : "fade-left"}
                     />
                   </Typography>
