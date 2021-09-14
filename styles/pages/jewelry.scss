@@ -54,6 +54,8 @@
       }
     }
     .filter-bar {
+      position: relative;
+      z-index: 6;
       .select-search {
         border-radius: 0.8rem;
         width: 200px;
