@@ -1,0 +1,237 @@
+#appointmentModal {
+  max-width: 1024px !important;
+  .modal-content {
+    box-shadow: 0px 14px 20px rgba(0, 0, 0, 0.05);
+    .modal-title {
+      font-size: 2.4rem;
+      color: #01215c;
+      font-weight: 500;
+    }
+    #v-pills-tab {
+      button {
+        border: 1px solid rgba(2, 24, 37, 0.1);
+        border-radius: 0.8rem;
+        font-size: 1.8rem;
+        color: rgba(2, 24, 37, 0.5);
+        font-weight: 500;
+        &.active {
+          background: transparent;
+          border-color: #01215c;
+          color: #01215c;
+        }
+      }
+    }
+    .tab-content {
+      * {
+        color: black;
+      }
+      #location {
+        .title {
+          color: #01215c;
+          font-size: 2.4rem;
+          font-weight: 400;
+        }
+        .description {
+          font-weight: 400;
+          font-size: 1.8rem;
+        }
+        .btn-unavailable {
+          background: #f2f3f4;
+          width: 100%;
+          font-weight: 400;
+          font-size: 1.8rem;
+          color: rgba(2, 24, 37, 0.5);
+          &:hover {
+            background: #6f7070;
+            color: white;
+          }
+        }
+        .btn-consultation {
+          width: 100%;
+          * {
+            font-weight: 400;
+            font-size: 1.8rem;
+            color: white;
+          }
+          &:hover {
+            * {
+              color: #01215c;
+            }
+          }
+        }
+      }
+      #service {
+        .title {
+          font-size: 2.4rem;
+          font-weight: 400;
+        }
+        .option-item {
+          background: #f2f3f4;
+          font-size: 1.8rem;
+          font-weight: 400;
+          border: 2px solid transparent;
+          cursor: pointer;
+          &.active {
+            border-color: #01215c;
+            color: #01215c;
+            font-weight: 500;
+          }
+        }
+      }
+      #contactDetails {
+        .title {
+          font-size: 2.4rem;
+          color: #01215c;
+          font-weight: 400;
+        }
+        label {
+          font-size: 1.4rem;
+          font-weight: 500;
+          color: #01215c;
+        }
+        .form-control,
+        .form-select {
+          color: black;
+          font-weight: 500;
+          font-size: 1.4rem;
+          &:focus {
+            box-shadow: none;
+            border-color: #01215c;
+          }
+        }
+        .telephone-form {
+          .phoneNumber-prefix {
+            width: 100px;
+            position: relative;
+            * {
+              font-size: 1.4rem;
+              font-weight: 500;
+              color: #01215c;
+            }
+            .symbol {
+              position: absolute;
+              left: 10px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+          }
+          #phoneNumber {
+            flex: 1;
+          }
+        }
+        .safe-panel {
+          h3 {
+            font-size: 1.4rem;
+            color: rgba(1, 33, 92, 0.5);
+            font-weight: 500;
+          }
+          label {
+            flex: 1;
+            font-size: 1.4rem;
+            color: black;
+            font-weight: 400;
+          }
+          #safeMode {
+            width: 2.4rem;
+            height: 2.4rem;
+            &:focus {
+              box-shadow: none;
+            }
+            &:checked {
+              background-color: #01215c;
+              border-color: #01215c;
+            }
+          }
+        }
+        .btn-request {
+          font-size: 1.6rem;
+          color: #01215c;
+          font-weight: 500;
+          &:hover {
+            border-color: #01215c;
+          }
+        }
+      }
+      #timeDate {
+        .title {
+          font-size: 2.4rem;
+          color: #01215c;
+        }
+        .date-panel {
+          .calendar-panel {
+            border: 1px solid rgba(2, 24, 37, 0.3);
+            overflow: hidden;
+            .date-title-panel {
+              * {
+                font-size: 2rem;
+                color: #01215c;
+                font-weight: 400;
+              }
+              span {
+                font-size: 1.4rem;
+              }
+            }
+            .react-calendar {
+              border: 0;
+              border-top: 1px solid rgba(2, 24, 37, 0.1);
+              width: 100%;
+              padding: 15px;
+              * {
+                font-size: 1.8rem;
+                font-weight: 400;
+              }
+              abbr[title] {
+                text-decoration: none;
+                font-weight: 500;
+              }
+              button {
+                &.react-calendar__tile {
+                  position: relative;
+                  overflow: unset !important;
+                  margin-top: 10px;
+                  &.react-calendar__tile--now {
+                    background: transparent;
+                  }
+                  &.react-calendar__tile--active {
+                    background: transparent;
+                    abbr {
+                      position: absolute;
+                      top: 50%;
+                      left: 50%;
+                      width: 43px;
+                      height: 43px;
+                      display: flex;
+                      transform: translate(-50%, -50%);
+                      justify-content: center;
+                      align-items: center;
+                      border-radius: 50px;
+                      background: gainsboro;
+                      color: #01215c;
+                      font-weight: 500;
+                    }
+                  }
+                  &:hover {
+                    background: transparent;
+                    abbr {
+                      position: absolute;
+                      top: 50%;
+                      left: 50%;
+                      width: 43px;
+                      height: 43px;
+                      display: flex;
+                      transform: translate(-50%, -50%);
+                      justify-content: center;
+                      align-items: center;
+                      border-radius: 50px;
+                      background: gainsboro;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

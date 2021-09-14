@@ -2,11 +2,11 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { CountryDropdown } from "react-country-region-selector";
-import MyCartList from "../../../components/myCartList";
+import MyCartList from "../../components/myCartList";
 
 export default function Payment() {
   const [storage, setStorage] = useState();
@@ -88,7 +88,7 @@ export default function Payment() {
       router.push("/myCart");
       return <div></div>;
     } else if (!localStorage.shipping) {
-      router.push("/myCart/checkout/information");
+      router.push("/checkout/information");
       return <div></div>;
     } else {
       const shippingData = JSON.parse(localStorage.shipping);
@@ -110,11 +110,11 @@ export default function Payment() {
                 <a className="mx-2 text-uppercase">Shopping cart</a>
               </Link>
               /
-              <Link href="/myCart/checkout/information">
+              <Link href="/checkout/information">
                 <a className="mx-2 text-uppercase">information</a>
               </Link>
               /
-              <Link href="/myCart/checkout/shipping">
+              <Link href="/checkout/shipping">
                 <a className="mx-2 text-uppercase">Shipping</a>
               </Link>
               /
@@ -131,7 +131,7 @@ export default function Payment() {
                     <h3 className="m-0 me-4">Contact</h3>
                     <p className="m-0">{shippingData.contact.email}</p>
                   </div>
-                  <Link href="/myCart/checkout/information">
+                  <Link href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -150,7 +150,7 @@ export default function Payment() {
                         shippingData.address.country}
                     </p>
                   </div>
-                  <Link href="/myCart/checkout/information">
+                  <Link href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -164,7 +164,7 @@ export default function Payment() {
                       {shippingData.shippingMethod == "free" ? "Free" : "None"}
                     </p>
                   </div>
-                  <Link href="/myCart/checkout/shipping">
+                  <Link href="/checkout/shipping">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -412,7 +412,7 @@ export default function Payment() {
                   </button>
                   <button
                     className="btn round-form px-4 py-3 back-btn text-uppercase"
-                    onClick={() => router.push("/myCart/checkout/shipping")}
+                    onClick={() => router.push("/checkout/shipping")}
                   >
                     Back to ship
                   </button>

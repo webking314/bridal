@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-import MyCartList from "../../../components/myCartList";
+import MyCartList from "../../components/myCartList";
 import { useRouter } from "next/router";
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 import { CountryDropdown } from "react-country-region-selector";
 import { useEffect, useState } from "react";
 
@@ -78,7 +78,7 @@ export default function Information() {
               },
             })
           );
-          router.push("/myCart/checkout/shipping");
+          router.push("/checkout/shipping");
         }
       }
     }
@@ -111,11 +111,11 @@ export default function Information() {
                 information
               </span>
               /
-              <Link href="/myCart/checkout/shipping">
+              <Link href="/checkout/shipping">
                 <a className="mx-2 text-uppercase">Shipping</a>
               </Link>
               /
-              <Link href="/myCart/checkout/payment">
+              <Link href="/checkout/payment">
                 <a className="mx-2 text-uppercase">Payment</a>
               </Link>
             </div>

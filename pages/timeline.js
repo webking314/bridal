@@ -12,7 +12,6 @@ import SwiperCore, {
 import "swiper/css";
 import "swiper/css/effect-creative";
 import "swiper/css/scrollbar";
-import { touchend } from "dom7";
 
 SwiperCore.use([Mousewheel, Pagination, Scrollbar, EffectCreative]);
 
@@ -63,11 +62,10 @@ const timeLists = [
 const settingSlider = {
   freeMode: {
     enabled: true,
-    // sticky: false,
-    // momentumBounce: false,
+    sticky: false,
+    momentumBounce: false,
   },
-  // freeMode:true,
-  mousewheel: {
+    mousewheel: {
     enabled: true,
     sensitivity: 3.5,
   }

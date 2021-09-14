@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-import MyCartList from "../../../components/myCartList";
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
+import MyCartList from "../../components/myCartList";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 
 export default function Shipping() {
   const [storage, setStorage] = useState();
@@ -13,7 +13,7 @@ export default function Shipping() {
   const router = useRouter();
 
   const goPay = () => {
-    router.push("/myCart/checkout/payment");
+    router.push("/checkout/payment");
     let shippingData = JSON.parse(localStorage.shipping);
     if (!shippingData.shippingMethod) {
       if (freeShippingMethod == true) {
@@ -50,7 +50,7 @@ export default function Shipping() {
       router.push("/myCart");
       return <div></div>;
     } else if (!localStorage.shipping) {
-      router.push("/myCart/checkout/information");
+      router.push("/checkout/information");
       return <div></div>;
     } else {
       const shippingData = JSON.parse(localStorage.shipping);
@@ -72,7 +72,7 @@ export default function Shipping() {
                 <a className="mx-2 text-uppercase">Shopping cart</a>
               </Link>
               /
-              <Link href="/myCart/checkout/information">
+              <Link href="/checkout/information">
                 <a className="mx-2 text-uppercase">information</a>
               </Link>
               /
@@ -80,7 +80,7 @@ export default function Shipping() {
                 Shipping
               </span>
               /
-              <Link href="/myCart/checkout/payment">
+              <Link href="/checkout/payment">
                 <a className="mx-2 text-uppercase">Payment</a>
               </Link>
             </div>
@@ -96,7 +96,7 @@ export default function Shipping() {
                     <h3 className="m-0 me-4">Contact</h3>
                     <p className="m-0">{shippingData.contact.email}</p>
                   </div>
-                  <Link href="/myCart/checkout/information">
+                  <Link href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -115,7 +115,7 @@ export default function Shipping() {
                         shippingData.address.country}
                     </p>
                   </div>
-                  <Link href="/myCart/checkout/information">
+                  <Link href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -155,7 +155,7 @@ export default function Shipping() {
                 </button>
                 <button
                   className="btn round-form px-4 py-3 back-btn text-uppercase"
-                  onClick={() => router.push("/myCart/checkout/information")}
+                  onClick={() => router.push("/checkout/information")}
                 >
                   Back to info
                 </button>

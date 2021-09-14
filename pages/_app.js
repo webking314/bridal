@@ -14,6 +14,7 @@ import "../styles/components/help.scss";
 import "../styles/components/instagram.scss";
 import "../styles/components/craftingIdea.scss";
 import "../styles/components/dropHintModal.scss";
+import "../styles/components/appointmentModal.scss";
 import "../styles/components/myCartList.scss";
 
 import "../styles/pages/homepage.scss";

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import ReactFlagsSelect from "react-flags-select";
 import DropHintModal from "./dropHintModal";
 import Link from "next/link";
+import AppointmentModal from "./appointmentModal";
 import {
   RiCustomerService2Fill,
   RiMapPin2Line,
@@ -846,133 +847,7 @@ export default function Header({ page }) {
         </div>
         <div className="offcanvas-body"></div>
       </div>
-      <div
-        className="modal fade"
-        id="appointment"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div
-          className="modal-dialog modal-dialog-centered r-container"
-          id="appointmentModal"
-        >
-          <div className="modal-content px-5 py-4 round">
-            <div className="modal-header  py-3">
-              <h3 className="modal-title">Request an Appointment</h3>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <div className="d-flex align-items-start">
-                <div
-                  className="nav flex-column nav-pills me-3"
-                  id="v-pills-tab"
-                  role="tablist"
-                  aria-orientation="vertical"
-                >
-                  <button
-                    className="nav-link active mb-4 text-uppercase"
-                    id="location-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#location"
-                    type="button"
-                    role="tab"
-                    aria-controls="location"
-                    aria-selected="true"
-                  >
-                    Location
-                  </button>
-                  <button
-                    className="nav-link mb-4 text-uppercase"
-                    id="service-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#service"
-                    type="button"
-                    role="tab"
-                    aria-controls="service"
-                    aria-selected="false"
-                  >
-                    Service
-                  </button>
-                  <button
-                    className="nav-link mb-4 text-uppercase"
-                    id="timeDate-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#timeDate"
-                    type="button"
-                    role="tab"
-                    aria-controls="timeDate"
-                    aria-selected="false"
-                  >
-                    time & date
-                  </button>
-                  <button
-                    className="nav-link mb-4 text-uppercase"
-                    id="contactDetails-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#contactDetails"
-                    type="button"
-                    role="tab"
-                    aria-controls="contactDetails"
-                    aria-selected="false"
-                  >
-                    contact Details
-                  </button>
-                </div>
-                <div className="tab-content" id="v-pills-tabContent">
-                  <div
-                    className="tab-pane fade show active"
-                    id="location"
-                    role="tabpanel"
-                    aria-labelledby="location-tab"
-                  >
-                    <h3 className="title">Select Showroom</h3>
-                    <p className="description">
-                      Covid-19 Update: our showrooms are temporarily closed, but
-                      you now can book in advance for when we reopen. If you
-                      wish to speak to our experts urgently, we recommend you
-                      choose an online consultation.
-                    </p>
-                    <button>Offline appointments unavailable</button>
-                    <button className="d-flex justify-content-between align-items-center">
-                      <span>ONLINE CONSULTATION</span>
-                    </button>
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="service"
-                    role="tabpanel"
-                    aria-labelledby="service-tab"
-                  >
-                    service
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="timeDate"
-                    role="tabpanel"
-                    aria-labelledby="timeDate-tab"
-                  >
-                    time & date
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="contactDetails"
-                    role="tabpanel"
-                    aria-labelledby="contactDetails-tab"
-                  >
-                    contact details
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AppointmentModal />
 
       {/* Start drop hint modal */}
       <DropHintModal />
