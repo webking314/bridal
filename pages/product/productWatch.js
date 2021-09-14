@@ -105,7 +105,7 @@ export default function ProductWatch() {
       let productStore = JSON.parse(localStorage.products);
       let setItem = productStore.find((item, index) => item.id == products.id);
       if (setItem) {
-        setItem.amount = itemAmount;
+        setItem.amount += itemAmount;
         localStorage.setItem("products", JSON.stringify(productStore));
       } else {
         localStorage.setItem(

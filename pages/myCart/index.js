@@ -52,7 +52,7 @@ export default function MyCart() {
 
   const checkOut = (e) => {
     e.preventDefault();
-    router.push("/myCart/checkout/information");
+    router.push("/checkout/information");
     localStorage.setItem(
       "cart",
       JSON.stringify({ cartData: items, subTotal: subTotal })
