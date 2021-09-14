@@ -21,10 +21,12 @@ $flagSelectColor: white;
     * {
       color: white;
     }
-    a:hover {
-      color: white;
-      * {
-        color: white !important;
+    a {
+      &:hover {
+        color: white;
+        * {
+          color: white !important;
+        }
       }
     }
     .desktop-header {
@@ -41,7 +43,8 @@ $flagSelectColor: white;
           }
         }
       }
-      a {
+      a,
+      button {
         &:hover {
           color: #1787d1;
           // color: #fbe9d5;
@@ -57,6 +60,14 @@ $flagSelectColor: white;
       }
       .sub-bar {
         border-bottom: $homeHeaderBorderColor !important;
+        a {
+          &:hover {
+            color: white;
+            span {
+              color: white !important;
+            }
+          }
+        }
         // border-bottom: $headerBorderColor !important;
       }
     }
@@ -331,7 +342,8 @@ $flagSelectColor: white;
         }
       }
     }
-    a {
+    a,
+    button {
       &:hover {
         color: #a88b0b;
         * {
@@ -349,18 +361,18 @@ $flagSelectColor: white;
         }
       }
     }
-    button {
-      &:hover {
-        opacity: 0.7;
-      }
-    }
+    // button {
+    //   &:hover {
+    //     opacity: 0.7;
+    //   }
+    // }
     .btn-consultation {
       margin-right: -30px;
       font-weight: 500;
       &:hover {
         border-radius: 0;
         background: #01215c;
-        color: white;
+        color: white !important;
         opacity: 1;
       }
     }

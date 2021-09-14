@@ -118,6 +118,9 @@
       }
     }
     .shipping-panel {
+      >.form-control {
+        border: 0;
+      }
       .title-panel {
         border-bottom: 1px solid rgba(2, 24, 37, 0.1);
         h3 {
@@ -180,6 +183,7 @@
           .form-check-input {
             width: 20px;
             height: 20px;
+            border-radius: 50%;
             &:checked {
               background-image: url(/img/common/customRadio.png);
               background-color: white;
@@ -198,6 +202,40 @@
             }
             &.remember-label {
               color: #01215c;
+            }
+          }
+        }
+      }
+      .different-address-panel {
+        .address-panel {
+          height: 0px;
+          opacity: 0;
+          display: none;
+          transition-duration: 0.1s;
+          &.different {
+            height: auto;
+            opacity: 1;
+            display: block;
+            transition-duration: 0.7s;
+          }
+          .invalid-feedback {
+            display: block;
+            font-size: 1.6rem;
+          }
+          input,
+          select {
+            font-size: 1.6rem;
+            font-weight: 400;
+            &:focus {
+              box-shadow: none;
+              border: 1px solid #01215c;
+            }
+          }
+          .title-panel {
+            border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+            h3 {
+              font-weight: 400;
+              font-size: 2.4rem;
             }
           }
         }

@@ -5,11 +5,80 @@ import Link from "next/link";
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { CountryDropdown } from "react-country-region-selector";
 import MyCartList from "../../../components/myCartList";
 
 export default function Payment() {
   const [storage, setStorage] = useState();
+  const [saveData, setSaveData] = useState(true);
   const router = useRouter();
+  const [firstName, setFirstName] = useState();
+  const [surName, setSurName] = useState();
+  const [street, setStreet] = useState();
+  const [apartment, setApartment] = useState();
+  const [zipCode, setZipCode] = useState();
+  const [town, setTown] = useState();
+  const [country, setCountry] = useState("Netherlands");
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [errorPhone, setErrorPhone] = useState();
+  const [billingMode, setBillingMode] = useState("same");
+
+  const payNow = (e) => {
+    if (!saveData) {
+      e.preventDefault();
+      localStorage.removeItem("cart");
+      localStorage.removeItem("shipping");
+      localStorage.removeItem("products");
+      localStorage.removeItem("billing");
+    } else {
+      if (billingMode == "same") {
+        e.preventDefault();
+        localStorage.setItem(
+          "billing",
+          JSON.stringify(JSON.parse(localStorage.shipping))
+        );
+      } else {
+        if (!surName | !street | !zipCode | !town | !country | !phoneNumber) {
+          console.log(e);
+        } else {
+          e.preventDefault();
+          if (typeof phoneNumber !== "undefined") {
+            var pattern = new RegExp(/^[0-9\b]+$/);
+            if (!pattern.test(phoneNumber)) {
+              setErrorPhone("Please enter only number.");
+            } else if (phoneNumber.length < 10 || phoneNumber.length > 12) {
+              setErrorPhone("Please enter valid phone number.");
+            } else {
+              setErrorPhone("");
+              localStorage.setItem(
+                "billing",
+                JSON.stringify({
+                  contact: {
+                    email: JSON.parse(localStorage.shipping).contact.email,
+                    firstName: firstName,
+                    surName: surName,
+                    phoneNumber: phoneNumber,
+                  },
+                  address: {
+                    street: street,
+                    apartment: apartment,
+                    zipCode: zipCode,
+                    town: town,
+                    country: country,
+                  },
+                })
+              );
+              setBillingMode('')
+            }
+          }
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    console.log(billingMode);
+  }, [billingMode]);
 
   useEffect(() => {
     setStorage(localStorage);
@@ -174,85 +243,181 @@ export default function Payment() {
                   </div>
                 </div>
               </div>
-              <div className="billing-address-panel mt-sm-5 py-sm-5">
-                <div className="title-panel py-4">
-                  <h3>Billing address</h3>
-                  <p className="m-0">
-                    Select the address that corresponds to your card or payment
-                    method.
-                  </p>
-                </div>
-                <div className="billing-checkout-panel payment-panel round-form mt-4 px-4">
-                  <div className="form-check">
-                    <label
-                      className="form-check-label py-4 d-flex align-items-center"
-                      htmlFor="defaultAddress"
-                    >
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="billingRadio"
-                        id="defaultAddress"
-                        defaultChecked
-                      />
-                      <h3 className="m-0 ms-3">Same as delivery address</h3>
-                    </label>
+              <form className="form-control ">
+                <div className="billing-address-panel mt-sm-5 py-sm-5">
+                  <div className="title-panel py-4">
+                    <h3>Billing address</h3>
+                    <p className="m-0">
+                      Select the address that corresponds to your card or
+                      payment method.
+                    </p>
                   </div>
-                  <div className="form-check">
-                    <label
-                      className="form-check-label d-flex align-items-center py-4"
-                      htmlFor="differentAddress"
-                    >
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="billingRadio"
-                        id="differentAddress"
-                      />
-                      <h3 className="m-0 ms-3">
-                        Use a different billing address
-                      </h3>
-                    </label>
+                  <div className="billing-checkout-panel payment-panel round-form mt-4 px-4">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label py-4 d-flex align-items-center"
+                        htmlFor="defaultAddress"
+                      >
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="billingRadio"
+                          id="defaultAddress"
+                          onChange={(e) =>
+                            e.target.checked && setBillingMode("same")
+                          }
+                          defaultChecked
+                        />
+                        <h3 className="m-0 ms-3">Same as delivery address</h3>
+                      </label>
+                    </div>
+                    <div className="form-check different-address-panel">
+                      <label
+                        className="form-check-label d-flex align-items-center py-4"
+                        htmlFor="differentAddress"
+                      >
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="billingRadio"
+                          id="differentAddress"
+                          onChange={(e) =>
+                            e.target.checked && setBillingMode("different")
+                          }
+                        />
+                        <h3 className="m-0 ms-3">
+                          Use a different billing address
+                        </h3>
+                      </label>
+                      <div
+                        className={
+                          "col-12 form-panel address-panel pt-lg-0 " +
+                          billingMode
+                        }
+                      >
+                        <div className="delivery-panel py-4">
+                          <div className="title-panel py-4">
+                            <h3 className="blue-text m-0">Billing address</h3>
+                          </div>
+                          <div className="input-panel pt-3">
+                            <div className="name-input row m-0 pt-4">
+                              <div className="p-0 pe-md-3 pe-0 col-md-6 ">
+                                <input
+                                  type="text"
+                                  className="form-control col-12 px-4 py-3 me-2 round-form first-name-form"
+                                  placeholder="First Name (Optional)"
+                                  value={firstName}
+                                  onChange={(e) => setFirstName(e.target.value)}
+                                />
+                              </div>
+                              <div className="p-0 ps-md-3 ps-0 pt-md-0 pt-4 col-md-6">
+                                <input
+                                  type="text"
+                                  className="form-control col-12 px-4 py-3 round-form surname-name-form"
+                                  placeholder="Surname"
+                                  value={surName}
+                                  onChange={(e) => setSurName(e.target.value)}
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <input
+                              type="text"
+                              className="form-control px-4 py-3 me-2 round-form street-form mt-4"
+                              placeholder="Street and  house number"
+                              value={street}
+                              onChange={(e) => setStreet(e.target.value)}
+                              required
+                            />
+
+                            <input
+                              type="text"
+                              className="form-control px-4 py-3 me-2 round-form apartment-form mt-4"
+                              placeholder="Apartment no. etc... (Optional)"
+                              value={apartment}
+                              onChange={(e) => setApartment(e.target.value)}
+                            />
+                            <div className="zipCode-input row m-0 mt-4">
+                              <div className="p-0 pe-md-3 pe-0 col-md-6 ">
+                                <input
+                                  type="text"
+                                  className="form-control px-4 py-3 me-2 round-form zipCode-form"
+                                  placeholder="Zip Code"
+                                  value={zipCode}
+                                  onChange={(e) => setZipCode(e.target.value)}
+                                  required
+                                />
+                              </div>
+                              <div className="p-0 ps-md-3 ps-0 pt-md-0 pt-4 col-md-6">
+                                <input
+                                  type="text"
+                                  className="form-control px-4 py-3 round-form town-form"
+                                  placeholder="Town"
+                                  value={town}
+                                  onChange={(e) => setTown(e.target.value)}
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <CountryDropdown
+                              className="form-control px-4 py-3 round-form country-form mt-4"
+                              value={country}
+                              onChange={(e) => setCountry(e)}
+                              required
+                            />
+                            <input
+                              className="form-control px-4 py-3 me-2 round-form phone-form mt-4"
+                              placeholder="Telephone Number"
+                              value={phoneNumber}
+                              onChange={(e) => setPhoneNumber(e.target.value)}
+                              required
+                            />
+                            <div className="invalid-feedback">{errorPhone}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="remember-panel mt-sm-5 py-5">
-                <div className="title-panel py-4">
-                  <h3 className="m-0 remember-label">Remember me</h3>
-                </div>
-                <div className="remember-checkout-panel payment-panel round-form mt-4 px-4">
-                  <div className="form-check">
-                    <label
-                      className="form-check-label py-4 d-flex align-items-center"
-                      htmlFor="defaultAddress"
-                    >
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="rememberRadio"
-                        id="defaultAddress"
-                        checked
-                      />
-                      <h3 className="m-0 ms-3">Save my data to pay faster</h3>
-                    </label>
+                <div className="remember-panel mt-sm-5 py-5">
+                  <div className="title-panel py-4">
+                    <h3 className="m-0 remember-label">Remember me</h3>
+                  </div>
+                  <div className="remember-checkout-panel payment-panel round-form mt-4 px-4">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label py-4 d-flex align-items-center"
+                        htmlFor="saveData"
+                      >
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="rememberRadio"
+                          id="saveData"
+                          checked={saveData}
+                          onChange={(e) => setSaveData(e.target.checked)}
+                        />
+                        <h3 className="m-0 ms-3">Save my data to pay faster</h3>
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="btn-panel pt-sm-5 d-flex flex-sm-row flex-column">
-                <button
-                  type="submit"
-                  className="btn round-form blue-btn px-5 py-3 next-btn text-uppercase me-sm-4 mb-sm-0 mb-4"
-                  onClick={() => router.push("/myCart/checkout/payment")}
-                >
-                  Pay Now
-                </button>
-                <button
-                  className="btn round-form px-4 py-3 back-btn text-uppercase"
-                  onClick={() => router.push("/myCart/checkout/shipping")}
-                >
-                  Back to ship
-                </button>
-              </div>
+                <div className="btn-panel pt-sm-5 d-flex flex-sm-row flex-column">
+                  <button
+                    type="submit"
+                    className="btn round-form blue-btn px-5 py-3 next-btn text-uppercase me-sm-4 mb-sm-0 mb-4"
+                    onClick={payNow}
+                  >
+                    Pay Now
+                  </button>
+                  <button
+                    className="btn round-form px-4 py-3 back-btn text-uppercase"
+                    onClick={() => router.push("/myCart/checkout/shipping")}
+                  >
+                    Back to ship
+                  </button>
+                </div>
+              </form>
             </div>
             <div className="col-lg-6 col-12 ps-lg-5 mb-lg-0 mb-5 order-lg-last order-first">
               <MyCartList />

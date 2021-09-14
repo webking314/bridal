@@ -16,7 +16,7 @@ export default function Information() {
   const [apartment, setApartment] = useState();
   const [zipCode, setZipCode] = useState();
   const [town, setTown] = useState();
-  const [country, setCountry] = useState();
+  const [country, setCountry] = useState('Netherlands');
   const [phoneNumber, setPhoneNumber] = useState();
   const [localStore, setLocalStore] = useState();
   const [errorPhone, setErrorPhone] = useState();

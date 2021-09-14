@@ -42,4 +42,46 @@
       color: rgba(2, 24, 37, 0.8);
     }
   }
+  .time-list-section {
+    .swiper-wrapper{
+      display: flex;
+      transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    }
+    .timeline-box {
+      background: #021825;
+      height: 62.5vw;
+      max-height: 900px;
+      &.horizontal-layout {
+        background: #010e16;
+      }
+      .main-box {
+        width: 90%;
+        max-width: 1440px;
+        margin: 0 auto;
+        .history-box {
+          .image-box {
+            img {
+              width: 100%;
+            }
+          }
+          .text-box {
+            h2 {
+              font-family: FreeSerif;
+              font-style: italic;
+              font-weight: normal;
+              font-size: 144px;
+              color: rgba(255, 255, 255, 0.3);
+            }
+            p {
+              font-family: Marlin Geo SQ;
+              font-style: normal;
+              font-weight: 350;
+              font-size: 32px;
+              color: rgba(255, 255, 255, 0.7);
+            }
+          }
+        }
+      }
+    }
+  }
 }
