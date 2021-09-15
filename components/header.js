@@ -256,7 +256,7 @@ export default function Header({ page }) {
     });
   }, []);
   return (
-    <div id="header" className={!page ? "" : "homepage"}>
+    <div id="header" className={page}>
       <div className="desktop-header d-lg-block d-none">
         <div className="scroll-header dr-none px-5">
           <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
@@ -462,7 +462,7 @@ export default function Header({ page }) {
                 <a>
                   <img
                     src={
-                      !page
+                      page != 'homepage'
                         ? "/img/common/logo_black.png"
                         : "/img/common/logo_white.png"
                     }

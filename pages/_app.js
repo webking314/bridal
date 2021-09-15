@@ -16,6 +16,7 @@ import "../styles/components/craftingIdea.scss";
 import "../styles/components/dropHintModal.scss";
 import "../styles/components/appointmentModal.scss";
 import "../styles/components/myCartList.scss";
+import "../styles/components/aboutSlider.scss";
 
 import "../styles/pages/homepage.scss";
 import "../styles/pages/blog/blog.scss";
@@ -28,6 +29,7 @@ import "../styles/pages/bespoke.scss";
 import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
 import "../styles/pages/timeline.scss";
+import "../styles/pages/about.scss";
 import "../styles/pages/customRing/chooseSetting.scss";
 import "../styles/pages/customRing/confirmSetting.scss";
 import "../styles/pages/customRing/chooseDiamond.scss";

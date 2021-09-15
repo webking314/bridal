@@ -1,0 +1,67 @@
+.about_page {
+  .hero-section {
+    background: linear-gradient(
+        180deg,
+        #e5d7bf 27.19%,
+        rgba(229, 215, 191, 0) 44.07%
+      ),
+      url(/img/about/hero_bg.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 65rem;
+  }
+  .guide-section {
+    background: #f7f3ec;
+    .title {
+      font-size: 4.8rem;
+      font-weight: 400;
+      color: #01215c;
+      span {
+        font-family: FreeSerif;
+        font-weight: 400;
+        font-style: italic;
+        font-size: 5.2rem;
+        line-height: 120%;
+      }
+    }
+    .guide-text {
+      font-size: 24px;
+      line-height: 150%;
+      font-weight: 400;
+      color: rgba(2, 24, 37, 0.8);
+    }
+  }
+  .video-section {
+    position: relative;
+    .video_img {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+    .btn-play {
+      position: absolute;
+      font-size: 9rem;
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: rgba(255, 255, 255, 0.7);
+      transition-duration: 0.5s;
+      cursor: pointer;
+      &:hover {
+        font-size: 9.5rem;
+        transition-duration: 0.7s;
+      }
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      height: 55%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: #f7f3ec;
+    }
+  }
+}

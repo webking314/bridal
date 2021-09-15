@@ -15,6 +15,15 @@ $flagSelectColor: white;
   top: 0;
   width: 100%;
   background: white;
+
+  &.about {
+    background: rgb(229 215 191);
+    .desktop-header {
+      .sub-bar {
+        border-bottom: $headerBorderColor !important;
+      }
+    }
+  }
   &.homepage {
     position: absolute;
     background: transparent;
@@ -501,5 +510,4 @@ $flagSelectColor: white;
       }
     }
   }
- 
 }
