@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
+import { RiPlayFill } from "react-icons/ri";
 import "swiper/css";
 
 SwiperCore.use([Autoplay, Navigation]);
 
-export default function AboutSlider({slides}) {
+export default function AboutSlider({ slides, btnDisable }) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   return (
@@ -18,13 +20,16 @@ export default function AboutSlider({slides}) {
         slidesPerView={3}
         spaceBetween={30}
         loop={true}
-        className="mySwiper"
+        className="about-slider"
         breakpoints={{
-          768: {
-            slidesPerView: 3,
+          1024: {
+            slidesPerView: 3
           },
-          590: {
-            slidesPerView: 2,
+          990: {
+            slidesPerView: 2.8
+          },
+          768: {
+            slidesPerView: 2.4,
           },
           480: {
             slidesPerView: 1,
@@ -56,16 +61,26 @@ export default function AboutSlider({slides}) {
           return (
             <SwiperSlide key={index}>
               <img
-                src={"/img/homepage/" + item.url}
+                src={"/img/about/" + item.img}
                 alt="category"
                 className="round"
               />
-              <p className="mt-3">{item.title}</p>
+              <h3 className={"mt-3 m-0 " + (item.description ? "blue-text" : "")}>
+                {item.title}
+              </h3>
+              {item.description && <p className="mt-4 mb-5">{item.description}</p>}
+              {item.moreDetail && (
+                <Link href="#">
+                  <a className="text-uppercase d-flex align-items-center">
+                    More Details <RiPlayFill className="ms-3" />
+                  </a>
+                </Link>
+              )}
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <div className="btn-bottom-panel mt-5">
+      <div className={"btn-bottom-panel mt-sm-5 mt-0 pt-5 " + (btnDisable ? "d-none" : "")}>
         <button ref={navigationPrevRef} className="btn px-0 me-5">
           <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
         </button>

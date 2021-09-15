@@ -27,7 +27,6 @@
     }
   }
   .schedule-panel {
-    height: 100%;
     background: linear-gradient(
         53.9deg,
         #01215c 22.38%,
@@ -101,6 +100,41 @@
         justify-content: center !important;
         img {
           display: none;
+        }
+      }
+    }
+  }
+  @media (max-width: 550px) {
+    &.normal-mode {
+      .r-container {
+        margin: 0;
+        width: 100%;
+        .round {
+          border-radius: 0;
+        }
+        .schedule-panel {
+          background: #01215c;
+        }
+        .normal-bg-panel {
+          min-height: 300px;
+          background: url(/img/common/mobile_bg.png);
+          background-size: cover;
+        }
+      }
+    }
+    .r-container {
+      h3 {
+        font-size: 2.4rem;
+      }
+      h2 {
+        font-size: 4rem;
+      }
+      p {
+        font-size: 1.6rem;
+      }
+      .schedule-panel {
+        .contact-btn-group {
+          margin-top: 2rem;
         }
       }
     }
