@@ -149,6 +149,19 @@ a {
   }
 }
 
+.hover-scale {
+  overflow: hidden;
+  img {
+    transition: .7s;
+  }
+  &:hover {
+    img {
+      transform: scale(1.2);
+      transition-duration: 0.7s;
+    }
+  }
+}
+
 .blue-text {
   color: #01215c;
 }

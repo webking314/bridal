@@ -22,7 +22,36 @@
           font-family: FreeSerif;
           font-weight: 400;
           font-size: 7.6rem;
-          line-height: 91.2px;
+          line-height: 120%;
+        }
+      }
+    }
+    @media (max-width: 767px) {
+      background: linear-gradient(
+          66.22deg,
+          #01215c9c 9.11%,
+          rgba(1, 33, 92, 0) 39.58%
+        ),
+        url(/img/bespoke/hero_bg-mobile.jpg);
+      background-size: cover;
+      .r-container {
+        .title {
+          width: 80%;
+          font-size: 5.8rem;
+          span {
+            font-size: 5.8rem;
+          }
+        }
+      }
+    }
+    @media (max-width: 575px) {
+      .r-container {
+        .title {
+          width: 50%;
+          font-size: 4.2rem;
+          span {
+            font-size: 4.2rem;
+          }
         }
       }
     }
@@ -40,6 +69,15 @@
       font-weight: 400;
       color: rgba(2, 24, 37, 0.8);
     }
+    @media (max-width: 575px) {
+      .title {
+        width: 60%;
+        font-size: 3.6rem;
+      }
+      .guide-text {
+        font-size: 1.8rem;
+      }
+    }
   }
   .journey-section {
     .title {
@@ -50,7 +88,7 @@
         font-family: FreeSerif;
         font-weight: 400;
         font-size: 7.6rem;
-        line-height: 91.2px;
+        line-height: 120%;
       }
     }
     .time-line {
@@ -105,10 +143,35 @@
         margin-bottom: 140px;
       }
     }
+    .time-line-mobile {
+      .MuiTimelineItem-root {
+        &::before {
+          display: none;
+        }
+        .item-image {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        .text-panel {
+          margin-top: 0;
+        }
+        .MuiTimelineSeparator-root {
+          margin-left: 0;
+        }
+      }
+    }
     .btn-panel {
       button {
         font-size: 1.6rem;
         font-weight: 500;
+      }
+    }
+    @media (max-width: 575px) {
+      .title {
+        font-size: 4.8rem;
+        span {
+          font-size: 4.8rem;
+        }
       }
     }
   }

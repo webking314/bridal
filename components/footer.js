@@ -39,7 +39,7 @@ export default function Footer() {
     {
       title: "About Royal Coster",
       url: [
-        { link: "Our Story", url: "#" },
+        { link: "Our Story", url: "/ourStory" },
         { link: "Why Royal Coster", url: "#" },
         { link: "Corporate Responsibility", url: "#" },
         { link: "Press", url: "#" },
@@ -136,7 +136,7 @@ export default function Footer() {
                 <h3 className="mb-5">{items.title}</h3>
                 {items.url.map((item, key) => {
                   return (
-                    <Link href="#" key={key}>
+                    <Link href={item.url} key={key}>
                       <a className="row m-0 mb-3 text-uppercase">{item.link}</a>
                     </Link>
                   );

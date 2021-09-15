@@ -68,11 +68,11 @@ let educationItems = [
   { img: "education-7.png", title: "Brief History of Diamonds" },
   { img: "education-8.png", title: "The Story of Sisi" },
 ];
-export default function About() {
+export default function OurStory() {
   return (
     <div className="about_page">
       <Head>
-        <title>About | Royal Coster</title>
+        <title>OurStory | Royal Coster</title>
       </Head>
       <Header page="about" />
       {/* Start hero section */}
@@ -179,22 +179,26 @@ export default function About() {
           <div className="row">
             {educationItems.map((item, index) => {
               return (
-                <div className="col-md-4 col-sm-6 col-12 mb-5" key={index}>
-                  <div className="image-panel">
-                    <img
-                      src={"/img/about/" + item.img}
-                      alt="education-image"
-                      className="education-image"
-                    />
-                  </div>
-                  <h3 className="my-5">{item.title}</h3>
-                </div>
+                <Link href="#" key={index}>
+                  <a className="col-md-4 col-sm-6 col-12 mb-5">
+                    <div>
+                      <div className="image-panel hover-scale round">
+                        <img
+                          src={"/img/about/" + item.img}
+                          alt="education-image"
+                          className="education-image"
+                        />
+                      </div>
+                      <h3 className="my-5">{item.title}</h3>
+                    </div>
+                  </a>
+                </Link>
               );
             })}
           </div>
         </div>
         <div className="r-container d-sm-none">
-          <AboutSlider slides={educationItems}/>
+          <AboutSlider slides={educationItems} />
         </div>
       </div>
       {/* End education section */}
@@ -235,7 +239,7 @@ export default function About() {
       {/* End legacy section */}
 
       {/* Start Schedule section */}
-      <Schedule normalMode={true}/>
+      <Schedule normalMode={true} />
       {/* End Schedule section */}
 
       {/* Start Footer */}

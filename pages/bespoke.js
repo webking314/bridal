@@ -98,14 +98,12 @@ export default function Bespoke() {
 
       {/* Start guide section */}
       <div className="guide-section py-5">
-        <div className="row r-container py-5">
-          <div className="col-lg-3 col-md-4 col-12 p-0 pe-md-5 pe-5 py-5">
-            <h3 className="title text-capitalize text-md-start text-center">
-              We will guide you
-            </h3>
+        <div className="row r-container py-sm-5 py-3">
+          <div className="col-lg-3 col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
+            <h3 className="title text-capitalize">We will guide you</h3>
           </div>
-          <div className="col-lg-9 col-md-8 col-12 p-0 ps-md-5 ps-0 py-5">
-            <p className="guide-text text-md-start text-center">
+          <div className="col-lg-9 col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
+            <p className="guide-text">
               For your jewellery to tell a story, sometimes it’s best you
               inspire the narrative. Craft your vision into reality through our
               outstanding bespoke service. From engagement rings, to wedding
@@ -119,12 +117,52 @@ export default function Bespoke() {
 
       {/* Start journey section */}
       <div className="journey-section py-5 r-container">
-        <h3 className="title text-capitalize text-center mt-5 py-5">
+        <h3 className="title text-capitalize text-sm-center mt-sm-5 py-5">
           The <span>Journey</span>
           <br />
           of Jewel
         </h3>
-        <Timeline className="time-line mb-0 pb-0" align="alternate">
+        <Timeline
+          className="time-line time-line-mobile d-lg-none d-block mb-0 pb-0 px-0"
+        >
+          {timeLineLists.map((item, index) => {
+            return (
+              <TimelineItem key={index}>
+                <TimelineSeparator>
+                  <TimelineDot className={"line-dot-" + index} />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>
+                  <img
+                    src={"/img/bespoke/" + item.image}
+                    className="item-image mb-5"
+                    alt="timeLine-image"
+                    data-aos-duration={700}
+                    data-aos-once={true}
+                    data-aos={index % 2 == 1 ? "fade-right" : "fade-left"}
+                  />
+                  <div
+                    className="text-panel mb-5 pb-5"
+                    data-aos={index % 2 == 0 ? "fade-right" : "fade-left"}
+                    data-aos-duration={400}
+                    data-aos-once={true}
+                  >
+                    <p className="item-step m-0 pb-4 text-uppercase">
+                      Step {index + 1}
+                    </p>
+                    <h3 className="item-title m-0 pb-5">{item.title}</h3>
+                    <p className="item-description">{item.description}</p>
+                  </div>
+                </TimelineContent>
+              </TimelineItem>
+            );
+          })}
+        </Timeline>
+
+        <Timeline
+          className="time-line d-lg-block d-none mb-0 pb-0"
+          align="alternate"
+        >
           {timeLineLists.map((item, index) => {
             return (
               <TimelineItem key={index}>

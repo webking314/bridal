@@ -23,10 +23,10 @@ export default function AboutSlider({ slides, btnDisable }) {
         className="about-slider"
         breakpoints={{
           1024: {
-            slidesPerView: 3
+            slidesPerView: 3,
           },
           990: {
-            slidesPerView: 2.8
+            slidesPerView: 2.8,
           },
           768: {
             slidesPerView: 2.4,
@@ -60,15 +60,23 @@ export default function AboutSlider({ slides, btnDisable }) {
         {slides.map((item, index) => {
           return (
             <SwiperSlide key={index}>
-              <img
-                src={"/img/about/" + item.img}
-                alt="category"
-                className="round"
-              />
-              <h3 className={"mt-3 m-0 " + (item.description ? "blue-text" : "")}>
-                {item.title}
-              </h3>
-              {item.description && <p className="mt-4 mb-5">{item.description}</p>}
+              <Link href="#">
+                <a>
+                  <div className="image-panel hover-scale round">
+                    <img src={"/img/about/" + item.img} alt="category" />
+                  </div>
+                  <h3
+                    className={
+                      "mt-3 m-0 " + (item.description ? "blue-text" : "")
+                    }
+                  >
+                    {item.title}
+                  </h3>
+                  {item.description && (
+                    <p className="mt-4 mb-5">{item.description}</p>
+                  )}
+                </a>
+              </Link>
               {item.moreDetail && (
                 <Link href="#">
                   <a className="text-uppercase d-flex align-items-center">
@@ -80,7 +88,11 @@ export default function AboutSlider({ slides, btnDisable }) {
           );
         })}
       </Swiper>
-      <div className={"btn-bottom-panel mt-sm-5 mt-0 pt-5 " + (btnDisable ? "d-none" : "")}>
+      <div
+        className={
+          "btn-bottom-panel mt-sm-5 mt-0 pt-5 " + (btnDisable ? "d-none" : "")
+        }
+      >
         <button ref={navigationPrevRef} className="btn px-0 me-5">
           <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
         </button>

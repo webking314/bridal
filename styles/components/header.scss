@@ -17,10 +17,14 @@ $flagSelectColor: white;
   background: white;
 
   &.about {
-    background: rgb(229 215 191);
+    background: transparent;
     .desktop-header {
       .sub-bar {
         border-bottom: $headerBorderColor !important;
+      }
+      .middle-bar,
+      .logo-bar {
+        background: rgb(229, 215, 191) !important;
       }
     }
   }
