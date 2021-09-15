@@ -197,7 +197,11 @@ export default function RingRecommend() {
                 <h3 className="text-uppercase m-0 mb-sm-0 mb-5">
                   Not ready to purchase online?
                 </h3>
-                <button className="btn btn-schedule text-uppercase blue-text px-5 py-3">
+                <button
+                  className="btn btn-schedule text-uppercase blue-text px-5 py-3"
+                  data-bs-toggle="modal"
+                  data-bs-target="#appointment"
+                >
                   Schedule an appointment
                 </button>
               </div>

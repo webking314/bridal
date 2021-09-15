@@ -371,7 +371,11 @@ export default function Header({ page }) {
                 <RiShoppingCartLine className="font-icon" />
               </a>
             </Link>
-            <button className="btn right-menu btn-consultation text-uppercase px-5 py-4">
+            <button
+              className="btn right-menu btn-consultation text-uppercase px-5 py-4"
+              data-bs-toggle="modal"
+              data-bs-target="#appointment"
+            >
               Schedule consultation
             </button>
           </div>
@@ -462,7 +466,7 @@ export default function Header({ page }) {
                 <a>
                   <img
                     src={
-                      page != 'homepage'
+                      page != "homepage"
                         ? "/img/common/logo_black.png"
                         : "/img/common/logo_white.png"
                     }
@@ -752,7 +756,11 @@ export default function Header({ page }) {
               );
             }
           })}
-          <button className="btn mobile-schedule-btn text-uppercase round-form px-5 py-3 my-5">
+          <button
+            className="btn mobile-schedule-btn text-uppercase round-form px-5 py-3 my-5"
+            data-bs-toggle="modal"
+            data-bs-target="#appointment"
+          >
             Schedule consultation
           </button>
 

@@ -188,7 +188,9 @@ export default function MyCart() {
               );
             })
           ) : (
-            <h3 className="none-text m-0 py-5 text-center text-capitalize">My Cart items none</h3>
+            <h3 className="none-text m-0 py-5 text-center text-capitalize">
+              My Cart items none
+            </h3>
           )}
         </div>
       </div>
@@ -220,7 +222,11 @@ export default function MyCart() {
                 <h3 className="text-uppercase m-0 mb-sm-0 mb-5">
                   Not ready to purchase online?
                 </h3>
-                <button className="btn btn-schedule text-uppercase blue-text px-4 py-2">
+                <button
+                  className="btn btn-schedule text-uppercase blue-text px-4 py-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#appointment"
+                >
                   Schedule an appointment
                 </button>
               </div>
