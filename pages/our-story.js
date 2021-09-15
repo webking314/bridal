@@ -180,7 +180,7 @@ export default function OurStory() {
             {educationItems.map((item, index) => {
               return (
                 <Link href="#" key={index}>
-                  <a className="col-md-4 col-sm-6 col-12 mb-5">
+                  <a className="col-lg-4 col-6 mb-5">
                     <div>
                       <div className="image-panel hover-scale round">
                         <img
@@ -211,8 +211,8 @@ export default function OurStory() {
             <p>Good to know</p>
           </div>
         </div>
-        <div className="r-container mb-5 pb-5">
-          <AboutSlider slides={buySlides} btnDisable={true} />
+        <div className="r-container mb-sm-5 pb-sm-5">
+          <AboutSlider slides={buySlides} btnDisable={false} />
         </div>
       </div>
       {/* End buy section */}

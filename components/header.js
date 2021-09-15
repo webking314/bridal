@@ -589,7 +589,7 @@ export default function Header({ page }) {
       </div>
       <div className="mobile-header dr-none d-lg-none d-block">
         <div className="mobile__top-bar d-flex justify-content-between align-items-center px-5 py-4 text-white">
-          <Link href="#">
+          <Link href="/">
             <a className="d-flex align-items-center">
               <RiUser3Line className="me-3" />
               MY ACCOUNT

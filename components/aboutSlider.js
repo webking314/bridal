@@ -7,7 +7,7 @@ import "swiper/css";
 
 SwiperCore.use([Autoplay, Navigation]);
 
-export default function AboutSlider({ slides, btnDisable }) {
+export default function AboutSlider({ slides, btnDisable, componentProduct }) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   return (
@@ -63,15 +63,21 @@ export default function AboutSlider({ slides, btnDisable }) {
               <Link href="#">
                 <a>
                   <div className="image-panel hover-scale round">
-                    <img src={"/img/about/" + item.img} alt="category" />
+                    {componentProduct ? (
+                      <img src={item.img} alt="category" />
+                    ) : (
+                      <img src={"/img/about/" + item.img} alt="category" />
+                    )}
                   </div>
-                  <h3
-                    className={
-                      "mt-3 m-0 " + (item.description ? "blue-text" : "")
-                    }
-                  >
-                    {item.title}
-                  </h3>
+                  {item.title && (
+                    <h3
+                      className={
+                        "mt-3 m-0 " + (item.description ? "blue-text" : "")
+                      }
+                    >
+                      {item.title}
+                    </h3>
+                  )}
                   {item.description && (
                     <p className="mt-4 mb-5">{item.description}</p>
                   )}

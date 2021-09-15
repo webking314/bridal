@@ -122,9 +122,7 @@ export default function Bespoke() {
           <br />
           of Jewel
         </h3>
-        <Timeline
-          className="time-line time-line-mobile d-lg-none d-block mb-0 pb-0 px-0"
-        >
+        <Timeline className="time-line time-line-mobile d-lg-none d-block mb-0 pb-0 px-0">
           {timeLineLists.map((item, index) => {
             return (
               <TimelineItem key={index}>
@@ -209,19 +207,21 @@ export default function Bespoke() {
       </div>
       {/* End journey section */}
       {/* Start signature section */}
-      <div className="signature-section pt-5">
+      <div className="signature-section pt-sm-5">
         <div className="title-panel py-5">
-          <div className="r-container row mt-5">
-            <div className="col-6 p-0 pe-5 py-5">
-              <h3 className="m-0 pe-5 me-5">
-                Royal Coster Signature Creations
-              </h3>
-            </div>
-            <div className="col-6 p-0 ps-5 py-5">
-              <p className="m-0 ps-5 ms-5">
-                From contemporary pieces, to timeless designs, to simple
-                alterations, discover the artistry of fine craftsmanship.
-              </p>
+          <div className="r-container">
+            <div className="row mt-5 mx-0">
+              <div className="col-md-6 p-0 pe-5 py-5">
+                <h3 className="m-0 pe-lg-5 me-lg-5">
+                  Royal Coster Signature Creations
+                </h3>
+              </div>
+              <div className="col-md-6 p-0 ps-lg-5 pt-md-5 pb-5">
+                <p className="m-0 ps-lg-5 ms-lg-5">
+                  From contemporary pieces, to timeless designs, to simple
+                  alterations, discover the artistry of fine craftsmanship.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -236,11 +236,14 @@ export default function Bespoke() {
             loop={true}
             className="mySwiper"
             breakpoints={{
+              1024: {
+                slidesPerView: 4
+              },
               996: {
-                slidesPerView: 4,
+                slidesPerView: 3.5,
               },
               768: {
-                slidesPerView: 3,
+                slidesPerView: 2,
               },
               590: {
                 slidesPerView: 2,
@@ -252,11 +255,11 @@ export default function Bespoke() {
                 slidesPerView: 1,
               },
             }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            // autoplay={{
+            //   delay: 2500,
+            //   disableOnInteraction: false,
+            //   pauseOnMouseEnter: true,
+            // }}
             onSwiper={(swiper) => {
               // Delay execution for the refs to be defined
               setTimeout(() => {
@@ -274,11 +277,16 @@ export default function Bespoke() {
             {signatureSliders.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <img
-                    src={"/img/bespoke/" + item.url}
-                    alt="category"
-                    className="round"
-                  />
+                  <Link href="#">
+                    <a>
+                      <div className="image-panel round hover-scale">
+                        <img
+                          src={"/img/bespoke/" + item.url}
+                          alt="category"
+                        />
+                      </div>
+                    </a>
+                  </Link>
                 </SwiperSlide>
               );
             })}

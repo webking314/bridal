@@ -98,4 +98,14 @@ $titleSize: 7.2rem;
       }
     }
   }
+  .instagram-slider-panel {
+    .swiper {
+      img {
+        height: 90vw;
+        max-height: 400px;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
 }

@@ -21,7 +21,9 @@
       font-size: 1.4rem;
       font-weight: 500;
       &:hover {
-        color: black;
+        p {
+          color: black;
+        }
       }
     }
     @media (max-width: 767px) {

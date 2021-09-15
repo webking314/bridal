@@ -39,7 +39,7 @@ export default function Footer() {
     {
       title: "About Royal Coster",
       url: [
-        { link: "Our Story", url: "/ourStory" },
+        { link: "Our Story", url: "/our-story" },
         { link: "Why Royal Coster", url: "#" },
         { link: "Corporate Responsibility", url: "#" },
         { link: "Press", url: "#" },

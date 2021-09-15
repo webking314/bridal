@@ -1,4 +1,14 @@
 import Link from "next/link";
+import AboutSlider from "./aboutSlider";
+
+const instagramItems = [
+  { img: "/img/homepage/Rectangle 34.png" },
+  { img: "/img/homepage/Rectangle 38.png" },
+  { img: "/img/homepage/Rectangle 37.png" },
+  { img: "/img/homepage/Rectangle 36.png" },
+  { img: "/img/homepage/Rectangle 35.png" },
+  { img: "/img/homepage/Rectangle 1.png" },
+];
 
 export default function Instagram() {
   return (
@@ -33,7 +43,10 @@ export default function Instagram() {
             </div>
           </div>
         </div>
-        <div className="row gallery-panel m-0 p-0">
+        <div className="d-md-none d-block instagram-slider-panel">
+          <AboutSlider componentProduct={true} slides={instagramItems} />
+        </div>
+        <div className="row gallery-panel d-md-flex d-none m-0 p-0">
           <div className="col-md-6 col-12 m-0 p-0 d-flex flex-column justify-content-between">
             <div className="row m-0 p-0">
               <div className="col-6 d-flex m-0 p-0">
