@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useDebugValue, useEffect, useState } from "react";
 import { RiArrowRightLine } from "react-icons/ri";
 import PropTypes from "prop-types";
 import { RiAddLine } from "react-icons/ri";
@@ -57,23 +57,40 @@ export default function AppointmentModal() {
   const [step3, setStep3] = useState(true);
   const [step4, setStep4] = useState(true);
 
+  const [filteredCountries, setFilteredCountries] = useState([]);
+  useEffect(() => {
+    getCountries().forEach((country) => {
+      if (
+        !filteredCountries.some(
+          (item) =>
+            getCountryCallingCode(item) === getCountryCallingCode(country)
+        )
+      ) {
+        filteredCountries.push(country);
+        setFilteredCountries(filteredCountries);
+      }
+    });
+  }, []);
+
   const CountrySelect = ({ value, onChange, ...rest }) => (
     <div className="phoneNumber-prefix p-0 pe-2">
       <select
         {...rest}
         value={value}
         onChange={(event) => {
+          console.log(event.target);
           setCountryNumberPrefix(
             getCountryCallingCode(event.target.value || undefined)
           );
           onChange(event.target.value || undefined);
         }}
       >
-        {getCountries().map((country) => (
-          <option key={country} value={country}>
-            {getCountryCallingCode(country)}
-          </option>
-        ))}
+        {filteredCountries &&
+          filteredCountries.map((country) => (
+            <option key={country} value={country}>
+              {getCountryCallingCode(country)}
+            </option>
+          ))}
       </select>
       <RiAddLine className="symbol" />
     </div>
@@ -91,6 +108,16 @@ export default function AppointmentModal() {
   useEffect(() => {
     setDisDate(dateFormat(preDate, "dddd  d,  mmmm  yyyy"));
   }, [preDate]);
+
+  useEffect(() => {
+    if (typeof document !== undefined) {
+      document.addEventListener("click", (e) => {
+        if (e.target.closest(".react-calendar__month-view__days__day")) {
+          toggleDatePicker(e);
+        }
+      });
+    }
+  }, []);
 
   const handleTime = (e) => {
     document.querySelectorAll(".time-item").forEach((item) => {

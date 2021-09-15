@@ -3,22 +3,9 @@ import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-let collectionSliders = [
-  { url: "Rectangle 29.png", title: "Empress Collection" },
-  { url: "Rectangle 30.png", title: "Wedding & Anniversary" },
-  { url: "Rectangle 31.png", title: "Royal Classics" },
-  { url: "Rectangle 32.png", title: "Fine Jewelry" },
-  { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-];
 SwiperCore.use([Autoplay, Navigation]);
 
-export default function AboutSlider() {
+export default function AboutSlider({slides}) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   return (
@@ -28,14 +15,11 @@ export default function AboutSlider() {
           prevEl: navigationPrevRef.current,
           nextEl: navigationNextRef.current,
         }}
-        slidesPerView={4}
+        slidesPerView={3}
         spaceBetween={30}
         loop={true}
         className="mySwiper"
         breakpoints={{
-          996: {
-            slidesPerView: 4,
-          },
           768: {
             slidesPerView: 3,
           },
@@ -68,7 +52,7 @@ export default function AboutSlider() {
           });
         }}
       >
-        {collectionSliders.map((item, index) => {
+        {slides.map((item, index) => {
           return (
             <SwiperSlide key={index}>
               <img

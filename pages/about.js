@@ -7,6 +7,18 @@ import Schedule from "../components/schedule";
 import { RiPlayCircleFill } from "react-icons/ri";
 import AboutSlider from "../components/aboutSlider";
 
+let collectionSliders = [
+  { url: "Rectangle 33.png", title: "Watches" },
+  { url: "Rectangle 33.png", title: "Watches" },
+  { url: "Rectangle 33.png", title: "Watches" },
+  { url: "Rectangle 33.png", title: "Watches" },
+  { url: "Rectangle 33.png", title: "Watches" },
+  { url: "Rectangle 33.png", title: "Watches" },
+];
+
+let articleSlides = [
+  {img: "article-1.png", title: "How we cut the Koh-I-Noor for the Queen of England", description: "Presumably the first diamond from Brazil to receive international fame. We turned ..."}
+]
 export default function About() {
   return (
     <div className="about_page">
@@ -55,7 +67,7 @@ export default function About() {
 
       {/* Start acticle section */}
       <div className="acticle-section r-container">
-        <AboutSlider/>
+        <AboutSlider slides={collectionSliders}/>
       </div>
       {/* End acticle section */}
 
