@@ -28,12 +28,7 @@ export default function Schedule({ normalMode }) {
                 </p>
               </div>
               <div className="p-md-5 p-0 pt-lg-5 pt-md-0 pt-0 px-sm-0 px-4">
-                <div
-                  className={
-                    "contact-btn-group d-flex justify-content-between mb-5 " +
-                    (normalMode ? "" : "d-md-block d-none")
-                  }
-                >
+                <div className="contact-btn-group d-flex justify-content-between mb-5">
                   <button className="contact-btn pink-outline-btn btn round-form d-flex align-items-center justify-content-sm-center px-5 py-3">
                     <RiPhoneFill className="me-3" />
                     <span className="text-uppercase">Contact Us</span>

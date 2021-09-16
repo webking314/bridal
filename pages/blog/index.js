@@ -4,7 +4,10 @@ import Head from "next/head";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
-import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
+import SelectSearch, {
+  fuzzySearch,
+  useSelect,
+} from "react-select-search-nextjs";
 import { RiSearchLine } from "react-icons/ri";
 import renderHTML from "react-render-html";
 import head from "next/head";
@@ -18,23 +21,40 @@ const headers = {
 
 export default function Blog() {
   const [categories, setCategories] = useState();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [post, setPost] = useState();
   const [result, setResult] = useState(76);
   const [selectValue, setSelectValue] = useState("");
 
   useEffect(() => {
     // Get categories
-    fetch(categoryURL + "?orderby=id&exclude=1&per_page=100", {
+    setLoading(true);
+    fetch(categoryURL + "?orderby=id&exclude=1&per_page=100&hide_empty=true", {
       method: "get",
       headers,
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setCategories(data);
-        setLoading(false);
+        fetch(blogURL + "?orderby=id&per_page=10", {
+          method: "get",
+          headers,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setLoading(false);
+            setPost(data);
+          });
       });
   }, []);
+
+  useEffect(() => {
+    if (post) {
+      post.map((item) => {
+        console.log(item._links['wp:featuredmedia'][0].href)
+      });
+    }
+  }, [post]);
 
   const selectCategory = (item) => {
     console.log(item);
@@ -55,7 +75,7 @@ export default function Blog() {
     { name: "Diamanten & Edelstenen", value: "Diamanten & Edelstenen" },
   ];
 
-  const images = [
+  const blogItems = [
     {
       image: "blog (1).png",
       type: "KNOWLEDGE, BLOG",
@@ -180,7 +200,7 @@ export default function Blog() {
           >
             All
           </button>
-          {categories ? (
+          {categories &&
             categories.map((item, index) => {
               return (
                 <button
@@ -191,10 +211,7 @@ export default function Blog() {
                   {renderHTML(item.name)}
                 </button>
               );
-            })
-          ) : (
-            <Loading />
-          )}
+            })}
         </div>
         <div className="main-blog-panel row m-0">
           <div className="col-md-8 col-12 p-0">
@@ -204,25 +221,36 @@ export default function Blog() {
                 href={{
                   pathname: "/blog/[slug]",
                   query: {
-                    slug: images[0].title,
-                    title: images[0].title,
-                    img: images[0].image,
+                    slug: blogItems[0].title,
+                    title: blogItems[0].title,
+                    img: blogItems[0].image,
                   },
                 }}
-                as={"/blog/" + images[0].title}
+                as={"/blog/" + blogItems[0].title}
               >
                 <a>
                   <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
                     <div className="round blog-image">
+                      {/* {
+                        fetch(blogURL + "?orderby=id&per_page=10", {
+                          method: "get",
+                          headers,
+                        })
+                          .then((res) => res.json())
+                          .then((data) => {
+                            setLoading(false);
+                            setPost(data);
+                          })
+                      } */}
                       <img
-                        src={"/img/blog/" + images[0].image}
+                        src={"/img/blog/" + blogItems[0].image}
                         className="round"
                         alt="blog-image"
                       />
                     </div>
                     <div className="blog-title py-5">
-                      <p className="text-uppercase">{images[0].type}</p>
-                      <h3>{images[0].title}</h3>
+                      <p className="text-uppercase">{blogItems[0].type}</p>
+                      <h3>{blogItems[0].title}</h3>
                     </div>
                   </div>
                 </a>
@@ -230,16 +258,15 @@ export default function Blog() {
             </div>
             <div className="row m-0">
               <div className="col-sm-6 col-12 p-0">
-                {images.map((item, index) => {
+                {blogItems.map((item, index) => {
                   if (index % 3 == 2)
                     return (
                       <Link
                         href={{
                           pathname: "/blog/[slug]",
                           query: {
-                            slug: item.title,
-                            title: images[0].title,
-                            img: item.image,
+                            slug: item.slug,
+                            title: blogItems[0].title,
                           },
                         }}
                         key={index}
@@ -265,16 +292,15 @@ export default function Blog() {
                 })}
               </div>
               <div className="col-sm-6 col-12 p-0">
-                {images.map((item, index) => {
+                {blogItems.map((item, index) => {
                   if ((index != 0) & (index % 3 == 0))
                     return (
                       <Link
                         href={{
                           pathname: "/blog/[slug]",
                           query: {
-                            slug: item.title,
+                            slug: item.slug,
                             title: item.title,
-                            img: item.image,
                           },
                         }}
                         key={index}
@@ -307,19 +333,18 @@ export default function Blog() {
           <div className="col-md-4 col-12 p-0">
             <div className="row m-0">
               <div className="col-md-12 col-sm-6 col-12 p-0">
-                {images.map((item, index) => {
+                {blogItems.map((item, index) => {
                   if (
                     (index % 3 == 1) &
-                    (Math.ceil((images.length - 1) / 3) * 3 - 2 > index)
+                    (Math.ceil((blogItems.length - 1) / 3) * 3 - 2 > index)
                   )
                     return (
                       <Link
                         href={{
                           pathname: "/blog/[slug]",
                           query: {
-                            slug: item.title,
+                            slug: item.slug,
                             title: item.title,
-                            img: item.image,
                           },
                         }}
                         key={index}
@@ -345,19 +370,18 @@ export default function Blog() {
                 })}
               </div>
               <div className="col-md-12 col-sm-6 col-12 p-0">
-                {images.map((item, index) => {
+                {blogItems.map((item, index) => {
                   if (
                     (index % 3 == 1) &
-                    (Math.ceil((images.length - 1) / 3) * 3 - 2 <= index)
+                    (Math.ceil((blogItems.length - 1) / 3) * 3 - 2 <= index)
                   )
                     return (
                       <Link
                         href={{
                           pathname: "/blog/[slug]",
                           query: {
-                            slug: item.title,
+                            slug: item.slug,
                             title: item.title,
-                            img: item.image,
                           },
                         }}
                         as={"/blog/" + item.title}
@@ -391,6 +415,7 @@ export default function Blog() {
       <Schedule />
       {/* Footer */}
       <Footer />
+      <Loading visible={loading} />
     </div>
   );
 }
