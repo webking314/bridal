@@ -23,12 +23,14 @@ export default function Blog() {
   const [categories, setCategories] = useState();
   const [loading, setLoading] = useState(false);
   const [post, setPost] = useState();
-  const [result, setResult] = useState(76);
-  const [selectValue, setSelectValue] = useState("");
+  const [result, setResult] = useState();
+  const [postItems, setPostItems] = useState();
+  const [blogItems, setBlogItems] = useState();
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterKey, setFilterKey] = useState("");
+  const [options, setOptions] = useState();
 
   useEffect(() => {
-    // Get categories
-    setLoading(true);
     fetch(categoryURL + "?orderby=id&exclude=1&per_page=100&hide_empty=true", {
       method: "get",
       headers,
@@ -36,100 +38,97 @@ export default function Blog() {
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
-        fetch(blogURL + "?orderby=id&per_page=10", {
+      });
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(blogURL + "?orderby=id&per_page=10&" + filterCategory, {
+      method: "get",
+      headers,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPost(data);
+      });
+  }, [filterCategory]);
+
+  useEffect(async () => {
+    let category = [];
+    if (categories) {
+      await categories.map((item) => {
+        category.push({ name: item.name, value: item.id });
+      });
+      setOptions(category);
+    }
+  }, [categories]);
+
+  useEffect(() => {
+    let postArr = [];
+    let categoryArr = [];
+    if (post) {
+      post.map((item, index) => {
+        fetch(item._links["wp:featuredmedia"][0].href, {
           method: "get",
           headers,
         })
           .then((res) => res.json())
           .then((data) => {
-            setLoading(false);
-            setPost(data);
+            fetch(categoryURL + "?post=" + item.id, {
+              method: "get",
+              headers,
+            })
+              .then((res) => res.json())
+              .then((categoryItems) => {
+                postArr.push({
+                  id: item.id,
+                  title: item.title.rendered,
+                  slug: item.slug,
+                  img: data.guid.rendered,
+                  categories: categoryItems,
+                });
+                setPostItems([...postArr]);
+              });
           });
-      });
-  }, []);
-
-  useEffect(() => {
-    if (post) {
-      post.map((item) => {
-        console.log(item._links['wp:featuredmedia'][0].href)
       });
     }
   }, [post]);
 
-  const selectCategory = (item) => {
-    console.log(item);
-  };
-  const options = [
-    { name: "All", value: "All" },
-    { name: "Diamond Products", value: "Diamond Products" },
-    { name: "To Do in Amsterdam", value: "To Do in Amsterdam" },
-    { name: "Knowledge", value: "Knowledge" },
-    { name: "News", value: "News" },
-    { name: "Craftsmanship", value: "Craftsmanship" },
-    { name: "Diamonds & Gemstones", value: "Diamonds & Gemstones" },
-    { name: "Our Royal Legacy", value: "Our Royal Legacy" },
-    { name: "Blog", value: "Blog" },
-    { name: "Job opening", value: "Job opening" },
-    { name: "Tourism", value: "Tourism" },
-    { name: "Kennis", value: "Kennis" },
-    { name: "Diamanten & Edelstenen", value: "Diamanten & Edelstenen" },
-  ];
+  useEffect(() => {
+    if (post) {
+      if (post.length == postItems.length) {
+        setLoading(false);
+        setBlogItems(postItems.sort((item1, item2) => item2.id - item1.id));
+        setResult(post.length);
+      }
+    }
+  }, [postItems]);
 
-  const blogItems = [
-    {
-      image: "blog (1).png",
-      type: "KNOWLEDGE, BLOG",
-      title:
-        "The golden Jubilee: How an ugly duckling became the biggest faceted diamond in the world",
-    },
-    {
-      image: "blog (2).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "How to take care of your watch",
-    },
-    {
-      image: "blog (3).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "The Onyx Gemstone",
-    },
-    {
-      image: "blog (4).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "Velantines day at home",
-    },
-    {
-      image: "blog (5).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "The Rose Cut Diamond",
-    },
-    {
-      image: "blog (6).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "The Rose Cut Diamond",
-    },
-    {
-      image: "blog (7).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "The Rose Cut Diamond",
-    },
-    {
-      image: "blog (8).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "How to take care of your watch",
-    },
-    {
-      image: "blog (9).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "The Rose Cut Diamond",
-    },
-    {
-      image: "blog (10).png",
-      type: "KNOWLEDGE | Craftsmanship",
-      title: "How to take care of your watch",
-    },
-  ];
-  // if (loading) return <Loading />;
-  // else
+  useEffect(() => {
+    if (postItems) {
+      setBlogItems(
+        postItems
+          .sort((item1, item2) => item2.id - item1.id)
+          .filter((item) =>
+            item.title.toUpperCase().includes(filterKey.toUpperCase())
+          )
+      );
+    }
+  }, [filterKey]);
+
+  const selectCategory = (key) => {
+    if (key) {
+      setFilterCategory("categories=" + key);
+    } else {
+      setFilterCategory("");
+    }
+  };
+
+  const searchHandle = (event) => {
+    if (event.keyCode == 13) {
+      setFilterKey(event.target.value);
+    }
+  };
   return (
     <div className="blog_page">
       <Head>
@@ -167,6 +166,7 @@ export default function Blog() {
               className="form-control round-form px-3 py-2"
               id="searchPanel"
               placeholder="Search Here"
+              onKeyUp={searchHandle}
             />
             <label htmlFor="searchPanel">
               <RiSearchLine />
@@ -177,26 +177,28 @@ export default function Blog() {
               <label htmlFor="selectSearch" className="px-4">
                 FITER BY :{" "}
               </label>
-              <SelectSearch
-                id="selectSearch"
-                options={options}
-                value={selectValue}
-                onChange={(value) => {
-                  {
-                    setSelectValue(value);
-                  }
-                }}
-                filterOptions={fuzzySearch}
-                emptyMessage="Not found"
-                search
-              />
+              {options && (
+                <SelectSearch
+                  id="selectSearch"
+                  options={options}
+                  onChange={(value) => {
+                    {
+                      console.log(value);
+                      setFilterCategory("categories=" + value);
+                    }
+                  }}
+                  filterOptions={fuzzySearch}
+                  emptyMessage="Not found"
+                  search
+                />
+              )}
             </div>
           </div>
         </div>
         <div className="tab-bar d-md-flex d-none flex-wrap py-4 mb-5">
           <button
             className="btn btn-tab px-5 py-3 round-form text-capitalize mt-3 me-3"
-            onClick={() => selectCategory(1)}
+            onClick={() => selectCategory("")}
           >
             All
           </button>
@@ -213,209 +215,255 @@ export default function Blog() {
               );
             })}
         </div>
-        <div className="main-blog-panel row m-0">
-          <div className="col-md-8 col-12 p-0">
-            <div className="row m-0">
-              <Link
-                props="sasfd"
-                href={{
-                  pathname: "/blog/[slug]",
-                  query: {
-                    slug: blogItems[0].title,
-                    title: blogItems[0].title,
-                    img: blogItems[0].image,
-                  },
-                }}
-                as={"/blog/" + blogItems[0].title}
-              >
-                <a>
-                  <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
-                    <div className="round blog-image">
-                      {/* {
-                        fetch(blogURL + "?orderby=id&per_page=10", {
-                          method: "get",
-                          headers,
-                        })
-                          .then((res) => res.json())
-                          .then((data) => {
-                            setLoading(false);
-                            setPost(data);
-                          })
-                      } */}
-                      <img
-                        src={"/img/blog/" + blogItems[0].image}
-                        className="round"
-                        alt="blog-image"
-                      />
-                    </div>
-                    <div className="blog-title py-5">
-                      <p className="text-uppercase">{blogItems[0].type}</p>
-                      <h3>{blogItems[0].title}</h3>
-                    </div>
-                  </div>
-                </a>
-              </Link>
-            </div>
-            <div className="row m-0">
-              <div className="col-sm-6 col-12 p-0">
-                {blogItems.map((item, index) => {
-                  if (index % 3 == 2)
-                    return (
-                      <Link
-                        href={{
-                          pathname: "/blog/[slug]",
-                          query: {
-                            slug: item.slug,
-                            title: blogItems[0].title,
-                          },
-                        }}
-                        key={index}
-                        as={"/blog/" + item.title}
-                      >
-                        <a>
-                          <div className="blog-box pt-5 pe-sm-5" key={index}>
-                            <div className="round blog-image">
-                              <img
-                                src={"/img/blog/" + item.image}
-                                className="round"
-                                alt="blog-image"
-                              />
+        <Loading loading={loading} />
+        {blogItems ? (
+          <div className="main-blog-panel row m-0">
+            <div className="col-md-8 col-12 p-0">
+              {
+                <div className="row m-0">
+                  <Link
+                    props="sasfd"
+                    href={{
+                      pathname: "/blog/[slug]",
+                      query: {
+                        slug: blogItems[0].slug,
+                        title: blogItems[0].title,
+                      },
+                    }}
+                    as={"/blog/" + blogItems[0].slug}
+                  >
+                    <a>
+                      <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
+                        <div className="round blog-image">
+                          <img
+                            src={blogItems[0].img}
+                            className="round"
+                            alt="blog-image"
+                          />
+                        </div>
+                        <div className="blog-title py-5">
+                          <p className="text-uppercase">
+                            {blogItems[0].categories.map((item, index) => {
+                              return (
+                                <span key={index}>
+                                  {index
+                                    ? ", " + renderHTML(item.name)
+                                    : renderHTML(item.name)}
+                                </span>
+                              );
+                            })}
+                          </p>
+                          <h3>{renderHTML(blogItems[0].title)}</h3>
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
+                </div>
+              }
+              <div className="row m-0">
+                <div className="col-sm-6 col-12 p-0">
+                  {blogItems.map((item, index) => {
+                    if (index % 3 == 2)
+                      return (
+                        <Link
+                          href={{
+                            pathname: "/blog/[slug]",
+                            query: {
+                              slug: item.slug,
+                              title: blogItems[0].title,
+                            },
+                          }}
+                          key={index}
+                          as={"/blog/" + item.slug}
+                        >
+                          <a>
+                            <div className="blog-box pt-5 pe-sm-5" key={index}>
+                              <div className="round blog-image">
+                                <img
+                                  src={item.img}
+                                  className="round"
+                                  alt="blog-image"
+                                />
+                              </div>
+                              <div className="blog-title py-5">
+                                <p className="text-uppercase">
+                                  {item.categories.map((category, index) => {
+                                    return (
+                                      <span key={index}>
+                                        {index
+                                          ? ", " + renderHTML(category.name)
+                                          : renderHTML(category.name)}
+                                      </span>
+                                    );
+                                  })}
+                                </p>
+                                <h3>{renderHTML(item.title)}</h3>
+                              </div>
                             </div>
-                            <div className="blog-title py-5">
-                              <p className="text-uppercase">{item.type}</p>
-                              <h3>{item.title}</h3>
+                          </a>
+                        </Link>
+                      );
+                  })}
+                </div>
+                <div className="col-sm-6 col-12 p-0">
+                  {blogItems.map((item, index) => {
+                    if ((index != 0) & (index % 3 == 0))
+                      return (
+                        <Link
+                          href={{
+                            pathname: "/blog/[slug]",
+                            query: {
+                              slug: item.slug,
+                              title: item.title,
+                            },
+                          }}
+                          key={index}
+                          as={"/blog/" + item.slug}
+                        >
+                          <a>
+                            <div
+                              className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
+                              key={index}
+                            >
+                              <div className="round blog-image">
+                                <img
+                                  src={item.img}
+                                  className="round"
+                                  alt="blog-image"
+                                />
+                              </div>
+                              <div className="blog-title py-5">
+                                <p className="text-uppercase">
+                                  {item.categories.map((category, index) => {
+                                    return (
+                                      <span key={index}>
+                                        {index
+                                          ? ", " + renderHTML(category.name)
+                                          : renderHTML(category.name)}
+                                      </span>
+                                    );
+                                  })}
+                                </p>
+                                <h3>{renderHTML(item.title)}</h3>
+                              </div>
                             </div>
-                          </div>
-                        </a>
-                      </Link>
-                    );
-                })}
+                          </a>
+                        </Link>
+                      );
+                  })}
+                </div>
               </div>
-              <div className="col-sm-6 col-12 p-0">
-                {blogItems.map((item, index) => {
-                  if ((index != 0) & (index % 3 == 0))
-                    return (
-                      <Link
-                        href={{
-                          pathname: "/blog/[slug]",
-                          query: {
-                            slug: item.slug,
-                            title: item.title,
-                          },
-                        }}
-                        key={index}
-                        as={"/blog/" + item.title}
-                      >
-                        <a>
-                          <div
-                            className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
-                            key={index}
-                          >
-                            <div className="round blog-image">
-                              <img
-                                src={"/img/blog/" + item.image}
-                                className="round"
-                                alt="blog-image"
-                              />
+            </div>
+            <div className="col-md-4 col-12 p-0">
+              <div className="row m-0">
+                <div className="col-md-12 col-sm-6 col-12 p-0">
+                  {blogItems.map((item, index) => {
+                    if (
+                      (index % 3 == 1) &
+                      (Math.ceil((blogItems.length - 1) / 3) * 3 - 2 > index)
+                    )
+                      return (
+                        <Link
+                          href={{
+                            pathname: "/blog/[slug]",
+                            query: {
+                              slug: item.slug,
+                              title: item.title,
+                            },
+                          }}
+                          key={index}
+                          as={"/blog/" + item.slug}
+                        >
+                          <a>
+                            <div className="blog-box pt-5 pe-md-0 pe-sm-5">
+                              <div className="round blog-image">
+                                <img
+                                  src={item.img}
+                                  className="round"
+                                  alt="blog-image"
+                                />
+                              </div>
+                              <div className="blog-title py-5">
+                                <p className="text-uppercase">
+                                  {item.categories.map((category, index) => {
+                                    return (
+                                      <span key={index}>
+                                        {index
+                                          ? ", " + renderHTML(category.name)
+                                          : renderHTML(category.name)}
+                                      </span>
+                                    );
+                                  })}
+                                </p>
+                                <h3>{renderHTML(item.title)}</h3>
+                              </div>
                             </div>
-                            <div className="blog-title py-5">
-                              <p className="text-uppercase">{item.type}</p>
-                              <h3>{item.title}</h3>
+                          </a>
+                        </Link>
+                      );
+                  })}
+                </div>
+                <div className="col-md-12 col-sm-6 col-12 p-0">
+                  {blogItems.map((item, index) => {
+                    if (
+                      (index % 3 == 1) &
+                      (Math.ceil((blogItems.length - 1) / 3) * 3 - 2 <= index)
+                    )
+                      return (
+                        <Link
+                          href={{
+                            pathname: "/blog/[slug]",
+                            query: {
+                              slug: item.slug,
+                              title: item.title,
+                            },
+                          }}
+                          as={"/blog/" + item.slug}
+                          key={index}
+                        >
+                          <a>
+                            <div className="blog-box pt-5 ps-md-0 ps-sm-5">
+                              <div className="round blog-image">
+                                <img
+                                  src={item.img}
+                                  className="round"
+                                  alt="blog-image"
+                                />
+                              </div>
+                              <div className="blog-title py-5">
+                                <p className="text-uppercase">
+                                  {item.categories.map((category, index) => {
+                                    return (
+                                      <span key={index}>
+                                        {index
+                                          ? ", " + renderHTML(category.name)
+                                          : renderHTML(category.name)}
+                                      </span>
+                                    );
+                                  })}
+                                </p>
+                                <h3>{renderHTML(item.title)}</h3>
+                              </div>
                             </div>
-                          </div>
-                        </a>
-                      </Link>
-                    );
-                })}
+                          </a>
+                        </Link>
+                      );
+                  })}
+                </div>
               </div>
             </div>
           </div>
-          <div className="col-md-4 col-12 p-0">
-            <div className="row m-0">
-              <div className="col-md-12 col-sm-6 col-12 p-0">
-                {blogItems.map((item, index) => {
-                  if (
-                    (index % 3 == 1) &
-                    (Math.ceil((blogItems.length - 1) / 3) * 3 - 2 > index)
-                  )
-                    return (
-                      <Link
-                        href={{
-                          pathname: "/blog/[slug]",
-                          query: {
-                            slug: item.slug,
-                            title: item.title,
-                          },
-                        }}
-                        key={index}
-                        as={"/blog/" + item.title}
-                      >
-                        <a>
-                          <div className="blog-box pt-5 pe-md-0 pe-sm-5">
-                            <div className="round blog-image">
-                              <img
-                                src={"/img/blog/" + item.image}
-                                className="round"
-                                alt="blog-image"
-                              />
-                            </div>
-                            <div className="blog-title py-5">
-                              <p className="text-uppercase">{item.type}</p>
-                              <h3>{item.title}</h3>
-                            </div>
-                          </div>
-                        </a>
-                      </Link>
-                    );
-                })}
-              </div>
-              <div className="col-md-12 col-sm-6 col-12 p-0">
-                {blogItems.map((item, index) => {
-                  if (
-                    (index % 3 == 1) &
-                    (Math.ceil((blogItems.length - 1) / 3) * 3 - 2 <= index)
-                  )
-                    return (
-                      <Link
-                        href={{
-                          pathname: "/blog/[slug]",
-                          query: {
-                            slug: item.slug,
-                            title: item.title,
-                          },
-                        }}
-                        as={"/blog/" + item.title}
-                        key={index}
-                      >
-                        <a>
-                          <div className="blog-box pt-5 ps-md-0 ps-sm-5">
-                            <div className="round blog-image">
-                              <img
-                                src={"/img/blog/" + item.image}
-                                className="round"
-                                alt="blog-image"
-                              />
-                            </div>
-                            <div className="blog-title py-5">
-                              <p className="text-uppercase">{item.type}</p>
-                              <h3>{item.title}</h3>
-                            </div>
-                          </div>
-                        </a>
-                      </Link>
-                    );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+        ) : (
+          <h2 className="no-blog-text px-5 text-center">
+            {loading ? "Loading..." : "No blogs to display."}
+          </h2>
+        )}
       </div>
       {/* End blog section */}
       {/* Schedule */}
       <Schedule />
       {/* Footer */}
       <Footer />
-      <Loading visible={loading} />
     </div>
   );
 }

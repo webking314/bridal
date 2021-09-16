@@ -29,6 +29,7 @@
         width: 70%;
         .blog__banner--title {
           font-size: 2.4rem;
+          font-weight: 400;
         }
         .blog__banner--description {
           font-size: 1.4rem;
@@ -125,8 +126,16 @@
         font-weight: 500;
       }
     }
+    .no-blog-text {
+      font-size: 5.4rem;
+      font-weight: 400;
+      color: #636363;
+    }
     .main-blog-panel {
       .main-blog {
+        img {
+          max-height: 400px;
+        }
         @media (max-width: 767px) {
           img {
             height: 55vw;
@@ -138,6 +147,7 @@
           overflow: hidden;
           img {
             width: 100%;
+            min-height: 300px;
             transition-duration: 0.8s;
             object-fit: cover;
           }
