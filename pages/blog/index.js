@@ -24,7 +24,7 @@ export default function Blog() {
 
   useEffect(() => {
     // Get categories
-    fetch(categoryURL + "?orderby=id&exclude=1&per_page=100&hide_empty=true", {
+    fetch(categoryURL + "?orderby=id&exclude=1&per_page=100", {
       method: "get",
       headers,
     })

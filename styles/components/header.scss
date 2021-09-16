@@ -73,13 +73,6 @@ $flagSelectColor: white;
       }
       .sub-bar {
         border-bottom: $homeHeaderBorderColor !important;
-        .sub-item {
-          &.active {
-            hr {
-              border-color: transparent;
-            }
-          }
-        }
         a {
           &:hover {
             color: rgb(0, 0, 0);

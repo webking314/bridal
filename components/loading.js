@@ -1,4 +1,20 @@
+import { useEffect } from "react";
+
 export default function Loading() {
+  // function disableScroll() {
+  useEffect(() => {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+    window.onscroll = function () {
+      window.scrollTo(scrollLeft, scrollTop);
+    };
+  });
+  // }
+
+  // function enableScroll() {
+  //   window.onscroll = function () {};
+  // }
+
   return (
     <div id="loading">
       <div

@@ -42,7 +42,7 @@ export default function RingRecommend() {
       {/* Start hero section */}
       <div className="hero-section d-md-block d-flex flex-column justify-content-end">
         <div className="r-container">
-          <h1 className="title text-white text-capitalize  p-md-0 p-5  m-md-0 m-sm-5 m-0s">
+          <h1 className="title text-white text-capitalize">
             Ring <br />
             Recommender
           </h1>

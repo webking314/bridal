@@ -245,14 +245,16 @@ export default function Header({ page }) {
       }
     });
     allSubItems.forEach((element) => {
-      if (tags) {
-        if (
-          String(element.innerText).indexOf(String(tags.title).toUpperCase()) ==
-          0
-        ) {
-          element.classList.add("active");
+      if (tagetStr != "/")
+        if (tags) {
+          if (
+            String(element.innerText).indexOf(
+              String(tags.title).toUpperCase()
+            ) == 0
+          ) {
+            element.classList.add("active");
+          }
         }
-      }
     });
   }, []);
   return (
