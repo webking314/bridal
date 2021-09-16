@@ -22,6 +22,22 @@
         }
       }
     }
+    @media (max-width: 767px) {
+      background: linear-gradient(
+          66.22deg,
+          #01215c9c 9.11%,
+          rgba(1, 33, 92, 0) 39.58%
+        ),
+        url(/img/ringRecommend/hero_bg-mobile.jpg);
+      background-size: cover;
+      height: 100vw;
+      max-height: 700px;
+      .r-container {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0;
+      }
+    }
   }
   .guide-section {
     background: #f7f3ec;
@@ -35,6 +51,15 @@
       line-height: 150%;
       font-weight: 400;
       color: rgba(2, 24, 37, 0.8);
+    }
+    
+    @media (max-width: 575px) {
+     .title {
+       font-size: 3.6rem;
+     }
+     .guide-text {
+       font-size: 1.8rem;
+     } 
     }
   }
   .pick-choice-section {
@@ -110,6 +135,13 @@
           @media (max-width: 991px) {
             width: 100%;
           }
+        }
+      }
+    }
+    @media (max-width: 575px) {
+      .title-panel {
+        h3 {
+          font-size: 2.4rem;
         }
       }
     }

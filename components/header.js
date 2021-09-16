@@ -367,7 +367,7 @@ export default function Header({ page }) {
             </button>
 
             <Link href="/myCart">
-              <a className="cart-link d-flex me-4">
+              <a className="btn cart-link d-flex me-4">
                 <RiShoppingCartLine className="font-icon" />
               </a>
             </Link>

@@ -73,11 +73,18 @@ $flagSelectColor: white;
       }
       .sub-bar {
         border-bottom: $homeHeaderBorderColor !important;
+        .sub-item {
+          &.active {
+            hr {
+              border-color: transparent;
+            }
+          }
+        }
         a {
           &:hover {
-            color: white;
+            color: rgb(0, 0, 0);
             span {
-              color: white !important;
+              // color: white !important;
             }
           }
         }
@@ -233,7 +240,9 @@ $flagSelectColor: white;
         }
         &:hover {
           * {
-            color: black;
+            &:not(> a) {
+              color: black;
+            }
           }
           hr {
             width: 30px;

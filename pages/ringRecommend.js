@@ -40,9 +40,9 @@ export default function RingRecommend() {
       </Head>
       <Header page="homepage" />
       {/* Start hero section */}
-      <div className="hero-section">
+      <div className="hero-section d-md-block d-flex flex-column justify-content-end">
         <div className="r-container">
-          <h1 className="title text-white text-capitalize">
+          <h1 className="title text-white text-capitalize  p-md-0 p-5  m-md-0 m-sm-5 m-0s">
             Ring <br />
             Recommender
           </h1>
@@ -54,12 +54,10 @@ export default function RingRecommend() {
       <div className="guide-section py-md-5">
         <div className="row r-container py-5">
           <div className="col-lg-3 col-md-4 col-12 p-0 pe-md-5 pe-5 py-5">
-            <h3 className="title text-capitalize text-md-start text-center">
-              We’ll find for you
-            </h3>
+            <h3 className="title text-capitalize">We’ll find for you</h3>
           </div>
           <div className="col-lg-9 col-md-8 col-12 p-0 ps-md-5 ps-0 pt-md-5 pb-5">
-            <p className="guide-text text-md-start text-center">
+            <p className="guide-text">
               We’ll find the perfect diamond and setting within your budget.
               Just answer a few simple questions and we’ll put together a
               beautiful engagement ring. We promise it won’t be as complicated
@@ -72,13 +70,19 @@ export default function RingRecommend() {
 
       {/* Start pick choice section */}
       <div className="pick-choice-section r-container py-md-5">
-        <div className="title-panel my-5 pt-md-5">
+        <div className="title-panel my-5 pt-md-5 d-md-block d-none">
           <h3 className="title blue-text text-capitalize py-4 m-0">
             Pick your choice
           </h3>
         </div>
         <div className="row pick-panel m-0 pt-md-5">
           <div className="setting-panel col-lg-6 col-12 order-lg-first order-last p-0">
+            <div className="title-panel my-5 pt-md-5 d-md-none">
+              <h3 className="title blue-text text-capitalize py-4 m-0">
+                Pick your choice
+              </h3>
+            </div>
+
             <div className="price-point-panel mb-5">
               <label htmlFor="pricePoint" className="text-uppercase pb-3">
                 My Price point is...
@@ -175,8 +179,8 @@ export default function RingRecommend() {
               FING MY RING
             </button>
             <div className="round need-help-panel px-5 mb-4">
-              <div className="title-panel d-flex justify-content-between align-items-center flex-sm-row flex-column py-5">
-                <h3 className="text-uppercase m-0 mb-sm-0 mb-5">Need Help?</h3>
+              <div className="title-panel d-flex justify-content-between align-items-center flex-sm-row flex-column py-sm-5 py-4">
+                <h3 className="text-uppercase m-0 mb-sm-0 mb-sm-5 mb-3">Need Help?</h3>
                 <div className="link-panel d-flex">
                   <Link href="#">
                     <a className="text-uppercase me-4 d-flex align-items-center blue-text">
@@ -193,8 +197,8 @@ export default function RingRecommend() {
                   </Link>
                 </div>
               </div>
-              <div className="purchase-panel d-flex justify-content-between align-items-center flex-sm-row flex-column py-5">
-                <h3 className="text-uppercase m-0 mb-sm-0 mb-5">
+              <div className="purchase-panel d-flex justify-content-between align-items-center flex-sm-row flex-column py-sm-5 py-4">
+                <h3 className="text-uppercase m-0 mb-sm-0 mb-sm-5 mb-3">
                   Not ready to purchase online?
                 </h3>
                 <button
@@ -207,7 +211,7 @@ export default function RingRecommend() {
               </div>
             </div>
           </div>
-          <div className="image-panel col-lg-6 col-12 p-0 d-lg-flex d-block justify-content-end mb-lg-0 mb-5">
+          <div className="image-panel col-lg-6 col-12 p-0 d-lg-flex d-block justify-content-end mb-lg-0 mb-md-5 pt-md-0 pt-5 mt-md-0 mt-5">
             <div className="image-cover pb-lg-0 pb-5 pe-lg-0 pe-5">
               <img
                 src="/img/ringRecommend/image-1.png"
