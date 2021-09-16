@@ -172,14 +172,10 @@ $duration: 2s;
 $repetition: infinite;
 
 #loading {
-  // margin-bottom: -64px;
-  position: relative;
+  top: 0;
+  left: 0;
+  height: 64px;
   z-index: 99999999;
-  span {
-    position: absolute;
-    bottom: -200px;
-    left: calc(50% - 30px);
-  }
 }
 @keyframes first-line {
   0% {

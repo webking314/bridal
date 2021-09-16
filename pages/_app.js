@@ -1,3 +1,6 @@
+import { useState } from "react";
+import GlobalContext from "../utils/global-context";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/globals.scss";
 
@@ -37,6 +40,10 @@ import "../styles/pages/customRing/confirmDiamond.scss";
 import "../styles/pages/customRing/confirmRing.scss";
 
 function MyApp({ Component, pageProps }) {
+  // const [state, setState] = useState({
+  //   count: 0,
+  //   update,
+  // });
   return <Component {...pageProps} />;
 }
 

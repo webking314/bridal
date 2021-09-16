@@ -27,7 +27,7 @@ export default function Blog() {
   const [postItems, setPostItems] = useState();
   const [blogItems, setBlogItems] = useState();
   const [filterCategory, setFilterCategory] = useState("");
-  const [filterKey, setFilterKey] = useState("");
+  const [filterKey, setFilterKey] = useState();
   const [options, setOptions] = useState();
 
   useEffect(() => {
@@ -65,32 +65,33 @@ export default function Blog() {
 
   useEffect(() => {
     let postArr = [];
-    let categoryArr = [];
     if (post) {
-      post.map((item, index) => {
-        fetch(item._links["wp:featuredmedia"][0].href, {
-          method: "get",
-          headers,
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            fetch(categoryURL + "?post=" + item.id, {
-              method: "get",
-              headers,
-            })
-              .then((res) => res.json())
-              .then((categoryItems) => {
-                postArr.push({
-                  id: item.id,
-                  title: item.title.rendered,
-                  slug: item.slug,
-                  img: data.guid.rendered,
-                  categories: categoryItems,
+      if (post.length != 0) {
+        post.map((item, index) => {
+          fetch(item._links["wp:featuredmedia"][0].href, {
+            method: "get",
+            headers,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              fetch(categoryURL + "?post=" + item.id, {
+                method: "get",
+                headers,
+              })
+                .then((res) => res.json())
+                .then((categoryItems) => {
+                  postArr.push({
+                    id: item.id,
+                    title: item.title.rendered,
+                    slug: item.slug,
+                    img: data.guid.rendered,
+                    categories: categoryItems,
+                  });
+                  setPostItems([...postArr]);
                 });
-                setPostItems([...postArr]);
-              });
-          });
-      });
+            });
+        });
+      } else setLoading(false);
     }
   }, [post]);
 
@@ -105,28 +106,37 @@ export default function Blog() {
   }, [postItems]);
 
   useEffect(() => {
-    if (postItems) {
-      setBlogItems(
-        postItems
-          .sort((item1, item2) => item2.id - item1.id)
-          .filter((item) =>
-            item.title.toUpperCase().includes(filterKey.toUpperCase())
-          )
-      );
+    setLoading(true);
+    if (filterKey) {
+      fetch(blogURL + "?orderby=id&per_page=10&" + filterCategory + filterKey, {
+        method: "get",
+        headers,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPost(data);
+        });
     }
   }, [filterKey]);
 
   const selectCategory = (key) => {
-    if (key) {
-      setFilterCategory("categories=" + key);
-    } else {
-      setFilterCategory("");
+    if (!loading) {
+      setBlogItems("");
+      if (key) {
+        setFilterCategory("categories=" + key);
+      } else {
+        setFilterCategory("");
+      }
     }
   };
 
   const searchHandle = (event) => {
-    if (event.keyCode == 13) {
-      setFilterKey(event.target.value);
+    if (!loading) {
+      if (event.keyCode == 13) {
+        setBlogItems("");
+        setFilterKey("&search=" + event.target.value);
+        event.target.value = ''
+      }
     }
   };
   return (
@@ -183,7 +193,6 @@ export default function Blog() {
                   options={options}
                   onChange={(value) => {
                     {
-                      console.log(value);
                       setFilterCategory("categories=" + value);
                     }
                   }}
@@ -216,7 +225,7 @@ export default function Blog() {
             })}
         </div>
         <Loading loading={loading} />
-        {blogItems ? (
+        {blogItems && blogItems.length != 0 ? (
           <div className="main-blog-panel row m-0">
             <div className="col-md-8 col-12 p-0">
               {
