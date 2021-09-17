@@ -111,6 +111,7 @@
         }
       }
     }
+
     .btn-tab {
       background: rgba(2, 24, 37, 0.05);
       color: rgba(1, 33, 92, 0.8);
@@ -119,11 +120,13 @@
       border: 2px solid transparent;
       &:focus {
         box-shadow: none;
-        font-weight: 500;
-        border: 2px solid rgba(1, 33, 92, 0.8);
       }
       &:hover {
         font-weight: 500;
+      }
+      &.active {
+        font-weight: 500;
+        border: 2px solid rgba(1, 33, 92, 0.8);
       }
     }
     .no-blog-text {
@@ -131,7 +134,12 @@
       font-weight: 400;
       color: #636363;
     }
-    .main-blog-panel {
+    .not-result-text {
+      font-size: 3.4rem;
+      font-weight: 400;
+      color: #636363;
+    }
+        .main-blog-panel {
       .main-blog {
         img {
           max-height: 400px;
