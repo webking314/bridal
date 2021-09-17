@@ -57,7 +57,7 @@ export default function Blog() {
   }, []);
 
   useEffect(() => {
-    if ( filterCategory.length && mounted) {
+    if (filterCategory.length && mounted) {
       setLoading(true);
       let postArr = [];
       fetch(
@@ -104,7 +104,7 @@ export default function Blog() {
           setPostItems(postArr);
         });
     }
-    setMounted(true)
+    setMounted(true);
   }, [filterCategory]);
 
   useEffect(async () => {
@@ -229,6 +229,7 @@ export default function Blog() {
           item.classList.remove("active");
         });
       }
+      blogData = [];
       setFilterCategory([]);
       document.querySelector(".category-tab-all") &&
         document.querySelector(".category-tab-all").classList.toggle("active");
