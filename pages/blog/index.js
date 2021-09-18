@@ -319,7 +319,7 @@ export default function Blog() {
                   {options.map((item, index) => {
                     return (
                       <option value={item.value} key={index}>
-                        {item.name}
+                        {renderHTML(item.name)}
                       </option>
                     );
                   })}

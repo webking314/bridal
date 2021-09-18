@@ -74,7 +74,6 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-
 export default function Brief(props) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
@@ -84,6 +83,9 @@ export default function Brief(props) {
   const [coverBg, setCoverBg] = useState();
   const [content, setContent] = useState();
   const [dateTime, setDateTime] = useState();
+  const [facebookLink, setFacebookLink] = useState();
+  const [linkdinLink, setLinkdinLink] = useState();
+  const [twitterLink, setTwitterLink] = useState();
   const products = [
     {
       img: "product-1.png",
@@ -109,7 +111,7 @@ export default function Brief(props) {
   ];
   const target = React.createRef();
   const router = useRouter();
-   
+
   useEffect(() => {
     if (content) {
       const text = document.querySelector(".article-panel").innerText;
@@ -119,9 +121,15 @@ export default function Brief(props) {
       setTime(time);
     }
   }, [content]);
-  
+
   useEffect(() => {
     if (router.query.slug) {
+      const currentURL = document.location.href;
+      setFacebookLink("http://www.facebook.com/sharer.php?u=" + currentURL);
+      setLinkdinLink(
+        "http://www.linkedin.com/shareArticle?mini=true&url=" + currentURL
+      );
+      setTwitterLink("http://twitter.com/share?url=" + currentURL);
       // Get blog data by slug
       fetch(blogURL + "?slug=" + router.query.slug, {
         method: "get",
@@ -130,7 +138,7 @@ export default function Brief(props) {
         .then((res) => res.json())
         .then((data) => {
           data = data[0];
-          setDateTime(dateFormat(data.date, "mmmm d, yyyy"))
+          setDateTime(dateFormat(data.date, "mmmm d, yyyy"));
           setTitle(data.title.rendered);
           setContent(data.content.rendered);
 
@@ -244,34 +252,42 @@ export default function Brief(props) {
                   )}
                 </p>
                 <p className="reporter-date pt-4">
-                  <span className="text-uppercase me-2">{dateTime && dateTime}</span>·
-                  <span className="ms-2">{time ? time : 0}</span> min read
+                  <span className="text-uppercase me-2">
+                    {dateTime && dateTime}
+                  </span>
+                  ·<span className="ms-2">{time ? time : 0}</span> min read
                 </p>
               </div>
               <div className="share-panel">
                 <h3 className="blue-text text-uppercase mb-4">Share article</h3>
                 <hr className="line" />
                 <div className="links-panel mt-4 d-flex justify-content-between">
-                  <Link href="#">
-                    <a>
-                      <RiFacebookCircleFill />
-                    </a>
-                  </Link>
-                  <Link href="#">
-                    <a>
-                      <RiTwitterFill />
-                    </a>
-                  </Link>
+                  {facebookLink && (
+                    <Link href={facebookLink}>
+                      <a>
+                        <RiFacebookCircleFill />
+                      </a>
+                    </Link>
+                  )}
+                  {twitterLink && (
+                    <Link href={twitterLink}>
+                      <a>
+                        <RiTwitterFill />
+                      </a>
+                    </Link>
+                  )}
                   <Link href="#">
                     <a>
                       <RiInstagramFill />
                     </a>
                   </Link>
-                  <Link href="#">
-                    <a>
-                      <RiLinkedinFill />
-                    </a>
-                  </Link>
+                  {linkdinLink && (
+                    <Link href={linkdinLink}>
+                      <a>
+                        <RiLinkedinFill />
+                      </a>
+                    </Link>
+                  )}
                   <Link href="#">
                     <a>
                       <RiWhatsappFill />
@@ -290,20 +306,24 @@ export default function Brief(props) {
         {content && (
           <div className="link-panel-cover d-md-block d-none">
             <div className="link-panel">
-              <Link href="#">
-                <a>
-                  <div className="link-item d-flex align-items-center justify-content-center mb-3">
-                    <RiFacebookLine />
-                  </div>
-                </a>
-              </Link>
-              <Link href="#">
-                <a>
-                  <div className="link-item d-flex align-items-center justify-content-center mb-3">
-                    <RiTwitterLine />
-                  </div>
-                </a>
-              </Link>
+              {facebookLink && (
+                <Link href={facebookLink}>
+                  <a>
+                    <div className="link-item d-flex align-items-center justify-content-center mb-3">
+                      <RiFacebookLine />
+                    </div>
+                  </a>
+                </Link>
+              )}
+              {twitterLink && (
+                <Link href={twitterLink}>
+                  <a>
+                    <div className="link-item d-flex align-items-center justify-content-center mb-3">
+                      <RiTwitterLine />
+                    </div>
+                  </a>
+                </Link>
+              )}
               <Link href="#">
                 <a>
                   <div className="link-item d-flex align-items-center justify-content-center mb-3">
@@ -311,13 +331,15 @@ export default function Brief(props) {
                   </div>
                 </a>
               </Link>
-              <Link href="#">
-                <a>
-                  <div className="link-item d-flex align-items-center justify-content-center mb-3">
-                    <RiLinkedinLine />
-                  </div>
-                </a>
-              </Link>
+              {linkdinLink && (
+                <Link href={linkdinLink}>
+                  <a>
+                    <div className="link-item d-flex align-items-center justify-content-center mb-3">
+                      <RiLinkedinLine />
+                    </div>
+                  </a>
+                </Link>
+              )}
               <Link href="#">
                 <a>
                   <div className="link-item d-flex align-items-center justify-content-center">
