@@ -174,6 +174,12 @@ export default function ChooseSetting() {
     event.target.closest(".favor-icon").classList.toggle("favor");
   };
 
+  useEffect(() => {
+    if (typeof document !== undefined) {
+      require("bootstrap/dist/js/bootstrap");
+    }
+  }, []);
+
   const loadMore = () => {
     setProducts([...products, ...productItems]);
   };
@@ -372,21 +378,6 @@ export default function ChooseSetting() {
             </div>
           </div>
         </div>
-        <div className="r-container mobile-setting-bar d-sm-none d-block">
-          <div className="title-panel mt-5">
-            <h3 className="blue-text">Choose Ring</h3>
-            <p className="text-uppercase">
-              Engagement Rings (Solitaire) (3455 items)
-            </p>
-          </div>
-          <button className="btn d-flex btn-filter round-form justify-content-between align-items-center px-5 py-3">
-            <div className="text-uppercase d-flex align-items-center">
-              <RiFilter3Fill className="me-3" />
-              Filter
-            </div>
-            <RiArrowRightSLine />
-          </button>
-        </div>
       </div>
       {/* End Hero section */}
 
@@ -396,12 +387,25 @@ export default function ChooseSetting() {
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
             <h2>Choose Diamond</h2>
             <p className="text-uppercase">
-              Certified Diamonds ({result} items)
+              Engagement Rings <span>(Solitaire) ({result} items)</span>
             </p>
           </div>
-          <div className="col-md-6 col-12 d-flex justify-content-end p-0 pt-3 pt-md-0">
-            <div className="search-box round-form d-flex align-items-center">
-              <label htmlFor="selectSearch" className="px-4">
+          <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
+            <button className="btn d-flex btn-filter round-form justify-content-between align-items-center px-4 py-3 mb-4">
+              <div
+                className="text-uppercase d-flex align-items-center"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                aria-controls="offcanvasRight"
+              >
+                <RiFilter3Fill className="me-3" />
+                Filter
+              </div>
+              <RiArrowRightSLine />
+            </button>
+            <div className="search-box round-form d-flex align-items-center pe-sm-0 pe-2">
+              <label htmlFor="selectSearch" className="px-4 py-3">
                 SORT BY :{" "}
               </label>
               <SelectSearch
@@ -471,6 +475,23 @@ export default function ChooseSetting() {
           >
             Load More
           </button>
+        </div>
+        <div
+          className="offcanvas offcanvas-end"
+          tabIndex="-1"
+          id="offcanvasRight"
+          aria-labelledby="offcanvasRightLabel"
+        >
+          <div className="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+            <button
+              type="button"
+              className="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div className="offcanvas-body">...</div>
         </div>
       </div>
       {/* End product section */}

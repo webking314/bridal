@@ -69,7 +69,6 @@ export default function Blog() {
       )
         .then((res) => res.json())
         .then(async (data) => {
-          console.log(data);
           await data.map((item) => {
             postArr.push({
               id: item.id,
@@ -183,9 +182,7 @@ export default function Blog() {
             });
             setPost(postArr);
             setNotResult(false);
-            console.log(data);
           } else {
-            console.log(data);
             setLoading(false);
             setNotResult(true);
           }
@@ -218,6 +215,17 @@ export default function Blog() {
             .querySelector(".category-tab-" + key)
             .classList.add("active");
         });
+      } else {
+        if (
+          document.querySelectorAll(".category-tab.active") &&
+          document.querySelectorAll(".category-tab.active").length
+        ) {
+          document.querySelectorAll(".category-tab.active").forEach((item) => {
+            item.classList.remove("active");
+          });
+        }
+        blogData = [];
+        setFilterCategory([]);
       }
     } else {
       _.remove(tabState, (n) => n != "");
@@ -289,23 +297,33 @@ export default function Blog() {
             </label>
           </div>
           <div className="col-12 d-md-none d-flex justify-content-end p-0 pt-3 pt-md-0">
-            <div className="search-box round-form d-flex align-items-center">
+            <div className="search-box round-form d-flex align-items-center py-2 pe-2">
               <label htmlFor="selectSearch" className="px-4">
                 FITER BY :{" "}
               </label>
               {options && (
-                <SelectSearch
-                  id="selectSearch"
-                  options={options}
-                  onChange={(value) => {
-                    {
-                      setFilterCategory("categories=" + value);
+                <select
+                  className="form-select text-end"
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setFilterCategory([e.target.value]);
+                    } else {
+                      blogData = [];
+                      setFilterCategory([]);
                     }
                   }}
-                  filterOptions={fuzzySearch}
-                  emptyMessage="Not found"
-                  search
-                />
+                  defaultValue=""
+                  aria-label="Default select example"
+                >
+                  <option value="">All</option>
+                  {options.map((item, index) => {
+                    return (
+                      <option value={item.value} key={index}>
+                        {item.name}
+                      </option>
+                    );
+                  })}
+                </select>
               )}
             </div>
           </div>

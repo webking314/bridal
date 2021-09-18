@@ -203,14 +203,33 @@
         h2 {
           color: #01215c;
           font-size: 3.6rem;
+          font-weight: 350;
         }
         p {
           font-size: 1.6rem;
-          color: rgba(2, 24, 37, 0.7);
-          font-weight: 500;
+          color: #021825;
+          font-weight: 400;
+          span {
+            color: rgba(2, 24, 37, 0.7);
+          }
+        }
+      }
+      .btn-filter {
+        width: 100%;
+        border: 1px solid rgba(1, 33, 92, 0.1);
+        font-size: 1.4rem;
+        svg {
+          font-size: 1.8rem;
+        }
+        &:hover {
+          background: #e7e7e7;
+          border-color: transparent;
+          color: rgb(0, 0, 0);
         }
       }
       .search-box {
+        position: relative;
+        z-index: 6;
         background: #f2f3f4;
         @media (max-width: 767px) {
           width: 100%;

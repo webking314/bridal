@@ -20,8 +20,6 @@ import {
   RiMailLine,
   RiPhoneFill,
 } from "react-icons/ri";
-import { flushSync } from "react-dom";
-import { querySelectorAll } from "dom-helpers";
 let submenus = [
   {
     title: "ENGAGEMENT",

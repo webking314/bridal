@@ -83,17 +83,18 @@
           font-size: 1.4rem;
           font-weight: 500;
         }
-        .select-search__value {
-          input {
-            background: #f2f3f4;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            color: #01215c;
-          }
-          &::after {
-            right: 15px;
+        .form-select {
+          padding-right: 45px !important;
+          flex:1;
+          background-color: transparent;
+          border-top-right-radius: 8px;
+          border-bottom-right-radius: 8px;
+          font-size: 1.4rem;
+          border: 0;
+          text-transform: uppercase;
+          color: #01215c;
+          &:focus {
+            box-shadow: none;
           }
         }
       }
@@ -139,7 +140,7 @@
       font-weight: 400;
       color: #636363;
     }
-        .main-blog-panel {
+    .main-blog-panel {
       .main-blog {
         img {
           max-height: 400px;
