@@ -267,11 +267,11 @@ export default function Blog() {
             <h1 className="blog__banner--title text-capitalize text-white">
               The Koh-I-Noor: More than only óur heritage
             </h1>
-            <p className="blog__banner--description text-white mt-5">
+            <p className="blog__banner--description text-white mt-sm-5 mt-4">
               Our Royal Legacy
             </p>
           </div>
-          <button className="btn text-uppercase mt-5 px-5 py-3 btn--read-more pink-btn round-form">
+          <button className="btn text-uppercase mt-sm-5 mt-4 px-5 py-3 btn--read-more pink-btn round-form">
             Read more
           </button>
         </div>
@@ -279,9 +279,9 @@ export default function Blog() {
       {/* End banner section */}
 
       {/* Start blog section */}
-      <div className="blog-section r-container py-5">
-        <div className="top-bar row align-items-center m-0 p-0 mt-5 pt-5 pb-4">
-          <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-5">
+      <div className="blog-section r-container py-sm-5">
+        <div className="top-bar row align-items-center m-0 p-0 mt-sm-5 pt-5 pb-4">
+          <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-sm-5">
             <h2>Our Recent Blogs</h2>
             <p className="text-uppercase">{result} results</p>
           </div>

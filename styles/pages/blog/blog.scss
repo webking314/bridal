@@ -23,10 +23,10 @@
       }
     }
     @media (max-width: 650px) {
-      padding-top: 15rem;
-      padding-bottom: 10rem;
+      padding-top: 11rem;
+      padding-bottom: 3rem;
       .text-panel {
-        width: 70%;
+        width: 65%;
         .blog__banner--title {
           font-size: 2.4rem;
           font-weight: 400;
@@ -46,12 +46,18 @@
       .title-panel {
         h2 {
           color: #01215c;
+          font-weight: 350;
           font-size: 3.6rem;
         }
         p {
           font-size: 1.6rem;
           color: rgba(2, 24, 37, 0.7);
           font-weight: 500;
+        }
+        @media (max-width: 575px) {
+          h2 {
+            font-size: 2.4rem;
+          }
         }
       }
       .search-bar {
@@ -85,7 +91,7 @@
         }
         .form-select {
           padding-right: 45px !important;
-          flex:1;
+          flex: 1;
           background-color: transparent;
           border-top-right-radius: 8px;
           border-bottom-right-radius: 8px;
