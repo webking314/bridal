@@ -10,6 +10,7 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Skeleton from "@mui/material/Skeleton";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+var dateFormat = require("dateformat");
 import {
   RiFacebookCircleFill,
   RiTwitterFill,
@@ -78,12 +79,11 @@ export default function Brief(props) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   const [time, setTime] = useState();
-  const [query, setQuery] = useState();
   const [authorData, setAuthorData] = useState();
   const [title, setTitle] = useState();
   const [coverBg, setCoverBg] = useState();
   const [content, setContent] = useState();
-  const reporterDate = "January 27, 2021";
+  const [dateTime, setDateTime] = useState();
   const products = [
     {
       img: "product-1.png",
@@ -130,6 +130,7 @@ export default function Brief(props) {
         .then((res) => res.json())
         .then((data) => {
           data = data[0];
+          setDateTime(dateFormat(data.date, "mmmm d, yyyy"))
           setTitle(data.title.rendered);
           setContent(data.content.rendered);
 
@@ -243,7 +244,7 @@ export default function Brief(props) {
                   )}
                 </p>
                 <p className="reporter-date pt-4">
-                  <span className="text-uppercase me-2">{reporterDate}</span>·
+                  <span className="text-uppercase me-2">{dateTime && dateTime}</span>·
                   <span className="ms-2">{time ? time : 0}</span> min read
                 </p>
               </div>
