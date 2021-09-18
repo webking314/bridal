@@ -125,11 +125,11 @@ export default function Brief(props) {
   useEffect(() => {
     if (router.query.slug) {
       const currentURL = document.location.href;
-      setFacebookLink("http://www.facebook.com/sharer.php?u=" + currentURL);
+      setFacebookLink("https://www.facebook.com/sharer.php?u=" + currentURL);
       setLinkdinLink(
-        "http://www.linkedin.com/shareArticle?mini=true&url=" + currentURL
+        "https://www.linkedin.com/shareArticle?mini=true&url=" + currentURL
       );
-      setTwitterLink("http://twitter.com/share?url=" + currentURL);
+      setTwitterLink("https://twitter.com/share?url=" + currentURL);
       // Get blog data by slug
       fetch(blogURL + "?slug=" + router.query.slug, {
         method: "get",

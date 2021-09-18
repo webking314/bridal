@@ -174,11 +174,11 @@ export default function ChooseSetting() {
     event.target.closest(".favor-icon").classList.toggle("favor");
   };
 
-  useEffect(() => {
-    if (typeof document !== undefined) {
-      require("bootstrap/dist/js/bootstrap");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (typeof document !== undefined) {
+  //     require("bootstrap/dist/js/bootstrap");
+  //   }
+  // }, []);
 
   const loadMore = () => {
     setProducts([...products, ...productItems]);
@@ -391,7 +391,7 @@ export default function ChooseSetting() {
             </p>
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
-            <button className="btn d-flex btn-filter round-form justify-content-between align-items-center px-4 py-3 mb-4">
+            <button className="btn d-sm-none d-flex btn-filter round-form justify-content-between align-items-center px-4 py-3 mb-4">
               <div
                 className="text-uppercase d-flex align-items-center"
                 type="button"
@@ -456,10 +456,10 @@ export default function ChooseSetting() {
                     <button className="btn platinium me-3"></button>
                     <button className="btn rose-gold me-3"></button>
                   </div>
-                  <div className="favor-icon " onClick={setFavor}>
+                  <button className="favor-icon btn" onClick={setFavor}>
                     <RiHeartLine className="unfavor" />
                     <RiHeartFill className="favor" />
-                  </div>
+                  </button>
                 </div>
               );
             else

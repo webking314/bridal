@@ -478,10 +478,10 @@ export default function ProductEarring() {
                     <button className="btn platinium me-3"></button>
                     <button className="btn rose-gold me-3"></button>
                   </div>
-                  <div className="favor-icon " onClick={setFavor}>
+                  <button className="favor-icon btn" onClick={setFavor}>
                     <RiHeartLine className="unfavor" />
                     <RiHeartFill className="favor" />
-                  </div>
+                  </button>
                 </div>
               </SwiperSlide>
             );
