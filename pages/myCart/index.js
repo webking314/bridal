@@ -15,6 +15,7 @@ import {
   RiCloseFill,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { remove } from "lodash";
 
 const cartItems = [
   {
@@ -67,17 +68,21 @@ export default function MyCart() {
   }, []);
 
   useEffect(() => {
-    items &&
+    console.log(items);
+    if (items && items.length) {
       items.map((item, index) => {
         if (index == 0) subTotalPrice = 0;
         subTotalPrice += item.price * item.amount;
         setSubTotal(subTotalPrice);
       });
+      localStorage.setItem("products", JSON.stringify(items));
+    }
   }, [items]);
 
   useEffect(() => {
     setTotal(subTotal - vat);
   }, [subTotal]);
+
   return (
     <div className="myCart_page">
       <Head>
@@ -115,7 +120,7 @@ export default function MyCart() {
                   key={index}
                 >
                   <img
-                    src={"/img/myCart/" + item.images[0]}
+                    src={item.image}
                     alt="item-image"
                     className="item-image me-4 mb-md-0 mb-5"
                     width="200"
@@ -128,10 +133,14 @@ export default function MyCart() {
                           {item.title}
                         </h3>
                         <p className="cart-style m-0 py-4 text-capitalize">
-                          {item.style}
+                          {item.tag.map((item, index) => (
+                            <span key={index} className="me-3">
+                              {item}
+                            </span>
+                          ))}
                         </p>
                         <p className="cart-description m-0 text-capitalize">
-                          {item.description}
+                          {/* {item.description} */}
                         </p>
                       </div>
                       <div className="col-lg-6 col-12 cost-panel p-0 d-flex justify-content-between flex-sm-row flex-column ps-lg-5 ps-0 pt-lg-0 pt-5">

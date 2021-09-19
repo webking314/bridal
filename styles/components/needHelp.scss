@@ -2,6 +2,10 @@
   position: relative;
   padding-top: 10rem;
   padding-bottom: 10rem;
+  @media (max-width: 767px) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
   & > .row {
     z-index: 2;
     position: relative;

@@ -4,19 +4,21 @@ import Head from "next/head";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
-import Collection from "../../components/collection";
-import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import Range from "../../components/range";
 import { useRouter } from "next/router";
+import renderHTML from "react-render-html";
 
 import {
   RiHeartLine,
   RiHeartFill,
   RiFilter3Fill,
   RiArrowRightSLine,
+  RiArrowLeftSLine,
+  RiErrorWarningLine,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-import { filter } from "dom-helpers";
+import { Ee } from "react-flags-select";
+
 const options = [
   { name: "ALL", value: "ALL" },
   { name: "POPULAR", value: "POPULAR" },
@@ -174,11 +176,11 @@ export default function ChooseSetting() {
     event.target.closest(".favor-icon").classList.toggle("favor");
   };
 
-  // useEffect(() => {
-  //   if (typeof document !== undefined) {
-  //     require("bootstrap/dist/js/bootstrap");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof document !== undefined) {
+      require("bootstrap/dist/js/bootstrap");
+    }
+  }, []);
 
   const loadMore = () => {
     setProducts([...products, ...productItems]);
@@ -218,6 +220,18 @@ export default function ChooseSetting() {
     }
   };
 
+  const handleMenuBtn = (e) => {
+    e.target
+      .closest(".offcanvas-body")
+      .querySelectorAll("button")
+      .forEach((element) => {
+        if (element.classList.contains("active")) {
+          element.classList.remove("active");
+        }
+      });
+    e.target.closest("button").classList.add("active");
+  };
+
   return (
     <div className="chooseSetting_page">
       <Head>
@@ -226,7 +240,7 @@ export default function ChooseSetting() {
       <Header />
       {/* Start hero section */}
       <div className="state-section">
-        <div className="link-panel r-container py-3 mb-md-5 mb-0 d-sm-flex d-none align-items-center">
+        <div className="link-panel r-container py-3 d-sm-flex d-none align-items-center">
           <button
             className="btn back-arrow d-flex me-3 blue-text px-0"
             onClick={() => router.back()}
@@ -268,7 +282,7 @@ export default function ChooseSetting() {
 
         <div className="setting-state-panel">
           <div className="r-container  py-md-3  row">
-            <div className="px-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center active">
+            <div className="pe-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   1
@@ -304,7 +318,7 @@ export default function ChooseSetting() {
                 alt="state-image"
               />
             </div>
-            <div className="px-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center">
+            <div className="ps-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   3
@@ -382,7 +396,7 @@ export default function ChooseSetting() {
       {/* End Hero section */}
 
       {/* Start product section */}
-      <div className="product-section r-container py-5 ">
+      <div className="product-section r-container pt-5 pb-sm-5 ">
         <div className="top-bar row align-items-center m-0 py-3">
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
             <h2>Choose Diamond</h2>
@@ -391,38 +405,44 @@ export default function ChooseSetting() {
             </p>
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
-            <button className="btn d-sm-none d-flex btn-filter round-form justify-content-between align-items-center px-4 py-3 mb-4">
-              <div
-                className="text-uppercase d-flex align-items-center"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasRight"
-                aria-controls="offcanvasRight"
-              >
+            <button
+              className="btn d-sm-none d-flex btn-filter round-form justify-content-between align-items-center px-4 py-3 mb-4"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#filterMenu"
+              aria-controls="filterMenu"
+            >
+              <div className="text-uppercase d-flex align-items-center">
                 <RiFilter3Fill className="me-3" />
                 Filter
               </div>
               <RiArrowRightSLine />
             </button>
-            <div className="search-box round-form d-flex align-items-center pe-sm-0 pe-2">
-              <label htmlFor="selectSearch" className="px-4 py-3">
-                SORT BY :{" "}
+            <div className="search-box round-form d-flex align-items-center py-2 pe-sm-0 pe-2">
+              <label htmlFor="selectSearch" className="px-4">
+                FITER BY :{" "}
               </label>
-              <SelectSearch
-                id="selectSearch"
-                options={options}
-                value={selectValue}
-                onChange={(value) => {
-                  setSelectValue(value);
-                }}
-                filterOptions={fuzzySearch}
-                emptyMessage="Not found"
-                search
-              />
+              {options && (
+                <select
+                  className="form-select text-end"
+                  onChange={(e) => {
+                    setSelectValue(e.target.value);
+                  }}
+                  aria-label="Default select example"
+                >
+                  {options.map((item, index) => {
+                    return (
+                      <option value={item.value} key={index}>
+                        {renderHTML(item.name)}
+                      </option>
+                    );
+                  })}
+                </select>
+              )}
             </div>
           </div>
         </div>
-        <div className="main-panel py-5">
+        <div className="main-panel pt-5 pb-sm-5">
           {products.map((item, index) => {
             if (item.url)
               return (
@@ -469,35 +489,259 @@ export default function ChooseSetting() {
                 </div>
               );
           })}
-          <button
-            className="btn load-more-btn text-uppercase mt-5 py-3 px-5 round-form"
-            onClick={loadMore}
-          >
-            Load More
-          </button>
         </div>
-        <div
-          className="offcanvas offcanvas-end"
-          tabIndex="-1"
-          id="offcanvasRight"
-          aria-labelledby="offcanvasRightLabel"
+        <button
+          className="btn load-more-btn text-uppercase mt-sm-5 py-3 px-5 round-form"
+          onClick={loadMore}
         >
-          <div className="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+          Load More
+        </button>
+      </div>
+      {/* End product section */}
+      <div
+        className="offcanvas offcanvas-end"
+        tabIndex="-1"
+        id="filterMenu"
+        aria-labelledby="filterMenuLabel"
+      >
+        <div className="offcanvas-header py-4 p-0">
+          <div className="r-container d-flex justify-content-between align-items-center">
+            <h3 id="filterMenuLabel" className="text-uppercase mb-0 py-2">
+              Filter
+            </h3>
             <button
               type="button"
-              className="btn-close text-reset"
+              className="btn btn-close text-reset"
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             ></button>
           </div>
-          <div className="offcanvas-body">...</div>
+        </div>
+        <div className="offcanvas-body r-container pt-2 p-0">
+          <button
+            className="btn btn-price text-uppercase mt-3 round-form d-flex justify-content-between align-items-center px-4 py-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#priceMenu"
+            aria-controls="priceMenu"
+            onClick={handleMenuBtn}
+          >
+            price
+            <RiArrowRightSLine />
+          </button>
+          <button
+            className="btn btn-style text-uppercase mt-3 round-form d-flex justify-content-between align-items-center px-4 py-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#styleMenu"
+            aria-controls="styleMenu"
+            onClick={handleMenuBtn}
+          >
+            style
+            <RiArrowRightSLine />
+          </button>
+          <button
+            className="btn btn-price text-uppercase mt-3 round-form d-flex justify-content-between align-items-center px-4 py-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#karatMenu"
+            aria-controls="karatMenu"
+            onClick={handleMenuBtn}
+          >
+            karat
+            <RiArrowRightSLine />
+          </button>
         </div>
       </div>
-      {/* End product section */}
+      <div
+        className="offcanvas offcanvas-end"
+        tabIndex="-1"
+        id="priceMenu"
+        aria-labelledby="priceMenuLabel"
+      >
+        <div className="offcanvas-header py-4 p-0">
+          <div className="r-container d-flex justify-content-between align-items-center py-2">
+            <h3
+              id="filterMenuLabel"
+              className="text-uppercase mb-0 d-flex align-items-center"
+            >
+              price <RiErrorWarningLine className="ms-2" />
+            </h3>
+            <button
+              type="button"
+              className="btn btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <div className="offcanvas-body p-0 d-flsex flex-column justify-content-between">
+          <button
+            className="btn btn-back text-uppercase d-flex justify-content-between align-items-center px-4 py-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#filterMenu"
+            aria-controls="filterMenu"
+          >
+            <RiArrowLeftSLine />
+            Reset Filter
+          </button>
+          <div className="r-container">
+            <div className="range-panel d-flex align-items-center mt-4 pt-4 pdx-5">
+              <div className="range-min-pointer range-pointer" />
+              <div className="range-max-pointer range-pointer" />
+              <Range min={0} max={109000} unit={"$"} />
+            </div>
+          </div>
+        </div>
+        <div className="offcanvas-footer text-center pb-5">
+          <button
+            className="btn btn-apply blue-btn text-uppercase py-3 round-form r-container"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#filterMenu"
+            aria-controls="filterMenu"
+          >
+            apply
+          </button>
+        </div>
+      </div>
+      <div
+        className="offcanvas offcanvas-end"
+        tabIndex="-1"
+        id="styleMenu"
+        aria-labelledby="styleMenuLabel"
+      >
+        <div className="offcanvas-header py-4 p-0">
+          <div className="r-container d-flex justify-content-between align-items-center py-2">
+            <h3
+              id="styleMenuLabel"
+              className="text-uppercase mb-0 d-flex align-items-center"
+            >
+              style <RiErrorWarningLine className="ms-2" />
+            </h3>
+            <button
+              type="button"
+              className="btn btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <div className="offcanvas-body p-0 d-flsex flex-column justify-content-between">
+          <button
+            className="btn btn-back text-uppercase d-flex justify-content-between align-items-center px-4 py-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#filterMenu"
+            aria-controls="filterMenu"
+          >
+            <RiArrowLeftSLine />
+            Reset Filter
+          </button>
+          <div className="r-container row pt-4">
+            {filterItems.map((item, index) => {
+              return (
+                <div className="col-4 style-item pb-3" key={index}>
+                  <button
+                    className="btn px-3 py-3 filter-item round-form"
+                    onClick={(event) => ringTypeHandle(event, index)}
+                  >
+                    <div className="image-panel text-center mb-3">
+                      <img
+                        src={"/img/customRing/chooseSetting/" + item.img}
+                        alt="filter-image"
+                      />
+                    </div>
+                    <h3 className="blue-text text-uppercase">{item.text}</h3>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="offcanvas-footer text-center pb-5">
+          <button
+            className="btn btn-apply blue-btn text-uppercase py-3 round-form r-container"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#filterMenu"
+            aria-controls="filterMenu"
+          >
+            apply
+          </button>
+        </div>
+      </div>
+      <div
+        className="offcanvas offcanvas-end"
+        tabIndex="-1"
+        id="karatMenu"
+        aria-labelledby="karatMenuLabel"
+      >
+        <div className="offcanvas-header py-4 p-0">
+          <div className="r-container d-flex justify-content-between align-items-center py-2">
+            <h3
+              id="karatMenuLabel"
+              className="text-uppercase mb-0 d-flex align-items-center"
+            >
+              karat <RiErrorWarningLine className="ms-2" />
+            </h3>
+            <button
+              type="button"
+              className="btn btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <div className="offcanvas-body p-0 d-flsex flex-column justify-content-between">
+          <button
+            className="btn btn-back text-uppercase d-flex justify-content-between align-items-center px-4 py-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#filterMenu"
+            aria-controls="filterMenu"
+          >
+            <RiArrowLeftSLine />
+            Reset Filter
+          </button>
+          <div className="r-container row pt-4">
+            {karats.map((item, index) => {
+              return (
+                <div className="karat-panel col-4" key={index}>
+                  <button
+                    className="btn p-0 karat-item"
+                    onClick={(event) => karatItemHandle(event, index)}
+                  >
+                    <div
+                      className={
+                        "round-form karat px-lg-4 px-5 py-2 " + item.key
+                      }
+                    >
+                      {item.karat}
+                    </div>
+                    <p className="pt-2">{item.title}</p>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="offcanvas-footer text-center pb-5">
+          <button
+            className="btn btn-apply blue-btn text-uppercase py-3 round-form r-container"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#filterMenu"
+            aria-controls="filterMenu"
+          >
+            apply
+          </button>
+        </div>
+      </div>
 
       {/* Start Schedule section */}
-      <Schedule />
+      <Schedule normalMode="normal-mode" />
       {/* End Schedule section */}
       {/* Start Footer */}
       <Footer />

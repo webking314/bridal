@@ -1,5 +1,6 @@
 .confirmSetting_page {
   .state-section {
+    border-top: 1px solid rgba(2, 24, 37, 0.1);
     .link-panel {
       font-size: 1.4rem;
       color: rgba(0, 0, 0, 0.5);
@@ -26,10 +27,11 @@
         &:not(.setting-state:last-child) {
           border-right: 1px solid rgba(2, 24, 37, 0.1);
           @media (max-width: 767px) {
-            border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+            // border-bottom: 1px solid rgba(2, 24, 37, 0.1);
             border-right: 0;
           }
         }
+
         .number {
           width: 52px;
           height: 52px;
@@ -45,6 +47,22 @@
             background: #01215c;
             border-color: #01215c;
             color: white;
+          }
+        }
+        @media (max-width: 575px) {
+          h3 {
+            font-size: 1.4rem !important;
+            color: rgba(1, 33, 92, 0.5) !important;
+          }
+          &.active {
+            h3 {
+              color: #01215c !important;
+            }
+          }
+          .number {
+            width: 27px;
+            height: 27px;
+            font-size: 1.4rem;
           }
         }
         .title {
@@ -131,7 +149,6 @@
     .show-product {
       .tile-product {
         button {
-          width: 100%;
           border: 1px solid rgba(2, 24, 37, 0.1);
           overflow: hidden;
           img {
@@ -205,6 +222,18 @@
         .cost {
           color: #01215c;
         }
+        @media (max-width: 767px) {
+          .title,
+          .description {
+            font-size: 2.4rem;
+          }
+          p {
+            font-size: 1.4rem;
+          }
+          .cost {
+            font-size: 2.8rem;
+          }
+        }
       }
       .confirm-panel {
         .selector-panel {
@@ -245,6 +274,9 @@
               }
             }
           }
+          @media (max-width: 767px) {
+            font-size: 1.4rem;
+          }
         }
         .confirm-box {
           border-bottom: 1px solid rgba(2, 24, 37, 0.1);
@@ -274,7 +306,6 @@
             }
           }
           @media (max-width: 818px) {
-            justify-content: center !important;
             .favor-btn {
               margin-bottom: 20px;
             }
@@ -282,9 +313,9 @@
         }
         .help-panel {
           font-size: 1.6rem;
-          border-bottom: 1px solid rgba(2, 24, 37, 0.1);
         }
         .schedule-panel {
+          border-top: 1px solid rgba(2, 24, 37, 0.1);
           font-size: 1.6rem;
           button {
             font-size: 1.4rem;
@@ -294,6 +325,16 @@
               background: #01215c;
               color: white;
               border-color: #01215c;
+            }
+          }
+        }
+        .share-btn-panel {
+          button {
+            background: #f6f6f6;
+            font-size: 1.6rem;
+            font-weight: 400;
+            &:hover {
+              background: rgb(211, 211, 211);
             }
           }
         }

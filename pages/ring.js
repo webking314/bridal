@@ -7,6 +7,8 @@ import Schedule from "../components/schedule";
 import Collection from "../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import { Skeleton } from "@material-ui/lab";
+import NumberFormat from "react-number-format";
 
 const options = [
   { name: "ALL", value: "ALL" },
@@ -202,17 +204,104 @@ const leftFilters = [
     ],
   },
 ];
+
+const productURL = "https://royalcoster.nl/api/product/index.php";
+const headers = {
+  "Content-Type": "application/json",
+};
 export default function Ring() {
   const [result, setResult] = useState("878");
+  const [tags, setTags] = useState(["Ring"]);
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [products, setProducts] = useState([...productItems]);
+  const [selectFilter, setSelectFilter] = useState([]);
+  const [productData, setProductData] = useState([]);
+  const [lastProduct, setLastProduct] = useState();
+  const [favorProduct, setFavorProduct] = useState();
+  const [load, setLoad] = useState(false);
 
-  const setFavor = (event) => {
-    event.target.closest(".favor-icon").classList.toggle("favor");
+  useEffect(() => {
+    let formData = new FormData();
+    formData.append("position", "first:9");
+    formData.append("query", "status:active and tag:Rings");
+    fetch(productURL, {
+      method: "post",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        data.last ? setLastProduct(data.last) : setProductData();
+        setProductData(data.data);
+      });
+    localStorage.products && setFavorProduct(JSON.parse(localStorage.products));
+  }, []);
+
+  const setFavor = (event, product) => {
+    let target = event.target.closest(".favor-icon");
+    if (target.classList.contains("favor")) {
+      target.classList.remove("favor");
+      if (localStorage.products) {
+        let localProducts = JSON.parse(localStorage.products);
+        let removeProduct = localProducts.find(
+          (item) => item.shopifyid == product.shopifyid
+        );
+        if (removeProduct) {
+          localProducts.splice(localProducts.indexOf(removeProduct), 1);
+          localStorage.setItem("products", JSON.stringify(localProducts));
+        }
+      }
+    } else {
+      target.classList.add("favor");
+      if (localStorage.products) {
+        let localProducts = JSON.parse(localStorage.products);
+        localStorage.setItem(
+          "products",
+          JSON.stringify([
+            ...localProducts,
+            { ...product, amount: 1, tag: tags },
+          ])
+        );
+      } else {
+        localStorage.setItem(
+          "products",
+          JSON.stringify([{ ...product, amount: 1, tag: tags }])
+        );
+      }
+    }
+  };
+
+  const filterHandle = (event, index) => {
+    let target = event.target.closest(".filter-item");
+    if (target.classList.contains("active")) {
+      let removeItem = selectFilter.indexOf(filterItems[index].text);
+      if (!removeItem) {
+        selectFilter.splice(removeItem, 1);
+        setSelectFilter([...selectFilter]);
+      } else {
+        selectFilter.splice(-1, 1);
+      }
+      target.classList.remove("active");
+    } else {
+      target.classList.add("active");
+      setSelectFilter([...selectFilter, filterItems[index].text]);
+    }
   };
 
   const loadMore = () => {
-    setProducts([...products, ...productItems]);
+    setLoad(true);
+    let formData = new FormData();
+    formData.append("position", `first:9, after:"${lastProduct}"`);
+    formData.append("query", "status:active and tag:Rings");
+    fetch(productURL, {
+      method: "post",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        data.last ? setLastProduct(data.last) : setProductData();
+        setProductData([...productData, ...data.data]);
+        setLoad(false);
+      });
   };
 
   return (
@@ -258,7 +347,11 @@ export default function Ring() {
         <div className="top-filter-bar d-flex justify-content-between align-items-center flex-wrap py-4">
           {filterItems.map((item, index) => {
             return (
-              <button className="btn filter-item round-form mt-3" key={index}>
+              <button
+                className="btn filter-item round-form mt-3"
+                key={index}
+                onClick={(event) => filterHandle(event, index)}
+              >
                 <div className="image-panel text-center">
                   <img src={"/img/ring/" + item.img} alt="filter-image" />
                 </div>
@@ -310,51 +403,233 @@ export default function Ring() {
               );
             })}
           </div>
-          <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 product-panel">
-            {products.map((item, index) => {
-              return (
-                <div className="product-item" key={index}>
-                  <Link href={item.url}>
-                    <a>
-                      <div className="product-image d-flex justify-content-center align-items-center round">
-                        <img
-                          src={"/img/ring/" + item.img}
-                          alt="product-image"
-                        />
-                      </div>
-                      <h3 className="text-uppercase blue-text py-4 m-0">
-                        {item.title}
-                      </h3>
-                      <p className="pb-4 text-uppercase m-0">
-                        {item.categories.map((category, key) => {
-                          return (
-                            <span key={key} className="me-2">
-                              {category}
-                            </span>
-                          );
-                        })}
-                      </p>
-                      <h4 className="blue-text">{item.cost}</h4>
-                    </a>
-                  </Link>
-                  <div className="favor-icon " onClick={setFavor}>
-                    <RiHeartLine className="unfavor" />
-                    <RiHeartFill className="favor" />
+          {/* {false ? ( */}
+          {productData && productData.length ? (
+            <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 product-panel row m-0">
+              {productData.map((item, index) => {
+                return (
+                  <div
+                    className="product-item col-lg-4 col-md-6 col-sm-12 mb-5 pb-3"
+                    key={index}
+                  >
+                    <Link href={item.handle}>
+                      <a target="_blank">
+                        <div className="product-image hover-scale d-flex justify-content-center align-items-center round">
+                          <img src={item.image} alt="product-image" />
+                        </div>
+                        <h3 className="text-uppercase blue-text py-4 m-0">
+                          {item.title}
+                        </h3>
+                        <p className="pb-4 text-uppercase m-0">
+                          {tags.length &&
+                            tags.map((tag, id) => (
+                              <span className="me-2" key={id}>
+                                {tag}
+                              </span>
+                            ))}
+                        </p>
+                        {+item.Fullprice > +item.price ? (
+                          <div className="d-flex price-panel mb-5">
+                            <h4 className="blue-text me-3">
+                              <NumberFormat
+                                value={item.price}
+                                displayType="text"
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                thousandSeparator={true}
+                                prefix="€ "
+                              />
+                            </h4>
+                            <h4 className="full-price text-decoration-line-through">
+                              <NumberFormat
+                                value={item.Fullprice}
+                                displayType="text"
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                thousandSeparator={true}
+                                prefix="€ "
+                              />
+                            </h4>
+                          </div>
+                        ) : (
+                          <div className="price-panel mb-5">
+                            <h4 className="blue-text me-3">
+                              <NumberFormat
+                                value={item.Fullprice}
+                                displayType="text"
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                thousandSeparator={true}
+                                prefix="€ "
+                              />
+                            </h4>
+                          </div>
+                        )}
+                      </a>
+                    </Link>
+                    <button
+                      className={
+                        "btn favor-icon " +
+                        `${
+                          favorProduct &&
+                          favorProduct.find(
+                            (product) => product.shopifyid == item.shopifyid
+                          )
+                            ? "favor"
+                            : ""
+                        }`
+                      }
+                      onClick={(e) => setFavor(e, item)}
+                    >
+                      <RiHeartLine className="unfavor" />
+                      <RiHeartFill className="favor" />
+                    </button>
                   </div>
-                </div>
-              );
-            })}
-            <button
-              className="btn load-more-btn text-uppercase py-3 px-5 round-form"
-              onClick={loadMore}
-            >
-              Load More
-            </button>
-          </div>
+                );
+              })}
+              {lastProduct && (
+                <button
+                  className="btn load-more-btn text-uppercase py-3 px-5 round-form"
+                  onClick={loadMore}
+                >
+                  Load More
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row">
+              <div className="col-4">
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  width="100%"
+                  height={300}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  width={100}
+                  height={20}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  width="100%"
+                  height={40}
+                />
+              </div>
+              <div className="col-4">
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  width="100%"
+                  height={300}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  width={100}
+                  height={20}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  width="100%"
+                  height={40}
+                />
+              </div>
+              <div className="col-4">
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  width="100%"
+                  height={300}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  width={100}
+                  height={20}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  width="100%"
+                  height={40}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {/* End product section */}
-
+      {load && (
+        <div className="row m-0">
+          <div className="col-lg-3 col-md-4 col-sm-5 col-0 p-0"></div>
+          <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row">
+            <div className="col-4">
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height={300}
+              />
+              <Skeleton
+                animation="wave"
+                variant="text"
+                width={100}
+                height={20}
+              />
+              <Skeleton
+                animation="wave"
+                variant="text"
+                width="100%"
+                height={40}
+              />
+            </div>
+            <div className="col-4">
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height={300}
+              />
+              <Skeleton
+                animation="wave"
+                variant="text"
+                width={100}
+                height={20}
+              />
+              <Skeleton
+                animation="wave"
+                variant="text"
+                width="100%"
+                height={40}
+              />
+            </div>
+            <div className="col-4">
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                width="100%"
+                height={300}
+              />
+              <Skeleton
+                animation="wave"
+                variant="text"
+                width={100}
+                height={20}
+              />
+              <Skeleton
+                animation="wave"
+                variant="text"
+                width="100%"
+                height={40}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       {/* Start Collection section */}
       <div className="collection-section">
         <Collection />

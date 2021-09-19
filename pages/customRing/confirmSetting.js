@@ -4,9 +4,7 @@ import Head from "next/head";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
-import Collection from "../../components/collection";
 import NeedHelp from "../../components/needHelp";
-import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import { useRouter } from "next/router";
 import {
   RiHeartFill,
@@ -65,7 +63,7 @@ export default function ConformSetting() {
       <Header />
       {/* Start state section */}
       <div className="state-section">
-        <div className="link-panel  r-container py-3 d-flex align-items-center">
+        <div className="link-panel r-container py-3 d-sm-flex d-none align-items-center">
           <button
             className="btn back-arrow d-flex me-3 blue-text px-0"
             onClick={() => router.back()}
@@ -88,53 +86,72 @@ export default function ConformSetting() {
             CHOOSE A SETTING
           </span>
         </div>
+        <div className="link-panel r-container py-3 mb-md-5 mb-0 d-sm-none d-flex align-items-center">
+          <button
+            className="btn back-arrow d-flex me-3 blue-text px-0"
+            onClick={() => router.back()}
+          >
+            <HiOutlineArrowLeft />
+          </button>
+          ...
+          <Link href="#">
+            <a className="mx-2">MAKE A RING</a>
+          </Link>
+          /
+          <span className="title ms-2 text-uppercase blue-text">
+            confirm A SETTING
+          </span>
+        </div>
         <div className="setting-state-panel">
-          <div className="r-container  py-3 row">
-            <div className="pe-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center active">
+          <div className="r-container  py-md-3  row">
+            <div className="pe-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   1
                 </div>
                 <div className="title text-uppercase">
-                  <p className="mb-1">Choose a</p>
+                  <p className="mb-1 d-md-block d-none">Choose a</p>
                   <h3 className="m-0">Setting</h3>
                 </div>
               </div>
               <img
+                className="d-md-block d-none"
                 src="/img/customRing/chooseSetting/choose.png"
                 width="52"
                 height="52"
                 alt="state-image"
               />
             </div>
-            <div className="px-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center">
+            <div className="px-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   2
                 </div>
                 <div className="title text-uppercase">
-                  <p className="mb-1">Choose a</p>
+                  <p className="mb-1 d-md-block d-none">Choose a</p>
                   <h3 className="m-0">Diamond</h3>
                 </div>
               </div>
               <img
+                className="d-md-block d-none"
                 src="/img/customRing/chooseSetting/diamond.png"
                 width="52"
                 height="52"
                 alt="state-image"
               />
             </div>
-            <div className="ps-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center">
+            <div className="ps-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   3
                 </div>
                 <div className="title text-uppercase">
-                  <p className="mb-1">Choose a</p>
+                  <p className="mb-1 d-md-block d-none">Choose a</p>
                   <h3 className="m-0">Ring</h3>
                 </div>
               </div>
               <img
+                className="d-md-block d-none"
                 src="/img/customRing/chooseSetting/complete.png"
                 width="52"
                 height="52"
@@ -147,13 +164,13 @@ export default function ConformSetting() {
       {/* End state section */}
       {/* Start confirm section */}
       <div className="confirm-section py-5 mb-5 row r-container">
-        <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
+        <div className="show-product col-md-6 col-12 p-0 pt-5 pe-md-5">
           <div className="row m-0">
-            <div className="tile-product col-2 p-0 pe-3">
+            <div className="tile-product col-md-2 col-12 order-md-first order-last p-0 pe-md-3 d-md-block d-flex">
               {products.map((item, index) => {
                 return (
                   <button
-                    className="btn btn-show-product mb-3 p-0 round-form"
+                    className="btn btn-show-product col-md-12 col-2 mb-3 me-md-0 me-4 p-0 round-form"
                     key={index}
                     onClick={() => showProduct(item)}
                   >
@@ -165,14 +182,14 @@ export default function ConformSetting() {
                 );
               })}
             </div>
-            <div className="main-product col-10 p-0">
+            <div className="main-product col-md-10 p-0">
               <div className="image-panel round mb-4">
                 <img
                   src={"/img/customRing/confirmSetting/" + mainImage}
                   alt="main-image"
                 />
               </div>
-              <div className="btn-panel d-flex align-items-center justify-content-between">
+              <div className="btn-panel d-md-flex d-none align-items-center justify-content-between">
                 <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
                   <RiShareLine className="me-2" />
                   share
@@ -188,7 +205,7 @@ export default function ConformSetting() {
             </div>
           </div>
         </div>
-        <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-5">
+        <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-md-5 ps-0">
           <div className="title-panel">
             <h3 className="title pb-4 m-0">Solitaire</h3>
             <h3 className="description text-capitalize pb-4 m-0">
@@ -226,7 +243,7 @@ export default function ConformSetting() {
                   </select>
                 </div>
               </div>
-              <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-md-3 ps-0">
+              <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 pt-sm-0 pt-4 p-0 ps-lg-3 ps-md-0 ps-md-3 ps-0">
                 <label
                   htmlFor="selectKarat"
                   className="d-flex align-items-center pb-4 text-uppercase"
@@ -289,12 +306,25 @@ export default function ConformSetting() {
                 </Link>
               </div>
             </div>
-            <div className="schedule-panel d-flex align-items-center justify-content-between flex-wrap py-4">
+            <div className="schedule-panel d-md-flex d-none align-items-center justify-content-between flex-wrap py-4">
               <p className="m-0 text-uppercase">
                 Not ready to purchase online?
               </p>
               <button className="btn btn-schedule text-uppercase blue-text my-3 px-5 py-2">
                 Schedule an appointment
+              </button>
+            </div>
+            <div className="btn-panel share-btn-panel mt-5 d-md-none d-flex align-items-center justify-content-between">
+              <button className="btn px-5 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                <RiShareLine className="me-2" />
+                share
+              </button>
+              <button
+                className="btn px-5 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                data-bs-toggle="modal"
+                data-bs-target="#dropHint"
+              >
+                drop a hint
               </button>
             </div>
           </div>
@@ -303,8 +333,8 @@ export default function ConformSetting() {
       {/* End confirm section */}
 
       {/* Start detail section */}
-      <div className="detail-section r-container pb-5 mb-5">
-        <h2 className="title-panel text-capitalize blue-text py-5">
+      <div className="detail-section r-container pb-sm-5 mb-sm-5">
+        <h2 className="title-panel text-capitalize blue-text pt-sm-5 pb-5">
           Setting Details
         </h2>
         <div className="detail-panel row m-0 py-5">

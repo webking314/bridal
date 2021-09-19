@@ -61,7 +61,7 @@
           font-size: 1.2rem;
           font-weight: 400;
         }
-        &:focus {
+        &.active {
           border: 1px solid #01215c;
           h3 {
             font-weight: 500;
@@ -76,34 +76,17 @@
     }
     .main-panel {
       .product-panel {
-        display: grid;
-        grid-column-gap: 20px;
-        grid-row-gap: 40px;
-        grid-template-columns: auto auto auto;
-        @media (max-width: 1024px) {
-          grid-template-columns: auto auto;
-        }
-        @media (max-width: 768px) {
-          grid-template-columns: auto;
-        }
         .product-item {
           position: relative;
           .product-image {
+            height: 70%;
             width: 100%;
             overflow: hidden;
-            background: #f6f6f6;
+            box-shadow: 0 0 5px #c4c4c4;
             img {
               width: 100%;
               object-fit: cover;
               transition-duration: 0.5s;
-            }
-          }
-          &:hover {
-            .product-image {
-              img {
-                transition-duration: 0.7s;
-                transform: scale(1.2);
-              }
             }
           }
           h3 {
@@ -115,9 +98,14 @@
             font-weight: 400;
             color: rgba(2, 24, 37, 0.7);
           }
-          h4 {
-            font-weight: 400;
-            font-size: 2.4rem;
+          .price-panel {
+            h4 {
+              font-weight: 400;
+              font-size: 2.2rem;
+              &.full-price {
+                color: red;
+              }
+            }
           }
         }
         .favor-icon {
