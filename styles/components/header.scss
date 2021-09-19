@@ -312,17 +312,43 @@ $flagSelectColor: white;
         font-weight: 500;
       }
     }
-  }
-  #myCartBox {
-    .offcanvas-header {
-      h5 {
-        * {
-          color: #01215c;
-          font-size: 2.4rem;
+    .offcanvas-body {
+      .item-panel {
+        .title-panel {
+          .item-image {
+            width: 70px;
+            height: 70px;
+            img {
+              width: 100%;
+            }
+          }
+          .item-title {
+            h3 {
+              font-size: 1.8rem;
+              font-weight: 400;
+              color: #01215c;
+            }
+            p {
+              font-size: 1.4rem;
+              font-weight: 500;
+              color: rgba(2, 24, 37, 0.514);
+            }
+          }
         }
-        color: #01215c;
-        font-size: 2.4rem;
-        font-weight: 500;
+        .price-panel {
+          .item-price {
+            font-family: FreeSerif;
+            font-style: italic;
+            color: #01215c;
+            font-size: 2.2rem;
+            font-weight: 400;
+          }
+          .btn-remove {
+            font-weight: 500;
+            font-size: 1.4rem;
+            color: rgba(175, 175, 175, 0.685);
+          }
+        }
       }
     }
   }

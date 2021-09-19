@@ -18,6 +18,7 @@ import {
   RiPhoneLine,
   RiMessageLine,
   RiMailLine,
+  RiCloseFill,
   RiPhoneFill,
 } from "react-icons/ri";
 let submenus = [
@@ -181,8 +182,9 @@ let submenus = [
 
 export default function Header({ page }) {
   const [selected, setSelected] = useState("LU");
-  const [wishListCounter, setWishListCounter] = useState("1");
+  const [wishListCounter, setWishListCounter] = useState(0);
   const router = useRouter();
+  const [items, setItems] = useState();
 
   useEffect(() => {
     const mobileTopbarHeight =
@@ -212,49 +214,66 @@ export default function Header({ page }) {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
+
       setTimeout(() => {
         let items = document.querySelectorAll(".dr-none");
         for (let i = 0; i < items.length; i++) {
           items[i].classList.remove("dr-none");
         }
       }, 1000);
+
+      let tagetStr =
+        router.pathname.indexOf("/", 1) == -1
+          ? router.pathname
+          : router.pathname.slice(0, router.pathname.indexOf("/", 1));
+      let allSubItems = document.querySelectorAll(".sub-item");
+      let tags = submenus.find((post, index) => {
+        if (post.url.includes(tagetStr)) return true;
+        else {
+          if (post.megaMenu) {
+            if (
+              post.megaMenu.find((sublink, id) => {
+                if (
+                  sublink.menu.find((url, key) => url.url.includes(tagetStr))
+                ) {
+                  return true;
+                }
+              })
+            )
+              return true;
+            else false;
+          } else return false;
+        }
+      });
+
+      allSubItems.forEach((element) => {
+        if (tagetStr != "/")
+          if (tags) {
+            if (
+              String(element.innerText).indexOf(
+                String(tags.title).toUpperCase()
+              ) == 0
+            ) {
+              element.classList.add("active");
+            }
+          }
+      });
     }
   }, []);
+
   useEffect(() => {
-    let tagetStr =
-      router.pathname.indexOf("/", 1) == -1
-        ? router.pathname
-        : router.pathname.slice(0, router.pathname.indexOf("/", 1));
-    let allSubItems = document.querySelectorAll(".sub-item");
-    let tags = submenus.find((post, index) => {
-      if (post.url.includes(tagetStr)) return true;
-      else {
-        if (post.megaMenu) {
-          if (
-            post.megaMenu.find((sublink, id) => {
-              if (sublink.menu.find((url, key) => url.url.includes(tagetStr))) {
-                return true;
-              }
-            })
-          )
-            return true;
-          else false;
-        } else return false;
-      }
-    });
-    allSubItems.forEach((element) => {
-      if (tagetStr != "/")
-        if (tags) {
-          if (
-            String(element.innerText).indexOf(
-              String(tags.title).toUpperCase()
-            ) == 0
-          ) {
-            element.classList.add("active");
-          }
-        }
-    });
-  }, []);
+    if (items) {
+      localStorage.setItem("wishList", JSON.stringify(items));
+      setWishListCounter(items.length);
+    }
+  }, [items]);
+
+  const getWishListData = () => {
+
+    // Get wishList from localstorage and save in state called items
+    if (localStorage.wishList) setItems(JSON.parse(localStorage.wishList));
+  }
+
   return (
     <div id="header" className={page}>
       <div className="desktop-header d-lg-block d-none">
@@ -362,6 +381,7 @@ export default function Header({ page }) {
               data-bs-toggle="offcanvas"
               data-bs-target="#wishListBox"
               aria-controls="wishListBox"
+              onClick={getWishListData}
             >
               <RiHeartLine />
             </button>
@@ -451,6 +471,7 @@ export default function Header({ page }) {
                 data-bs-toggle="offcanvas"
                 data-bs-target="#wishListBox"
                 aria-controls="wishListBox"
+                onClick={getWishListData}
               >
                 <RiHeartLine />
                 WISHLIST ( {wishListCounter} )
@@ -641,6 +662,7 @@ export default function Header({ page }) {
               data-bs-toggle="offcanvas"
               data-bs-target="#wishListBox"
               aria-controls="wishListBox"
+              onClick={getWishListData}
             >
               <RiHeartLine />
             </button>
@@ -833,27 +855,40 @@ export default function Header({ page }) {
             aria-label="Close"
           ></button>
         </div>
-        <div className="offcanvas-body"></div>
-      </div>
-      <div
-        className="offcanvas dr-none offcanvas-end p-3"
-        tabIndex="-1"
-        id="myCartBox"
-        aria-labelledby="myCartBoxLabel"
-      >
-        <div className="offcanvas-header">
-          <h5 id="myCartBoxLabel" className="d-flex align-items-center">
-            <RiShoppingCartLine className="me-5" />
-            My Cart
-          </h5>
-          <button
-            type="button"
-            className="btn-close text-reset"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
+        <div className="offcanvas-body px-4">
+          {items &&
+            items.map((item, index) => (
+              <div
+                className="item-panel d-flex justify-content-between align-items-center"
+                key={index}
+              >
+                <div className="title-panel d-flex align-items-center">
+                  <div className="item-image hover-scale me-3">
+                    <img src={item.image} alt="item.image" />
+                  </div>
+                  <div className="item-title">
+                    <h3>{item.title}</h3>
+                    <p>
+                      {item.tag &&
+                        item.tag.map((tab, id) => <span key={id}>{tab} </span>)}
+                    </p>
+                  </div>
+                </div>
+                <div className="price-panel">
+                  <h3 className="item-price mb-5">{item.price}</h3>
+                  <button
+                    className="btn btn-remove d-flex align-items-center text-uppercase"
+                    onClick={() => {
+                      items.splice(index, 1);
+                      setItems([...items]);
+                    }}
+                  >
+                    Remove <RiCloseFill className="ms-2" />
+                  </button>
+                </div>
+              </div>
+            ))}
         </div>
-        <div className="offcanvas-body"></div>
       </div>
       <AppointmentModal />
 

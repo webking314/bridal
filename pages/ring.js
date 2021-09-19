@@ -232,30 +232,31 @@ export default function Ring() {
       .then((data) => {
         data.last ? setLastProduct(data.last) : setProductData();
         setProductData(data.data);
+        localStorage.wishList &&
+          setFavorProduct(JSON.parse(localStorage.wishList));
       });
-    localStorage.products && setFavorProduct(JSON.parse(localStorage.products));
   }, []);
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
     if (target.classList.contains("favor")) {
       target.classList.remove("favor");
-      if (localStorage.products) {
-        let localProducts = JSON.parse(localStorage.products);
+      if (localStorage.wishList) {
+        let localProducts = JSON.parse(localStorage.wishList);
         let removeProduct = localProducts.find(
           (item) => item.shopifyid == product.shopifyid
         );
         if (removeProduct) {
           localProducts.splice(localProducts.indexOf(removeProduct), 1);
-          localStorage.setItem("products", JSON.stringify(localProducts));
+          localStorage.setItem("wishList", JSON.stringify(localProducts));
         }
       }
     } else {
       target.classList.add("favor");
-      if (localStorage.products) {
-        let localProducts = JSON.parse(localStorage.products);
+      if (localStorage.wishList) {
+        let localProducts = JSON.parse(localStorage.wishList);
         localStorage.setItem(
-          "products",
+          "wishList",
           JSON.stringify([
             ...localProducts,
             { ...product, amount: 1, tag: tags },
@@ -263,7 +264,7 @@ export default function Ring() {
         );
       } else {
         localStorage.setItem(
-          "products",
+          "wishList",
           JSON.stringify([{ ...product, amount: 1, tag: tags }])
         );
       }
@@ -298,7 +299,7 @@ export default function Ring() {
     })
       .then((res) => res.json())
       .then((data) => {
-        data.last ? setLastProduct(data.last) : setProductData();
+        data.last ? setLastProduct(data.last) : setLastProduct();
         setProductData([...productData, ...data.data]);
         setLoad(false);
       });
@@ -470,13 +471,12 @@ export default function Ring() {
                     <button
                       className={
                         "btn favor-icon " +
-                        `${
-                          favorProduct &&
+                        `${favorProduct &&
                           favorProduct.find(
                             (product) => product.shopifyid == item.shopifyid
                           )
-                            ? "favor"
-                            : ""
+                          ? "favor"
+                          : ""
                         }`
                       }
                       onClick={(e) => setFavor(e, item)}
@@ -564,7 +564,7 @@ export default function Ring() {
       </div>
       {/* End product section */}
       {load && (
-        <div className="row m-0">
+        <div className="row r-container">
           <div className="col-lg-3 col-md-4 col-sm-5 col-0 p-0"></div>
           <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row">
             <div className="col-4">

@@ -68,13 +68,14 @@ export default function MyCart() {
   }, []);
 
   useEffect(() => {
-    console.log(items);
-    if (items && items.length) {
-      items.map((item, index) => {
-        if (index == 0) subTotalPrice = 0;
-        subTotalPrice += item.price * item.amount;
-        setSubTotal(subTotalPrice);
-      });
+    if (items) {
+      if (items.length) {
+        items.map((item, index) => {
+          if (index == 0) subTotalPrice = 0;
+          subTotalPrice += item.price * item.amount;
+          setSubTotal(subTotalPrice);
+        });
+      }
       localStorage.setItem("products", JSON.stringify(items));
     }
   }, [items]);
