@@ -208,9 +208,11 @@ const leftFilters = [
 ];
 
 const productURL = "https://royalcoster.nl/api/product/index.php";
+const filterURL = "https://costercatalog.com/api/index.php?request=getMaterialsGroupedNew";
 const headers = {
   "Content-Type": "application/json",
 };
+
 function Ring(props) {
   const [result, setResult] = useState("878");
   const [tags, setTags] = useState(["Ring"]);
@@ -239,6 +241,18 @@ function Ring(props) {
         }
       });
   }, []);
+
+  useEffect(() => {
+    fetch(filterURL, {
+      method: "get",
+      headers,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+      });
+  }, []);
+  
   useEffect(() => {
     props.wishList &&
       localStorage.setItem('wishList', JSON.stringify(props.wishList))
