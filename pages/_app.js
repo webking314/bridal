@@ -1,5 +1,8 @@
 import { useState } from "react";
 import GlobalContext from "../utils/global-context";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+import withRedux from "next-redux-wrapper";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/globals.scss";
@@ -40,11 +43,13 @@ import "../styles/pages/customRing/confirmDiamond.scss";
 import "../styles/pages/customRing/confirmRing.scss";
 
 function MyApp({ Component, pageProps }) {
-  // const [state, setState] = useState({
-  //   count: 0,
-  //   update,
-  // });
-  return <Component {...pageProps} />;
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />;
+    </Provider>
+  )
 }
 
-export default MyApp;
+const makeStore = () => store;
+
+export default withRedux(makeStore)(MyApp);

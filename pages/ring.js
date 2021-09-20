@@ -9,6 +9,8 @@ import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import { Skeleton } from "@material-ui/lab";
 import NumberFormat from "react-number-format";
+import { connect } from "react-redux";
+import { setWishList } from '../redux/actions/wishListAction';
 
 const options = [
   { name: "ALL", value: "ALL" },
@@ -209,7 +211,7 @@ const productURL = "https://royalcoster.nl/api/product/index.php";
 const headers = {
   "Content-Type": "application/json",
 };
-export default function Ring() {
+function Ring(props) {
   const [result, setResult] = useState("878");
   const [tags, setTags] = useState(["Ring"]);
   const [selectValue, setSelectValue] = useState("POPULAR");
@@ -232,41 +234,36 @@ export default function Ring() {
       .then((data) => {
         data.last ? setLastProduct(data.last) : setProductData();
         setProductData(data.data);
-        localStorage.wishList &&
-          setFavorProduct(JSON.parse(localStorage.wishList));
+        if (localStorage.wishList) {
+          props.setWishList(JSON.parse(localStorage.wishList));
+        }
       });
   }, []);
+  useEffect(() => {
+    props.wishList &&
+      localStorage.setItem('wishList', JSON.stringify(props.wishList))
+  }, [props.wishList])
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
     if (target.classList.contains("favor")) {
-      target.classList.remove("favor");
-      if (localStorage.wishList) {
-        let localProducts = JSON.parse(localStorage.wishList);
-        let removeProduct = localProducts.find(
-          (item) => item.shopifyid == product.shopifyid
-        );
-        if (removeProduct) {
-          localProducts.splice(localProducts.indexOf(removeProduct), 1);
-          localStorage.setItem("wishList", JSON.stringify(localProducts));
-        }
+      let localProducts = props.wishList;
+      let removeProduct = localProducts.find(
+        (item) => item.shopifyid == product.shopifyid
+      );
+      if (removeProduct) {
+        localProducts.splice(localProducts.indexOf(removeProduct), 1);
+        props.setWishList(localProducts)
       }
     } else {
-      target.classList.add("favor");
       if (localStorage.wishList) {
-        let localProducts = JSON.parse(localStorage.wishList);
-        localStorage.setItem(
-          "wishList",
-          JSON.stringify([
-            ...localProducts,
-            { ...product, amount: 1, tag: tags },
-          ])
-        );
+        props.setWishList([...props.wishList, { ...product, amount: 1, tag: tags }])
       } else {
         localStorage.setItem(
           "wishList",
           JSON.stringify([{ ...product, amount: 1, tag: tags }])
         );
+        props.setWishList([{ ...product, amount: 1, tag: tags }])
       }
     }
   };
@@ -471,8 +468,8 @@ export default function Ring() {
                     <button
                       className={
                         "btn favor-icon " +
-                        `${favorProduct &&
-                          favorProduct.find(
+                        `${props.wishList &&
+                          props.wishList.find(
                             (product) => product.shopifyid == item.shopifyid
                           )
                           ? "favor"
@@ -646,3 +643,15 @@ export default function Ring() {
     </div>
   );
 }
+
+
+
+const mapStateToProps = state => ({
+  wishList: state.wishList.value
+});
+
+const mapDispatchToProps = {
+  setWishList: setWishList,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Ring)

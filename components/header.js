@@ -3,8 +3,10 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import ReactFlagsSelect from "react-flags-select";
 import DropHintModal from "./dropHintModal";
+import { connect } from "react-redux";
 import Link from "next/link";
 import AppointmentModal from "./appointmentModal";
+import { setWishList } from '../redux/actions/wishListAction';
 import {
   RiCustomerService2Fill,
   RiMapPin2Line,
@@ -180,12 +182,11 @@ let submenus = [
   { title: "BLOG", url: "/blog" },
 ];
 
-export default function Header({ page }) {
+function Header(props) {
+  const { page } = props;
   const [selected, setSelected] = useState("LU");
-  const [wishListCounter, setWishListCounter] = useState(0);
   const router = useRouter();
   const [items, setItems] = useState();
-
   useEffect(() => {
     const mobileTopbarHeight =
       document.querySelector(".mobile__top-bar").clientHeight;
@@ -260,20 +261,16 @@ export default function Header({ page }) {
       });
     }
   }, []);
-
-  useEffect(() => {
-    if (items) {
-      localStorage.setItem("wishList", JSON.stringify(items));
-      setWishListCounter(items.length);
+  const removeItem = (product) => {
+    let localProducts = props.wishList;
+    let removeProduct = localProducts.find(
+      (item) => item.shopifyid == product.shopifyid
+    );
+    if (removeProduct) {
+      localProducts.splice(localProducts.indexOf(removeProduct), 1);
+      props.setWishList(localProducts)
     }
-  }, [items]);
-
-  const getWishListData = () => {
-
-    // Get wishList from localstorage and save in state called items
-    if (localStorage.wishList) setItems(JSON.parse(localStorage.wishList));
   }
-
   return (
     <div id="header" className={page}>
       <div className="desktop-header d-lg-block d-none">
@@ -381,7 +378,6 @@ export default function Header({ page }) {
               data-bs-toggle="offcanvas"
               data-bs-target="#wishListBox"
               aria-controls="wishListBox"
-              onClick={getWishListData}
             >
               <RiHeartLine />
             </button>
@@ -471,10 +467,9 @@ export default function Header({ page }) {
                 data-bs-toggle="offcanvas"
                 data-bs-target="#wishListBox"
                 aria-controls="wishListBox"
-                onClick={getWishListData}
               >
                 <RiHeartLine />
-                WISHLIST ( {wishListCounter} )
+                WISHLIST ( {props.wishList ? props.wishList.length : 0} )
               </button>
             </div>
           </div>
@@ -662,7 +657,6 @@ export default function Header({ page }) {
               data-bs-toggle="offcanvas"
               data-bs-target="#wishListBox"
               aria-controls="wishListBox"
-              onClick={getWishListData}
             >
               <RiHeartLine />
             </button>
@@ -856,8 +850,8 @@ export default function Header({ page }) {
           ></button>
         </div>
         <div className="offcanvas-body px-4">
-          {items &&
-            items.map((item, index) => (
+          {props.wishList &&
+            props.wishList.map((item, index) => (
               <div
                 className="item-panel d-flex justify-content-between align-items-center"
                 key={index}
@@ -879,8 +873,7 @@ export default function Header({ page }) {
                   <button
                     className="btn btn-remove d-flex align-items-center text-uppercase"
                     onClick={() => {
-                      items.splice(index, 1);
-                      setItems([...items]);
+                      removeItem(item)
                     }}
                   >
                     Remove <RiCloseFill className="ms-2" />
@@ -898,3 +891,14 @@ export default function Header({ page }) {
     </div>
   );
 }
+
+
+const mapStateToProps = state => ({
+  wishList: state.wishList.value
+});
+
+const mapDispatchToProps = {
+  setWishList: setWishList,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
