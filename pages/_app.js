@@ -3,7 +3,10 @@ import GlobalContext from "../utils/global-context";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import withRedux from "next-redux-wrapper";
-
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false;
+import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/globals.scss";
 

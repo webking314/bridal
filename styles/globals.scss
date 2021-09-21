@@ -123,6 +123,29 @@ a {
     }
   }
 }
+.react-checkbox-tree{
+
+ label {
+   display: flex;
+   margin-bottom: 5px;
+ }
+.rct-node-icon {
+  display: none;
+}
+.rct-checkbox, .rct-collapse  {
+  display: flex;
+  padding: 0;
+  padding-left: 3px;
+  align-items: self-start;
+  padding-top: 3px;
+}
+.rct-title {
+  text-transform: uppercase;
+   font-size: 1.4rem;
+            font-weight: 400;
+            color: #021825;
+}
+}
 .blue-outline-btn {
   border: 1px solid #01215c;
   color: #01215c;
