@@ -228,7 +228,7 @@ const brandURL = "https://costercatalog.com/api/index.php?request=getBrandsGroup
 const brightnessURL = "https://costercatalog.com/api/index.php?request=generateAttributesClarity&tn=products_short&sync=1";
 const stoneURL = "https://costercatalog.com/api/index.php?request=generateAttributesType&tn=products_short&sync=1"
 const headers = {
-  "Content-Type": "application/json",
+  // "Content-Type": "application/json",
 };
 
 function getFilterValue(str) {
@@ -311,7 +311,16 @@ function Ring(props) {
   const [load, setLoad] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState([]);
   const [formData, setFormData] = useState();
-  const [checked, setChecked] = useState([]);
+  const [checked0, setChecked0] = useState([]);
+  const [checked1, setChecked1] = useState([]);
+  const [checked2, setChecked2] = useState([]);
+  const [checked3, setChecked3] = useState([]);
+  const [checked4, setChecked4] = useState([]);
+  const [checked5, setChecked5] = useState([]);
+  const [checked6, setChecked6] = useState([]);
+  const [checked7, setChecked7] = useState([]);
+  const [checked8, setChecked8] = useState([]);
+  const [checked9, setChecked9] = useState([]);
   const [expanded, setExpanded] = useState([]);
 
   useEffect(() => {
@@ -331,8 +340,6 @@ function Ring(props) {
         });
     }
   }, [formData]);
-
-
 
   useEffect(() => {
     fetch(styleURL, {
@@ -538,15 +545,25 @@ function Ring(props) {
   }, [props.wishList])
 
   useEffect(() => {
-    if (checked) {
-      console.log(checked)
+    if (checked0) {
+      let total = [];
+      total.push(...checked0)
+      total.push(...checked1)
+      total.push(...checked2)
+      total.push(...checked3)
+      total.push(...checked4)
+      total.push(...checked5)
+      total.push(...checked6)
+      total.push(...checked7)
+      total.push(...checked8)
+      total.push(...checked9)
       setLoad(true)
       let data = new FormData();
       data.append("position", "first:9");
-      data.append("query", ("status:active and tag:Rings" + checked.map(filter => " and tag:" + filter)).replace(',', ''))
+      data.append("query", ("status:active and tag:Rings" + total.map(filter => " and tag:" + filter)).replace(',', ''))
       setFormData(data);
     }
-  }, [checked])
+  }, [checked0,checked1,checked2,checked3,checked4,checked5,checked6,checked7,checked8,checked9])
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
@@ -605,17 +622,6 @@ function Ring(props) {
         setLoad(false);
       });
   };
-
-  const selectFilterHandle = (e) => {
-    if (e.target.checked) {
-      setSelectedFilter([...selectedFilter, e.target.value])
-    } else {
-      let removeFilter = selectedFilter.find(item => item == e.target.value);
-      let filterItem = selectedFilter;
-      filterItem.splice(filterItem.indexOf(removeFilter), 1)
-      setSelectedFilter([...filterItem])
-    }
-  }
 
   return (
     <div className="ring_page">
@@ -694,9 +700,9 @@ function Ring(props) {
                     <div className="accordion-body">
                       <CheckboxTree
                         nodes={item.filter}
-                        checked={checked}
+                        checked={index == 0 ? checked0 : index == 1 ? checked1 : index == 2 ? checked2 : index == 3 ? checked3 : index == 4 ? checked4 : index == 5 ? checked5 : index == 6 ? checked6 : index == 7 ? checked7 : index == 8 ? checked8 : checked9}
                         expanded={expanded}
-                        onCheck={checkValue => setChecked(checkValue)}
+                        onCheck={checkValue => index == 0 ? setChecked0(checkValue) : index == 1 ? setChecked1(checkValue) : index == 2 ? setChecked2(checkValue) : index == 3 ? setChecked3(checkValue) : index == 4 ? setChecked4(checkValue) : index == 5 ? setChecked5(checkValue) : index == 6 ? setChecked6(checkValue) : index == 7 ? setChecked7(checkValue) : index == 8 ? setChecked8(checkValue) : setChecked9(checkValue)}
                         onExpand={expandValue => setExpanded(expandValue)}
                         icons={checkTreeIcons}
                       />

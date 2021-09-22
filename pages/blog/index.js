@@ -18,7 +18,7 @@ import Skeleton from "@mui/material/Skeleton";
 const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/posts";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
 const headers = {
-  "Content-Type": "application/json",
+  // "Content-Type": "application/json",
 };
 
 let tabState = [];

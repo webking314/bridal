@@ -2,7 +2,7 @@ export default function ProductDetail({informations, productID, productDescripti
   return (
     <div className="detail-section r-container pb-5 mb-5">
       <h3 className="pb-5 blue-text title">Diamond Details</h3>
-      <div className="py-5 text-panel">
+      <div className="pt-5 pb-md-5 text-panel">
         <h3 className="blue-text">{productID}</h3>
         <p className="m-0 pb-5">
             {productDescription}
