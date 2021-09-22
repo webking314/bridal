@@ -347,6 +347,7 @@ function Ring(props) {
 
   useEffect(() => {
     if (cTags) {
+      console.log(cTags)
       fetch(styleURL, {
         method: 'get',
         headers,
@@ -628,15 +629,17 @@ function Ring(props) {
           let tags = cTags;
           let middleArr = [];
           data.tags.map((tag, index) => {
-            if (!tags.find(item => item == tag)) {
-              middleArr.push(tag);
+            if (!tags.find(item => item == getFilterValue(tag))) {
+              middleArr.push(getFilterValue(tag));
             }
             if (index == data.tags.length - 1) {
               if (data.hasNextPage == 'No')
                 setCTags([...cTags, ...middleArr])
-            }
+              }
           })
-          setCTagLastAdd(data.last)
+          if (data.hasNextPage == 'Yes') {
+            setCTagLastAdd(data.last)
+          }
         }
       })
   }, [cTagLastAdd])

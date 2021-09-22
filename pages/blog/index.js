@@ -51,7 +51,7 @@ export default function Blog() {
           setCategories(data);
         });
     } else {
-      setLoading(false)
+      setLoading(false);
       setCategories(categoryData);
       setPostItems(blogData);
     }
