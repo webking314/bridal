@@ -27,7 +27,7 @@ let blogData = [],
 
 export default function Blog() {
   const [categories, setCategories] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [post, setPost] = useState([]);
   const [result, setResult] = useState();
   const [postItems, setPostItems] = useState([]);
@@ -51,6 +51,7 @@ export default function Blog() {
           setCategories(data);
         });
     } else {
+      setLoading(false)
       setCategories(categoryData);
       setPostItems(blogData);
     }
@@ -148,7 +149,7 @@ export default function Blog() {
               }
             });
         });
-      } else setLoading(false);
+      }
     }
   }, [post]);
 
@@ -353,330 +354,330 @@ export default function Blog() {
                 );
               })}
             </>
-          ) : (
+          ) : loading ? (
             <Skeleton
               variant="text"
               width="100%"
               height={80}
               animation="wave"
             />
-          )}
+          ) : <></>}
         </div>
-        {notResult ? (
-          <h1 className="not-result-text text-center pt-5">Not Result</h1>
-        ) : postItems.length > 0 ? (
-          <div className="main-blog-panel row m-0">
-            <div className="col-md-8 col-12 p-0">
-              {
+        {
+          postItems.length > 0 ? (
+            <div className="main-blog-panel row m-0">
+              <div className="col-md-8 col-12 p-0">
+                {
+                  <div className="row m-0">
+                    <Link
+                      props="sasfd"
+                      href={{
+                        pathname: "/blog/[slug]",
+                        query: {
+                          slug: "/blog/" + postItems[0].slug,
+                          id: postItems[0].id,
+                        },
+                      }}
+                      as={"/blog/" + postItems[0].slug}
+                    >
+                      <a>
+                        <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
+                          <div className="round blog-image">
+                            {postItems[0].image ? (
+                              <img
+                                src={postItems[0].image}
+                                className="round"
+                                alt="blog-image"
+                              />
+                            ) : loading ? (
+                              <Skeleton
+                                variant="rectangular"
+                                width="100%"
+                                height={250}
+                                animation="wave"
+                              />
+                            ) : <div className="black-image-panel"/>}
+                          </div>
+                          <div className="blog-title pt-4 pb-5">
+                            <p className="text-uppercase">
+                              {postItems[0].categoryItems &&
+                                postItems[0].categoryItems.map((item, index) => {
+                                  return (
+                                    <span key={index}>
+                                      {index
+                                        ? ", " + renderHTML(item)
+                                        : renderHTML(item)}
+                                    </span>
+                                  );
+                                })}
+                            </p>
+                            <h3 className="mb-4">
+                              {renderHTML(postItems[0].title)}
+                            </h3>
+                          </div>
+                        </div>
+                      </a>
+                    </Link>
+                  </div>
+                }
                 <div className="row m-0">
-                  <Link
-                    props="sasfd"
-                    href={{
-                      pathname: "/blog/[slug]",
-                      query: {
-                        slug: "/blog/" + postItems[0].slug,
-                        id: postItems[0].id,
-                      },
-                    }}
-                    as={"/blog/" + postItems[0].slug}
-                  >
-                    <a>
-                      <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
-                        <div className="round blog-image">
-                          {postItems[0].image ? (
-                            <img
-                              src={postItems[0].image}
-                              className="round"
-                              alt="blog-image"
-                            />
-                          ) : (
-                            <Skeleton
-                              variant="rectangular"
-                              width="100%"
-                              height={250}
-                              animation="wave"
-                            />
-                          )}
-                        </div>
-                        <div className="blog-title pt-4 pb-5">
-                          <p className="text-uppercase">
-                            {postItems[0].categoryItems &&
-                              postItems[0].categoryItems.map((item, index) => {
-                                return (
-                                  <span key={index}>
-                                    {index
-                                      ? ", " + renderHTML(item)
-                                      : renderHTML(item)}
-                                  </span>
-                                );
-                              })}
-                          </p>
-                          <h3 className="mb-4">
-                            {renderHTML(postItems[0].title)}
-                          </h3>
-                        </div>
-                      </div>
-                    </a>
-                  </Link>
+                  <div className="col-sm-6 col-12 p-0">
+                    {postItems.map((item, index) => {
+                      if (index % 3 == 2)
+                        return (
+                          <Link href={"/blog/" + item.slug} key={index}>
+                            <a>
+                              <div className="blog-box pt-5 pe-sm-5" key={index}>
+                                <div className="round blog-image">
+                                  {item.image ? (
+                                    <img
+                                      src={item.image}
+                                      className="round"
+                                      alt="blog-image"
+                                    />
+                                  ) : loading ? (
+                                    <Skeleton
+                                      variant="rectangular"
+                                      width="100%"
+                                      height={250}
+                                      animation="wave"
+                                    />
+                                  ) : <div className="black-image-panel"/>}
+                                </div>
+                                <div className="blog-title pt-4 pb-5">
+                                  <p className="text-uppercase">
+                                    {item.categoryItems &&
+                                      item.categoryItems.length &&
+                                      item.categoryItems.map(
+                                        (category, index) => {
+                                          return (
+                                            <span key={index}>
+                                              {index
+                                                ? ", " + renderHTML(category)
+                                                : renderHTML(category)}
+                                            </span>
+                                          );
+                                        }
+                                      )}
+                                  </p>
+                                  <h3 className="mb-4">
+                                    {renderHTML(item.title)}
+                                  </h3>
+                                </div>
+                              </div>
+                            </a>
+                          </Link>
+                        );
+                    })}
+                  </div>
+                  <div className="col-sm-6 col-12 p-0">
+                    {postItems.map((item, index) => {
+                      if ((index != 0) & (index % 3 == 0))
+                        return (
+                          <Link href={"/blog/" + item.slug} key={index}>
+                            <a>
+                              <div
+                                className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
+                                key={index}
+                              >
+                                <div className="round blog-image">
+                                  {item.image ? (
+                                    <img
+                                      src={item.image}
+                                      className="round"
+                                      alt="blog-image"
+                                    />
+                                  ) : loading ? (
+                                    <Skeleton
+                                      variant="rectangular"
+                                      width="100%"
+                                      height={250}
+                                      animation="wave"
+                                    />
+                                  )  : <div className="black-image-panel"/>}
+                                </div>
+                                <div className="blog-title pt-4 pb-5">
+                                  <p className="text-uppercase">
+                                    {item.categoryItems &&
+                                      item.categoryItems.length &&
+                                      item.categoryItems.map(
+                                        (category, index) => {
+                                          return (
+                                            <span key={index}>
+                                              {index
+                                                ? ", " + renderHTML(category)
+                                                : renderHTML(category)}
+                                            </span>
+                                          );
+                                        }
+                                      )}
+                                  </p>
+                                  <h3 className="mb-4">
+                                    {renderHTML(item.title)}
+                                  </h3>
+                                </div>
+                              </div>
+                            </a>
+                          </Link>
+                        );
+                    })}
+                  </div>
                 </div>
-              }
-              <div className="row m-0">
-                <div className="col-sm-6 col-12 p-0">
-                  {postItems.map((item, index) => {
-                    if (index % 3 == 2)
-                      return (
-                        <Link href={"/blog/" + item.slug} key={index}>
-                          <a>
-                            <div className="blog-box pt-5 pe-sm-5" key={index}>
-                              <div className="round blog-image">
-                                {item.image ? (
-                                  <img
-                                    src={item.image}
-                                    className="round"
-                                    alt="blog-image"
-                                  />
-                                ) : (
-                                  <Skeleton
-                                    variant="rectangular"
-                                    width="100%"
-                                    height={250}
-                                    animation="wave"
-                                  />
-                                )}
+              </div>
+              <div className="col-md-4 col-12 p-0">
+                <div className="row m-0">
+                  <div className="col-md-12 col-sm-6 col-12 p-0">
+                    {postItems.map((item, index) => {
+                      if (
+                        (index % 3 == 1) &
+                        (Math.ceil((postItems.length - 1) / 3) * 3 - 2 > index)
+                      )
+                        return (
+                          <Link href={"/blog/" + item.slug} key={index}>
+                            <a>
+                              <div className="blog-box pt-5 pe-md-0 pe-sm-5">
+                                <div className="round blog-image">
+                                  {item.image ? (
+                                    <img
+                                      src={item.image}
+                                      className="round"
+                                      alt="blog-image"
+                                    />
+                                  ) : loading ? (
+                                    <Skeleton
+                                      variant="rectangular"
+                                      width="100%"
+                                      height={250}
+                                      animation="wave"
+                                    />
+                                  ) : <div className="black-image-panel"></div>}
+                                </div>
+                                <div className="blog-title pt-4 pb-5">
+                                  <p className="text-uppercase">
+                                    {item.categoryItems &&
+                                      item.categoryItems.length &&
+                                      item.categoryItems.map(
+                                        (category, index) => {
+                                          return (
+                                            <span key={index}>
+                                              {index
+                                                ? ", " + renderHTML(category)
+                                                : renderHTML(category)}
+                                            </span>
+                                          );
+                                        }
+                                      )}
+                                  </p>
+                                  <h3 className="mb-4">
+                                    {renderHTML(item.title)}
+                                  </h3>
+                                </div>
                               </div>
-                              <div className="blog-title pt-4 pb-5">
-                                <p className="text-uppercase">
-                                  {item.categoryItems &&
-                                    item.categoryItems.length &&
-                                    item.categoryItems.map(
-                                      (category, index) => {
-                                        return (
-                                          <span key={index}>
-                                            {index
-                                              ? ", " + renderHTML(category)
-                                              : renderHTML(category)}
-                                          </span>
-                                        );
-                                      }
-                                    )}
-                                </p>
-                                <h3 className="mb-4">
-                                  {renderHTML(item.title)}
-                                </h3>
+                            </a>
+                          </Link>
+                        );
+                    })}
+                  </div>
+                  <div className="col-md-12 col-sm-6 col-12 p-0">
+                    {postItems.map((item, index) => {
+                      if (
+                        (index % 3 == 1) &
+                        (Math.ceil((postItems.length - 1) / 3) * 3 - 2 <= index)
+                      )
+                        return (
+                          <Link href={"/blog/" + item.slug} key={index}>
+                            <a>
+                              <div className="blog-box pt-5 ps-md-0 ps-sm-5">
+                                <div className="round blog-image">
+                                  {item.image ? (
+                                    <img
+                                      src={item.image}
+                                      className="round"
+                                      alt="blog-image"
+                                    />
+                                  ) : loading ? (
+                                    <Skeleton
+                                      variant="rectangular"
+                                      width="100%"
+                                      height={250}
+                                      animation="wave"
+                                    />
+                                  ) : <div className="black-image-panel"/> }
+                                </div>
+                                <div className="blog-title pt-4 pb-5">
+                                  <p className="text-uppercase">
+                                    {item.categoryItems &&
+                                      item.categoryItems.length &&
+                                      item.categoryItems.map(
+                                        (category, index) => {
+                                          return (
+                                            <span key={index}>
+                                              {index
+                                                ? ", " + renderHTML(category)
+                                                : renderHTML(category)}
+                                            </span>
+                                          );
+                                        }
+                                      )}
+                                  </p>
+                                  <h3 className="mb-4">
+                                    {renderHTML(item.title)}
+                                  </h3>
+                                </div>
                               </div>
-                            </div>
-                          </a>
-                        </Link>
-                      );
-                  })}
-                </div>
-                <div className="col-sm-6 col-12 p-0">
-                  {postItems.map((item, index) => {
-                    if ((index != 0) & (index % 3 == 0))
-                      return (
-                        <Link href={"/blog/" + item.slug} key={index}>
-                          <a>
-                            <div
-                              className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
-                              key={index}
-                            >
-                              <div className="round blog-image">
-                                {item.image ? (
-                                  <img
-                                    src={item.image}
-                                    className="round"
-                                    alt="blog-image"
-                                  />
-                                ) : (
-                                  <Skeleton
-                                    variant="rectangular"
-                                    width="100%"
-                                    height={250}
-                                    animation="wave"
-                                  />
-                                )}
-                              </div>
-                              <div className="blog-title pt-4 pb-5">
-                                <p className="text-uppercase">
-                                  {item.categoryItems &&
-                                    item.categoryItems.length &&
-                                    item.categoryItems.map(
-                                      (category, index) => {
-                                        return (
-                                          <span key={index}>
-                                            {index
-                                              ? ", " + renderHTML(category)
-                                              : renderHTML(category)}
-                                          </span>
-                                        );
-                                      }
-                                    )}
-                                </p>
-                                <h3 className="mb-4">
-                                  {renderHTML(item.title)}
-                                </h3>
-                              </div>
-                            </div>
-                          </a>
-                        </Link>
-                      );
-                  })}
+                            </a>
+                          </Link>
+                        );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="col-md-4 col-12 p-0">
-              <div className="row m-0">
-                <div className="col-md-12 col-sm-6 col-12 p-0">
-                  {postItems.map((item, index) => {
-                    if (
-                      (index % 3 == 1) &
-                      (Math.ceil((postItems.length - 1) / 3) * 3 - 2 > index)
-                    )
-                      return (
-                        <Link href={"/blog/" + item.slug} key={index}>
-                          <a>
-                            <div className="blog-box pt-5 pe-md-0 pe-sm-5">
-                              <div className="round blog-image">
-                                {item.image ? (
-                                  <img
-                                    src={item.image}
-                                    className="round"
-                                    alt="blog-image"
-                                  />
-                                ) : (
-                                  <Skeleton
-                                    variant="rectangular"
-                                    width="100%"
-                                    height={250}
-                                    animation="wave"
-                                  />
-                                )}
-                              </div>
-                              <div className="blog-title pt-4 pb-5">
-                                <p className="text-uppercase">
-                                  {item.categoryItems &&
-                                    item.categoryItems.length &&
-                                    item.categoryItems.map(
-                                      (category, index) => {
-                                        return (
-                                          <span key={index}>
-                                            {index
-                                              ? ", " + renderHTML(category)
-                                              : renderHTML(category)}
-                                          </span>
-                                        );
-                                      }
-                                    )}
-                                </p>
-                                <h3 className="mb-4">
-                                  {renderHTML(item.title)}
-                                </h3>
-                              </div>
-                            </div>
-                          </a>
-                        </Link>
-                      );
-                  })}
-                </div>
-                <div className="col-md-12 col-sm-6 col-12 p-0">
-                  {postItems.map((item, index) => {
-                    if (
-                      (index % 3 == 1) &
-                      (Math.ceil((postItems.length - 1) / 3) * 3 - 2 <= index)
-                    )
-                      return (
-                        <Link href={"/blog/" + item.slug} key={index}>
-                          <a>
-                            <div className="blog-box pt-5 ps-md-0 ps-sm-5">
-                              <div className="round blog-image">
-                                {item.image ? (
-                                  <img
-                                    src={item.image}
-                                    className="round"
-                                    alt="blog-image"
-                                  />
-                                ) : (
-                                  <Skeleton
-                                    variant="rectangular"
-                                    width="100%"
-                                    height={250}
-                                    animation="wave"
-                                  />
-                                )}
-                              </div>
-                              <div className="blog-title pt-4 pb-5">
-                                <p className="text-uppercase">
-                                  {item.categoryItems &&
-                                    item.categoryItems.length &&
-                                    item.categoryItems.map(
-                                      (category, index) => {
-                                        return (
-                                          <span key={index}>
-                                            {index
-                                              ? ", " + renderHTML(category)
-                                              : renderHTML(category)}
-                                          </span>
-                                        );
-                                      }
-                                    )}
-                                </p>
-                                <h3 className="mb-4">
-                                  {renderHTML(item.title)}
-                                </h3>
-                              </div>
-                            </div>
-                          </a>
-                        </Link>
-                      );
-                  })}
-                </div>
+          ) : loading ? (
+            <div className="main-blog-panel row m-0">
+              <div className="col-md-8 col-12 p-0 pe-md-5 pt-5">
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height={250}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="text"
+                  width={200}
+                  height={50}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={80}
+                  animation="wave"
+                />
+              </div>
+              <div className="col-md-4 col-12 p-0 ps-md-5 pt-5">
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height={250}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="text"
+                  width={200}
+                  height={50}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="text"
+                  width="100%"
+                  height={80}
+                  animation="wave"
+                />
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="main-blog-panel row m-0">
-            <div className="col-md-8 col-12 p-0 pe-md-5 pt-5">
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={250}
-                animation="wave"
-              />
-              <Skeleton
-                variant="text"
-                width={200}
-                height={50}
-                animation="wave"
-              />
-              <Skeleton
-                variant="text"
-                width="100%"
-                height={80}
-                animation="wave"
-              />
-            </div>
-            <div className="col-md-4 col-12 p-0 ps-md-5 pt-5">
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={250}
-                animation="wave"
-              />
-              <Skeleton
-                variant="text"
-                width={200}
-                height={50}
-                animation="wave"
-              />
-              <Skeleton
-                variant="text"
-                width="100%"
-                height={80}
-                animation="wave"
-              />
-            </div>
-          </div>
-        )}
+          ) :
+            <h1 className="not-result-text text-center pt-5">Not Result</h1>}
       </div>
       {/* End blog section */}
       {/* Schedule */}

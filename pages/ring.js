@@ -227,6 +227,7 @@ const styleURL = "https://costercatalog.com/api/index.php?request=generateAttrib
 const brandURL = "https://costercatalog.com/api/index.php?request=getBrandsGrouped&tn=products_short&sync=1"
 const brightnessURL = "https://costercatalog.com/api/index.php?request=generateAttributesClarity&tn=products_short&sync=1";
 const stoneURL = "https://costercatalog.com/api/index.php?request=generateAttributesType&tn=products_short&sync=1"
+const CTagURL = "https://royalcoster.nl/api/getTags.php";
 const headers = {
   // "Content-Type": "application/json",
 };
@@ -256,12 +257,12 @@ function getFilterData(data) {
 const firstFilterItem = [
   {
     title: "price", filter: [
-      { label: "To €500", value: "To 500" },
-      { label: "€1000 - €1499", value: "1000 - 1499" },
-      { label: "€1500 - €2499", value: "1500 - 2499" },
-      { label: "€2500 - €4999", value: "2500 - 4999" },
-      { label: "€5000 - €9999", value: "5000 - 9999" },
-      { label: "More than €10000", value: "More than 10000" },
+      { label: "To €500", value: "to-500" },
+      { label: "€1000 - €1499", value: "1000-1499" },
+      { label: "€1500 - €2499", value: "1500-2499" },
+      { label: "€2500 - €4999", value: "2500-4999" },
+      { label: "€5000 - €9999", value: "5000-9999" },
+      { label: "More than €10000", value: "more-than-10000" },
     ]
   },
   {
@@ -322,6 +323,9 @@ function Ring(props) {
   const [checked8, setChecked8] = useState([]);
   const [checked9, setChecked9] = useState([]);
   const [expanded, setExpanded] = useState([]);
+  const [totalFilterItems, setTotalFilterItems] = useState([]);
+  const [cTagLastAdd, setCTagLastAdd] = useState(1);
+  const [cTags, setCTags] = useState([]);
 
   useEffect(() => {
     if (formData) {
@@ -342,207 +346,300 @@ function Ring(props) {
   }, [formData]);
 
   useEffect(() => {
-    fetch(styleURL, {
-      method: 'get',
-      headers,
-    })
-      .then((res) => res.json())
-      .then((style) => {
-        let middleArr = [];
-        let valueArr = style.Collection.split(',');
-        valueArr.map((item, index) => {
-          middleArr.push({ label: item, value: getFilterValue(item) })
-          if (index == valueArr.length - 1) {
-            let filterArr = leftFilterItems;
-            filterArr[2].filter = middleArr;
-            setLeftFilterItems([...filterArr]);
-          }
-        })
-        fetch(mountingURL, {
-          method: 'get',
-          headers,
-        })
-          .then((res) => res.json())
-          .then((mounting) => {
-            let middleArr = [];
-            let valueArr = mounting.Style.split(',');
-            valueArr.map((item, index) => {
+    if (cTags) {
+      fetch(styleURL, {
+        method: 'get',
+        headers,
+      })
+        .then((res) => res.json())
+        .then((style) => {
+          let middleArr = [];
+          let valueArr = style.Collection.split(',');
+          valueArr.map((item, index) => {
+            if (cTags.find(ctag => ctag == getFilterValue(item))) {
               middleArr.push({ label: item, value: getFilterValue(item) })
-              if (index == valueArr.length - 1) {
-                let filterArr = leftFilterItems;
-                filterArr[3].filter = middleArr;
-                setLeftFilterItems([...filterArr]);
-              }
-            })
-            fetch(brandURL, {
-              method: 'get',
-              headers,
-            })
-              .then((res) => res.json())
-              .then((brands) => {
-                let middleArr = [];
-                brands = brands.find(item => item.MainGroup == tags[0])
-                let brandsArr = brands.BrandID.split(',');
-                brandsArr.map((item, index) => {
+            }
+            if (index == valueArr.length - 1) {
+              let filterArr = leftFilterItems;
+              filterArr[2].filter = middleArr;
+              setLeftFilterItems([...filterArr]);
+            }
+          })
+          fetch(mountingURL, {
+            method: 'get',
+            headers,
+          })
+            .then((res) => res.json())
+            .then((mounting) => {
+              let middleArr = [];
+              let valueArr = mounting.Style.split(',');
+              valueArr.map((item, index) => {
+                if (cTags.find(ctag => ctag == getFilterValue(item))) {
                   middleArr.push({ label: item, value: getFilterValue(item) })
-                  if (index == brandsArr.length - 1) {
-                    let filterArr = leftFilterItems;
-                    filterArr[4].filter = middleArr;
-                    setLeftFilterItems([...filterArr]);
-                  }
-                })
-                fetch(stoneURL, {
-                  method: "get",
-                  headers,
-                })
-                  .then((res) => res.json())
-                  .then((stones) => {
-                    let stoneArr = [];
-                    for (const key in stones) {
-                      if (Object.hasOwnProperty.call(stones, key)) {
-                        let middleArr = [];
-                        const element = stones[key];
-                        let itemArr = [];
-                        if (element.length == 1) {
-                          middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
-                        } else {
-                          element.map((item, index) => {
-                            itemArr.push({ label: item, value: getFilterValue(item) })
-                            if (index == element.length - 1) {
-                              middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
-                            }
-                          })
-                        }
-                        stoneArr.push(...middleArr)
-                        if (stoneArr.length == _.size(stones)) {
-                          let filterArr = leftFilterItems;
-                          filterArr[5].filter = stoneArr;
-                          setLeftFilterItems([...filterArr])
-                        }
-                      }
+                }
+                if (index == valueArr.length - 1) {
+                  let filterArr = leftFilterItems;
+                  filterArr[3].filter = middleArr;
+                  setLeftFilterItems([...filterArr]);
+                }
+              })
+              fetch(brandURL, {
+                method: 'get',
+                headers,
+              })
+                .then((res) => res.json())
+                .then((brands) => {
+                  let middleArr = [];
+                  brands = brands.find(item => item.MainGroup == tags[0])
+                  let brandsArr = brands.BrandID.split(',');
+                  brandsArr.map((item, index) => {
+                    if (cTags.find(ctag => ctag == getFilterValue(item))) {
+                      middleArr.push({ label: item, value: getFilterValue(item) })
                     }
-                    fetch(brightnessURL, {
-                      method: "get",
-                      headers,
-                    })
-                      .then((res) => res.json())
-                      .then((brightness) => {
-                        let brightnessArr = [];
-                        for (const key in brightness) {
-                          if (Object.hasOwnProperty.call(brightness, key)) {
-                            let middleArr = [];
-                            const element = brightness[key];
-                            let itemArr = [];
-                            if (element.length == 1) {
+                    if (index == brandsArr.length - 1) {
+                      let filterArr = leftFilterItems;
+                      filterArr[4].filter = middleArr;
+                      setLeftFilterItems([...filterArr]);
+                    }
+                  })
+                  fetch(stoneURL, {
+                    method: "get",
+                    headers,
+                  })
+                    .then((res) => res.json())
+                    .then((stones) => {
+                      let stoneArr = [];
+                      let counter = [];
+                      for (const key in stones) {
+                        if (Object.hasOwnProperty.call(stones, key)) {
+                          let middleArr = [];
+                          counter++;
+                          const element = stones[key];
+                          let itemArr = [];
+                          if (element.length == 1) {
+                            if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
                               middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
-                            } else {
-                              element.map((item, index) => {
+                            }
+                          } else {
+                            element.map((item, index) => {
+                              if (cTags.find(ctag => ctag == getFilterValue(item))) {
                                 itemArr.push({ label: item, value: getFilterValue(item) })
-                                if (index == element.length - 1) {
-                                  middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
-                                }
-                              })
-                            }
-                            brightnessArr.push(...middleArr)
-                            if (brightnessArr.length == _.size(stones)) {
-                              let filterArr = leftFilterItems;
-                              filterArr[6].filter = brightnessArr;
-                              setLeftFilterItems([...filterArr])
-                            }
-                          }
-                        }
-                        fetch(cutURL, {
-                          method: "get",
-                          headers,
-                        })
-                          .then((res) => res.json())
-                          .then((cut) => {
-                            let cutArr = [];
-                            for (const key in cut) {
-                              if (Object.hasOwnProperty.call(cut, key)) {
-                                let middleArr = [];
-                                const element = cut[key];
-                                let itemArr = [];
-                                if (element.length == 1) {
-                                  middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
-                                } else {
-                                  element.map((item, index) => {
-                                    itemArr.push({ label: item, value: getFilterValue(item) })
-                                    if (index == element.length - 1) {
-                                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
-                                    }
-                                  })
-                                }
-                                cutArr.push(...middleArr)
-                                if (cutArr.length == _.size(cut)) {
-                                  let filterArr = leftFilterItems;
-                                  filterArr[7].filter = cutArr;
-                                  setLeftFilterItems([...filterArr])
+                              }
+                              if (index == element.length - 1) {
+                                if (itemArr.length) {
+                                  if (itemArr.length == 1) {
+                                    middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                                  } else {
+                                    middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                                  }
                                 }
                               }
-                            }
-                            fetch(metarialURL, {
-                              method: "get",
-                              headers,
                             })
-                              .then((res) => res.json())
-                              .then((metarial) => {
-                                metarial = metarial[0].colorDesc;
-                                let middleArr = [];
-                                let valueArr = metarial.split(',');
-                                valueArr.map((item, index) => {
-                                  middleArr.push({ label: item, value: getFilterValue(item) })
-                                  if (index == valueArr.length - 1) {
-                                    let filterArr = leftFilterItems;
-                                    filterArr[8].filter = middleArr;
-                                    setLeftFilterItems([...filterArr]);
+                          }
+                          stoneArr.push(...middleArr)
+                          if (counter == _.size(stones)) {
+                            let filterArr = leftFilterItems;
+                            filterArr[5].filter = stoneArr;
+                            setLeftFilterItems([...filterArr])
+                          }
+                        }
+                      }
+                      fetch(brightnessURL, {
+                        method: "get",
+                        headers,
+                      })
+                        .then((res) => res.json())
+                        .then((brightness) => {
+                          let brightnessArr = [];
+                          let counter = [];
+                          for (const key in brightness) {
+                            if (Object.hasOwnProperty.call(brightness, key)) {
+                              let middleArr = [];
+                              const element = brightness[key];
+                              counter++;
+                              let itemArr = [];
+                              if (element.length == 1) {
+                                if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
+                                  middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+                                }
+                              } else {
+                                element.map((item, index) => {
+                                  if (cTags.find(ctag => ctag == getFilterValue(item))) {
+                                    itemArr.push({ label: item, value: getFilterValue(item) })
                                   }
-                                })
-
-                                fetch(materialColorURL, {
-                                  method: "get",
-                                  headers,
-                                })
-                                  .then((res) => res.json())
-                                  .then((materialColor) => {
-                                    let materialColorArr = [];
-                                    for (const key in materialColor) {
-                                      if (Object.hasOwnProperty.call(materialColor, key)) {
-                                        let middleArr = [];
-                                        const element = materialColor[key];
-                                        let itemArr = [];
-                                        if (element.length == 1) {
-                                          middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
-                                        } else {
-                                          element.map((item, index) => {
-                                            itemArr.push({ label: item, value: getFilterValue(item) })
-                                            if (index == element.length - 1) {
-                                              middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
-                                            }
-                                          })
-                                        }
-                                        materialColorArr.push(...middleArr)
-                                        if (materialColorArr.length == _.size(materialColor)) {
-                                          let filterArr = leftFilterItems;
-                                          filterArr[9].filter = materialColorArr;
-                                          setLeftFilterItems([...filterArr])
-                                        }
+                                  if (index == element.length - 1) {
+                                    if (itemArr.length) {
+                                      if (itemArr.length == 1) {
+                                        middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                                      } else {
+                                        middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
                                       }
                                     }
-                                  })
-                              })
+                                  }
+                                })
+                              }
+                              brightnessArr.push(...middleArr)
+                              if (counter == _.size(stones)) {
+                                let filterArr = leftFilterItems;
+                                filterArr[6].filter = brightnessArr;
+                                setLeftFilterItems([...filterArr])
+                              }
+                            }
+                          }
+                          fetch(cutURL, {
+                            method: "get",
+                            headers,
                           })
-                      })
-                  })
-              })
-          })
-      });
-  }, []);
+                            .then((res) => res.json())
+                            .then((cut) => {
+                              let cutArr = [];
+                              let counter = 0;
+                              for (const key in cut) {
+                                if (Object.hasOwnProperty.call(cut, key)) {
+                                  let middleArr = [];
+                                  const element = cut[key];
+                                  counter++;
+                                  let itemArr = [];
+                                  if (element.length == 1) {
+                                    if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
+                                      middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+                                    }
+                                  } else {
+                                    element.map((item, index) => {
+                                      if (cTags.find(ctag => ctag == getFilterValue(item))) {
+                                        itemArr.push({ label: item, value: getFilterValue(item) })
+                                      }
+                                      if (index == element.length - 1) {
+                                        if (itemArr.length) {
+                                          if (itemArr.length == 1) {
+                                            middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                                          } else {
+                                            middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                                          }
+                                        }
+                                      }
+                                    })
+                                  }
+                                  cutArr.push(...middleArr)
+                                  if (counter == _.size(cut)) {
+                                    let filterArr = leftFilterItems;
+                                    filterArr[7].filter = cutArr;
+                                    setLeftFilterItems([...filterArr])
+                                  }
+                                }
+                              }
+                              fetch(metarialURL, {
+                                method: "get",
+                                headers,
+                              })
+                                .then((res) => res.json())
+                                .then((metarial) => {
+                                  metarial = metarial[0].colorDesc;
+                                  let middleArr = [];
+                                  let valueArr = metarial.split(',');
+                                  valueArr.map((item, index) => {
+                                    if (item == '18k Gold') {
+                                      item = '18k'
+                                    } else if (item == '14k Gold') {
+                                      item = '14k'
+                                    }
+                                    if (cTags.find(ctag => ctag == getFilterValue(item))) {
+                                      middleArr.push({ label: item == '18k' ? '18k Gold' : item == '14k' ? '14k Gold' : item, value: getFilterValue(item) })
+                                    }
+                                    if (index == valueArr.length - 1) {
+                                      let filterArr = leftFilterItems;
+                                      filterArr[8].filter = middleArr;
+                                      setLeftFilterItems([...filterArr]);
+                                    }
+                                  })
+
+                                  fetch(materialColorURL, {
+                                    method: "get",
+                                    headers,
+                                  })
+                                    .then((res) => res.json())
+                                    .then((materialColor) => {
+                                      let materialColorArr = [];
+                                      let counter = 0;
+                                      for (const key in materialColor) {
+                                        if (Object.hasOwnProperty.call(materialColor, key)) {
+                                          let middleArr = [];
+                                          counter++;
+                                          const element = materialColor[key];
+                                          let itemArr = [];
+                                          if (element.length == 1) {
+                                            if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
+                                              middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+                                            }
+                                          } else {
+                                            element.map((item, index) => {
+                                              if (cTags.find(ctag => ctag == getFilterValue(item))) {
+                                                itemArr.push({ label: item, value: getFilterValue(item) })
+                                              }
+                                              if (index == element.length - 1) {
+                                                if (itemArr.length) {
+                                                  if (itemArr.length == 1) {
+                                                    middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                                                  } else {
+                                                    middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                                                  }
+                                                }
+                                              }
+                                            })
+                                          }
+                                          materialColorArr.push(...middleArr)
+                                          if (counter == _.size(materialColor)) {
+                                            let filterArr = leftFilterItems;
+                                            filterArr[9].filter = materialColorArr;
+                                            setLeftFilterItems([...filterArr])
+                                          }
+                                        }
+                                      }
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        });
+    }
+  }, [cTags]);
 
   useEffect(() => {
     props.wishList &&
       localStorage.setItem('wishList', JSON.stringify(props.wishList))
   }, [props.wishList])
+
+  useEffect(() => {
+    let formData = new FormData();
+    if (cTagLastAdd == 1) {
+      formData.append('position', 'first:50');
+    } else {
+      formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
+    }
+    formData.append('query', 'status:active AND tag:Rings');
+    fetch(CTagURL, {
+      method: 'post',
+      body: formData,
+    }).then((res) => res.json())
+      .then((data) => {
+        if (data.last) {
+          let tags = cTags;
+          let middleArr = [];
+          data.tags.map((tag, index) => {
+            if (!tags.find(item => item == tag)) {
+              middleArr.push(tag);
+            }
+            if (index == data.tags.length - 1) {
+              if (data.hasNextPage == 'No')
+                setCTags([...cTags, ...middleArr])
+            }
+          })
+          setCTagLastAdd(data.last)
+        }
+      })
+  }, [cTagLastAdd])
 
   useEffect(() => {
     if (checked0) {
@@ -557,13 +654,24 @@ function Ring(props) {
       total.push(...checked7)
       total.push(...checked8)
       total.push(...checked9)
+      setTotalFilterItems(total)
+      let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query2 = checked2.length > 0 ? (checked2.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query3 = checked3.length > 0 ? (checked3.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query4 = checked4.length > 0 ? (checked4.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query5 = checked5.length > 0 ? (checked5.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query6 = checked6.length > 0 ? (checked6.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query7 = checked7.length > 0 ? (checked7.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query8 = checked8.length > 0 ? (checked8.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+      let query9 = checked9.length > 0 ? (checked9.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
       setLoad(true)
       let data = new FormData();
       data.append("position", "first:9");
-      data.append("query", ("status:active and tag:Rings" + total.map(filter => " and tag:" + filter)).replace(',', ''))
+      data.append("query", ("status:active AND tag:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
       setFormData(data);
     }
-  }, [checked0,checked1,checked2,checked3,checked4,checked5,checked6,checked7,checked8,checked9])
+  }, [checked0, checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9])
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
@@ -609,8 +717,18 @@ function Ring(props) {
   const loadMore = () => {
     setLoad(true);
     let formData = new FormData();
+    let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query2 = checked2.length > 0 ? (checked2.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query3 = checked3.length > 0 ? (checked3.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query4 = checked4.length > 0 ? (checked4.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query5 = checked5.length > 0 ? (checked5.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query6 = checked6.length > 0 ? (checked6.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query7 = checked7.length > 0 ? (checked7.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query8 = checked8.length > 0 ? (checked8.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let query9 = checked9.length > 0 ? (checked9.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
     formData.append("position", `first:9, after:"${lastProduct}"`);
-    formData.append("query", ("status:active and tag:Rings" + selectedFilter.map(filter => " and " + filter)).replace(',', ''))
+    formData.append("query", ("status:active AND tag:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
     fetch(productURL, {
       method: "post",
       body: formData,
@@ -727,7 +845,7 @@ function Ring(props) {
                           <div className="product-image hover-scale d-flex justify-content-center align-items-center round">
                             <img src={item.image} alt="product-image" />
                           </div>
-                          <h3 className="text-uppercase blue-text py-4 m-0">
+                          <h3 className="text-uppercase blue-text my-4 m-0">
                             {item.title}
                           </h3>
                           <p className="pb-4 text-uppercase m-0">
