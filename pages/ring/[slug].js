@@ -153,7 +153,7 @@ export default function ProductRing() {
       }).then((res) => res.json())
         .then((data) => {
           setProductData(data);
-          setMainImage(data.image.src)
+          setMainImage(data.image.src.replace('.jpg', '_500x.jpg'));
           data.tags.split(',').map((item) => {
             if (item >= 45 && item <= 65)
               setSizeList([...sizeList, item])
@@ -183,11 +183,11 @@ export default function ProductRing() {
           </Link>
           /
           <Link href="/ring">
-            <a className="mx-2">ENGAGEMENT RINGS</a>
+            <a className="mx-2">RINGS</a>
           </Link>
           /
           <span className="title ms-2 text-uppercase blue-text">
-            CHOOSE A SETTING
+            {productData && productData.title}
           </span>
         </div>
       </div>
@@ -205,9 +205,9 @@ export default function ProductRing() {
                       <button
                         className="btn btn-show-product mb-3 p-0 round-form"
                         key={index}
-                        onClick={() => setMainImage(item.src)}
+                        onClick={() => setMainImage(item.src.replace('.jpg', '_500x.jpg'))}
                       >
-                        <img src={item.src} alt="product-image" />
+                        <img src={item.src.replace('.jpg', '_50x.jpg')} alt="product-image" />
                       </button>
                     );
                   })}
@@ -282,25 +282,24 @@ export default function ProductRing() {
                   })
                 }
                 <div className="selector-panel row m-0 py-4">
-                  <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
-                    <div className="d-flex justify-content-between pb-4 align-items-center">
-                      <h3
-                        htmlFor="selectKarat"
-                        className="d-flex align-items-center m-0 text-uppercase"
-                      >
-                        Ring Size
-                        <RiErrorWarningLine className="ms-2" />
-                      </h3>
-                      <button
-                        className="btn text-uppercase btn-find-size py-1"
-                        onClick={() => setSize(0)}
-                      >
-                        find my size
-                      </button>
-                    </div>
-                    <div className="select-box">
-                      {/* {
-                        sizeList.length &&
+                  {sizeList.length &&
+                    <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
+                      <div className="d-flex justify-content-between pb-4 align-items-center">
+                        <h3
+                          htmlFor="selectKarat"
+                          className="d-flex align-items-center m-0 text-uppercase"
+                        >
+                          Ring Size
+                          <RiErrorWarningLine className="ms-2" />
+                        </h3>
+                        <button
+                          className="btn text-uppercase btn-find-size py-1"
+                          onClick={() => setSize(0)}
+                        >
+                          find my size
+                        </button>
+                      </div>
+                      <div className="select-box">
                         <select
                           className="form-select blue-text ps-4 round-form py-3"
                           aria-label="Default select example"
@@ -315,9 +314,9 @@ export default function ProductRing() {
                             );
                           })}
                         </select>
-                      } */}
+                      </div>
                     </div>
-                  </div>
+                  }
                   <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-lg-3 ps-0">
                     <label
                       htmlFor="selectKarat"
@@ -423,6 +422,7 @@ export default function ProductRing() {
                   <Skeleton variant="rect" width="100%" height={50} animation="wave" />
                   <Skeleton variant="rect" width="100%" className="mt-4" height={50} animation="wave" />
                   <Skeleton variant="rect" width="100%" className="mt-4" height={50} animation="wave" />
+                  <Skeleton variant="rect" width="100%" className="mt-4" height={50} animation="wave" />
                 </div>
                 <div className="main-product col-sm-10 col-12 p-0">
                   <Skeleton variant="rect" width="100%" height={300} animation="wave" />
@@ -435,17 +435,12 @@ export default function ProductRing() {
               </div>
             </div>
             <div className="col-md-6 col-12 p-0 pt-5 ps-5">
-              <Skeleton variant='text' width="100%" height={40} className="mb-4" />
-              <Skeleton variant='text' width="100%" height={40} className="mb-4" />
-              <Skeleton variant="text" height={20} width="100%" />
-              <Skeleton variant="text" height={20} width="100%" />
-              <Skeleton variant="text" height={20} width="100%" />
-              <Skeleton variant="text" height={20} width="100%" />
-              <Skeleton variant="text" height={20} width="100%" />
-              <Skeleton variant="text" height={20} width="100%" />
-              <Skeleton variant="text" height={20} width="100%" />
-              <Skeleton variant="text" height={20} width="100%" />
-              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant='text' width="100%" height={45} className="mb-4" />
+              <Skeleton variant='text' width="100%" height={45} className="mb-4" />
+              <Skeleton variant="text" height={35} width="100%" />
+              <Skeleton variant="text" height={35} width="100%" />
+              <Skeleton variant="text" height={35} width="100%" />
+              <Skeleton variant="text" height={35} width="100%" />
             </div>
           </div>
         )

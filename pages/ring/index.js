@@ -561,6 +561,7 @@ function Ring(props) {
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
     if (target.classList.contains("favor")) {
+      console.log(1)
       let localProducts = props.wishList;
       let removeProduct = localProducts.find(
         (item) => item.shopifyid == product.shopifyid
@@ -570,6 +571,7 @@ function Ring(props) {
         props.setWishList(localProducts)
       }
     } else {
+      console.log(2)
       if (localStorage.wishList) {
         props.setWishList([...props.wishList, { ...product, amount: 1, tag: tags }])
       } else {
@@ -731,7 +733,7 @@ function Ring(props) {
                           slug: getFilterValue(item.title) + "-" + item.shopifyid,
                         },
                       }} >
-                        <a target="_blank">
+                        <a>
                           <div className="product-image hover-scale d-flex justify-content-center align-items-center round">
                             <img src={item.image} alt="product-image" />
                           </div>
@@ -872,7 +874,7 @@ function Ring(props) {
               }
               {lastProduct && (
                 <button
-                  className="btn load-more-btn text-uppercase py-3 px-5 round-form"
+                  className="btn load-more-btn text-uppercase py-3 px-5 mt-3 round-form"
                   onClick={loadMore}
                 >
                   Load More
