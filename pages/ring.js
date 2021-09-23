@@ -840,7 +840,7 @@ function Ring(props) {
                 {productData.map((item, index) => {
                   return (
                     <div
-                      className="product-item col-lg-4 col-md-6 col-sm-12 mb-5 pb-3"
+                      className="product-item col-lg-4 col-md-6 col-sm-12 mb-4"
                       key={index}
                     >
                       <Link href={item.handle}>
@@ -927,73 +927,8 @@ function Ring(props) {
                 </button>
               )}
             </div>
-          ) : !load ? <h3 className="none-text text-center col-lg-9 col-md-8 col-sm-7 col-12 p-0">None diaplay product</h3> : <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row">
-            <div className="col-lg-4 col-md-6 col-12 mt-4">
-              <Skeleton
-                animation="wave"
-                variant="rect"
-                width="100%"
-                height={300}
-              />
-              <Skeleton
-                animation="wave"
-                variant="text"
-                width={100}
-                height={20}
-              />
-              <Skeleton
-                animation="wave"
-                variant="text"
-                width="100%"
-                height={40}
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-12 mt-4">
-              <Skeleton
-                animation="wave"
-                variant="rect"
-                width="100%"
-                height={300}
-              />
-              <Skeleton
-                animation="wave"
-                variant="text"
-                width={100}
-                height={20}
-              />
-              <Skeleton
-                animation="wave"
-                variant="text"
-                width="100%"
-                height={40}
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-12 mt-4 d-lg-block d-none">
-              <Skeleton
-                animation="wave"
-                variant="rect"
-                width="100%"
-                height={300}
-              />
-              <Skeleton
-                animation="wave"
-                variant="text"
-                width={100}
-                height={20}
-              />
-              <Skeleton
-                animation="wave"
-                variant="text"
-                width="100%"
-                height={40}
-              />
-            </div>
-          </div>
-          }
-        </div>
-        {load && (
-          <div className="row justify-content-end">
-            <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row">
+          ) : !load ? <h3 className="none-text text-center col-lg-9 col-md-8 col-sm-7 col-12 p-0">None diaplay product</h3>
+            : <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row">
               <div className="col-lg-4 col-md-6 col-12 mt-4">
                 <Skeleton
                   animation="wave"
@@ -1055,8 +990,8 @@ function Ring(props) {
                 />
               </div>
             </div>
-          </div>
-        )}
+          }
+        </div>
       </div>
       {/* End product section */}
       {/* Start Collection section */}
