@@ -99,6 +99,7 @@ export default function ProductRing() {
   const router = useRouter();
   const [productData, setProductData] = useState();
   const [optionValue, setOptionValue] = useState();
+  const [sizeList, setSizeList] = useState([]);
 
   useEffect(() => {
     if (typeof document !== undefined) {
@@ -142,17 +143,21 @@ export default function ProductRing() {
   };
 
   useEffect(() => {
-    if (router.query.id) {
+    if (router.query.slug) {
+      let shopifyid = router.query.slug.split('-');
       let formData = new FormData();
-      formData.append('shopifyid', router.query.id);
+      formData.append('shopifyid', shopifyid[shopifyid.length - 1]);
       fetch(getProductURL, {
         method: 'post',
         body: formData
       }).then((res) => res.json())
         .then((data) => {
-          console.log(data)
           setProductData(data);
           setMainImage(data.image.src)
+          data.tags.split(',').map((item) => {
+            if (item >= 45 && item <= 65)
+              setSizeList([...sizeList, item])
+          })
         })
     }
   }, [router.query])
@@ -247,15 +252,16 @@ export default function ProductRing() {
                           htmlFor="selectKarat"
                           className="d-flex align-items-center pb-4 text-uppercase"
                         >
-                          {option.name} : {optionValue ? optionValue : option.values[0]}
+                          {option.name} : {optionValue ? optionValue[0] : option.values[0]}
                           <RiErrorWarningLine className="ms-2" />
                         </label>
                         <div className="material-box d-flex flex-wrap">
                           {option.values.map((value, index) => {
                             return (
                               <button
-                                className={"btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " + (!optionValue && index == 0 ? 'active' : optionValue == value ? 'active' : '')}
-                                key={index} onClick={() => setOptionValue(value)}
+                                className={"btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " + (!optionValue && index == 0 ? 'active' : optionValue && optionValue[0] == value ? 'active' : '')}
+                                key={index}
+                                onClick={() => setOptionValue([value, productData.variants.find(variant => variant.title == value).id])}
                               >
                                 {value}
                               </button>
@@ -293,20 +299,23 @@ export default function ProductRing() {
                       </button>
                     </div>
                     <div className="select-box">
-                      <select
-                        className="form-select blue-text ps-4 round-form py-3"
-                        aria-label="Default select example"
-                        value={size}
-                        onChange={(event) => setSize(event.target.value)}
-                      >
-                        {sizeList.map((item, index) => {
-                          return (
-                            <option value={index} key={index}>
-                              {item.size}
-                            </option>
-                          );
-                        })}
-                      </select>
+                      {
+                        sizeList.length &&
+                        <select
+                          className="form-select blue-text ps-4 round-form py-3"
+                          aria-label="Default select example"
+                          value={size}
+                          onChange={(event) => setSize(event.target.value)}
+                        >
+                          {sizeList.map((item, index) => {
+                            return (
+                              <option value={index} key={index}>
+                                {item}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      }
                     </div>
                   </div>
                   <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-lg-3 ps-0">

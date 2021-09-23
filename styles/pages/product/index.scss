@@ -115,11 +115,16 @@
               //   border: 1px solid #01215c;
               // }
               &.btn-material {
-                background: grey;
-                color: white;
+                background: #f6f6f6;
+                color: black;
+                font-weight: 400;
                 font-size: 1.4rem;
+                border: 2px solid #f6f6f6;
                 &.active {
-                  background: rgb(255, 145, 0);
+                  border-color: #c4a060;
+                }
+                &:hover {
+                  background: rgb(211, 211, 211);
                 }
               }
             }

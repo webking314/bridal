@@ -178,7 +178,7 @@ const checkTreeIcons = {
 }
 
 function Ring(props) {
-  const [result, setResult] = useState("878");
+  const [result, setResult] = useState(0);
   const [tags, setTags] = useState("Rings");
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [selectFilter, setSelectFilter] = useState([]);
@@ -203,6 +203,7 @@ function Ring(props) {
   const [cTags, setCTags] = useState([]);
   const [cTagMiddleStore, setCTagMiddleStore] = useState([]);
   const [loadMoreStatus, setLoadMoreStatus] = useState(false);
+  const [totalCounter, setTotalCounter] = useState(0)
 
   useEffect(() => {
     if (formData) {
@@ -504,6 +505,7 @@ function Ring(props) {
       .then((data) => {
         let middleArr = [];
         if (data.last) {
+          setTotalCounter(totalCounter + data.productsCount)
           let tags = cTagMiddleStore;
           data.tags.map((tag, index) => {
             if (!tags.find(item => item == getFilterValue(tag))) {
@@ -511,8 +513,10 @@ function Ring(props) {
             }
             if (index == data.tags.length - 1) {
               setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
-              if (data.hasNextPage == 'No')
+              if (data.hasNextPage == 'No') {
+                setResult(totalCounter + data.productsCount)
                 setCTags([...cTagMiddleStore, ...middleArr])
+              }
             }
           })
           if (data.hasNextPage == 'Yes') {
@@ -724,8 +728,7 @@ function Ring(props) {
                       <Link href={{
                         pathname: "/ring/[slug]",
                         query: {
-                          slug: "/ring/" + tags,
-                          id: item.shopifyid,
+                          slug: getFilterValue(item.title) + "-" + item.shopifyid,
                         },
                       }} >
                         <a target="_blank">
@@ -803,8 +806,8 @@ function Ring(props) {
               </div>
               {
                 loadMoreStatus && (
-                  <div className="m-0 row">
-                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                  <div className="m-0 mt-4 row">
+                    <div className="col-lg-4 col-md-6 col-12">
                       <Skeleton
                         animation="wave"
                         variant="rect"
@@ -824,7 +827,7 @@ function Ring(props) {
                         height={40}
                       />
                     </div>
-                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                    <div className="col-lg-4 col-md-6 col-12">
                       <Skeleton
                         animation="wave"
                         variant="rect"
@@ -844,7 +847,7 @@ function Ring(props) {
                         height={40}
                       />
                     </div>
-                    <div className="col-lg-4 col-md-6 col-12 mt-4 d-lg-block d-none">
+                    <div className="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                       <Skeleton
                         animation="wave"
                         variant="rect"
@@ -878,7 +881,7 @@ function Ring(props) {
             </div>
           ) : !load ? <h3 className="none-text text-center col-lg-9 col-md-8 col-sm-7 col-12 p-0">None diaplay product</h3>
             : <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row">
-              <div className="col-lg-4 col-md-6 col-12 mt-4">
+              <div className="col-lg-4 col-md-6 col-12">
                 <Skeleton
                   animation="wave"
                   variant="rect"
@@ -898,7 +901,7 @@ function Ring(props) {
                   height={40}
                 />
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mt-4">
+              <div className="col-lg-4 col-md-6 col-12">
                 <Skeleton
                   animation="wave"
                   variant="rect"
@@ -918,7 +921,7 @@ function Ring(props) {
                   height={40}
                 />
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mt-4 d-lg-block d-none">
+              <div className="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                 <Skeleton
                   animation="wave"
                   variant="rect"
