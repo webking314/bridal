@@ -336,7 +336,8 @@ function Ring(props) {
         .then((res) => res.json())
         .then((data) => {
           setLoad(false);
-          data.last ? setLastProduct(data.last) : setProductData();
+          console.log(data.hasNextPage)
+          data.hasNextPage == 'Yes' ? setLastProduct(data.last) : setLastProduct(false);
           setProductData(data.data);
           if (localStorage.wishList) {
             props.setWishList(JSON.parse(localStorage.wishList));
@@ -347,7 +348,6 @@ function Ring(props) {
 
   useEffect(() => {
     if (cTags) {
-      console.log(cTags)
       fetch(styleURL, {
         method: 'get',
         headers,
@@ -635,7 +635,7 @@ function Ring(props) {
             if (index == data.tags.length - 1) {
               if (data.hasNextPage == 'No')
                 setCTags([...cTags, ...middleArr])
-              }
+            }
           })
           if (data.hasNextPage == 'Yes') {
             setCTagLastAdd(data.last)
@@ -738,11 +738,15 @@ function Ring(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        data.last ? setLastProduct(data.last) : setLastProduct();
+        data.hasNextPage == "Yes" ? setLastProduct(data.last) : setLastProduct(false);
         setProductData([...productData, ...data.data]);
         setLoad(false);
       });
   };
+
+  useEffect(() => {
+    console.log(lastProduct)
+  }, [lastProduct])
 
   return (
     <div className="ring_page">
