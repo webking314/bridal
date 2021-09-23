@@ -179,7 +179,7 @@ const checkTreeIcons = {
 
 function Ring(props) {
   const [result, setResult] = useState("878");
-  const [tags, setTags] = useState(["Rings"]);
+  const [tags, setTags] = useState("Rings");
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [selectFilter, setSelectFilter] = useState([]);
   const [productData, setProductData] = useState([]);
@@ -201,6 +201,7 @@ function Ring(props) {
   const [totalFilterItems, setTotalFilterItems] = useState([]);
   const [cTagLastAdd, setCTagLastAdd] = useState(1);
   const [cTags, setCTags] = useState([]);
+  const [cTagMiddleStore, setCTagMiddleStore] = useState([]);
   const [loadMoreStatus, setLoadMoreStatus] = useState(false);
 
   useEffect(() => {
@@ -267,7 +268,7 @@ function Ring(props) {
                 .then((res) => res.json())
                 .then((brands) => {
                   let middleArr = [];
-                  brands = brands.find(item => item.MainGroup == tags[0])
+                  brands = brands.find(item => item.MainGroup == tags)
                   let brandsArr = brands.BrandID.split(',');
                   brandsArr.map((item, index) => {
                     if (cTags.find(ctag => ctag == getFilterValue(item))) {
@@ -501,16 +502,17 @@ function Ring(props) {
       body: formData,
     }).then((res) => res.json())
       .then((data) => {
+        let middleArr = [];
         if (data.last) {
-          let tags = cTags;
-          let middleArr = [];
+          let tags = cTagMiddleStore;
           data.tags.map((tag, index) => {
             if (!tags.find(item => item == getFilterValue(tag))) {
               middleArr.push(getFilterValue(tag));
             }
             if (index == data.tags.length - 1) {
+              setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
               if (data.hasNextPage == 'No')
-                setCTags([...cTags, ...middleArr])
+                setCTags([...cTagMiddleStore, ...middleArr])
             }
           })
           if (data.hasNextPage == 'Yes') {
@@ -719,7 +721,13 @@ function Ring(props) {
                       className="product-item col-lg-4 col-md-6 col-sm-12 mb-4"
                       key={index}
                     >
-                      <Link href={item.handle}>
+                      <Link href={{
+                        pathname: "/ring/[slug]",
+                        query: {
+                          slug: "/ring/" + tags,
+                          id: item.shopifyid,
+                        },
+                      }} >
                         <a target="_blank">
                           <div className="product-image hover-scale d-flex justify-content-center align-items-center round">
                             <img src={item.image} alt="product-image" />
@@ -728,12 +736,11 @@ function Ring(props) {
                             {item.title}
                           </h3>
                           <p className="pb-4 text-uppercase m-0">
-                            {tags.length &&
-                              tags.map((tag, id) => (
-                                <span className="me-2" key={id}>
-                                  {tag}
-                                </span>
-                              ))}
+                            {tags &&
+                              <span className="me-2">
+                                {tags}
+                              </span>
+                            }
                           </p>
                           {+item.Fullprice > +item.price ? (
                             <div className="d-flex price-panel">
@@ -949,7 +956,7 @@ function Ring(props) {
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}
-    </div>
+    </div >
   );
 }
 

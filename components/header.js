@@ -864,7 +864,8 @@ function Header(props) {
                     <h3>{item.title}</h3>
                     <p>
                       {item.tag &&
-                        item.tag.map((tab, id) => <span key={id}>{tab} </span>)}
+                        <span>{tag} </span>
+                      }
                     </p>
                   </div>
                 </div>

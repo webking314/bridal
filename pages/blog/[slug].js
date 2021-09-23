@@ -74,7 +74,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-export default function Brief(props) {
+export default function Brief() {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   const [time, setTime] = useState();
@@ -111,6 +111,7 @@ export default function Brief(props) {
   ];
   const target = React.createRef();
   const router = useRouter();
+
 
   useEffect(() => {
     if (content) {

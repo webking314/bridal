@@ -11,6 +11,7 @@ import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRouter } from "next/router";
 import NumberFormat from "react-number-format";
+import renderHTML from "react-render-html";
 import "swiper/css";
 import {
   RiHeartFill,
@@ -23,6 +24,7 @@ import {
   RiArrowRightSLine,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { Skeleton } from "@material-ui/lab";
 
 SwiperCore.use([Autoplay, Navigation]);
 
@@ -86,17 +88,17 @@ const productID = "SKU 10872957";
 const productDescription =
   "This beautiful tapered engagement ring design is channel-set with eight round shaped diamonds. A setting designed to draw the eye to the center diamond or gemstone of your choice. Pair it with the matching wedding band for a contoured look.";
 
+const getProductURL = 'https://royalcoster.nl/api/getProduct.php';
+
 export default function ProductRing() {
   const [size, setSize] = useState(0);
   const [favorItem, setFavorItem] = useState();
   const [itemAmount, setItemAmount] = useState(1);
   const [itemPrice, setItemPrice] = useState();
-  const [mainImage, setMainImage] = useState(products.images[0]);
+  const [mainImage, setMainImage] = useState();
   const router = useRouter();
-
-  const showProduct = (product) => {
-    setMainImage(product);
-  };
+  const [productData, setProductData] = useState();
+  const [optionValue, setOptionValue] = useState();
 
   useEffect(() => {
     if (typeof document !== undefined) {
@@ -139,6 +141,22 @@ export default function ProductRing() {
     }
   };
 
+  useEffect(() => {
+    if (router.query.id) {
+      let formData = new FormData();
+      formData.append('shopifyid', router.query.id);
+      fetch(getProductURL, {
+        method: 'post',
+        body: formData
+      }).then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          setProductData(data);
+          setMainImage(data.image.src)
+        })
+    }
+  }, [router.query])
+
   return (
     <div className="productRing_page" id="productPage">
       <Head>
@@ -171,206 +189,258 @@ export default function ProductRing() {
       {/* End state section */}
 
       {/* Start confirm section */}
-      <div className="confirm-section py-5 mb-5 row r-container">
-        <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
-          <div className="row m-0">
-            <div className="tile-product col-2 p-0 pe-3">
-              {products.images.map((item, index) => {
-                return (
-                  <button
-                    className="btn btn-show-product mb-3 p-0 round-form"
-                    key={index}
-                    onClick={() => showProduct(item)}
-                  >
-                    <img src={"/img/product/" + item} alt="product-image" />
-                  </button>
-                );
-              })}
-            </div>
-            <div className="main-product col-10 p-0">
-              <div className="image-panel round mb-4">
-                <div className="image-box">
-                  <img src={"/img/product/" + mainImage} alt="main-image" />
+      {
+        productData ? (
+          <div className="confirm-section py-5 mb-5 row r-container">
+            <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
+              <div className="row m-0">
+                <div className="tile-product col-2 p-0 pe-3">
+                  {productData.images.map((item, index) => {
+                    return (
+                      <button
+                        className="btn btn-show-product mb-3 p-0 round-form"
+                        key={index}
+                        onClick={() => setMainImage(item.src)}
+                      >
+                        <img src={item.src} alt="product-image" />
+                      </button>
+                    );
+                  })}
                 </div>
-              </div>
-              <div className="btn-panel d-flex align-items-center justify-content-between">
-                <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
-                  <RiShareLine className="me-2" />
-                  share
-                </button>
-                <button
-                  className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
-                  data-bs-toggle="modal"
-                  data-bs-target="#dropHint"
-                >
-                  drop a hint
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-5">
-          <div className="title-panel">
-            <h3 className="type pb-4 m-0">{products.style}</h3>
-            <h3 className="title text-capitalize pb-4 m-0">{products.title}</h3>
-            <p className="description pb-4 m-0">{products.description}</p>
-          </div>
-          <div className="confirm-panel">
-            <div className="material-setting-panel py-4">
-              <label
-                htmlFor="selectKarat"
-                className="d-flex align-items-center pb-4 text-uppercase"
-              >
-                Metal : white Gold 18k
-                <RiErrorWarningLine className="ms-2" />
-              </label>
-              <div className="material-box d-flex">
-                {meterials.map((item, index) => {
-                  return (
-                    <button
-                      className="btn btn-material d-flex align-items-center justify-content-center p-2 me-3"
-                      key={index}
-                    >
-                      <img
-                        src={"/img/product/" + item.meterial}
-                        alt="metarial-image"
-                      />
+                <div className="main-product col-10 p-0">
+                  <div className="image-panel round mb-4">
+                    <div className="image-box">
+                      {
+                        mainImage &&
+                        <img src={mainImage} alt="main-image" />
+                      }
+                    </div>
+                  </div>
+                  <div className="btn-panel d-flex align-items-center justify-content-between">
+                    <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                      <RiShareLine className="me-2" />
+                      share
                     </button>
-                  );
-                })}
+                    <button
+                      className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                      data-bs-toggle="modal"
+                      data-bs-target="#dropHint"
+                    >
+                      drop a hint
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="selector-panel row m-0 py-4">
-              <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
-                <div className="d-flex justify-content-between pb-4 align-items-center">
-                  <h3
-                    htmlFor="selectKarat"
-                    className="d-flex align-items-center m-0 text-uppercase"
-                  >
-                    Ring Size
-                    <RiErrorWarningLine className="ms-2" />
-                  </h3>
+            <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-5">
+              <div className="title-panel">
+                <h3 className="type pb-4 m-0">{renderHTML(productData.vendor)}</h3>
+                <h3 className="title text-capitalize pb-4 m-0">{renderHTML(productData.title)}</h3>
+                <p className="description pb-4 m-0">{renderHTML(productData.body_html)}</p>
+              </div>
+              <div className="confirm-panel">
+                {
+                  productData.options.map((option) => {
+                    return (
+                      <div className="material-setting-panel py-4">
+                        <label
+                          htmlFor="selectKarat"
+                          className="d-flex align-items-center pb-4 text-uppercase"
+                        >
+                          {option.name} : {optionValue ? optionValue : option.values[0]}
+                          <RiErrorWarningLine className="ms-2" />
+                        </label>
+                        <div className="material-box d-flex flex-wrap">
+                          {option.values.map((value, index) => {
+                            return (
+                              <button
+                                className={"btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " + (!optionValue && index == 0 ? 'active' : optionValue == value ? 'active' : '')}
+                                key={index} onClick={() => setOptionValue(value)}
+                              >
+                                {value}
+                              </button>
+                              // <button
+                              //   className="btn btn-material d-flex align-items-center justify-content-center p-2 me-3"
+                              //   key={index}
+                              // >
+                              //   <img
+                              //     src={"/img/product/" + item.meterial}
+                              //     alt="metarial-image"
+                              //   />
+                              // </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+                <div className="selector-panel row m-0 py-4">
+                  <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
+                    <div className="d-flex justify-content-between pb-4 align-items-center">
+                      <h3
+                        htmlFor="selectKarat"
+                        className="d-flex align-items-center m-0 text-uppercase"
+                      >
+                        Ring Size
+                        <RiErrorWarningLine className="ms-2" />
+                      </h3>
+                      <button
+                        className="btn text-uppercase btn-find-size py-1"
+                        onClick={() => setSize(0)}
+                      >
+                        find my size
+                      </button>
+                    </div>
+                    <div className="select-box">
+                      <select
+                        className="form-select blue-text ps-4 round-form py-3"
+                        aria-label="Default select example"
+                        value={size}
+                        onChange={(event) => setSize(event.target.value)}
+                      >
+                        {sizeList.map((item, index) => {
+                          return (
+                            <option value={index} key={index}>
+                              {item.size}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-lg-3 ps-0">
+                    <label
+                      htmlFor="selectKarat"
+                      className="d-flex align-items-center pb-4 text-uppercase"
+                    >
+                      Free Inscription
+                      <RiErrorWarningLine className="ms-2" />
+                    </label>
+                    <button className="btn btn-add-engraving  d-flex justify-content-between align-items-center text-uppercase round-form p-3">
+                      add engraving
+                      <RiArrowRightSLine />
+                    </button>
+                  </div>
+                </div>
+                <div className="cost-panel d-flex justify-content-between align-items-center py-4">
+                  <div className="price-panel">
+                    <h4 className="text-uppercase">total</h4>
+                    <h3 className="blue-text">
+                      <NumberFormat
+                        value={itemPrice * itemAmount}
+                        displayType="text"
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        thousandSeparator={true}
+                        prefix="€ "
+                      />
+                    </h3>
+                  </div>
+                  <div className="amount-panel d-flex align-items-center">
+                    <button
+                      className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-4"
+                      onClick={() =>
+                        itemAmount > 1 && setItemAmount(itemAmount - 1)
+                      }
+                    >
+                      <RiSubtractFill />
+                    </button>
+                    <span className="mx-4">{itemAmount}</span>
+                    <button
+                      className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-4"
+                      onClick={() => setItemAmount(itemAmount + 1)}
+                    >
+                      <RiAddFill />
+                    </button>
+                  </div>
+                </div>
+                <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
                   <button
-                    className="btn text-uppercase btn-find-size py-1"
-                    onClick={() => setSize(0)}
+                    className={
+                      "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
+                      favorItem
+                    }
+                    onClick={() =>
+                      favorItem ? setFavorItem() : setFavorItem("favor")
+                    }
                   >
-                    find my size
+                    <RiHeartFill />
+                  </button>
+                  <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
+                    <button
+                      className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4"
+                      onClick={addCart}
+                    >
+                      add to cart
+                    </button>
+                    <p className="m-0">Price excludes VAT</p>
+                  </div>
+                </div>
+                <div className="help-panel d-flex justify-content-between py-4">
+                  <p className="text-uppercase m-0">Need help?</p>
+                  <div className="link-panel d-flex">
+                    <Link href="#">
+                      <a className="text-uppercase me-4 d-flex align-items-center blue-text">
+                        <RiCustomerService2Fill className="me-2" />
+                        contact
+                      </a>
+                    </Link>
+
+                    <Link href="#">
+                      <a className="text-uppercase d-flex align-items-center blue-text">
+                        <RiChat1Line className="me-2" />
+                        chat
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+                <div className="schedule-panel d-flex align-items-center justify-content-between flex-wrap py-4">
+                  <p className="m-0 text-uppercase">
+                    Not ready to purchase online?
+                  </p>
+                  <button className="btn btn-schedule text-uppercase blue-text my-3 px-5 py-2">
+                    Schedule an appointment
                   </button>
                 </div>
-                <div className="select-box">
-                  <select
-                    className="form-select blue-text ps-4 round-form py-3"
-                    aria-label="Default select example"
-                    value={size}
-                    onChange={(event) => setSize(event.target.value)}
-                  >
-                    {sizeList.map((item, index) => {
-                      return (
-                        <option value={index} key={index}>
-                          {item.size}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
               </div>
-              <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-md-3 ps-0">
-                <label
-                  htmlFor="selectKarat"
-                  className="d-flex align-items-center pb-4 text-uppercase"
-                >
-                  Free Inscription
-                  <RiErrorWarningLine className="ms-2" />
-                </label>
-                <button className="btn btn-add-engraving  d-flex justify-content-between align-items-center text-uppercase round-form p-3">
-                  add engraving
-                  <RiArrowRightSLine />
-                </button>
-              </div>
-            </div>
-            <div className="cost-panel d-flex justify-content-between align-items-center py-4">
-              <div className="price-panel">
-                <h4 className="text-uppercase">total</h4>
-                <h3 className="blue-text">
-                  <NumberFormat
-                    value={itemPrice * itemAmount}
-                    displayType="text"
-                    decimalScale={2}
-                    fixedDecimalScale={true}
-                    thousandSeparator={true}
-                    prefix="€ "
-                  />
-                </h3>
-              </div>
-              <div className="amount-panel d-flex align-items-center">
-                <button
-                  className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-4"
-                  onClick={() =>
-                    itemAmount > 1 && setItemAmount(itemAmount - 1)
-                  }
-                >
-                  <RiSubtractFill />
-                </button>
-                <span className="mx-4">{itemAmount}</span>
-                <button
-                  className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-4"
-                  onClick={() => setItemAmount(itemAmount + 1)}
-                >
-                  <RiAddFill />
-                </button>
-              </div>
-            </div>
-            <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
-              <button
-                className={
-                  "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
-                  favorItem
-                }
-                onClick={() =>
-                  favorItem ? setFavorItem() : setFavorItem("favor")
-                }
-              >
-                <RiHeartFill />
-              </button>
-              <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
-                <button
-                  className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4"
-                  onClick={addCart}
-                >
-                  add to cart
-                </button>
-                <p className="m-0">Price excludes VAT</p>
-              </div>
-            </div>
-            <div className="help-panel d-flex justify-content-between py-4">
-              <p className="text-uppercase m-0">Need help?</p>
-              <div className="link-panel d-flex">
-                <Link href="#">
-                  <a className="text-uppercase me-4 d-flex align-items-center blue-text">
-                    <RiCustomerService2Fill className="me-2" />
-                    contact
-                  </a>
-                </Link>
-
-                <Link href="#">
-                  <a className="text-uppercase d-flex align-items-center blue-text">
-                    <RiChat1Line className="me-2" />
-                    chat
-                  </a>
-                </Link>
-              </div>
-            </div>
-            <div className="schedule-panel d-flex align-items-center justify-content-between flex-wrap py-4">
-              <p className="m-0 text-uppercase">
-                Not ready to purchase online?
-              </p>
-              <button className="btn btn-schedule text-uppercase blue-text my-3 px-5 py-2">
-                Schedule an appointment
-              </button>
             </div>
           </div>
-        </div>
-      </div>
+        ) : (
+          <div className="row r-container mb-5">
+            <div className="col-md-6 col-12 p-0 pt-5 pe-5">
+              <div className="row m-0">
+                <div className="tile-product d-sm-block d-none col-2 p-0 pe-3">
+                  <Skeleton variant="rect" width="100%" height={50} animation="wave" />
+                  <Skeleton variant="rect" width="100%" className="mt-4" height={50} animation="wave" />
+                  <Skeleton variant="rect" width="100%" className="mt-4" height={50} animation="wave" />
+                </div>
+                <div className="main-product col-sm-10 col-12 p-0">
+                  <Skeleton variant="rect" width="100%" height={300} animation="wave" />
+                </div>
+                <div className="tile-product d-sm-none d-flex col-12 p-0 pt-4">
+                  <Skeleton variant="rect" width={50} height={50} animation="wave" />
+                  <Skeleton variant="rect" width={50} className="ms-4" height={50} animation="wave" />
+                  <Skeleton variant="rect" width={50} className="ms-4" height={50} animation="wave" />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 col-12 p-0 pt-5 ps-5">
+              <Skeleton variant='text' width="100%" height={40} className="mb-4" />
+              <Skeleton variant='text' width="100%" height={40} className="mb-4" />
+              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant="text" height={20} width="100%" />
+              <Skeleton variant="text" height={20} width="100%" />
+            </div>
+          </div>
+        )
+      }
       {/* End confirm section */}
 
       {/* Start product detail section */}
@@ -395,6 +465,6 @@ export default function ProductRing() {
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}
-    </div>
+    </div >
   );
 }

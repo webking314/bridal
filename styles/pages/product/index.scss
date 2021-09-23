@@ -105,14 +105,22 @@
           }
           .material-box {
             button {
-              border-radius: 50%;
-              border: 1px solid rgba(1, 33, 92, 0.05);
-              background: white;
-              width: 34px;
-              height: 34px;
-              &:focus {
-                box-shadow: none;
-                border: 1px solid #01215c;
+              // border-radius: 50%;
+              // border: 1px solid rgba(1, 33, 92, 0.05);
+              // background: white;
+              // width: 34px;
+              // height: 34px;
+              // &:focus {
+              //   box-shadow: none;
+              //   border: 1px solid #01215c;
+              // }
+              &.btn-material {
+                background: grey;
+                color: white;
+                font-size: 1.4rem;
+                &.active {
+                  background: rgb(255, 145, 0);
+                }
               }
             }
           }
