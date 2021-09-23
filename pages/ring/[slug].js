@@ -245,9 +245,9 @@ export default function ProductRing() {
               </div>
               <div className="confirm-panel">
                 {
-                  productData.options.map((option) => {
+                  productData.options.map((option, key) => {
                     return (
-                      <div className="material-setting-panel py-4">
+                      <div className="material-setting-panel py-4" key={key}>
                         <label
                           htmlFor="selectKarat"
                           className="d-flex align-items-center pb-4 text-uppercase"
@@ -299,7 +299,7 @@ export default function ProductRing() {
                       </button>
                     </div>
                     <div className="select-box">
-                      {
+                      {/* {
                         sizeList.length &&
                         <select
                           className="form-select blue-text ps-4 round-form py-3"
@@ -315,7 +315,7 @@ export default function ProductRing() {
                             );
                           })}
                         </select>
-                      }
+                      } */}
                     </div>
                   </div>
                   <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-lg-3 ps-0">
