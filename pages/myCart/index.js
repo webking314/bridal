@@ -121,7 +121,7 @@ export default function MyCart() {
                   key={index}
                 >
                   <img
-                    src={item.image}
+                    src={"/img/product/" + item.images[0]}
                     alt="item-image"
                     className="item-image me-4 mb-md-0 mb-5"
                     width="200"
@@ -134,11 +134,11 @@ export default function MyCart() {
                           {item.title}
                         </h3>
                         <p className="cart-style m-0 py-4 text-capitalize">
-                          {item.tag.map((item, index) => (
+                          {/* {item.tag.map((tag, index) => (
                             <span key={index} className="me-3">
-                              {item}
+                              {tag}
                             </span>
-                          ))}
+                          ))} */}
                         </p>
                         <p className="cart-description m-0 text-capitalize">
                           {/* {item.description} */}

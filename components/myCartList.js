@@ -27,19 +27,19 @@ export default function MyCartList() {
               >
                 <div className="item-info col-sm-7 p-0 d-flex align-items-center">
                   <img
-                    src={item.image}
+                    src={'/img/product/' + item.images[0]}
                     className="cart-image me-4 round-form"
                     alt="cart-image"
                   />
                   <div className="text-panel">
                     <h3 className="title blue-text m-0 mb-3">{item.title}</h3>
-                    <p className="cart-type mb-0 mb-2">
+                    {/* <p className="cart-type mb-0 mb-2">
                       {item.tag.map((item, index) => (
                         <span key={index} className="me-3">
                           {item}
                         </span>
                       ))}
-                    </p>
+                    </p> */}
                     <p className="cart-amount mb-0">x{item.amount}</p>
                   </div>
                 </div>

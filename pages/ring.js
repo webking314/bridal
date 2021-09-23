@@ -671,7 +671,7 @@ function Ring(props) {
       setLoad(true)
       let data = new FormData();
       data.append("position", "first:9");
-      data.append("query", ("status:active AND tag:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+      data.append("query", ("status:active AND product_type:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
       setFormData(data);
     }
   }, [checked0, checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9])
@@ -731,7 +731,7 @@ function Ring(props) {
     let query8 = checked8.length > 0 ? (checked8.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
     let query9 = checked9.length > 0 ? (checked9.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
     formData.append("position", `first:9, after:"${lastProduct}"`);
-    formData.append("query", ("status:active AND tag:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+    formData.append("query", ("status:active AND product_type:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
     fetch(productURL, {
       method: "post",
       body: formData,
@@ -743,10 +743,6 @@ function Ring(props) {
         setLoad(false);
       });
   };
-
-  useEffect(() => {
-    console.log(lastProduct)
-  }, [lastProduct])
 
   return (
     <div className="ring_page">
@@ -804,8 +800,8 @@ function Ring(props) {
             );
           })}
         </div>
-        <div className="main-panel d-flex m-0 py-5 justify-content-end">
-          <div className="col-lg-3 col-md-4 col-sm-5 col-12 p-0 pe-sm-4 pe-0 left-filter-bar">
+        <div className="main-panel d-flex m-0 py-5 justify-content-end flex-wrap">
+          <div className="col-lg-3 col-md-4 col-sm-5 col-12 p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
             {leftFilterItems.length && leftFilterItems.map((item, index) => {
               return (
                 <div className="accordion-item mb-3" key={index}>
@@ -838,7 +834,7 @@ function Ring(props) {
             })}
           </div>
           {/* {false ? ( */}
-          {productData && productData.length > 0 ? (
+          {!load && productData && productData.length > 0 ? (
             <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 product-panel m-0">
               <div className='row m-0'>
                 {productData.map((item, index) => {
@@ -864,7 +860,7 @@ function Ring(props) {
                               ))}
                           </p>
                           {+item.Fullprice > +item.price ? (
-                            <div className="d-flex price-panel mb-5">
+                            <div className="d-flex price-panel">
                               <h4 className="blue-text me-3">
                                 <NumberFormat
                                   value={item.price}
@@ -887,7 +883,7 @@ function Ring(props) {
                               </h4>
                             </div>
                           ) : (
-                            <div className="price-panel mb-5">
+                            <div className="price-panel">
                               <h4 className="blue-text me-3">
                                 <NumberFormat
                                   value={item.Fullprice}

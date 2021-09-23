@@ -87,6 +87,14 @@
             height: 100%;
           }
         }
+        
+        @media (max-width: 767px) {
+          width: 100px;
+          height: 85px;
+          h3 {
+            font-size: 1rem;
+          }
+        }
       }
     }
 
@@ -101,7 +109,7 @@
           position: relative;
 
           .product-image {
-            height: 70%;
+            height: 300px;
             width: 100%;
             overflow: hidden;
             box-shadow: 0 0 5px #c4c4c4;
