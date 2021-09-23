@@ -1,22 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import Header from "../components/header";
-import Footer from "../components/footer";
-import Schedule from "../components/schedule";
-import Collection from "../components/collection";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import Schedule from "../../components/schedule";
+import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import { Skeleton } from "@material-ui/lab";
 import _ from "lodash";
 import NumberFormat from "react-number-format";
 import { connect } from "react-redux";
-import { setWishList } from '../redux/actions/wishListAction';
+import { setWishList } from '../../redux/actions/wishListAction';
 import CheckboxTree from 'react-checkbox-tree';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquare, faCheckSquare, faFolder, faFile, faChevronRight, faFolderOpen, faChevronDown, faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
-
 import CheckBox from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
@@ -105,119 +101,6 @@ const productItems = [
   },
 ];
 
-const leftFilters = [
-  {
-    title: "price",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Collection",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Style",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Mounting",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Brand",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Stone",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Brightness",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Cut",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Material",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-  {
-    title: "Material color",
-    properties: [
-      "Empress Collection",
-      "Rainbow Collection",
-      "Luna Collection",
-      "Touch of Glam Collection",
-      "Wedding Rings Collection",
-      "NIKKIE x Royal Coster Diamonds",
-    ],
-  },
-];
-
 const productURL = "https://royalcoster.nl/api/product/index.php";
 const metarialURL = "https://costercatalog.com/api/index.php?request=getMaterialsGroupedNew";
 const materialColorURL = "https://costercatalog.com/api/index.php?request=generateAttributesColor&sync=1'"
@@ -247,11 +130,6 @@ function getFilterValue(str) {
     str = str.replace(/\A-+/, "");
   }
   return str
-}
-
-function getFilterData(data) {
-  console.log(data)
-  let middleArr = [];
 }
 
 const firstFilterItem = [
@@ -303,14 +181,11 @@ function Ring(props) {
   const [result, setResult] = useState("878");
   const [tags, setTags] = useState(["Rings"]);
   const [selectValue, setSelectValue] = useState("POPULAR");
-  const [products, setProducts] = useState([...productItems]);
   const [selectFilter, setSelectFilter] = useState([]);
   const [productData, setProductData] = useState([]);
   const [lastProduct, setLastProduct] = useState();
-  const [favorProduct, setFavorProduct] = useState();
   const [leftFilterItems, setLeftFilterItems] = useState(firstFilterItem);
   const [load, setLoad] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState([]);
   const [formData, setFormData] = useState();
   const [checked0, setChecked0] = useState([]);
   const [checked1, setChecked1] = useState([]);
@@ -326,6 +201,7 @@ function Ring(props) {
   const [totalFilterItems, setTotalFilterItems] = useState([]);
   const [cTagLastAdd, setCTagLastAdd] = useState(1);
   const [cTags, setCTags] = useState([]);
+  const [loadMoreStatus, setLoadMoreStatus] = useState(false);
 
   useEffect(() => {
     if (formData) {
@@ -336,7 +212,6 @@ function Ring(props) {
         .then((res) => res.json())
         .then((data) => {
           setLoad(false);
-          console.log(data.hasNextPage)
           data.hasNextPage == 'Yes' ? setLastProduct(data.last) : setLastProduct(false);
           setProductData(data.data);
           if (localStorage.wishList) {
@@ -348,6 +223,7 @@ function Ring(props) {
 
   useEffect(() => {
     if (cTags) {
+      console.log(cTags)
       fetch(styleURL, {
         method: 'get',
         headers,
@@ -619,7 +495,7 @@ function Ring(props) {
     } else {
       formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
     }
-    formData.append('query', 'status:active AND tag:Rings');
+    formData.append('query', 'status:active AND product_type:Rings');
     fetch(CTagURL, {
       method: 'post',
       body: formData,
@@ -718,7 +594,7 @@ function Ring(props) {
   };
 
   const loadMore = () => {
-    setLoad(true);
+    setLoadMoreStatus(true);
     let formData = new FormData();
     let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
     let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
@@ -740,7 +616,7 @@ function Ring(props) {
       .then((data) => {
         data.hasNextPage == "Yes" ? setLastProduct(data.last) : setLastProduct(false);
         setProductData([...productData, ...data.data]);
-        setLoad(false);
+        setLoadMoreStatus(false);
       });
   };
 
@@ -918,6 +794,72 @@ function Ring(props) {
                   );
                 })}
               </div>
+              {
+                loadMoreStatus && (
+                  <div className="m-0 row">
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        width="100%"
+                        height={300}
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="text"
+                        width={100}
+                        height={20}
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="text"
+                        width="100%"
+                        height={40}
+                      />
+                    </div>
+                    <div className="col-lg-4 col-md-6 col-12 mt-4">
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        width="100%"
+                        height={300}
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="text"
+                        width={100}
+                        height={20}
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="text"
+                        width="100%"
+                        height={40}
+                      />
+                    </div>
+                    <div className="col-lg-4 col-md-6 col-12 mt-4 d-lg-block d-none">
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        width="100%"
+                        height={300}
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="text"
+                        width={100}
+                        height={20}
+                      />
+                      <Skeleton
+                        animation="wave"
+                        variant="text"
+                        width="100%"
+                        height={40}
+                      />
+                    </div>
+                  </div>
+                )
+              }
               {lastProduct && (
                 <button
                   className="btn load-more-btn text-uppercase py-3 px-5 round-form"
