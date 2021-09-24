@@ -363,7 +363,7 @@ export default function Blog() {
                 {
                   <div className="row m-0">
                     <Link
-                      props="sasfd"
+                      passHref={true}
                       href={{
                         pathname: "/blog/[slug]",
                         query: {
@@ -418,7 +418,7 @@ export default function Blog() {
                     {postItems.map((item, index) => {
                       if (index % 3 == 2)
                         return (
-                          <Link href={"/blog/" + item.slug} key={index}>
+                          <Link passHref={true} href={"/blog/" + item.slug} key={index}>
                             <a>
                               <div className="blog-box pt-5 pe-sm-5" key={index}>
                                 <div className="round blog-image">
@@ -467,7 +467,7 @@ export default function Blog() {
                     {postItems.map((item, index) => {
                       if ((index != 0) & (index % 3 == 0))
                         return (
-                          <Link href={"/blog/" + item.slug} key={index}>
+                          <Link passHref={true} href={"/blog/" + item.slug} key={index}>
                             <a>
                               <div
                                 className="blog-box pt-5 pe-md-5 pe-0 ps-md-0 ps-sm-5"
@@ -526,7 +526,7 @@ export default function Blog() {
                         (Math.ceil((postItems.length - 1) / 3) * 3 - 2 > index)
                       )
                         return (
-                          <Link href={"/blog/" + item.slug} key={index}>
+                          <Link passHref={true} href={"/blog/" + item.slug} key={index}>
                             <a>
                               <div className="blog-box pt-5 pe-md-0 pe-sm-5">
                                 <div className="round blog-image">
@@ -578,7 +578,7 @@ export default function Blog() {
                         (Math.ceil((postItems.length - 1) / 3) * 3 - 2 <= index)
                       )
                         return (
-                          <Link href={"/blog/" + item.slug} key={index}>
+                          <Link passHref={true} href={"/blog/" + item.slug} key={index}>
                             <a>
                               <div className="blog-box pt-5 ps-md-0 ps-sm-5">
                                 <div className="round blog-image">

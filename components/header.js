@@ -277,7 +277,7 @@ function Header(props) {
         <div className="scroll-header dr-none px-5">
           <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
             <div className="d-flex p-0 left-menu flex-1 flex-wrap py-2 ">
-              <Link href="/">
+              <Link  passHref={true} href="/">
                 <a className="me-5">
                   <img src="/img/common/mobile_logo.png" alt="logo" />
                 </a>
@@ -286,7 +286,7 @@ function Header(props) {
                 if (submenu.megaMenu)
                   return (
                     <div className="sub-item" key={index}>
-                      <Link href={submenu.url}>
+                      <Link  passHref={true} href={submenu.url}>
                         <a className="btn ps-0 py-0 pe-5 pt-3">
                           <span>{submenu.title}</span>
                           <hr className="mt-2" />
@@ -306,7 +306,7 @@ function Header(props) {
                                   </h2>
                                   {menu.menu.map((item, id) => {
                                     return (
-                                      <Link href={item.url} key={id}>
+                                      <Link  passHref={true} href={item.url} key={id}>
                                         <a>
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
@@ -339,7 +339,7 @@ function Header(props) {
                                 <h3 className="my-3">
                                   {submenu.imagePanel.title}
                                 </h3>
-                                <Link href={submenu.imagePanel.url}>
+                                <Link  passHref={true} href={submenu.imagePanel.url}>
                                   <a>
                                     <p className="link-item">Learn More</p>
                                   </a>
@@ -353,7 +353,7 @@ function Header(props) {
                   );
                 else
                   return (
-                    <Link key={index} href={submenu.url}>
+                    <Link  passHref={true} key={index} href={submenu.url}>
                       <a className="pe-5 pt-3 sub-item">
                         {submenu.title}
                         <hr className="mt-2" />
@@ -382,7 +382,7 @@ function Header(props) {
               <RiHeartLine />
             </button>
 
-            <Link href="/myCart">
+            <Link  passHref={true} href="/myCart">
               <a className="btn cart-link d-flex me-4">
                 <RiShoppingCartLine className="font-icon" />
               </a>
@@ -398,7 +398,7 @@ function Header(props) {
         </div>
         <div className="row m-0 px-5 py-3 top-bar">
           <div className="r-container d-flex justify-content-between align-items-center">
-            <Link href="#">
+            <Link  passHref={true} href="#">
               <a>WHY ROYAL COSTER ?</a>
             </Link>
             <ReactFlagsSelect
@@ -420,7 +420,7 @@ function Header(props) {
           <div className="r-container d-flex justify-content-between">
             <div className="d-flex left-menu align-items-center">
               <nav>
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiMapPin2Line />
                     FIND A STORE
@@ -428,7 +428,7 @@ function Header(props) {
                 </Link>
               </nav>
               <nav className="mx-5">
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiServiceLine />
                     SERVICES
@@ -436,7 +436,7 @@ function Header(props) {
                 </Link>
               </nav>
               <nav>
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiCustomerService2Fill />
                     CONTACT US
@@ -446,7 +446,7 @@ function Header(props) {
             </div>
             <div className="d-flex right-menu align-items-center">
               <nav>
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiUser3Line />
                     NEWSLETTER
@@ -454,7 +454,7 @@ function Header(props) {
                 </Link>
               </nav>
               <nav className="mx-5">
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiMailSendLine />
                     MY ACCOUNT
@@ -478,7 +478,7 @@ function Header(props) {
           <div className="r-container d-flex align-items-center">
             <div className="col-4 px-0"></div>
             <div className="col-4 px-0 text-center">
-              <Link href="/">
+              <Link  passHref={true} href="/">
                 <a>
                   <img
                     src={
@@ -502,7 +502,7 @@ function Header(props) {
               >
                 <RiSearchLine className="font-icon" />
               </button>
-              <Link href="/myCart">
+              <Link  passHref={true} href="/myCart">
                 <a className="btn me-4">
                   <RiShoppingCartLine className="font-icon" />
                 </a>
@@ -517,7 +517,7 @@ function Header(props) {
                 if (submenu.megaMenu) {
                   return (
                     <div className="sub-item" key={index}>
-                      <Link href={submenu.url}>
+                      <Link  passHref={true} href={submenu.url}>
                         <a className="btn ps-0 py-0 pe-5 pt-3">
                           <span>{submenu.title}</span>
                           <hr className="mt-2" />
@@ -537,7 +537,7 @@ function Header(props) {
                                   </h2>
                                   {menu.menu.map((item, id) => {
                                     return (
-                                      <Link href={item.url} key={id}>
+                                      <Link  passHref={true} href={item.url} key={id}>
                                         <a>
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
@@ -570,7 +570,7 @@ function Header(props) {
                                 <h3 className="my-3">
                                   {submenu.imagePanel.title}
                                 </h3>
-                                <Link href={submenu.imagePanel.url}>
+                                <Link  passHref={true} href={submenu.imagePanel.url}>
                                   <a>
                                     <p className="mb-0 link-item">Learn More</p>
                                   </a>
@@ -584,7 +584,7 @@ function Header(props) {
                   );
                 } else
                   return (
-                    <Link key={index} href={submenu.url}>
+                    <Link  passHref={true} key={index} href={submenu.url}>
                       <a className="pt-3 pe-5 sub-item">
                         <span>{submenu.title}</span>
                         <hr className="mt-2" />
@@ -605,7 +605,7 @@ function Header(props) {
       </div>
       <div className="mobile-header dr-none d-lg-none d-block">
         <div className="mobile__top-bar d-flex justify-content-between align-items-center px-5 py-4 text-white">
-          <Link href="/">
+          <Link  passHref={true} href="/">
             <a className="d-flex align-items-center">
               <RiUser3Line className="me-3" />
               MY ACCOUNT
@@ -626,7 +626,7 @@ function Header(props) {
           />
         </div>
         <div className="mobile__sub-bar d-flex justify-content-between align-items-center px-5 py-4">
-          <Link href="#">
+          <Link  passHref={true} href="#">
             <a>
               <img
                 src="/img/common/mobile_logo.png"
@@ -661,7 +661,7 @@ function Header(props) {
               <RiHeartLine />
             </button>
 
-            <Link href="/myCart">
+            <Link  passHref={true} href="/myCart">
               <a className="btn d-flex me-4">
                 <RiShoppingCartLine className="font-icon" />
               </a>
@@ -720,7 +720,7 @@ function Header(props) {
                             <h2>{menu.title}</h2>
                             {menu.menu.map((item, id) => {
                               return (
-                                <Link href={item.url} key={id}>
+                                <Link  passHref={true} href={item.url} key={id}>
                                   <a>
                                     {item.img ? (
                                       <div className="link-item my-5 d-flex align-items-center">
@@ -753,7 +753,7 @@ function Header(props) {
                         />
                         <div className="sub_title-panel">
                           <h3 className="my-5">{submenu.imagePanel.title}</h3>
-                          <Link href={submenu.imagePanel.url}>
+                          <Link  passHref={true} href={submenu.imagePanel.url}>
                             <a>
                               <p className="link-item">Learn More</p>
                             </a>
@@ -766,7 +766,7 @@ function Header(props) {
               );
             } else {
               return (
-                <Link href={submenu.url} key={index}>
+                <Link  passHref={true} href={submenu.url} key={index}>
                   <a className="submenu py-4">{submenu.title}</a>
                 </Link>
               );
@@ -783,21 +783,21 @@ function Header(props) {
           <div className="contact-panel text-center mt-5">
             <h3>Contact Us</h3>
             <div className="contact-links d-flex justify-content-around mt-5">
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a>
                   <div className="contact-item d-flex align-items-center justify-content-center">
                     <RiMapPin2Line />
                   </div>
                 </a>
               </Link>
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a>
                   <div className="contact-item d-flex align-items-center justify-content-center">
                     <RiMessageLine />
                   </div>
                 </a>
               </Link>
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a>
                   <div className="contact-item d-flex align-items-center justify-content-center">
                     <RiMailLine />

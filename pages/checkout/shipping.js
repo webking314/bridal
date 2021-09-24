@@ -68,11 +68,11 @@ export default function Shipping() {
               >
                 <HiOutlineArrowLeft />
               </button>
-              <Link href="/myCart">
+              <Link passHref={true}  href="/myCart">
                 <a className="mx-2 text-uppercase">Shopping cart</a>
               </Link>
               /
-              <Link href="/checkout/information">
+              <Link passHref={true}  href="/checkout/information">
                 <a className="mx-2 text-uppercase">information</a>
               </Link>
               /
@@ -80,7 +80,7 @@ export default function Shipping() {
                 Shipping
               </span>
               /
-              <Link href="/checkout/payment">
+              <Link passHref={true}  href="/checkout/payment">
                 <a className="mx-2 text-uppercase">Payment</a>
               </Link>
             </div>
@@ -96,7 +96,7 @@ export default function Shipping() {
                     <h3 className="m-0 me-4">Contact</h3>
                     <p className="m-0">{shippingData.contact.email}</p>
                   </div>
-                  <Link href="/checkout/information">
+                  <Link passHref={true}  href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -115,7 +115,7 @@ export default function Shipping() {
                         shippingData.address.country}
                     </p>
                   </div>
-                  <Link href="/checkout/information">
+                  <Link passHref={true}  href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -140,7 +140,7 @@ export default function Shipping() {
                     />
                     <h3 className="ps-5 m-0 ms-5">Standard</h3>
                   </div>
-                  <Link href="#">
+                  <Link passHref={true}  href="#">
                     <a className="blue-text text-decoration-underline">Free</a>
                   </Link>
                 </label>

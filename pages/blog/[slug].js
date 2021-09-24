@@ -179,11 +179,11 @@ export default function Brief() {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link href="/">
+          <Link passHref={true}  href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link href="/blog">
+          <Link passHref={true}  href="/blog">
             <a className="mx-2">BLOG</a>
           </Link>
           /
@@ -257,32 +257,32 @@ export default function Brief() {
                 <hr className="line" />
                 <div className="links-panel mt-4 d-flex justify-content-between">
                   {facebookLink && (
-                    <Link href={facebookLink}>
+                    <Link passHref={true}  href={facebookLink}>
                       <a>
                         <RiFacebookCircleFill />
                       </a>
                     </Link>
                   )}
                   {twitterLink && (
-                    <Link href={twitterLink}>
+                    <Link passHref={true}  href={twitterLink}>
                       <a>
                         <RiTwitterFill />
                       </a>
                     </Link>
                   )}
-                  <Link href="#">
+                  <Link passHref={true}  href="#">
                     <a>
                       <RiInstagramFill />
                     </a>
                   </Link>
                   {linkdinLink && (
-                    <Link href={linkdinLink}>
+                    <Link passHref={true}  href={linkdinLink}>
                       <a>
                         <RiLinkedinFill />
                       </a>
                     </Link>
                   )}
-                  <Link href="#">
+                  <Link passHref={true}  href="#">
                     <a>
                       <RiWhatsappFill />
                     </a>
@@ -301,7 +301,7 @@ export default function Brief() {
           <div className="link-panel-cover d-md-block d-none">
             <div className="link-panel">
               {facebookLink && (
-                <Link href={facebookLink}>
+                <Link passHref={true}  href={facebookLink}>
                   <a>
                     <div className="link-item d-flex align-items-center justify-content-center mb-3">
                       <RiFacebookLine />
@@ -310,7 +310,7 @@ export default function Brief() {
                 </Link>
               )}
               {twitterLink && (
-                <Link href={twitterLink}>
+                <Link passHref={true}  href={twitterLink}>
                   <a>
                     <div className="link-item d-flex align-items-center justify-content-center mb-3">
                       <RiTwitterLine />
@@ -318,7 +318,7 @@ export default function Brief() {
                   </a>
                 </Link>
               )}
-              <Link href="#">
+              <Link passHref={true}  href="#">
                 <a>
                   <div className="link-item d-flex align-items-center justify-content-center mb-3">
                     <RiInstagramLine />
@@ -326,7 +326,7 @@ export default function Brief() {
                 </a>
               </Link>
               {linkdinLink && (
-                <Link href={linkdinLink}>
+                <Link passHref={true}  href={linkdinLink}>
                   <a>
                     <div className="link-item d-flex align-items-center justify-content-center mb-3">
                       <RiLinkedinLine />
@@ -334,7 +334,7 @@ export default function Brief() {
                   </a>
                 </Link>
               )}
-              <Link href="#">
+              <Link passHref={true}  href="#">
                 <a>
                   <div className="link-item d-flex align-items-center justify-content-center">
                     <RiWhatsappLine />
@@ -359,7 +359,7 @@ export default function Brief() {
             </h2>
           </div>
           <div className="col-6 p-0 justify-content-end d-md-flex d-none align-items-end">
-            <Link href="#">
+            <Link passHref={true}  href="#">
               <a>VIEW ALL</a>
             </Link>
           </div>

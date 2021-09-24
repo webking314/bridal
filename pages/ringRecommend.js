@@ -182,14 +182,14 @@ export default function RingRecommend() {
               <div className="title-panel d-flex justify-content-between align-items-center flex-sm-row flex-column py-sm-5 py-4">
                 <h3 className="text-uppercase m-0 mb-sm-0 mb-sm-5 mb-3">Need Help?</h3>
                 <div className="link-panel d-flex">
-                  <Link href="#">
+                  <Link passHref={true}  href="#">
                     <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                       <RiCustomerService2Fill className="me-2" />
                       contact
                     </a>
                   </Link>
 
-                  <Link href="#">
+                  <Link passHref={true}  href="#">
                     <a className="text-uppercase d-flex align-items-center blue-text">
                       <RiChat1Line className="me-2" />
                       chat

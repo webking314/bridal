@@ -19,12 +19,12 @@ export default function Help() {
                 Tell us your budget and preferences and we’ll find you the right
                 diamond and setting.
               </p>
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a className="design-service pink-btn round-form text-uppercase py-4 px-5 mb-4">
                   Custom Design Services
                 </a>
               </Link>
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a className="upgrade-diamond blue-btn round-form py-4 text-uppercase px-5 d-flex justify-content-between align-items-center">
                   <p className="m-0 p-0">Upgrade your Diamonds</p>
                   <img

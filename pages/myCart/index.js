@@ -140,7 +140,7 @@ export default function MyCart() {
                           </span>
                         </p>
                         <p className="cart-description m-0 text-capitalize">
-                          {renderHTML(item.description)}
+                          {renderHTML(item.description.split('<p>')[0])}
                         </p>
                       </div>
                       <div className="col-lg-6 col-12 cost-panel p-0 d-flex justify-content-between flex-sm-row flex-column ps-lg-5 ps-0 pt-lg-0 pt-5">
@@ -161,7 +161,9 @@ export default function MyCart() {
                             <button
                               className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-2"
                               onClick={() => {
-                                items[index].amount = item.amount + 1;
+                                if (items[index].amunt < item.maxCount) {
+                                  items[index].amount = item.amount + 1;
+                                }
                                 setItems([...items]);
                               }}
                             >
@@ -212,14 +214,14 @@ export default function MyCart() {
               <div className="title-panel d-flex justify-content-between align-items-center flex-sm-row flex-column py-5">
                 <h3 className="text-uppercase m-0 mb-sm-0 mb-5">Need Help?</h3>
                 <div className="link-panel d-flex">
-                  <Link href="#">
+                  <Link passHref={true} href="#">
                     <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                       <RiCustomerService2Fill className="me-2" />
                       contact
                     </a>
                   </Link>
 
-                  <Link href="#">
+                  <Link passHref={true} href="#">
                     <a className="text-uppercase d-flex align-items-center blue-text">
                       <RiChat1Line className="me-2" />
                       chat
@@ -293,6 +295,6 @@ export default function MyCart() {
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}
-    </div>
+    </div >
   );
 }

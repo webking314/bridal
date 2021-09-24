@@ -120,7 +120,7 @@ function ProductRing(props) {
   const addCart = (e) => {
     e.preventDefault();
     let currentSize = size ? size : sizeList[0];
-    let productItem = { shopifyid: productData.id, size: currentSize, description: productData.body_html, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, product_type: "Rings" };
+    let productItem = { shopifyid: productData.id, size: currentSize, maxCount: productData.available, description: productData.body_html, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, product_type: "Rings" };
     router.push("/myCart");
     if (localStorage.products) {
       let productStore = JSON.parse(localStorage.products);
@@ -220,11 +220,11 @@ function ProductRing(props) {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link href="/">
+          <Link passHref={true}  href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link href="/ring">
+          <Link passHref={true}  href="/ring">
             <a className="mx-2">RINGS</a>
           </Link>
           /
@@ -399,7 +399,7 @@ function ProductRing(props) {
                     <span className="mx-4">{itemAmount}</span>
                     <button
                       className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-4"
-                      onClick={() => itemAmount <= productData.available && setItemAmount(itemAmount + 1)}
+                      onClick={() => itemAmount < productData.available && setItemAmount(itemAmount + 1)}
                     >
                       <RiAddFill />
                     </button>
@@ -430,14 +430,14 @@ function ProductRing(props) {
                 <div className="help-panel d-flex justify-content-between py-4">
                   <p className="text-uppercase m-0">Need help?</p>
                   <div className="link-panel d-flex">
-                    <Link href="#">
+                    <Link passHref={true}  href="#">
                       <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                         <RiCustomerService2Fill className="me-2" />
                         contact
                       </a>
                     </Link>
 
-                    <Link href="#">
+                    <Link passHref={true}  href="#">
                       <a className="text-uppercase d-flex align-items-center blue-text">
                         <RiChat1Line className="me-2" />
                         chat

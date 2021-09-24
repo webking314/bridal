@@ -156,7 +156,7 @@ export default function OurStory() {
           <h3 className="blue-text">
             The More Facets, More Sparkle, more Fire, The Royal 201
           </h3>
-          <Link href="#">
+          <Link passHref={true}  href="#">
             <a className="text-uppercase d-flex align-items-center mt-5">
               More Details <RiPlayFill className="ms-3" />
             </a>
@@ -179,7 +179,7 @@ export default function OurStory() {
           <div className="row">
             {educationItems.map((item, index) => {
               return (
-                <Link href="#" key={index}>
+                <Link passHref={true}  href="#" key={index}>
                   <a className="col-lg-4 col-6 mb-5">
                     <div>
                       <div className="image-panel hover-scale round">

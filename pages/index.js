@@ -63,7 +63,7 @@ export default function Home() {
         {categories.map((item, index) => {
           return (
             <div className="col-lg-3 col-sm-6 col-12 p-0 mb-4" key={index}>
-              <Link href={item.url}>
+              <Link passHref={true}  href={item.url}>
                 <a>
                   <div className="category-item round">
                     <img src={"/img/homepage/" + item.img} alt="category" />

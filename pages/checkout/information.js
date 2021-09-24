@@ -103,7 +103,7 @@ export default function Information() {
               >
                 <HiOutlineArrowLeft />
               </button>
-              <Link href="/myCart">
+              <Link passHref={true}  href="/myCart">
                 <a className="mx-2 text-uppercase">Shopping cart</a>
               </Link>
               /
@@ -111,11 +111,11 @@ export default function Information() {
                 information
               </span>
               /
-              <Link href="/checkout/shipping">
+              <Link passHref={true}  href="/checkout/shipping">
                 <a className="mx-2 text-uppercase">Shipping</a>
               </Link>
               /
-              <Link href="/checkout/payment">
+              <Link passHref={true}  href="/checkout/payment">
                 <a className="mx-2 text-uppercase">Payment</a>
               </Link>
             </div>
@@ -126,7 +126,7 @@ export default function Information() {
                 <div className="contact-panel">
                   <div className="title-panel d-flex justify-content-between py-4">
                     <h3 className="title m-0">Contact</h3>
-                    <Link href="#">
+                    <Link passHref={true}  href="#">
                       <a className="blue-text text-decoration-underline">
                         Sign In
                       </a>

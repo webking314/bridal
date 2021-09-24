@@ -796,12 +796,13 @@ function Ring(props) {
                       key={index}
                     >
                       <Link
+                        passHref={true}
                         href={{
                           pathname: "/ring/[slug]",
                           query: {
                             slug: getFilterValue(item.title) + "-" + item.shopifyid,
                           },
-                        }} >
+                        }}>
                         <a>
                           <div className="product-image hover-scale d-flex justify-content-center align-items-center round">
                             <img src={item.image} alt="product-image" />

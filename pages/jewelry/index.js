@@ -257,7 +257,7 @@ export default function Jewelry() {
             if (item.url)
               return (
                 <div className="product-item" key={index}>
-                  <Link href={item.url}>
+                  <Link passHref={true}  href={item.url}>
                     <a>
                       <div className="product-image d-flex justify-content-center align-items-center round">
                         <img

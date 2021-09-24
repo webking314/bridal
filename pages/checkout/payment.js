@@ -106,15 +106,15 @@ export default function Payment() {
               >
                 <HiOutlineArrowLeft />
               </button>
-              <Link href="/myCart">
+              <Link passHref={true}  href="/myCart">
                 <a className="mx-2 text-uppercase">Shopping cart</a>
               </Link>
               /
-              <Link href="/checkout/information">
+              <Link passHref={true}  href="/checkout/information">
                 <a className="mx-2 text-uppercase">information</a>
               </Link>
               /
-              <Link href="/checkout/shipping">
+              <Link passHref={true}  href="/checkout/shipping">
                 <a className="mx-2 text-uppercase">Shipping</a>
               </Link>
               /
@@ -131,7 +131,7 @@ export default function Payment() {
                     <h3 className="m-0 me-4">Contact</h3>
                     <p className="m-0">{shippingData.contact.email}</p>
                   </div>
-                  <Link href="/checkout/information">
+                  <Link passHref={true}  href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -150,7 +150,7 @@ export default function Payment() {
                         shippingData.address.country}
                     </p>
                   </div>
-                  <Link href="/checkout/information">
+                  <Link passHref={true}  href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -164,7 +164,7 @@ export default function Payment() {
                       {shippingData.shippingMethod == "free" ? "Free" : "None"}
                     </p>
                   </div>
-                  <Link href="/checkout/shipping">
+                  <Link passHref={true}  href="/checkout/shipping">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>

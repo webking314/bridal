@@ -247,15 +247,15 @@ export default function ChooseSetting() {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link href="/">
+          <Link passHref={true}  href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link href="/ring">
+          <Link passHref={true}  href="/ring">
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /
-          <Link href="#">
+          <Link passHref={true}  href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -271,7 +271,7 @@ export default function ChooseSetting() {
             <HiOutlineArrowLeft />
           </button>
           ...
-          <Link href="#">
+          <Link passHref={true}  href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -447,7 +447,7 @@ export default function ChooseSetting() {
             if (item.url)
               return (
                 <div className="mb-5 p-0 product-item" key={index}>
-                  <Link href={item.url}>
+                  <Link passHref={true}  href={item.url}>
                     <a>
                       <div className="product-image d-flex justify-content-center align-items-center round">
                         <img

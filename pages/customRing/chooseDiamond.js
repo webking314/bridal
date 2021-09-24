@@ -285,15 +285,15 @@ export default function ChooseDiamond() {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link href="/">
+          <Link passHref={true}  href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link href="/ring">
+          <Link passHref={true}  href="/ring">
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /
-          <Link href="#">
+          <Link passHref={true}  href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -309,7 +309,7 @@ export default function ChooseDiamond() {
             <HiOutlineArrowLeft />
           </button>
           ...
-          <Link href="#">
+          <Link passHref={true}  href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -552,7 +552,7 @@ export default function ChooseDiamond() {
         <div className="main-panel row py-5 m-0">
           {products.map((item, index) => {
             return (
-              <Link href="/customRing/confirmDiamond" key={index}>
+              <Link passHref={true}  href="/customRing/confirmDiamond" key={index}>
                 <a className="product-item col-lg-3 col-md-4 col-sm-6 col-12 pe-4 p-0 mb-5">
                   <div className="product-image round">
                     <img

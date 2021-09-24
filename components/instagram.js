@@ -23,21 +23,21 @@ export default function Instagram() {
           <div className="col-md-6 col-12 p-0 d-flex flex-column justify-content-end link-panel">
             <div className="mx-0 text-md-end text-start">
               Follow{" "}
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a className="text-primary">#Royalcoster</a>
               </Link>{" "}
               @Instagram For
             </div>
             <div className="mx-0 text-md-end text-start">
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a className="text-primary">#Diamondstories</a>
               </Link>
               ,{" "}
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a className="text-primary">#Inspiration</a>
               </Link>{" "}
               &{" "}
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a className="text-primary">#Amsterdiamonds</a>
               </Link>
             </div>
@@ -50,7 +50,7 @@ export default function Instagram() {
           <div className="col-md-6 col-12 m-0 p-0 d-flex flex-column justify-content-between">
             <div className="row m-0 p-0">
               <div className="col-6 d-flex m-0 p-0">
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="instagram-link gallery-type-1">
                     <div className="gallery-item round">
                       <img
@@ -65,7 +65,7 @@ export default function Instagram() {
                 </Link>
               </div>
               <div className="col-6 d-flex m-0 p-0">
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="instagram-link gallery-type-1">
                     <div className="gallery-item round">
                       <img
@@ -81,7 +81,7 @@ export default function Instagram() {
               </div>
             </div>
             <div className="row m-0 p-0">
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a className="instagram-link p-0 gallery-type-1">
                   <div className="gallery-item round">
                     <img
@@ -100,7 +100,7 @@ export default function Instagram() {
             <div className="row m-0 p-0">
               <div className="col-6 p-0">
                 <div className="row m-0 p-0">
-                  <Link href="#">
+                  <Link  passHref={true} href="#">
                     <a className="instagram-link p-0 gallery-type-1">
                       <div className="gallery-item round">
                         <img
@@ -115,7 +115,7 @@ export default function Instagram() {
                   </Link>
                 </div>
                 <div className="row m-0 p-0">
-                  <Link href="#">
+                  <Link  passHref={true} href="#">
                     <a className="instagram-link p-0 gallery-type-1">
                       {/* <img src="/img/homepage/Rectangle 35.png"  className="round" alt="gallery-img" /> */}
                       <div className="gallery-item round">
@@ -131,7 +131,7 @@ export default function Instagram() {
                 </div>
               </div>
               <div className="col-6 d-flex p-0">
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="instagram-link gallery-type-2">
                     <div className="gallery-item round">
                       <img

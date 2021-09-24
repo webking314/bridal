@@ -60,7 +60,7 @@ export default function AboutSlider({ slides, btnDisable, componentProduct }) {
         {slides.map((item, index) => {
           return (
             <SwiperSlide key={index}>
-              <Link href="#">
+              <Link  passHref={true} href="#">
                 <a>
                   <div className="image-panel hover-scale round">
                     {componentProduct ? (
@@ -84,7 +84,7 @@ export default function AboutSlider({ slides, btnDisable, componentProduct }) {
                 </a>
               </Link>
               {item.moreDetail && (
-                <Link href="#">
+                <Link  passHref={true} href="#">
                   <a className="text-uppercase d-flex align-items-center">
                     More Details <RiPlayFill className="ms-3" />
                   </a>

@@ -147,11 +147,11 @@ export default function ProductWatch() {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link href="/">
+          <Link passHref={true}  href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link href="/ring">
+          <Link passHref={true}  href="/ring">
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /
@@ -265,14 +265,14 @@ export default function ProductWatch() {
             <div className="help-panel d-flex justify-content-between py-4">
               <p className="text-uppercase m-0">Need help?</p>
               <div className="link-panel d-flex">
-                <Link href="#">
+                <Link passHref={true}  href="#">
                   <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                     <RiCustomerService2Fill className="me-2" />
                     contact
                   </a>
                 </Link>
 
-                <Link href="#">
+                <Link passHref={true}  href="#">
                   <a className="text-uppercase d-flex align-items-center blue-text">
                     <RiChat1Line className="me-2" />
                     chat
