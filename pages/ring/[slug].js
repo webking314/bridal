@@ -126,7 +126,9 @@ function ProductRing(props) {
       let productStore = JSON.parse(localStorage.products);
       let setItem = productStore.find((item, index) => item.shopifyid == productItem.shopifyid);
       if (setItem) {
-        setItem.amount += itemAmount;
+        if (setItem.maxCount > setItem.amount) {
+          setItem.amount += itemAmount;
+        }
         localStorage.setItem("products", JSON.stringify(productStore));
       } else {
         localStorage.setItem(
@@ -220,11 +222,11 @@ function ProductRing(props) {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link passHref={true}  href="/">
+          <Link passHref={true} href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link passHref={true}  href="/ring">
+          <Link passHref={true} href="/ring">
             <a className="mx-2">RINGS</a>
           </Link>
           /
@@ -430,14 +432,14 @@ function ProductRing(props) {
                 <div className="help-panel d-flex justify-content-between py-4">
                   <p className="text-uppercase m-0">Need help?</p>
                   <div className="link-panel d-flex">
-                    <Link passHref={true}  href="#">
+                    <Link passHref={true} href="#">
                       <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                         <RiCustomerService2Fill className="me-2" />
                         contact
                       </a>
                     </Link>
 
-                    <Link passHref={true}  href="#">
+                    <Link passHref={true} href="#">
                       <a className="text-uppercase d-flex align-items-center blue-text">
                         <RiChat1Line className="me-2" />
                         chat
