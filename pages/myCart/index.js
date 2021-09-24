@@ -6,6 +6,7 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import NumberFormat from "react-number-format";
 import NeedHelp from "../../components/needHelp";
+import renderHTML from "react-render-html";
 import { useRouter } from "next/router";
 import {
   RiSubtractFill,
@@ -121,7 +122,7 @@ export default function MyCart() {
                   key={index}
                 >
                   <img
-                    src={"/img/product/" + item.images[0]}
+                    src={item.image}
                     alt="item-image"
                     className="item-image me-4 mb-md-0 mb-5"
                     width="200"
@@ -134,14 +135,12 @@ export default function MyCart() {
                           {item.title}
                         </h3>
                         <p className="cart-style m-0 py-4 text-capitalize">
-                          {/* {item.tag.map((tag, index) => (
-                            <span key={index} className="me-3">
-                              {tag}
-                            </span>
-                          ))} */}
+                          <span className="me-3">
+                            {item.tag}
+                          </span>
                         </p>
                         <p className="cart-description m-0 text-capitalize">
-                          {/* {item.description} */}
+                          {renderHTML(item.description)}
                         </p>
                       </div>
                       <div className="col-lg-6 col-12 cost-panel p-0 d-flex justify-content-between flex-sm-row flex-column ps-lg-5 ps-0 pt-lg-0 pt-5">

@@ -12,6 +12,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useRouter } from "next/router";
 import NumberFormat from "react-number-format";
 import renderHTML from "react-render-html";
+import { setWishList } from "../../redux/actions/wishListAction";
+import { connect } from "react-redux";
 import "swiper/css";
 import {
   RiHeartFill,
@@ -90,7 +92,7 @@ const productDescription =
 
 const getProductURL = 'https://royalcoster.nl/api/getProduct.php';
 
-export default function ProductRing() {
+function ProductRing(props) {
   const [size, setSize] = useState(0);
   const [favorItem, setFavorItem] = useState();
   const [itemAmount, setItemAmount] = useState(1);
@@ -104,16 +106,24 @@ export default function ProductRing() {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
+      if (localStorage.wishList) {
+        props.setWishList(JSON.parse(localStorage.wishList));
+      }
     }
-    setItemPrice(products.price);
   }, []);
+
+  useEffect(() => {
+    props.wishList &&
+      localStorage.setItem('wishList', JSON.stringify(props.wishList))
+  }, [props.wishList])
 
   const addCart = (e) => {
     e.preventDefault();
+    let productItem = { shopifyid: productData.id, description: productData.body_html, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, tag: "Rings" };
     router.push("/myCart");
     if (localStorage.products) {
       let productStore = JSON.parse(localStorage.products);
-      let setItem = productStore.find((item, index) => item.id == products.id);
+      let setItem = productStore.find((item, index) => item.shopifyid == productItem.shopifyid);
       if (setItem) {
         setItem.amount += itemAmount;
         localStorage.setItem("products", JSON.stringify(productStore));
@@ -123,7 +133,7 @@ export default function ProductRing() {
           JSON.stringify([
             ...productStore,
             {
-              ...products,
+              ...productItem,
               amount: itemAmount,
             },
           ])
@@ -134,13 +144,39 @@ export default function ProductRing() {
         "products",
         JSON.stringify([
           {
-            ...products,
+            ...productItem,
             amount: itemAmount,
           },
         ])
       );
     }
   };
+
+  const selectFavor = () => {
+    if (favorItem) {
+      setFavorItem();
+      let localProducts = props.wishList;
+      let removeProduct = localProducts.find(
+        (item) => item.shopifyid == productData.id
+      );
+      if (removeProduct) {
+        localProducts.splice(localProducts.indexOf(removeProduct), 1);
+        props.setWishList(localProducts)
+      }
+    } else {
+      setFavorItem("favor")
+      let productItem = { shopifyid: productData.id, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, tag: "Rings" };
+      if (localStorage.wishList) {
+        props.setWishList([...props.wishList, productItem])
+      } else {
+        localStorage.setItem(
+          "wishList",
+          JSON.stringify([productItem])
+        );
+        props.setWishList([productItem])
+      }
+    }
+  }
 
   useEffect(() => {
     if (router.query.slug) {
@@ -152,12 +188,17 @@ export default function ProductRing() {
         body: formData
       }).then((res) => res.json())
         .then((data) => {
+          console.log(data)
           setProductData(data);
           setMainImage(data.image.src.replace('.jpg', '_500x.jpg'));
+          setItemPrice(data.variants[0].price)
           data.tags.split(',').map((item) => {
             if (item >= 45 && item <= 65)
               setSizeList([...sizeList, item])
           })
+          if (JSON.parse(localStorage.wishList).find(item => item.shopifyid == data.id)) {
+            setFavorItem('favor')
+          }
         })
     }
   }, [router.query])
@@ -370,7 +411,7 @@ export default function ProductRing() {
                       favorItem
                     }
                     onClick={() =>
-                      favorItem ? setFavorItem() : setFavorItem("favor")
+                      selectFavor()
                     }
                   >
                     <RiHeartFill />
@@ -407,7 +448,8 @@ export default function ProductRing() {
                   <p className="m-0 text-uppercase">
                     Not ready to purchase online?
                   </p>
-                  <button className="btn btn-schedule text-uppercase blue-text my-3 px-5 py-2">
+                  <button className="btn btn-schedule text-uppercase blue-text my-3 px-5 py-2" data-bs-toggle="modal"
+                    data-bs-target="#appointment">
                     Schedule an appointment
                   </button>
                 </div>
@@ -472,3 +514,13 @@ export default function ProductRing() {
     </div >
   );
 }
+
+const mapStateToProps = state => ({
+  wishList: state.wishList.value
+});
+
+const mapDispatchToProps = {
+  setWishList: setWishList,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductRing)

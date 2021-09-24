@@ -177,6 +177,8 @@ const checkTreeIcons = {
   leaf: ""
 }
 
+let productStore = [], lastProductStatus, leftFilterStore, check0 = [], check1 = [], check2 = [], check3 = [], check4 = [], check5 = [], check6 = [], check7 = [], check8 = [], check9 = [];
+
 function Ring(props) {
   const [result, setResult] = useState(0);
   const [tags, setTags] = useState("Rings");
@@ -187,16 +189,16 @@ function Ring(props) {
   const [leftFilterItems, setLeftFilterItems] = useState(firstFilterItem);
   const [load, setLoad] = useState(false);
   const [formData, setFormData] = useState();
-  const [checked0, setChecked0] = useState([]);
-  const [checked1, setChecked1] = useState([]);
-  const [checked2, setChecked2] = useState([]);
-  const [checked3, setChecked3] = useState([]);
-  const [checked4, setChecked4] = useState([]);
-  const [checked5, setChecked5] = useState([]);
-  const [checked6, setChecked6] = useState([]);
-  const [checked7, setChecked7] = useState([]);
-  const [checked8, setChecked8] = useState([]);
-  const [checked9, setChecked9] = useState([]);
+  const [checked0, setChecked0] = useState(check0);
+  const [checked1, setChecked1] = useState(check1);
+  const [checked2, setChecked2] = useState(check2);
+  const [checked3, setChecked3] = useState(check3);
+  const [checked4, setChecked4] = useState(check4);
+  const [checked5, setChecked5] = useState(check5);
+  const [checked6, setChecked6] = useState(check6);
+  const [checked7, setChecked7] = useState(check7);
+  const [checked8, setChecked8] = useState(check8);
+  const [checked9, setChecked9] = useState(check9);
   const [expanded, setExpanded] = useState([]);
   const [totalFilterItems, setTotalFilterItems] = useState([]);
   const [cTagLastAdd, setCTagLastAdd] = useState(1);
@@ -204,6 +206,8 @@ function Ring(props) {
   const [cTagMiddleStore, setCTagMiddleStore] = useState([]);
   const [loadMoreStatus, setLoadMoreStatus] = useState(false);
   const [totalCounter, setTotalCounter] = useState(0)
+  const [mounted, setMounted] = useState(false);
+  const [filterMounted, setFilterMounted] = useState(false);
 
   useEffect(() => {
     if (formData) {
@@ -214,8 +218,15 @@ function Ring(props) {
         .then((res) => res.json())
         .then((data) => {
           setLoad(false);
-          data.hasNextPage == 'Yes' ? setLastProduct(data.last) : setLastProduct(false);
+          if (data.hasNextPage == 'Yes') {
+            setLastProduct(data.last);
+            lastProductStatus = data.last;
+          } else {
+            setLastProduct(false);
+            lastProductStatus = false;
+          }
           setProductData(data.data);
+          productStore = data.data;
           if (localStorage.wishList) {
             props.setWishList(JSON.parse(localStorage.wishList));
           }
@@ -470,7 +481,8 @@ function Ring(props) {
                                           if (counter == _.size(materialColor)) {
                                             let filterArr = leftFilterItems;
                                             filterArr[9].filter = materialColorArr;
-                                            setLeftFilterItems([...filterArr])
+                                            setLeftFilterItems([...filterArr]);
+                                            leftFilterStore = [...filterArr];
                                           }
                                         }
                                       }
@@ -491,55 +503,94 @@ function Ring(props) {
   }, [props.wishList])
 
   useEffect(() => {
-    let formData = new FormData();
-    if (cTagLastAdd == 1) {
-      formData.append('position', 'first:50');
-    } else {
-      formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
-    }
-    formData.append('query', 'status:active AND product_type:Rings');
-    fetch(CTagURL, {
-      method: 'post',
-      body: formData,
-    }).then((res) => res.json())
-      .then((data) => {
-        let middleArr = [];
-        if (data.last) {
-          setTotalCounter(totalCounter + data.productsCount)
-          let tags = cTagMiddleStore;
-          data.tags.map((tag, index) => {
-            if (!tags.find(item => item == getFilterValue(tag))) {
-              middleArr.push(getFilterValue(tag));
+    if (filterMounted) {
+      let formData = new FormData();
+      if (cTagLastAdd == 1) {
+        formData.append('position', 'first:50');
+      } else {
+        formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
+      }
+      formData.append('query', 'status:active AND product_type:Rings');
+      fetch(CTagURL, {
+        method: 'post',
+        body: formData,
+      }).then((res) => res.json())
+        .then((data) => {
+          let middleArr = [];
+          if (data.last) {
+            setTotalCounter(totalCounter + data.productsCount)
+            let tags = cTagMiddleStore;
+            data.tags.map((tag, index) => {
+              if (!tags.find(item => item == getFilterValue(tag))) {
+                middleArr.push(getFilterValue(tag));
+              }
+              if (index == data.tags.length - 1) {
+                setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
+                if (data.hasNextPage == 'No') {
+                  setResult(totalCounter + data.productsCount)
+                  setCTags([...cTagMiddleStore, ...middleArr])
+                }
+              }
+            })
+            if (data.hasNextPage == 'Yes') {
+              setCTagLastAdd(data.last)
             }
-            if (index == data.tags.length - 1) {
-              setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
-              if (data.hasNextPage == 'No') {
-                setResult(totalCounter + data.productsCount)
-                setCTags([...cTagMiddleStore, ...middleArr])
+          }
+        })
+    } else {
+      if (leftFilterStore) {
+        setLeftFilterItems(leftFilterStore);
+      } else {
+        let formData = new FormData();
+        if (cTagLastAdd == 1) {
+          formData.append('position', 'first:50');
+        } else {
+          formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
+        }
+        formData.append('query', 'status:active AND product_type:Rings');
+        fetch(CTagURL, {
+          method: 'post',
+          body: formData,
+        }).then((res) => res.json())
+          .then((data) => {
+            let middleArr = [];
+            if (data.last) {
+              setTotalCounter(totalCounter + data.productsCount)
+              let tags = cTagMiddleStore;
+              data.tags.map((tag, index) => {
+                if (!tags.find(item => item == getFilterValue(tag))) {
+                  middleArr.push(getFilterValue(tag));
+                }
+                if (index == data.tags.length - 1) {
+                  setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
+                  if (data.hasNextPage == 'No') {
+                    setResult(totalCounter + data.productsCount)
+                    setCTags([...cTagMiddleStore, ...middleArr])
+                  }
+                }
+              })
+              if (data.hasNextPage == 'Yes') {
+                setCTagLastAdd(data.last)
               }
             }
           })
-          if (data.hasNextPage == 'Yes') {
-            setCTagLastAdd(data.last)
-          }
-        }
-      })
+      }
+    }
+    setFilterMounted(true);
   }, [cTagLastAdd])
 
   useEffect(() => {
-    if (checked0) {
-      let total = [];
-      total.push(...checked0)
-      total.push(...checked1)
-      total.push(...checked2)
-      total.push(...checked3)
-      total.push(...checked4)
-      total.push(...checked5)
-      total.push(...checked6)
-      total.push(...checked7)
-      total.push(...checked8)
-      total.push(...checked9)
-      setTotalFilterItems(total)
+    if (checked0 && mounted) {
+      check0 = checked0;
+      check1 = checked1;
+      check2 = checked2;
+      check3 = checked3;
+      check4 = checked4;
+      check5 = checked5;
+      check6 = checked6;
+      check7 = checked7;
+      check8 = checked8;
+      check9 = checked9;
       let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
       let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
       let query2 = checked2.length > 0 ? (checked2.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
@@ -555,13 +606,31 @@ function Ring(props) {
       data.append("position", "first:9");
       data.append("query", ("status:active AND product_type:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
       setFormData(data);
+    } else {
+      if (productStore.length) {
+        console.log(123)
+        console.log(check0)
+        setProductData(productStore);
+        setLastProduct(lastProductStatus);
+        if (localStorage.wishList) {
+          props.setWishList(JSON.parse(localStorage.wishList));
+        }
+      }
+      else {
+        console.log(3333333)
+        setLoad(true)
+        let data = new FormData();
+        data.append("position", "first:9");
+        data.append("query", "status:active AND product_type:Rings")
+        setFormData(data);
+      }
     }
+    setMounted(true)
   }, [checked0, checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9])
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
     if (target.classList.contains("favor")) {
-      console.log(1)
       let localProducts = props.wishList;
       let removeProduct = localProducts.find(
         (item) => item.shopifyid == product.shopifyid
@@ -571,7 +640,6 @@ function Ring(props) {
         props.setWishList(localProducts)
       }
     } else {
-      console.log(2)
       if (localStorage.wishList) {
         props.setWishList([...props.wishList, { ...product, amount: 1, tag: tags }])
       } else {
@@ -727,12 +795,13 @@ function Ring(props) {
                       className="product-item col-lg-4 col-md-6 col-sm-12 mb-4"
                       key={index}
                     >
-                      <Link href={{
-                        pathname: "/ring/[slug]",
-                        query: {
-                          slug: getFilterValue(item.title) + "-" + item.shopifyid,
-                        },
-                      }} >
+                      <Link
+                        href={{
+                          pathname: "/ring/[slug]",
+                          query: {
+                            slug: getFilterValue(item.title) + "-" + item.shopifyid,
+                          },
+                        }} >
                         <a>
                           <div className="product-image hover-scale d-flex justify-content-center align-items-center round">
                             <img src={item.image} alt="product-image" />
