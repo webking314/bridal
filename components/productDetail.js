@@ -72,7 +72,7 @@ export default function ProductDetail({ informations, productID, productDescript
                         {
                           information.map((info, id) => {
                             return (
-                              <div className={"d-flex align-items-center px-4 py-3 justify-content-between info-title-panel " + (id % 2 == 0 && "grey-mode")}>
+                              <div key={id} className={"d-flex align-items-center px-4 py-3 justify-content-between info-title-panel " + (id % 2 == 0 && "grey-mode")}>
                                 <p className="text-uppercase information-name m-0">
                                   {info.title}
                                 </p>
