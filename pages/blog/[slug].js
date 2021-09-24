@@ -296,7 +296,7 @@ export default function Brief() {
       {/* End about section */}
       {/* Start article section */}
       <ReadingProgress target={target} />
-      <div ref={target} className="article-section py-5  r-container">
+      <div ref={target} className="article-section pb-5  r-container">
         {content && (
           <div className="link-panel-cover d-md-block d-none">
             <div className="link-panel">
