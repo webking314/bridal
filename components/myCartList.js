@@ -36,7 +36,7 @@ export default function MyCartList() {
                     <p className="cart-type mb-0 mb-2">
                       {/* {item.tag.map((item, index) => ( */}
                       <span className="me-3">
-                        {item.tag}
+                        {item.product_type}
                       </span>
                       {/* ))} */}
                     </p>

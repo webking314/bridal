@@ -1,11 +1,29 @@
-export default function ProductDetail({informations, productID, productDescription}) {
+import { useEffect, useState } from "react";
+import renderHTML from "react-render-html";
+
+export default function ProductDetail({ informations, productID, productDescription }) {
+  const [infoData, setInfoData] = useState([]);
+  useEffect(() => {
+    informations.map((information, index) => {
+      let middleArr = [];
+      for (const key in information) {
+        if (Object.hasOwnProperty.call(information, key)) {
+          const element = information[key];
+          middleArr.push({ title: key, value: element });
+        }
+      }
+      infoData.push(middleArr);
+      setInfoData([...infoData])
+    })
+  }, [])
+
   return (
     <div className="detail-section r-container pb-5 mb-5">
       <h3 className="pb-5 blue-text title">Diamond Details</h3>
       <div className="pt-5 pb-md-5 text-panel">
-        <h3 className="blue-text">{productID}</h3>
-        <p className="m-0 pb-5">
-            {productDescription}
+        <h3 className="blue-text">SKU {productID}</h3>
+        <p className="m-0 pb-5 full-description">
+          {renderHTML(productDescription)}
         </p>
         <nav className="info-panel">
           <div className="nav nav-tabs" id="nav-tab" role="tablist">
@@ -46,7 +64,29 @@ export default function ProductDetail({informations, productID, productDescripti
               Diamond information
             </h3>
             <div className="informations row m-0">
-              {informations.map((item, index) => {
+              {
+                infoData.length && (
+                  infoData.map((information, index) => {
+                    return (
+                      <div className={"p-0 px-2 pt-3 " + (infoData.length == 1 ? "col-md-6" : infoData.length == 2 ? "col-md-6" : "col-lg-4 col-md-6")} key={index}>
+                        {
+                          information.map((info, id) => {
+                            return (
+                              <div className={"d-flex align-items-center px-4 py-3 justify-content-between info-title-panel " + (id % 2 == 0 && "grey-mode")}>
+                                <p className="text-uppercase information-name m-0">
+                                  {info.title}
+                                </p>
+                                <p className="text-uppercase m-0">{info.value}</p>
+                              </div>
+                            )
+                          })
+                        }
+                      </div>
+                    )
+                  })
+                )
+              }
+              {/* {informations.map((item, index) => {
                 return (
                   <div
                     className={
@@ -74,7 +114,7 @@ export default function ProductDetail({informations, productID, productDescripti
                     </div>
                   </div>
                 );
-              })}
+              })} */}
             </div>
           </div>
           <div

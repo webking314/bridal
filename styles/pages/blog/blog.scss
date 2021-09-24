@@ -134,7 +134,7 @@
         box-shadow: none;
       }
       &:hover {
-        font-weight: 500;
+        background: rgba(2, 24, 37, 0.15);
       }
       &.active {
         font-weight: 500;
@@ -159,6 +159,7 @@
         @media (max-width: 767px) {
           img {
             height: 55vw;
+            max-height: 300px;
           }
         }
       }

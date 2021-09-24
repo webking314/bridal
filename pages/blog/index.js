@@ -15,7 +15,8 @@ import head from "next/head";
 import Loading from "../../components/loading";
 import Skeleton from "@mui/material/Skeleton";
 
-const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/posts";
+const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
+const detailBlogURL = "https://royalcoster.nl/wordpress/wp-json/acf/v3/blogs";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
 const headers = {
   // "Content-Type": "application/json",
@@ -75,7 +76,7 @@ export default function Blog() {
               id: item.id,
               title: item.title.rendered,
               slug: item.slug,
-              img_link: item._links["wp:featuredmedia"][0].href,
+              image: item.acf.featured_image.url,
               categories: item.categories,
             });
           });
@@ -96,7 +97,7 @@ export default function Blog() {
               id: item.id,
               title: item.title.rendered,
               slug: item.slug,
-              img_link: item._links["wp:featuredmedia"][0].href,
+              image: item.acf.featured_image.url,
               categories: item.categories,
             });
           });
@@ -122,32 +123,24 @@ export default function Blog() {
       if (post.length != 0) {
         let postArr = [];
         post.map((item, index) => {
-          fetch(item.img_link, {
-            method: "get",
-            headers,
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              let categoryItems = [];
-              item.categories.map((id) => {
-                categories &&
-                  categories.map((cateItem) => {
-                    if (cateItem.id == id) {
-                      categoryItems.push(cateItem.name);
-                    }
-                  });
+          let categoryItems = [];
+          item.categories.map((id) => {
+            categories &&
+              categories.map((cateItem) => {
+                if (cateItem.id == id) {
+                  categoryItems.push(cateItem.name);
+                }
               });
-              postArr.push({
-                ...item,
-                image: data.guid.rendered,
-                categoryItems: categoryItems,
-              });
-              if (postArr.length == post.length) {
-                postArr.sort((item1, item2) => item2.id - item1.id);
-                setPostItems([...postArr]);
-                setLoading(false);
-              }
-            });
+          });
+          postArr.push({
+            ...item,
+            categoryItems: categoryItems,
+          });
+          if (postArr.length == post.length) {
+            postArr.sort((item1, item2) => item2.id - item1.id);
+            setPostItems([...postArr]);
+            setLoading(false);
+          }
         });
       }
     }
@@ -177,7 +170,7 @@ export default function Blog() {
                 id: item.id,
                 title: item.title.rendered,
                 slug: item.slug,
-                img_link: item._links["wp:featuredmedia"][0].href,
+                image: item.acf.featured_image.url,
                 categories: item.categories,
               });
             });
@@ -396,7 +389,7 @@ export default function Blog() {
                                 height={250}
                                 animation="wave"
                               />
-                            ) : <div className="black-image-panel"/>}
+                            ) : <div className="black-image-panel" />}
                           </div>
                           <div className="blog-title pt-4 pb-5">
                             <p className="text-uppercase">
@@ -442,7 +435,7 @@ export default function Blog() {
                                       height={250}
                                       animation="wave"
                                     />
-                                  ) : <div className="black-image-panel"/>}
+                                  ) : <div className="black-image-panel" />}
                                 </div>
                                 <div className="blog-title pt-4 pb-5">
                                   <p className="text-uppercase">
@@ -494,7 +487,7 @@ export default function Blog() {
                                       height={250}
                                       animation="wave"
                                     />
-                                  )  : <div className="black-image-panel"/>}
+                                  ) : <div className="black-image-panel" />}
                                 </div>
                                 <div className="blog-title pt-4 pb-5">
                                   <p className="text-uppercase">
@@ -602,7 +595,7 @@ export default function Blog() {
                                       height={250}
                                       animation="wave"
                                     />
-                                  ) : <div className="black-image-panel"/> }
+                                  ) : <div className="black-image-panel" />}
                                 </div>
                                 <div className="blog-title pt-4 pb-5">
                                   <p className="text-uppercase">

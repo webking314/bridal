@@ -135,6 +135,10 @@
     .article-panel {
       padding-left: 120px;
       padding-right: 120px;
+      @media (max-width: 1024px) {
+        padding-left: 100px;
+        padding-right: 100px;
+      }
       @media (max-width: 767px) {
         padding-left: 0px;
         padding-right: 0px;
@@ -143,6 +147,7 @@
         width: 100% !important;
         border-radius: 12px !important;
         object-fit: cover;
+        max-height: 320px;
       }
       p {
         font-size: 1.8rem !important;
@@ -151,14 +156,23 @@
         line-height: 3.6rem !important;
         margin-top: 20px !important;
         margin-bottom: 20px !important;
-        margin-bottom: 0 !important;
       }
-      h2 {
+      h2,h3 {
         color: #01215c !important;
         font-size: 3.6rem !important;
         font-weight: 300 !important;
         margin-top: 50px !important;
         margin-bottom: 30px !important;
+      }
+      h3 {
+        font-size: 3rem !important;
+      }
+      ol {
+        padding-top: 20px;
+        font-size: 2rem;
+      }
+      ul {
+        font-size: 2rem;
       }
     }
   }

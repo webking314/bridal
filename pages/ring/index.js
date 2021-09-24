@@ -641,13 +641,13 @@ function Ring(props) {
       }
     } else {
       if (localStorage.wishList) {
-        props.setWishList([...props.wishList, { ...product, amount: 1, tag: tags }])
+        props.setWishList([...props.wishList, { ...product, amount: 1, product_type: tags }])
       } else {
         localStorage.setItem(
           "wishList",
-          JSON.stringify([{ ...product, amount: 1, tag: tags }])
+          JSON.stringify([{ ...product, amount: 1, product_type: tags }])
         );
-        props.setWishList([{ ...product, amount: 1, tag: tags }])
+        props.setWishList([{ ...product, amount: 1, product_type: tags }])
       }
     }
   };

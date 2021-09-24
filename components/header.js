@@ -863,8 +863,8 @@ function Header(props) {
                   <div className="item-title">
                     <h3>{item.title}</h3>
                     <p>
-                      {item.tag &&
-                        <span>{item.tag} </span>
+                      {item.product_type &&
+                        <span>{item.product_type} </span>
                       }
                     </p>
                   </div>

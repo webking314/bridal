@@ -67,7 +67,7 @@ const ReadingProgress = ({ target }) => {
     />
   );
 };
-const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/posts";
+const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
 const authorURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/users";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
 const headers = {
@@ -141,18 +141,8 @@ export default function Brief() {
           data = data[0];
           setDateTime(dateFormat(data.date, "mmmm d, yyyy"));
           setTitle(data.title.rendered);
-          setContent(data.content.rendered);
-
-          // Get cover image
-          fetch(data._links["wp:featuredmedia"][0].href, {
-            method: "get",
-            headers,
-          })
-            .then((res) => res.json())
-            .then((coverBg) => {
-              setCoverBg(coverBg.guid.rendered);
-            });
-
+          setContent(data.acf.content.main_content);
+          setCoverBg(data.acf.featured_image.url);
           // Get author data by author ID of blog
           fetch(authorURL + "/" + data.author, {
             method: "get",
@@ -162,7 +152,7 @@ export default function Brief() {
             .then((author) => {
               setAuthorData({
                 name: author.name,
-                avatar: author.avatar_urls["48"],
+                avatar: author.avatar["48"],
                 description: author.description,
               });
             });
@@ -182,7 +172,10 @@ export default function Brief() {
         <div className="link-panel r-container px-5 py-3 mb-md-5 mb-0 round-form d-flex align-items-center">
           <button
             className="btn back-arrow d-flex me-3 blue-text px-0"
-            onClick={() => router.back()}
+            onClick={(e) => {
+              e.preventDefault();
+              router.back();
+            }}
           >
             <HiOutlineArrowLeft />
           </button>
@@ -200,7 +193,7 @@ export default function Brief() {
         </div>
         <div className="r-container">
           <h1 className="py-5 product-title blue-text text-capitalize">
-            {title ? title : <Skeleton variant="text" animation="wave" />}
+            {title ? renderHTML(title) : <Skeleton variant="text" animation="wave" />}
           </h1>
           <div className="about-panel row m-0 pb-5">
             <div className="col-md-9 col-12 p-0 image-panel pe-md-5 pe-0 ">

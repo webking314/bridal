@@ -119,7 +119,8 @@ function ProductRing(props) {
 
   const addCart = (e) => {
     e.preventDefault();
-    let productItem = { shopifyid: productData.id, description: productData.body_html, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, tag: "Rings" };
+    let currentSize = size ? size : sizeList[0];
+    let productItem = { shopifyid: productData.id, size: currentSize, description: productData.body_html, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, product_type: "Rings" };
     router.push("/myCart");
     if (localStorage.products) {
       let productStore = JSON.parse(localStorage.products);
@@ -165,7 +166,7 @@ function ProductRing(props) {
       }
     } else {
       setFavorItem("favor")
-      let productItem = { shopifyid: productData.id, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, tag: "Rings" };
+      let productItem = { shopifyid: productData.id, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, product_type: "Rings" };
       if (localStorage.wishList) {
         props.setWishList([...props.wishList, productItem])
       } else {
@@ -282,7 +283,7 @@ function ProductRing(props) {
               <div className="title-panel">
                 <h3 className="type pb-4 m-0">{renderHTML(productData.vendor)}</h3>
                 <h3 className="title text-capitalize pb-4 m-0">{renderHTML(productData.title)}</h3>
-                <p className="description pb-4 m-0">{renderHTML(productData.body_html)}</p>
+                <p className="description pb-4 m-0">{renderHTML(productData.body_html.split('<p>')[0])}</p>
               </div>
               <div className="confirm-panel">
                 {
@@ -345,11 +346,11 @@ function ProductRing(props) {
                           className="form-select blue-text ps-4 round-form py-3"
                           aria-label="Default select example"
                           value={size}
-                          onChange={(event) => setSize(event.target.value)}
+                          onChange={(event) => { setSize(event.target.value); console.log(event.target.value) }}
                         >
                           {sizeList.map((item, index) => {
                             return (
-                              <option value={index} key={index}>
+                              <option value={item} key={index}>
                                 {item}
                               </option>
                             );
@@ -398,7 +399,7 @@ function ProductRing(props) {
                     <span className="mx-4">{itemAmount}</span>
                     <button
                       className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-4"
-                      onClick={() => setItemAmount(itemAmount + 1)}
+                      onClick={() => itemAmount <= productData.available && setItemAmount(itemAmount + 1)}
                     >
                       <RiAddFill />
                     </button>
@@ -490,11 +491,20 @@ function ProductRing(props) {
       {/* End confirm section */}
 
       {/* Start product detail section */}
-      <ProductDetail
-        informations={informations}
-        productID={productID}
-        productDescription={productDescription}
-      />
+      {
+        productData ?
+          <ProductDetail
+            informations={productData.specifications}
+            productID={productData.variants[0].sku}
+            productDescription={productData.body_html}
+          /> :
+          <div className="r-container pt-5">
+            <Skeleton variant="text" width="100%" height={40}></Skeleton>
+            <Skeleton variant="text" width="100%" height={40}></Skeleton>
+            <Skeleton variant="text" width="100%" height={40}></Skeleton>
+            <Skeleton variant="text" width="100%" height={40}></Skeleton>
+          </div>
+      }
       {/* End product detail section */}
 
       {/* Start customer section */}

@@ -136,7 +136,7 @@ export default function MyCart() {
                         </h3>
                         <p className="cart-style m-0 py-4 text-capitalize">
                           <span className="me-3">
-                            {item.tag}
+                            {item.product_type}
                           </span>
                         </p>
                         <p className="cart-description m-0 text-capitalize">
