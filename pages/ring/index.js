@@ -6,7 +6,7 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
-import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import { RiHeartLine, RiFilter3Fill, RiHeartFill, RiArrowRightSLine } from "react-icons/ri";
 import { Skeleton } from "@material-ui/lab";
 import _ from "lodash";
 import NumberFormat from "react-number-format";
@@ -696,6 +696,18 @@ function Ring(props) {
       });
   };
 
+  const handleMenuBtn = (e) => {
+    e.target
+      .closest(".offcanvas-body")
+      .querySelectorAll("button")
+      .forEach((element) => {
+        if (element.classList.contains("active")) {
+          element.classList.remove("active");
+        }
+      });
+    e.target.closest("button").classList.add("active");
+  };
+
   return (
     <div className="ring_page">
       <Head>
@@ -717,8 +729,21 @@ function Ring(props) {
             <h2>Engagement Rings</h2>
             <p className="text-uppercase">{result} results</p>
           </div>
-          <div className="col-md-6 col-12 d-flex justify-content-end p-0 pt-3 pt-md-0">
-            <div className="search-box round-form d-flex align-items-center">
+          <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
+            <button
+              className="btn d-sm-none d-flex btn-filter round-form justify-content-between align-items-center px-4 py-3 mb-4"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#filterMenu"
+              aria-controls="filterMenu"
+            >
+              <div className="text-uppercase d-flex align-items-center">
+                <RiFilter3Fill className="me-3" />
+                Filter
+              </div>
+              <RiArrowRightSLine />
+            </button>
+            <div className="search-box round-form d-flex align-items-center py-2">
               <label htmlFor="selectSearch" className="px-4">
                 SORT BY :{" "}
               </label>
@@ -736,7 +761,7 @@ function Ring(props) {
             </div>
           </div>
         </div>
-        <div className="top-filter-bar d-flex justify-content-between align-items-center flex-wrap py-4">
+        <div className="top-filter-bar d-sm-flex d-none justify-content-between align-items-center flex-wrap py-4">
           {filterItems.map((item, index) => {
             return (
               <button
@@ -753,7 +778,7 @@ function Ring(props) {
           })}
         </div>
         <div className="main-panel d-flex m-0 py-5 justify-content-end flex-wrap">
-          <div className="col-lg-3 col-md-4 col-sm-5 col-12 p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
+          <div className="col-lg-3 col-md-4 col-sm-5 col-12 d-sm-block d-none p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
             {leftFilterItems.length && leftFilterItems.map((item, index) => {
               return (
                 <div className="accordion-item mb-3" key={index}>
@@ -1027,6 +1052,154 @@ function Ring(props) {
       {/* End Collection section */}
       {/* Start Schedule section */}
       <Schedule />
+      <div
+        className="offcanvas offcanvas-end"
+        tabIndex="-1"
+        id="filterMenu"
+        aria-labelledby="filterMenuLabel"
+      >
+        <div className="offcanvas-header py-4 p-0">
+          <div className="r-container d-flex justify-content-between align-items-center">
+            <h3 id="filterMenuLabel" className="text-uppercase mb-0 py-2">
+              Filter
+            </h3>
+            <button
+              type="button"
+              className="btn btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <div className="offcanvas-body r-container pt-2 p-0">
+          <button
+            className="btn btn-price text-uppercase mt-3 round-form d-flex justify-content-between align-items-center px-4 py-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#shapeMenu"
+            aria-controls="shapeMenu"
+            onClick={handleMenuBtn}
+          >
+            shape
+            <RiArrowRightSLine />
+          </button>
+          <button
+            className="btn btn-price text-uppercase mt-3 round-form d-flex justify-content-between align-items-center px-4 py-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#styleMenu"
+            aria-controls="styleMenu"
+            onClick={handleMenuBtn}
+          >
+            style
+            <RiArrowRightSLine />
+          </button>
+        </div>
+      </div>
+      <div
+        className="offcanvas offcanvas-end"
+        tabIndex="-1"
+        id="shapeMenu"
+        aria-labelledby="shapeMenuLabel"
+      >
+        <div className="offcanvas-header py-4 p-0">
+          <div className="r-container d-flex justify-content-between align-items-center py-2">
+            <h3
+              id="filterMenuLabel"
+              className="text-uppercase mb-0 d-flex align-items-center"
+            >
+              shape
+            </h3>
+            <button
+              type="button"
+              className="btn btn-close text-reset"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#filterMenu"
+              aria-controls="filterMenu"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <div className="offcanvas-body p-0 d-flsex flex-column justify-content-between">
+          <div className="r-container row pt-4">
+            {filterItems.map((item, index) => {
+              return (
+                <div className="col-4 shape-item pb-3" key={index}>
+                  <button
+                    className="btn filter-item round-form mt-3"
+                    key={index}
+                    onClick={(event) => filterHandle(event, index)}
+                  >
+                    <div className="image-panel text-center">
+                      <img src={"/img/ring/" + item.img} alt="filter-image" />
+                    </div>
+                    <p className="blue-text text-uppercase">{item.text}</p>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+      <div
+        className="offcanvas offcanvas-end"
+        tabIndex="-1"
+        id="styleMenu"
+        aria-labelledby="styleMenuLabel"
+      >
+        <div className="offcanvas-header py-4 p-0">
+          <div className="r-container d-flex justify-content-between align-items-center py-2">
+            <h3
+              id="filterMenuLabel"
+              className="text-uppercase mb-0 d-flex align-items-center"
+            >
+              shape
+            </h3>
+            <button
+              type="button"
+              className="btn btn-close text-reset"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#filterMenu"
+              aria-controls="filterMenu"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <div className="offcanvas-body p-0 d-flsex flex-column justify-content-between">
+          <div className="r-container row pt-4">
+            {leftFilterItems.length && leftFilterItems.map((item, index) => {
+              return (
+                <div className="accordion-item mb-3" key={index}>
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target={"#index" + index}
+                      data-bs-toggle="collapse"
+                    >
+                      {item.title}
+                    </button>
+                  </h2>
+                  <div
+                    id={"index" + index}
+                    className="accordion-collapse collapse"
+                  >
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={item.filter}
+                        checked={index == 0 ? checked0 : index == 1 ? checked1 : index == 2 ? checked2 : index == 3 ? checked3 : index == 4 ? checked4 : index == 5 ? checked5 : index == 6 ? checked6 : index == 7 ? checked7 : index == 8 ? checked8 : checked9}
+                        expanded={expanded}
+                        onCheck={checkValue => index == 0 ? setChecked0(checkValue) : index == 1 ? setChecked1(checkValue) : index == 2 ? setChecked2(checkValue) : index == 3 ? setChecked3(checkValue) : index == 4 ? setChecked4(checkValue) : index == 5 ? setChecked5(checkValue) : index == 6 ? setChecked6(checkValue) : index == 7 ? setChecked7(checkValue) : index == 8 ? setChecked8(checkValue) : setChecked9(checkValue)}
+                        onExpand={expandValue => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
       {/* End Schedule section */}
       {/* Start Footer */}
       <Footer />
