@@ -1072,7 +1072,7 @@ function Ring(props) {
           </div>
         </div>
         <div className="offcanvas-body r-container pt-2 p-0">
-          <button
+          {/* <button
             className="btn btn-price text-uppercase mt-3 round-form d-flex justify-content-between align-items-center px-4 py-3"
             type="button"
             data-bs-toggle="offcanvas"
@@ -1093,80 +1093,42 @@ function Ring(props) {
           >
             style
             <RiArrowRightSLine />
-          </button>
-        </div>
-      </div>
-      <div
-        className="offcanvas offcanvas-end"
-        tabIndex="-1"
-        id="shapeMenu"
-        aria-labelledby="shapeMenuLabel"
-      >
-        <div className="offcanvas-header py-4 p-0">
-          <div className="r-container d-flex justify-content-between align-items-center py-2">
-            <h3
-              id="filterMenuLabel"
-              className="text-uppercase mb-0 d-flex align-items-center"
-            >
-              shape
-            </h3>
-            <button
-              type="button"
-              className="btn btn-close text-reset"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#filterMenu"
-              aria-controls="filterMenu"
-              aria-label="Close"
-            ></button>
-          </div>
-        </div>
-        <div className="offcanvas-body p-0 d-flsex flex-column justify-content-between">
+          </button> */}
           <div className="r-container row pt-4">
-            {filterItems.map((item, index) => {
-              return (
-                <div className="col-4 shape-item pb-3" key={index}>
-                  <button
-                    className="btn filter-item round-form mt-3"
-                    key={index}
-                    onClick={(event) => filterHandle(event, index)}
-                  >
-                    <div className="image-panel text-center">
-                      <img src={"/img/ring/" + item.img} alt="filter-image" />
-                    </div>
-                    <p className="blue-text text-uppercase">{item.text}</p>
-                  </button>
+            <div className="accordion-item mb-3">
+              <h2 className="accordion-header">
+                <button
+                  className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                  data-bs-target="#shape"
+                  data-bs-toggle="collapse"
+                >
+                  shape
+                </button>
+              </h2>
+              <div
+                id="shape"
+                className="accordion-collapse collapse"
+              >
+                <div className="accordion-body row">
+                  {filterItems.map((item, index) => {
+                    return (
+                      <div className="col-4 shape-item pb-3" key={index}>
+                        <button
+                          className="btn filter-item round-form mt-3"
+                          key={index}
+                          onClick={(event) => filterHandle(event, index)}
+                        >
+                          <div className="image-panel text-center">
+                            <img src={"/img/ring/" + item.img} alt="filter-image" />
+                          </div>
+                          <p className="blue-text text-uppercase">{item.text}</p>
+                        </button>
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      <div
-        className="offcanvas offcanvas-end"
-        tabIndex="-1"
-        id="styleMenu"
-        aria-labelledby="styleMenuLabel"
-      >
-        <div className="offcanvas-header py-4 p-0">
-          <div className="r-container d-flex justify-content-between align-items-center py-2">
-            <h3
-              id="filterMenuLabel"
-              className="text-uppercase mb-0 d-flex align-items-center"
-            >
-              shape
-            </h3>
-            <button
-              type="button"
-              className="btn btn-close text-reset"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#filterMenu"
-              aria-controls="filterMenu"
-              aria-label="Close"
-            ></button>
-          </div>
-        </div>
-        <div className="offcanvas-body p-0 d-flsex flex-column justify-content-between">
-          <div className="r-container row pt-4">
+              </div>
+            </div>
             {leftFilterItems.length && leftFilterItems.map((item, index) => {
               return (
                 <div className="accordion-item mb-3" key={index}>
