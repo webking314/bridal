@@ -12,5 +12,5 @@ export const decrementWishList = () => ({
 
 export const setWishList = (value) => ({
     type: SET_WISHLIST,
-    payload:  value
+    payload: value
 })

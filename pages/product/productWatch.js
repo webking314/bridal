@@ -100,7 +100,7 @@ export default function ProductWatch() {
 
   const addCart = (e) => {
     e.preventDefault();
-    router.push("/myCart");
+    router.push("/cart");
     if (localStorage.products) {
       let productStore = JSON.parse(localStorage.products);
       let setItem = productStore.find((item, index) => item.id == products.id);

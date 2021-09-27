@@ -280,6 +280,7 @@ function Ring(props) {
                 .then((res) => res.json())
                 .then((brands) => {
                   let middleArr = [];
+                  console.log(brands);
                   brands = brands.find(item => item.MainGroup == tags)
                   let brandsArr = brands.BrandID.split(',');
                   brandsArr.map((item, index) => {
@@ -617,7 +618,6 @@ function Ring(props) {
         }
       }
       else {
-        console.log(3333333)
         setLoad(true)
         let data = new FormData();
         data.append("position", "first:9");
@@ -1112,7 +1112,7 @@ function Ring(props) {
                 <div className="accordion-body row">
                   {filterItems.map((item, index) => {
                     return (
-                      <div className="col-4 shape-item pb-3" key={index}>
+                      <div className="col-6 shape-item pb-3" key={index}>
                         <button
                           className="btn filter-item round-form mt-3"
                           key={index}

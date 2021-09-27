@@ -6,14 +6,35 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 import MyCartList from "../../components/myCartList";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import { connect } from "react-redux";
+import { creatCheckout } from "../../redux/actions/checkOutAction";
 
-export default function Shipping() {
+function Shipping(props) {
   const [storage, setStorage] = useState();
   const [freeShippingMethod, setFreeShippingMethod] = useState(true);
   const router = useRouter();
 
-  const goPay = () => {
-    router.push("/checkout/payment");
+  const goPay = (e) => {
+    e.preventDefault()
+
+    const checkoutID = props.checkOut.checkout.id;
+    const contactInfo = JSON.parse(localStorage.shipping).contact;
+    const shippingAdd = JSON.parse(localStorage.shipping).address;
+    const lineItemsToAdd = [];
+    const shippingAddress = {
+      address1: shippingAdd.apartment,
+      address2: shippingAdd.street,
+      city: shippingAdd.town,
+      company: null,
+      country: 'United States',
+      firstName: contactInfo.firstName,
+      lastName: contactInfo.surName,
+      phone: contactInfo.phoneNumber,
+      province: null,
+      zip: '40202',
+    };
+
+    // router.push("/checkout/payment");
     let shippingData = JSON.parse(localStorage.shipping);
     if (!shippingData.shippingMethod) {
       if (freeShippingMethod == true) {
@@ -32,6 +53,20 @@ export default function Shipping() {
         localStorage.setItem("shipping", JSON.stringify(shippingData));
       }
     }
+
+    JSON.parse(localStorage.cart).cartData.map(cart => {
+      lineItemsToAdd.push({ variantId: cart.variant.storefrontId, quantity: cart.amount })
+    })
+
+    props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
+      console.log(res)
+    })
+
+    props.checkOut.client.checkout.updateShippingAddress(checkoutID, shippingAddress).then(checkout => {
+      console.log(shippingAddress)
+      console.log("then updating shipping add", checkout)
+      router.push(checkout.webUrl)
+    });
   };
 
   useEffect(() => {
@@ -46,8 +81,8 @@ export default function Shipping() {
   }, []);
 
   if (storage) {
-    if (!localStorage.cart) {
-      router.push("/myCart");
+    if (!JSON.parse(localStorage.cart).subTotal) {
+      router.push("/cart");
       return <div></div>;
     } else if (!localStorage.shipping) {
       router.push("/checkout/information");
@@ -68,11 +103,11 @@ export default function Shipping() {
               >
                 <HiOutlineArrowLeft />
               </button>
-              <Link passHref={true}  href="/myCart">
+              <Link passHref={true} href="/cart">
                 <a className="mx-2 text-uppercase">Shopping cart</a>
               </Link>
               /
-              <Link passHref={true}  href="/checkout/information">
+              <Link passHref={true} href="/checkout/information">
                 <a className="mx-2 text-uppercase">information</a>
               </Link>
               /
@@ -80,7 +115,7 @@ export default function Shipping() {
                 Shipping
               </span>
               /
-              <Link passHref={true}  href="/checkout/payment">
+              <Link passHref={true} href="/checkout/payment">
                 <a className="mx-2 text-uppercase">Payment</a>
               </Link>
             </div>
@@ -96,7 +131,7 @@ export default function Shipping() {
                     <h3 className="m-0 me-4">Contact</h3>
                     <p className="m-0">{shippingData.contact.email}</p>
                   </div>
-                  <Link passHref={true}  href="/checkout/information">
+                  <Link passHref={true} href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -115,7 +150,7 @@ export default function Shipping() {
                         shippingData.address.country}
                     </p>
                   </div>
-                  <Link passHref={true}  href="/checkout/information">
+                  <Link passHref={true} href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -134,13 +169,14 @@ export default function Shipping() {
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      checked={freeShippingMethod}
+                      // checked={freeShippingMethod}
+                      defaultChecked
                       id="checkbox"
                       onChange={(e) => setFreeShippingMethod(e.target.checked)}
                     />
                     <h3 className="ps-5 m-0 ms-5">Standard</h3>
                   </div>
-                  <Link passHref={true}  href="#">
+                  <Link passHref={true} href="#">
                     <a className="blue-text text-decoration-underline">Free</a>
                   </Link>
                 </label>
@@ -149,7 +185,7 @@ export default function Shipping() {
                 <button
                   type="submit"
                   className="btn round-form blue-btn px-5 py-3 next-btn text-uppercase me-sm-4 me-0 mb-sm-0 mb-4"
-                  onClick={goPay}
+                  onClick={(e) => goPay(e)}
                 >
                   Go to Pay
                 </button>
@@ -173,3 +209,13 @@ export default function Shipping() {
     return <></>;
   }
 }
+
+const mapStateToProps = state => ({
+  checkOut: state.checkOut
+});
+
+const mapDispatchToProps = {
+  creatCheckout: creatCheckout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shipping)

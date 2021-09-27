@@ -91,6 +91,8 @@ const productDescription =
   "This beautiful tapered engagement ring design is channel-set with eight round shaped diamonds. A setting designed to draw the eye to the center diamond or gemstone of your choice. Pair it with the matching wedding band for a contoured look.";
 
 const getProductURL = 'https://royalcoster.nl/api/getProduct.php';
+const graphqlURL = 'https://royalcoster.nl/api/graphql.php';
+
 
 function ProductRing(props) {
   const [size, setSize] = useState(0);
@@ -119,40 +121,85 @@ function ProductRing(props) {
 
   const addCart = (e) => {
     e.preventDefault();
+    let cartAmount = 0;
     let currentSize = size ? size : sizeList[0];
-    let productItem = { shopifyid: productData.id, size: currentSize, maxCount: productData.available, description: productData.body_html, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, product_type: "Rings" };
-    router.push("/myCart");
-    if (localStorage.products) {
-      let productStore = JSON.parse(localStorage.products);
-      let setItem = productStore.find((item, index) => item.shopifyid == productItem.shopifyid);
-      if (setItem) {
-        if (setItem.maxCount > setItem.amount) {
-          setItem.amount += itemAmount;
+    let formData = new FormData();
+    const graphql = `{productVariant(id: "gid://shopify/ProductVariant/${optionValue.variantId}") {id title storefrontId}}`;
+    formData.append('graphql', btoa(graphql));
+    fetch(graphqlURL, {
+      method: 'post',
+      body: formData
+    }).then((res) => res.json())
+      .then((data) => {
+        let cartItem = { shopifyid: productData.id, size: currentSize, maxCount: productData.available, description: productData.body_html, title: productData.title, price: productData.variants[0].price, variant: { ...optionValue, storefrontId: data.data.productVariant.storefrontId }, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, product_type: "Rings" };
+        let selectedAmount = itemAmount;
+
+        if (localStorage.cart) {
+          let cartData = JSON.parse(localStorage.cart).cartData;
+          cartData.map(product => {
+            if (product.shopifyid == productData.id) {
+              cartAmount += product.amount
+            }
+          })
+
+          let setItem = cartData.find((item, index) => item.shopifyid == cartItem.shopifyid);
+          let available = productData.available - cartAmount;
+          
+          if (!available) {
+            return;
+          }
+
+          if (selectedAmount > available) {
+            setItemAmount(available)
+            selectedAmount = available;
+          }
+
+          if (setItem) {
+            const variantItem = cartData.find(item => item.variant.variantId == cartItem.variant.variantId)
+            if (variantItem) {
+              variantItem.amount += selectedAmount;
+              localStorage.setItem("cart", JSON.stringify({ cartData: cartData }));
+            } else {
+              localStorage.setItem("cart", JSON.stringify({cartData: [...cartData, cartItem]}))
+            }
+          } else {
+            localStorage.setItem(
+              "cart",
+              JSON.stringify({
+                cartData: [
+                  ...cartData,
+                  {
+                    ...cartItem,
+                    amount: selectedAmount,
+                  },
+                ]
+              })
+            );
+          }
+        } else {
+          if (!productData.available) {
+            return;
+          }
+
+          if (selectedAmount > productData.available) {
+            selectedAmount = productData.available;
+            setItemAmount(productData.available)
+          }
+
+          localStorage.setItem(
+            "cart",
+            JSON.stringify({
+              cartData: [
+                {
+                  ...cartItem,
+                  amount: selectedAmount,
+                },
+              ]
+            })
+          );
         }
-        localStorage.setItem("products", JSON.stringify(productStore));
-      } else {
-        localStorage.setItem(
-          "products",
-          JSON.stringify([
-            ...productStore,
-            {
-              ...productItem,
-              amount: itemAmount,
-            },
-          ])
-        );
-      }
-    } else {
-      localStorage.setItem(
-        "products",
-        JSON.stringify([
-          {
-            ...productItem,
-            amount: itemAmount,
-          },
-        ])
-      );
-    }
+        router.push("/cart");
+      })
   };
 
   const selectFavor = () => {
@@ -191,15 +238,15 @@ function ProductRing(props) {
         body: formData
       }).then((res) => res.json())
         .then((data) => {
-          console.log(data)
           setProductData(data);
           setMainImage(data.image.src.replace('.jpg', '_500x.jpg'));
-          setItemPrice(data.variants[0].price)
+          setItemPrice(data.variants[0].price);
+          setOptionValue({ variantTitle: data.variants[0].title, variantId: data.variants[0].id })
           data.tags.split(',').map((item) => {
             if (item >= 45 && item <= 65)
               setSizeList([...sizeList, item])
           })
-          if (JSON.parse(localStorage.wishList).find(item => item.shopifyid == data.id)) {
+          if (localStorage.wishList && JSON.parse(localStorage.wishList).find(item => item.shopifyid == data.id)) {
             setFavorItem('favor')
           }
         })
@@ -303,21 +350,12 @@ function ProductRing(props) {
                           {option.values.map((value, index) => {
                             return (
                               <button
-                                className={"btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " + (!optionValue && index == 0 ? 'active' : optionValue && optionValue[0] == value ? 'active' : '')}
+                                className={"btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " + (!optionValue && index == 0 ? 'active' : optionValue && optionValue.variantTitle == value ? 'active' : '')}
                                 key={index}
-                                onClick={() => setOptionValue([value, productData.variants.find(variant => variant.title == value).id])}
+                                onClick={() => setOptionValue({ variantTitle: value, variantId: productData.variants.find(variant => variant.title == value).id })}
                               >
                                 {value}
                               </button>
-                              // <button
-                              //   className="btn btn-material d-flex align-items-center justify-content-center p-2 me-3"
-                              //   key={index}
-                              // >
-                              //   <img
-                              //     src={"/img/product/" + item.meterial}
-                              //     alt="metarial-image"
-                              //   />
-                              // </button>
                             );
                           })}
                         </div>
@@ -348,7 +386,7 @@ function ProductRing(props) {
                           className="form-select blue-text ps-4 round-form py-3"
                           aria-label="Default select example"
                           value={size}
-                          onChange={(event) => { setSize(event.target.value); console.log(event.target.value) }}
+                          onChange={(event) => setSize(event.target.value)}
                         >
                           {sizeList.map((item, index) => {
                             return (

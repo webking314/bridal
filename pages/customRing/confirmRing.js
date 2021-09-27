@@ -115,22 +115,22 @@ export default function ConfirmRing() {
 
       {/* Start state section */}
       <div className="state-section">
-        <div className="link-panel  r-container py-3 d-flex align-items-center">
+        <div className="link-panel  r-container py-3 d-sm-flex d-none align-items-center">
           <button
             className="btn back-arrow d-flex me-3 blue-text px-0"
             onClick={() => router.back()}
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link passHref={true}  href="/">
+          <Link passHref={true} href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link passHref={true}  href="/ring">
+          <Link passHref={true} href="/ring">
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /
-          <Link passHref={true}  href="#">
+          <Link passHref={true} href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -138,16 +138,68 @@ export default function ConfirmRing() {
             COFIRM RING
           </span>
         </div>
+        <div className="link-panel r-container py-3 mb-md-5 mb-0 d-sm-none d-flex align-items-center">
+          <button
+            className="btn back-arrow d-flex me-3 blue-text px-0"
+            onClick={() => router.back()}
+          >
+            <HiOutlineArrowLeft />
+          </button>
+          ...
+          <Link passHref={true} href="#">
+            <a className="mx-2">MAKE A RING</a>
+          </Link>
+          /
+          <span className="title ms-2 text-uppercase blue-text">
+            CHOOSE A DIAMONDS
+          </span>
+        </div>
         <div className="setting-state-panel">
-          <div className="r-container  py-3 row">
-            <div className="pe-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center active">
+          <div className="r-container  py-md-3  row">
+            <div className="pe-5 py-md-0 selected-ring-panel py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   <RiCheckLine />
                 </div>
                 <div className="title text-uppercase">
-                  <p className="mb-1">Choose a</p>
+                  <p className="mb-1 d-md-block d-none">Choose a</p>
                   <h3 className="m-0">Setting</h3>
+                </div>
+              </div>
+              <div className="hover-panel d-md-none d-block">
+                <div className="r-container  py-4">
+                  <div className="ring-info-panel d-flex justify-content-between align-items-center">
+                    <div className="ring-title-panel d-flex align-items-center">
+                      <img
+                        src="/img/customRing/chooseDiamond/ring.png"
+                        width="57"
+                        height="57"
+                        alt="state-image"
+                        style={{ background: "white" }}
+                        className="round-form ring-image me-3"
+                      />
+                      <div className="text-panel">
+                        <h3 className="m-0">Solitaire</h3>
+                        <h4 className="text-capitalize">Metal : Gold (18k)</h4>
+                      </div>
+                    </div>
+                    <div className="cost-panel">
+                      <h3 className="m-0">€ 645.00</h3>
+                      <h4 className="text-end">(ex VAT)</h4>
+                    </div>
+                  </div>
+                  <div className="btn-panel row mt-4 m-0">
+                    <div className="col-6 pe-2 p-0">
+                      <button className="btn round-form btn-view py-2 text-uppercase">
+                        view
+                      </button>
+                    </div>
+                    <div className="col-6 ps-2 p-0">
+                      <button className="btn round-form btn-change py-2 text-uppercase">
+                        change
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <img
@@ -156,16 +208,16 @@ export default function ConfirmRing() {
                 height="52"
                 alt="state-image"
                 style={{ background: "white" }}
-                className="round-form"
+                className="round-form d-md-block d-none"
               />
             </div>
-            <div className="px-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center active">
+            <div className="px-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   <RiCheckLine />
                 </div>
                 <div className="title text-uppercase">
-                  <p className="mb-1">Choose a</p>
+                  <p className="mb-1 d-md-block d-none">Choose a</p>
                   <h3 className="m-0">Diamond</h3>
                 </div>
               </div>
@@ -174,16 +226,16 @@ export default function ConfirmRing() {
                 width="52"
                 height="52"
                 alt="state-image"
-                className="round-form"
+                className="round-form d-md-block d-none"
               />
             </div>
-            <div className="ps-5 py-md-0 py-5 my-md-5 my-0 col-md-4 col-12 setting-state d-flex justify-content-between align-items-center active">
+            <div className="ps-5 py-md-0 py-5 my-md-5 my-0 col-4 setting-state d-flex justify-content-between align-items-center active">
               <div className="text-panel d-flex align-items-center">
                 <div className="number me-3 d-flex justify-content-center align-items-center">
                   3
                 </div>
                 <div className="title text-uppercase">
-                  <p className="mb-1">Choose a</p>
+                  <p className="mb-1 d-md-block d-none">Choose a</p>
                   <h3 className="m-0">Ring</h3>
                 </div>
               </div>
@@ -192,6 +244,7 @@ export default function ConfirmRing() {
                 width="52"
                 height="52"
                 alt="state-image"
+                className="round-form d-md-block d-none"
               />
             </div>
           </div>
@@ -201,13 +254,13 @@ export default function ConfirmRing() {
 
       {/* Start confirm section */}
       <div className="confirm-section py-5 mb-5 row r-container">
-        <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
+        <div className="show-product col-md-6 col-12 p-0 pt-5 pe-md-5">
           <div className="row m-0">
-            <div className="tile-product col-2 p-0 pe-3">
+            <div className="tile-product col-md-2 col-12 order-md-first order-last p-0 pe-md-3 d-md-block d-flex">
               {products.map((item, index) => {
                 return (
                   <button
-                    className="btn btn-show-product mb-3 p-0 round-form"
+                    className="btn btn-show-product col-md-12 col-2 mb-3 me-md-0 me-4 p-0 round-form"
                     key={index}
                     onClick={() => showProduct(item)}
                   >
@@ -216,13 +269,13 @@ export default function ConfirmRing() {
                 );
               })}
             </div>
-            <div className="main-product col-10 p-0">
+            <div className="main-product col-md-10 p-0">
               <div className="image-panel round mb-4">
                 <div className="image-box">
                   <img src={"/img/product/" + mainImage} alt="main-image" />
                 </div>
               </div>
-              <div className="btn-panel d-flex align-items-center justify-content-between">
+              <div className="btn-panel d-md-flex d-none align-items-center justify-content-between">
                 <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
                   <RiShareLine className="me-2" />
                   share
@@ -238,7 +291,7 @@ export default function ConfirmRing() {
             </div>
           </div>
         </div>
-        <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-5">
+        <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-md-5">
           <div className="title-panel">
             <h3 className="type pb-4 m-0">Halo style</h3>
             <h3 className="title text-capitalize pb-4 m-0">
@@ -256,14 +309,14 @@ export default function ConfirmRing() {
                 width="35"
                 height="30"
               />
-              <div className="text-panel ps-5">
+              <div className="text-panel ps-md-5 ps-3">
                 <h3 className="shape m-0">Round Shape</h3>
                 <h3 className="ring-name m-0 py-4">1.00 Carat Round Diamond</h3>
                 <p className="ring-id">SKU 1219W14</p>
                 <h4 className="categories m-0 pb-4">
                   H-Color | SI1 Clarity | Excellent Cut
                 </h4>
-                <Link passHref={true}  href="/customRing/chooseSetting">
+                <Link passHref={true} href="/customRing/chooseSetting">
                   <button className="btn btn-change-setting text-uppercase px-4 py-2">
                     change diamond setting
                   </button>
@@ -380,7 +433,7 @@ export default function ConfirmRing() {
               </div>
               <div className="amount-panel d-flex align-items-center">
                 <button
-                  className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-4"
+                  className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-sm-4 p-3"
                   onClick={() =>
                     itemAmount > 1 && setItemAmount(itemAmount - 1)
                   }
@@ -389,7 +442,7 @@ export default function ConfirmRing() {
                 </button>
                 <span className="mx-4">{itemAmount}</span>
                 <button
-                  className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-4"
+                  className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-sm-4 p-3"
                   onClick={() => setItemAmount(itemAmount + 1)}
                 >
                   <RiAddFill />
@@ -409,7 +462,7 @@ export default function ConfirmRing() {
                 <RiHeartFill />
               </button>
               <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
-                <Link passHref={true}  href="#">
+                <Link passHref={true} href="#">
                   <a className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4">
                     add to cart
                   </a>
@@ -420,14 +473,14 @@ export default function ConfirmRing() {
             <div className="help-panel d-flex justify-content-between py-4">
               <p className="text-uppercase m-0">Need help?</p>
               <div className="link-panel d-flex">
-                <Link passHref={true}  href="#">
+                <Link passHref={true} href="#">
                   <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                     <RiCustomerService2Fill className="me-2" />
                     contact
                   </a>
                 </Link>
 
-                <Link passHref={true}  href="#">
+                <Link passHref={true} href="#">
                   <a className="text-uppercase d-flex align-items-center blue-text">
                     <RiChat1Line className="me-2" />
                     chat
@@ -435,12 +488,25 @@ export default function ConfirmRing() {
                 </Link>
               </div>
             </div>
-            <div className="schedule-panel d-flex align-items-center justify-content-between flex-wrap py-4">
+            <div className="schedule-panel d-md-flex d-none align-items-center justify-content-between flex-wrap py-4">
               <p className="m-0 text-uppercase">
                 Not ready to purchase online?
               </p>
               <button className="btn btn-schedule text-uppercase blue-text my-3 px-5 py-2">
                 Schedule an appointment
+              </button>
+            </div>
+            <div className="btn-panel share-btn-panel mt-5 d-md-none d-flex align-items-center justify-content-between">
+              <button className="btn px-5 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                <RiShareLine className="me-2" />
+                share
+              </button>
+              <button
+                className="btn px-5 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                data-bs-toggle="modal"
+                data-bs-target="#dropHint"
+              >
+                drop a hint
               </button>
             </div>
           </div>

@@ -23,12 +23,112 @@
     }
     .setting-state-panel {
       background: #ebf1f2;
+      position: relative;
       .setting-state {
         &:not(.setting-state:last-child) {
           border-right: 1px solid rgba(2, 24, 37, 0.1);
           @media (max-width: 767px) {
-            border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+            // border-bottom: 1px solid rgba(2, 24, 37, 0.1);
             border-right: 0;
+          }
+        }
+        &.selected-ring-panel {
+          cursor: pointer;
+          .hover-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgb(255, 255, 255);
+            transform: translateY(100%);
+            box-shadow: 0 10px 10px rgb(177, 177, 177);
+            visibility: hidden;
+            opacity: 0;
+            transition-duration: 0.5s;
+            &::after {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 10%;
+              transform: translateY(-100%);
+              width: 0;
+              height: 0;
+              border-left: 16px solid transparent;
+              border-right: 16px solid transparent;
+              border-bottom: 20px solid #ffffff;
+            }
+            .ring-info-panel {
+              .ring-title-panel {
+                img {
+                  border: 1px solid rgba(2, 24, 37, 0.1);
+                }
+              }
+              .text-panel {
+                h3 {
+                  font-size: 1.4rem;
+                  font-weight: 400;
+                  font-family: FreeSerif;
+                  font-style: italic;
+                  color: rgba(1, 33, 92, 0.5);
+                }
+                h4 {
+                  font-weight: 400;
+                  font-size: 12px;
+                  line-height: 15px;
+                  color: rgba(2, 24, 37, 0.7);
+                }
+              }
+              .cost-panel {
+                h3 {
+                  font-family: FreeSerif;
+                  font-style: italic;
+                  font-weight: 400;
+                  font-size: 14px;
+                  line-height: 18px;
+                  color: #021825;
+                }
+                h4 {
+                  font-weight: 400;
+                  font-size: 12px;
+                  line-height: 15px;
+                  color: rgba(2, 24, 37, 0.7);
+                }
+              }
+            }
+            .btn-panel {
+              button {
+                width: 100%;
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 17px;
+                &.btn-view {
+                  background: #021825;
+                  color: white;
+                  border: 1px solid transparent;
+                  &:hover {
+                    border-color: #021825;
+                    color: #021825;
+                    background: transparent;
+                  }
+                }
+                &.btn-change {
+                  border: 1px solid rgba(2, 24, 37, 0.1);
+                  color: rgba(2, 24, 37, 0.7);
+                  &:hover {
+                    border-color: transparent;
+                    background: rgba(2, 24, 37, 0.1);
+                    color: black;
+                  }
+                }
+              }
+            }
+          }
+          &:hover {
+            .hover-panel {
+              opacity: 1;
+              visibility: unset;
+              transition-duration: 0.7s;
+            }
           }
         }
         .number {
@@ -46,6 +146,22 @@
             background: #01215c;
             border-color: #01215c;
             color: white;
+          }
+        }
+        @media (max-width: 575px) {
+          h3 {
+            font-size: 1.4rem !important;
+            color: rgba(1, 33, 92, 0.5) !important;
+          }
+          &.active {
+            h3 {
+              color: #01215c !important;
+            }
+          }
+          .number {
+            width: 27px;
+            height: 27px;
+            font-size: 1.4rem;
           }
         }
         .title {
@@ -132,7 +248,6 @@
     .show-product {
       .tile-product {
         button {
-          width: 100%;
           border: 1px solid rgba(2, 24, 37, 0.1);
           overflow: hidden;
           img {
@@ -241,6 +356,34 @@
               &:hover {
                 background: rgba(2, 24, 37, 0.5);
                 color: white;
+              }
+            }
+          }
+        }
+        @media (max-width: 575px) {
+          width: 100%;
+          .title,
+          .type {
+            font-size: 2.4rem;
+          }
+          .description {
+            font-size: 1.4rem;
+          }
+          .ring-info {
+            .info-image {
+              margin-top: 5px;
+              width: 23px;
+              height: 20px;
+            }
+            .text-panel {
+              .shape {
+                font-size: 1.8rem;
+              }
+              .ring-name {
+                font-size: 1.8rem;
+              }
+              .ring-id {
+                font-size: 1.2rem;
               }
             }
           }
@@ -393,9 +536,9 @@
         }
         .help-panel {
           font-size: 1.6rem;
-          border-bottom: 1px solid rgba(2, 24, 37, 0.1);
         }
         .schedule-panel {
+          border-top: 1px solid rgba(2, 24, 37, 0.1);
           font-size: 1.6rem;
           button {
             font-size: 1.4rem;
@@ -408,8 +551,48 @@
             }
           }
         }
+        .share-btn-panel {
+          button {
+            background: #f6f6f6;
+            font-size: 1.6rem;
+            font-weight: 400;
+            &:hover {
+              background: rgb(211, 211, 211);
+            }
+          }
+        }
+        @media (max-width: 575px) {
+          .material-setting-panel {
+            .metal-confirm,
+            .carat-confirm {
+              label {
+                font-size: 1.4rem;
+              }
+            }
+          }
+          .selector-panel {
+            h3 {
+              font-size: 1.4rem;
+            }
+          }
+          .cost-panel {
+            .price-panel {
+              h3 {
+                font-size: 2.4rem;
+              }
+            }
+            .amount-panel {
+              button {
+                width: 40px;
+                height: 40px;
+              }
+            }
+          }
+          .help-panel {
+            font-size: 1.4rem;
+          }
+        }
       }
     }
   }
- 
 }

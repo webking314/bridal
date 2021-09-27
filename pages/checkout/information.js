@@ -49,7 +49,7 @@ export default function Information() {
       !country |
       !phoneNumber
     ) {
-      console.log(e);
+      console.log(123)
     } else {
       e.preventDefault();
       if (typeof phoneNumber !== "undefined") {
@@ -85,8 +85,8 @@ export default function Information() {
   };
 
   if (localStore) {
-    if (!localStore.cart) {
-      router.push("/myCart");
+    if (!JSON.parse(localStore.cart).subTotal) {
+      router.push("/cart");
       return <></>;
     } else
       return (
@@ -103,7 +103,7 @@ export default function Information() {
               >
                 <HiOutlineArrowLeft />
               </button>
-              <Link passHref={true}  href="/myCart">
+              <Link passHref={true}  href="/cart">
                 <a className="mx-2 text-uppercase">Shopping cart</a>
               </Link>
               /
@@ -246,7 +246,7 @@ export default function Information() {
                   </button>
                   <button
                     className="btn round-form px-4 py-3 back-btn text-uppercase"
-                    onClick={() => router.push("/myCart")}
+                    onClick={() => router.push("/cart")}
                   >
                     Back to cart
                   </button>

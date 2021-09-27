@@ -382,7 +382,7 @@ function Header(props) {
               <RiHeartLine />
             </button>
 
-            <Link  passHref={true} href="/myCart">
+            <Link  passHref={true} href="/cart">
               <a className="btn cart-link d-flex me-4">
                 <RiShoppingCartLine className="font-icon" />
               </a>
@@ -502,7 +502,7 @@ function Header(props) {
               >
                 <RiSearchLine className="font-icon" />
               </button>
-              <Link  passHref={true} href="/myCart">
+              <Link  passHref={true} href="/cart">
                 <a className="btn me-4">
                   <RiShoppingCartLine className="font-icon" />
                 </a>
@@ -661,7 +661,7 @@ function Header(props) {
               <RiHeartLine />
             </button>
 
-            <Link  passHref={true} href="/myCart">
+            <Link  passHref={true} href="/cart">
               <a className="btn d-flex me-4">
                 <RiShoppingCartLine className="font-icon" />
               </a>

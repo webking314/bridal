@@ -3,9 +3,12 @@ import GlobalContext from "../utils/global-context";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import withRedux from "next-redux-wrapper";
+import Client from 'shopify-buy';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false;
+import { creatCheckout, productFound, checkoutFound, shopFound } from "../redux/actions/checkOutAction";
+
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/globals.scss";
@@ -26,6 +29,7 @@ import "../styles/components/dropHintModal.scss";
 import "../styles/components/appointmentModal.scss";
 import "../styles/components/myCartList.scss";
 import "../styles/components/aboutSlider.scss";
+import "../styles/components/watchDetails.scss";
 
 import "../styles/pages/homepage.scss";
 import "../styles/pages/blog/blog.scss";
@@ -39,11 +43,32 @@ import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
 import "../styles/pages/timeline.scss";
 import "../styles/pages/about.scss";
+import "../styles/pages/watch/index.scss";
 import "../styles/pages/customRing/chooseSetting.scss";
 import "../styles/pages/customRing/confirmSetting.scss";
 import "../styles/pages/customRing/chooseDiamond.scss";
 import "../styles/pages/customRing/confirmDiamond.scss";
 import "../styles/pages/customRing/confirmRing.scss";
+
+//build shopify client
+const client = Client.buildClient({
+  storefrontAccessToken: '2e49efb3d94b8e094332586738a7a374',
+  domain: 'costerdiamonds.myshopify.com'
+});
+// creatCheckout(client);
+store.dispatch({type: 'CLIENT_CREATED', payload: client});
+
+// buildClient() is synchronous, so we can call all these after!
+client.product.fetchAll().then((res) => {
+  store.dispatch({type: 'PRODUCTS_FOUND', payload: res});
+});
+client.checkout.create().then((res) => {
+  store.dispatch({type: 'CHECKOUT_FOUND', payload: res});
+});
+client.shop.fetchInfo().then((res) => {
+  store.dispatch({type: 'SHOP_FOUND', payload: res});
+});
+
 
 function MyApp({ Component, pageProps }) {
   return (

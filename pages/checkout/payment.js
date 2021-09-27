@@ -7,8 +7,10 @@ import Footer from "../../components/footer";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { CountryDropdown } from "react-country-region-selector";
 import MyCartList from "../../components/myCartList";
+import { connect } from "react-redux";
+import { creatCheckout } from "../../redux/actions/checkOutAction";
 
-export default function Payment() {
+function Payment(props) {
   const [storage, setStorage] = useState();
   const [saveData, setSaveData] = useState(true);
   const router = useRouter();
@@ -24,56 +26,71 @@ export default function Payment() {
   const [billingMode, setBillingMode] = useState("same");
 
   const payNow = (e) => {
-    if (!saveData) {
-      e.preventDefault();
-      localStorage.removeItem("cart");
-      localStorage.removeItem("shipping");
-      localStorage.removeItem("products");
-      localStorage.removeItem("billing");
-    } else {
-      if (billingMode == "same") {
-        e.preventDefault();
-        localStorage.setItem(
-          "billing",
-          JSON.stringify(JSON.parse(localStorage.shipping))
-        );
-      } else {
-        if (!surName | !street | !zipCode | !town | !country | !phoneNumber) {
-          console.log(e);
-        } else {
-          e.preventDefault();
-          if (typeof phoneNumber !== "undefined") {
-            var pattern = new RegExp(/^[0-9\b]+$/);
-            if (!pattern.test(phoneNumber)) {
-              setErrorPhone("Please enter only number.");
-            } else if (phoneNumber.length < 10 || phoneNumber.length > 12) {
-              setErrorPhone("Please enter valid phone number.");
-            } else {
-              setErrorPhone("");
-              localStorage.setItem(
-                "billing",
-                JSON.stringify({
-                  contact: {
-                    email: JSON.parse(localStorage.shipping).contact.email,
-                    firstName: firstName,
-                    surName: surName,
-                    phoneNumber: phoneNumber,
-                  },
-                  address: {
-                    street: street,
-                    apartment: apartment,
-                    zipCode: zipCode,
-                    town: town,
-                    country: country,
-                  },
-                })
-              );
-              setBillingMode('')
-            }
-          }
-        }
-      }
-    }
+    e.preventDefault()
+    const checkoutID = props.checkOut.checkout.id;
+    const lineItemsToAdd = [];
+    console.log(props.checkOut)
+
+    JSON.parse(localStorage.cart).cartData.map((cart, index) => {
+      lineItemsToAdd.push({ variantId: "6229002682562", quantity: cart.amount })
+    })
+
+    console.log(checkoutID, lineItemsToAdd)
+
+    props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
+      console.log(res)
+    })
+
+    // if (!saveData) {
+    //   e.preventDefault();
+    //   localStorage.removeItem("cart");
+    //   localStorage.removeItem("shipping");
+    //   localStorage.removeItem("products");
+    //   localStorage.removeItem("billing");
+    // } else {
+    //   if (billingMode == "same") {
+    //     e.preventDefault();
+    //     localStorage.setItem(
+    //       "billing",
+    //       JSON.stringify(JSON.parse(localStorage.shipping))
+    //     );
+    //   } else {
+    //     if (!surName | !street | !zipCode | !town | !country | !phoneNumber) {
+    //       console.log(e);
+    //     } else {
+    //       e.preventDefault();
+    //       if (typeof phoneNumber !== "undefined") {
+    //         var pattern = new RegExp(/^[0-9\b]+$/);
+    //         if (!pattern.test(phoneNumber)) {
+    //           setErrorPhone("Please enter only number.");
+    //         } else if (phoneNumber.length < 10 || phoneNumber.length > 12) {
+    //           setErrorPhone("Please enter valid phone number.");
+    //         } else {
+    //           setErrorPhone("");
+    //           localStorage.setItem(
+    //             "billing",
+    //             JSON.stringify({
+    //               contact: {
+    //                 email: JSON.parse(localStorage.shipping).contact.email,
+    //                 firstName: firstName,
+    //                 surName: surName,
+    //                 phoneNumber: phoneNumber,
+    //               },
+    //               address: {
+    //                 street: street,
+    //                 apartment: apartment,
+    //                 zipCode: zipCode,
+    //                 town: town,
+    //                 country: country,
+    //               },
+    //             })
+    //           );
+    //           setBillingMode('')
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
   };
 
   useEffect(() => {
@@ -84,8 +101,8 @@ export default function Payment() {
     setStorage(localStorage);
   }, []);
   if (storage) {
-    if (!localStorage.cart) {
-      router.push("/myCart");
+    if (!JSON.parse(localStore.cart).subTotal) {
+      router.push("/cart");
       return <div></div>;
     } else if (!localStorage.shipping) {
       router.push("/checkout/information");
@@ -106,15 +123,15 @@ export default function Payment() {
               >
                 <HiOutlineArrowLeft />
               </button>
-              <Link passHref={true}  href="/myCart">
+              <Link passHref={true} href="/myCart">
                 <a className="mx-2 text-uppercase">Shopping cart</a>
               </Link>
               /
-              <Link passHref={true}  href="/checkout/information">
+              <Link passHref={true} href="/checkout/information">
                 <a className="mx-2 text-uppercase">information</a>
               </Link>
               /
-              <Link passHref={true}  href="/checkout/shipping">
+              <Link passHref={true} href="/checkout/shipping">
                 <a className="mx-2 text-uppercase">Shipping</a>
               </Link>
               /
@@ -131,7 +148,7 @@ export default function Payment() {
                     <h3 className="m-0 me-4">Contact</h3>
                     <p className="m-0">{shippingData.contact.email}</p>
                   </div>
-                  <Link passHref={true}  href="/checkout/information">
+                  <Link passHref={true} href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -150,7 +167,7 @@ export default function Payment() {
                         shippingData.address.country}
                     </p>
                   </div>
-                  <Link passHref={true}  href="/checkout/information">
+                  <Link passHref={true} href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -164,7 +181,7 @@ export default function Payment() {
                       {shippingData.shippingMethod == "free" ? "Free" : "None"}
                     </p>
                   </div>
-                  <Link passHref={true}  href="/checkout/shipping">
+                  <Link passHref={true} href="/checkout/shipping">
                     <a className="text-primary text-decoration-underline text-end">
                       modify
                     </a>
@@ -431,3 +448,13 @@ export default function Payment() {
     return <></>;
   }
 }
+
+const mapStateToProps = state => ({
+  checkOut: state.checkOut
+});
+
+const mapDispatchToProps = {
+  creatCheckout: creatCheckout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Payment)
