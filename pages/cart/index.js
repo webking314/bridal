@@ -44,10 +44,12 @@ const cartItems = [
 
 let subTotalPrice = 0;
 
+let addedIds = [];
+
 function MyCart(props) {
   const [items, setItems] = useState();
   const [subTotal, setSubTotal] = useState(0);
-  const [vat, setVat] = useState(4356);
+  const [vat, setVat] = useState(0);
   const [total, setTotal] = useState();
   const router = useRouter();
 
@@ -58,23 +60,18 @@ function MyCart(props) {
   const checkOut = (e) => {
     e.preventDefault();
     const checkoutID = props.checkOut.checkout.id;
-    const removeID = [];
     const lineItemsToAdd = [];
 
     JSON.parse(localStorage.cart).cartData.map(cart => {
       lineItemsToAdd.push({ variantId: cart.variant.storefrontId, quantity: cart.amount });
     })
 
-    props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then(async (res) => {
-      const lineItems = res.lineItems;
+    props.checkOut.client.checkout.removeLineItems(checkoutID, addedIds).then((res) => {
       console.log(res)
-      lineItems.map(item => {
-        removeID.push(item.id);
-      })
-      await window.open(res.webUrl)
-      console.log(removeID)
-      await props.checkOut.client.checkout.removeLineItems(checkoutID, removeID).then((res) => {
+      props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
         console.log(res)
+        res.lineItems.map(item => addedIds.push(item.id))
+        window.open(res.webUrl)
       })
     })
   };
