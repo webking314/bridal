@@ -66,7 +66,8 @@ function MyCart(props) {
 
     props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
       console.log(res)
-      router.push("/checkout");
+      // router.push("/checkout");
+      window.open(res.webUrl)
     })
   };
 

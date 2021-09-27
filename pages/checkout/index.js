@@ -58,14 +58,14 @@ function Checkout(props) {
       {/* Start checkout panel */}
       <div className="checkout-panel">
         {
-          checkoutURL &&
-          <Iframe url={checkoutURL}
-            width="100%"
-            height="auto"
-            id="myId"
-            className="myClassname"
-            display="initial"
-            position="relative" />
+          // checkoutURL &&
+          // <Iframe url={checkoutURL}
+          //   width="100%"
+          //   height="auto"
+          //   id="myId"
+          //   className="myClassname"
+          //   display="initial"
+          //   position="relative" />
         }
       </div>
       {/* End checkout panel */}
