@@ -58,16 +58,24 @@ function MyCart(props) {
   const checkOut = (e) => {
     e.preventDefault();
     const checkoutID = props.checkOut.checkout.id;
+    const removeID = [];
     const lineItemsToAdd = [];
 
     JSON.parse(localStorage.cart).cartData.map(cart => {
-      lineItemsToAdd.push({ variantId: cart.variant.storefrontId, quantity: cart.amount })
+      lineItemsToAdd.push({ variantId: cart.variant.storefrontId, quantity: cart.amount });
     })
 
-    props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
+    props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then(async (res) => {
+      const lineItems = res.lineItems;
       console.log(res)
-      // router.push("/checkout");
-      window.open(res.webUrl)
+      lineItems.map(item => {
+        removeID.push(item.id);
+      })
+      await window.open(res.webUrl)
+      console.log(removeID)
+      await props.checkOut.client.checkout.removeLineItems(checkoutID, removeID).then((res) => {
+        console.log(res)
+      })
     })
   };
 
