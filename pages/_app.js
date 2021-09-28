@@ -61,17 +61,9 @@ const client = Client.buildClient({
 // creatCheckout(client);
 store.dispatch({type: 'CLIENT_CREATED', payload: client});
 
-// buildClient() is synchronous, so we can call all these after!
-client.product.fetchAll().then((res) => {
-  store.dispatch({type: 'PRODUCTS_FOUND', payload: res});
-});
 client.checkout.create().then((res) => {
   store.dispatch({type: 'CHECKOUT_FOUND', payload: res});
 });
-client.shop.fetchInfo().then((res) => {
-  store.dispatch({type: 'SHOP_FOUND', payload: res});
-});
-
 
 function MyApp({ Component, pageProps }) {
   return (

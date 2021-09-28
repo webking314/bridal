@@ -26,6 +26,7 @@ let tabState = [];
 let blogData = [];
 let categoryData = [];
 let localSticky = 1;
+let banner;
 
 export default function Blog() {
   const [categories, setCategories] = useState();
@@ -41,11 +42,13 @@ export default function Blog() {
   const [mounted, setMounted] = useState(false);
   const [excludID, setExcludID] = useState();
   const [loadMoreStatus, setLoadMoreStatus] = useState(false);
+  const [bannerData, setBannerData] = useState(banner);
+  const [showLoadMore, setShowLoadMore] = useState(false);
 
   useEffect(() => {
     if (categoryData.length == 0) {
       fetch(
-        categoryURL + "?orderby=id&per_page=100&hide_empty=true",
+        categoryURL + "?exclude=1&orderby=id&per_page=100&hide_empty=true",
         {
           method: "get",
           headers,
@@ -70,7 +73,7 @@ export default function Blog() {
       if (excludID) {
         url = blogURL + "?orderby=id&per_page=11&exclude=" + excludID + "&categories=" + filterCategory.join() + filterKey
       } else {
-        url = blogURL + "?orderby=id&per_page=12&categories=" + filterCategory.join() + filterKey
+        url = blogURL + "?orderby=id&per_page=11&categories=" + filterCategory.join() + filterKey
       }
       fetch(
         url,
@@ -91,8 +94,8 @@ export default function Blog() {
             });
           });
           if (excludID) {
-            setPost([post[0], ...postArr]);
-            setPostItems([postItems[0], ...postItems])
+            setPost([bannerData, ...postArr]);
+            setPostItems([bannerData, ...postItems])
           } else {
             setPost(postArr)
             setPostItems(postArr);
@@ -105,7 +108,7 @@ export default function Blog() {
       if (excludID) {
         url = blogURL + "?orderby=id&per_page=11&exclude=" + excludID;
       } else {
-        url = blogURL + "?orderby=id&per_page=12";
+        url = blogURL + "?orderby=id&per_page=11";
       }
       fetch(url, {
         method: "get",
@@ -123,8 +126,8 @@ export default function Blog() {
             });
           });
           if (excludID) {
-            setPost([post[0], ...postArr]);
-            setPostItems([postItems[0], ...postItems])
+            setPost([bannerData, ...postArr]);
+            setPostItems([bannerData, ...postItems])
           } else {
             setPost(postArr)
             setPostItems(postArr);
@@ -164,6 +167,7 @@ export default function Blog() {
             categoryItems: categoryItems,
           });
           if (postArr.length == post.length) {
+            setShowLoadMore( postArr.length >= 11 )
             postArr.sort((item1, item2) => item2.id - item1.id);
             setPostItems([...postArr]);
             setLoading(false);
@@ -179,7 +183,9 @@ export default function Blog() {
       categoryData = categories;
       blogData = postItems;
       if (!excludID) {
-        setExcludID(postItems[0].id)
+        banner = postItems[0]
+        setExcludID(banner.id)
+        setBannerData(banner)
       }
       setResult(postItems.length);
     }
@@ -275,28 +281,23 @@ export default function Blog() {
     }
   };
 
-  const searchBlurHandle = (event) => {
-    console.log(event.target.value)
-    if (!loading) {
-      if (filterKey != ("&search=" + event.target.value)) {
-        setPostItems("");
-        setFilterKey("&search=" + event.target.value);
-      }
+  const searchBlog = (value) => {
+    if (filterKey != ("&search=" + value)) {
+      setPostItems("");
+      setFilterKey("&search=" + value);
     }
   };
 
   const searchKeyUpHandle = event => {
     if (!loading) {
       if (event.keyCode == 13) {
-        if (filterKey != ("&search=" + event.target.value)) {
-          setPostItems("");
-          setFilterKey("&search=" + event.target.value);
-        }
+        searchBlog(event.target.value)
       }
     }
   }
 
   const loadMore = () => {
+    setShowLoadMore(false)
     setSticky(sticky + 1);
     setFilterCategory([]);
     setLoadMoreStatus(true)
@@ -339,17 +340,17 @@ export default function Blog() {
       <Header />
       {/* Start banner section */}
       {
-        postItems.length ?
+        bannerData ?
           <div className="banner-section">
-            <img className="cover-image" src={postItems[0].image} alt="blog-image" />
+            <img className="cover-image" src={bannerData.image} alt="blog-image" />
             <div className="r-container">
               <div className="row text-panel mb-md-5 mb-0 pb-md-5 pb-0">
                 <h1 className="blog__banner--title text-capitalize text-white">
-                  {renderHTML(postItems[0].title)}
+                  {renderHTML(bannerData.title)}
                 </h1>
                 <p className="blog__banner--description text-white mt-sm-5 mt-4">
-                  {postItems[0].categoryItems &&
-                    postItems[0].categoryItems.map((item, index) => {
+                  {bannerData.categoryItems &&
+                    bannerData.categoryItems.map((item, index) => {
                       return (
                         <span key={index}>
                           {index
@@ -365,11 +366,11 @@ export default function Blog() {
                 href={{
                   pathname: "/blog/[slug]",
                   query: {
-                    slug: "/blog/" + postItems[0].slug,
-                    id: postItems[0].id,
+                    slug: "/blog/" + bannerData.slug,
+                    id: bannerData.id,
                   },
                 }}
-                as={"/blog/" + postItems[0].slug}
+                as={"/blog/" + bannerData.slug}
               >
                 <a className="btn text-uppercase mt-sm-5 mt-4 px-5 py-3 btn--read-more pink-btn round-form">
                   Read more
@@ -393,7 +394,6 @@ export default function Blog() {
               className="form-control round-form px-3 py-2"
               id="searchPanel"
               placeholder="Search Here"
-              onBlur={searchBlurHandle}
               onKeyUp={searchKeyUpHandle}
             />
             <label htmlFor="searchPanel">
@@ -780,7 +780,7 @@ export default function Blog() {
               </div>
             </div>
           ) :
-            <h1 className="not-result-text text-center pt-5">Not Result</h1>}
+            <h1 className="not-result-text text-center pt-5">No Result</h1>}
         {
           loadMoreStatus && (
             <div className="row">
@@ -796,7 +796,11 @@ export default function Blog() {
             </div>
           )
         }
-        <button className="btn btn-more py-3 px-5 round-form text-uppercase mt-5" onClick={loadMore}>Load More</button>
+        {
+          showLoadMore && (
+            <button className="btn btn-more py-3 pink-btn px-5 round-form text-uppercase mt-5" onClick={loadMore}>Load More</button>
+          )
+        }
       </div>
       {/* End blog section */}
       {/* Schedule */}

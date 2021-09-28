@@ -209,12 +209,11 @@
       }
     }
     .btn-more {
-      font-size: 1.4rem;
-      background: #e6e6e6;
-      border: 1px solid transparent;
+      font-size: 1.6rem;
       &:hover {
-        background: transparent;
-        border-color: #e6e6e6;
+        color: #fad3da;
+        background: #01215c;
+        border-color: #01215c;
       }
     }
   }
