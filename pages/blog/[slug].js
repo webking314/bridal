@@ -238,6 +238,7 @@ function Brief(props) {
         });
     }
   }, [router.query]);
+  
   return (
     <div className="brief_page">
       <Head>
@@ -433,138 +434,141 @@ function Brief(props) {
       </div>
       {/* End article section */}
       {/* Start select product section */}
-      <div className="select-product-section py-5 r-container">
-        <div className="title-panel row m-0 my-5">
-          <div className="col-md-6 col-12 p-0">
-            <h3 className="text-capitalize blue-text">Liked the article?</h3>
-            <h2 className="text-capitalize blue-text">
-              You'll love the products
-            </h2>
+      {
+        products &&
+        <div className="select-product-section py-5 r-container">
+          <div className="title-panel row m-0 my-5">
+            <div className="col-md-6 col-12 p-0">
+              <h3 className="text-capitalize blue-text">Liked the article?</h3>
+              <h2 className="text-capitalize blue-text">
+                You'll love the products
+              </h2>
+            </div>
+            <div className="col-6 p-0 justify-content-end d-md-flex d-none align-items-end">
+              <Link passHref={true} href="#">
+                <a>VIEW ALL</a>
+              </Link>
+            </div>
           </div>
-          <div className="col-6 p-0 justify-content-end d-md-flex d-none align-items-end">
-            <Link passHref={true} href="#">
-              <a>VIEW ALL</a>
-            </Link>
-          </div>
-        </div>
-        <div className="product-panel row m-0">
-          <Swiper
-            navigation={{
-              prevEl: navigationPrevRef.current,
-              nextEl: navigationNextRef.current,
-            }}
-            slidesPerView={3}
-            spaceBetween={30}
-            loop={true}
-            className="mySwiper"
-            breakpoints={{
-              1100: {
-                slidesPerView: 3,
-              },
-              768: {
-                slidesPerView: 2,
-              },
-              590: {
-                slidesPerView: 1.4,
-              },
-              350: {
-                slidesPerView: 1.4,
-              },
-              1: {
-                slidesPerView: 1,
-              },
-            }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            onSwiper={(swiper) => {
-              // Delay execution for the refs to be defined
-              setTimeout(() => {
-                // Override prevEl & nextEl now that refs are defined
-                swiper.params.navigation.prevEl = navigationPrevRef.current;
-                swiper.params.navigation.nextEl = navigationNextRef.current;
+          <div className="product-panel row m-0">
+            <Swiper
+              navigation={{
+                prevEl: navigationPrevRef.current,
+                nextEl: navigationNextRef.current,
+              }}
+              slidesPerView={3}
+              spaceBetween={30}
+              loop={true}
+              className="mySwiper"
+              breakpoints={{
+                1100: {
+                  slidesPerView: 3,
+                },
+                768: {
+                  slidesPerView: 2,
+                },
+                590: {
+                  slidesPerView: 1.4,
+                },
+                350: {
+                  slidesPerView: 1.4,
+                },
+                1: {
+                  slidesPerView: 1,
+                },
+              }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              onSwiper={(swiper) => {
+                // Delay execution for the refs to be defined
+                setTimeout(() => {
+                  // Override prevEl & nextEl now that refs are defined
+                  swiper.params.navigation.prevEl = navigationPrevRef.current;
+                  swiper.params.navigation.nextEl = navigationNextRef.current;
 
-                // Re-init navigation
-                swiper.navigation.destroy();
-                swiper.navigation.init();
-                swiper.navigation.update();
-              });
-            }}
-          >
-            {products && products.map((item, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <div className="product-image round">
-                    <img src={item.image} alt="product-image" />
-                  </div>
-                  <div className="product-info py-4">
-                    {/* <div className="product-id">
+                  // Re-init navigation
+                  swiper.navigation.destroy();
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+                });
+              }}
+            >
+              {products.map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="product-image round">
+                      <img src={item.image} alt="product-image" />
+                    </div>
+                    <div className="product-info py-4">
+                      {/* <div className="product-id">
                       <span className="me-2">{item.type}</span>|
                       <span className="ms-2">{item.id}</span>
                     </div> */}
-                    <h3 className="product-title my-4 blue-text">
-                      {item.title}
-                    </h3>
-                    <p className="product-cost blue-text">
-                      <NumberFormat
-                        value={item.price}
-                        displayType="text"
-                        decimalScale={2}
-                        fixedDecimalScale={true}
-                        thousandSeparator={true}
-                        prefix="€ "
-                      /></p>
-                  </div>
-                  <button
-                    className={
-                      "btn favor-icon " +
-                      `${props.wishList &&
-                        props.wishList.find(
-                          (product) => product.shopifyid == item.shopifyid
-                        )
-                        ? "favor"
-                        : ""
-                      }`
-                    }
-                    onClick={(e) => setFavor(e, item)}
-                  >
-                    <RiHeartLine className="unfavor" />
-                    <RiHeartFill className="favor" />
-                  </button>
+                      <h3 className="product-title my-4 blue-text">
+                        {item.title}
+                      </h3>
+                      <p className="product-cost blue-text">
+                        <NumberFormat
+                          value={item.price}
+                          displayType="text"
+                          decimalScale={2}
+                          fixedDecimalScale={true}
+                          thousandSeparator={true}
+                          prefix="€ "
+                        /></p>
+                    </div>
+                    <button
+                      className={
+                        "btn favor-icon " +
+                        `${props.wishList &&
+                          props.wishList.find(
+                            (product) => product.shopifyid == item.shopifyid
+                          )
+                          ? "favor"
+                          : ""
+                        }`
+                      }
+                      onClick={(e) => setFavor(e, item)}
+                    >
+                      <RiHeartLine className="unfavor" />
+                      <RiHeartFill className="favor" />
+                    </button>
 
-                  <div className="btn-panel">
-                    {/* <button className="btn btn-cart pink-btn px-md-5 px-3 py-3 me-3 round-form">
+                    <div className="btn-panel">
+                      {/* <button className="btn btn-cart pink-btn px-md-5 px-3 py-3 me-3 round-form">
                       ADD TO CART
                     </button> */}
-                    <Link
-                      passHref={true}
-                      href={{
-                        pathname: "/ring/[slug]",
-                        query: {
-                          slug: getFilterValue(item.title) + "-" + item.shopifyid,
-                        },
-                      }}>
-                      <a className="btn btn-more-info px-md-5 px-3 py-3 blue-text round-form">
-                        MORE INFO
-                      </a>
-                    </Link>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-          <div className="btn-bottom-panel d-md-none d-block mt-5">
-            <button ref={navigationPrevRef} className="btn px-0 me-5">
-              <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
-            </button>
-            <button ref={navigationNextRef} className="btn px-0">
-              <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
-            </button>
+                      <Link
+                        passHref={true}
+                        href={{
+                          pathname: "/ring/[slug]",
+                          query: {
+                            slug: getFilterValue(item.title) + "-" + item.shopifyid,
+                          },
+                        }}>
+                        <a className="btn btn-more-info px-md-5 px-3 py-3 blue-text round-form">
+                          MORE INFO
+                        </a>
+                      </Link>
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+            <div className="btn-bottom-panel d-md-none d-block mt-5">
+              <button ref={navigationPrevRef} className="btn px-0 me-5">
+                <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
+              </button>
+              <button ref={navigationNextRef} className="btn px-0">
+                <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      }
       {/* End select product section */}
       {/* Schedule section */}
       <Schedule />

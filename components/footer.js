@@ -49,7 +49,7 @@ export default function Footer() {
     {
       title: "Customer Services",
       url: [
-        { link: "Contact Us", url: "#" },
+        { link: "Contact Us", url: "/contactus" },
         { link: "Reviews & TESTIMONIALS", url: "#" },
         { link: "Faq’s", url: "#" },
         { link: "Upgrade Service", url: "#" },

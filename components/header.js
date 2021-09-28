@@ -436,7 +436,7 @@ function Header(props) {
                 </Link>
               </nav>
               <nav>
-                <Link  passHref={true} href="#">
+                <Link  passHref={true} href="/contactus">
                   <a className="d-flex align-items-center">
                     <RiCustomerService2Fill />
                     CONTACT US

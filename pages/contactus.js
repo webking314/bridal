@@ -116,8 +116,8 @@ export default function ContactUs() {
       </div>
       {/* End ask section */}
       <div className="map-section r-container round p-5 mt-5">
-        <h3 className="title my-5 blue-text">Direction</h3>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.5967266461016!2d4.880994015994667!3d52.35959905585618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c609ef0246f37f%3A0x3cc8701575536c70!2sRoyal%20Coster%20Diamonds!5e0!3m2!1sen!2sru!4v1632814327214!5m2!1sen!2sru" width="100%" height="450" className="p-0 round mb-5" allowfullscreen="" loading="lazy"></iframe>
+        <h3 className="title mt-md-5 mb-5 blue-text">Direction</h3>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.5967266461016!2d4.880994015994667!3d52.35959905585618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c609ef0246f37f%3A0x3cc8701575536c70!2sRoyal%20Coster%20Diamonds!5e0!3m2!1sen!2sru!4v1632814327214!5m2!1sen!2sru" width="100%" height="450" className="p-0 round mb-md-5" allowfullscreen="" loading="lazy"></iframe>
       </div>
 
        {/* Start banner section */}
