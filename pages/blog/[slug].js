@@ -7,9 +7,13 @@ import Head from "next/head";
 import router, { useRouter } from "next/router";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import NumberFormat from "react-number-format";
 import Schedule from "../../components/schedule";
 import Skeleton from "@mui/material/Skeleton";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { connect } from "react-redux";
+import { setWishList } from '../../redux/actions/wishListAction';
+
 var dateFormat = require("dateformat");
 import {
   RiFacebookCircleFill,
@@ -22,6 +26,8 @@ import {
   RiInstagramLine,
   RiLinkedinLine,
   RiWhatsappLine,
+  RiHeartFill,
+  RiHeartLine
 } from "react-icons/ri";
 import "swiper/css";
 import { data } from "dom7";
@@ -67,51 +73,100 @@ const ReadingProgress = ({ target }) => {
     />
   );
 };
+
 const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
 const authorURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/users";
+const tagsURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tags"
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
+const productURL = "https://royalcoster.nl/api/product/index.php";
 const headers = {
   "Content-Type": "application/json",
 };
 
-export default function Brief() {
+function getFilterValue(str) {
+  str = str.toLowerCase();
+  var toReplace = ['"', "'", "\\", "(", ")", "[", "]"];
+  // For the old browsers
+  for (var i = 0; i < toReplace.length; ++i) {
+    str = str.replace(toReplace[i], "");
+  }
+  str = str.replace(/\W+/g, "-");
+  if (str.charAt(str.length - 1) == "-") {
+    str = str.replace(/-+\z/, "");
+  }
+  if (str.charAt(0) == "-") {
+    str = str.replace(/\A-+/, "");
+  }
+  return str
+}
+
+const products1 = [
+  {
+    img: "product-1.png",
+    type: "Bracelets",
+    id: "Sku: 1342343",
+    title: "The Rose Cut Diamond",
+    cost: "$1.200",
+  },
+  {
+    img: "product-2.png",
+    type: "Rings",
+    id: "Sku: 1342343",
+    title: "The Rose Cut Diamond",
+    cost: "$1.200",
+  },
+  {
+    img: "product-3.png",
+    type: "Rings",
+    id: "Sku: 1342343",
+    title: "The Rose Cut Diamond",
+    cost: "$1.200",
+  },
+];
+
+function Brief(props) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   const [time, setTime] = useState();
   const [authorData, setAuthorData] = useState();
   const [title, setTitle] = useState();
+  const [tags, setTags] = useState("Rings");
   const [coverBg, setCoverBg] = useState();
   const [content, setContent] = useState();
   const [dateTime, setDateTime] = useState();
   const [facebookLink, setFacebookLink] = useState();
   const [linkdinLink, setLinkdinLink] = useState();
   const [twitterLink, setTwitterLink] = useState();
-  const products = [
-    {
-      img: "product-1.png",
-      type: "Bracelets",
-      id: "Sku: 1342343",
-      title: "The Rose Cut Diamond",
-      cost: "$1.200",
-    },
-    {
-      img: "product-2.png",
-      type: "Rings",
-      id: "Sku: 1342343",
-      title: "The Rose Cut Diamond",
-      cost: "$1.200",
-    },
-    {
-      img: "product-3.png",
-      type: "Rings",
-      id: "Sku: 1342343",
-      title: "The Rose Cut Diamond",
-      cost: "$1.200",
-    },
-  ];
+  const [products, setProducts] = useState();
+  const [metaTitle, setMetaTitle] = useState('Brief');
+  const [metaDescription, setMetaDescription] = useState('');
+  const [metaImage, setMetaImage] = useState('');
   const target = React.createRef();
   const router = useRouter();
 
+  const setFavor = (event, product) => {
+    let target = event.target.closest(".favor-icon");
+    if (target.classList.contains("favor")) {
+      let localProducts = props.wishList;
+      let removeProduct = localProducts.find(
+        (item) => item.shopifyid == product.shopifyid
+      );
+      if (removeProduct) {
+        localProducts.splice(localProducts.indexOf(removeProduct), 1);
+        props.setWishList(localProducts)
+      }
+    } else {
+      if (localStorage.wishList) {
+        props.setWishList([...props.wishList, { ...product, amount: 1, product_type: tags }])
+      } else {
+        localStorage.setItem(
+          "wishList",
+          JSON.stringify([{ ...product, amount: 1, product_type: tags }])
+        );
+        props.setWishList([{ ...product, amount: 1, product_type: tags }])
+      }
+    }
+  };
 
   useEffect(() => {
     if (content) {
@@ -139,10 +194,33 @@ export default function Brief() {
         .then((res) => res.json())
         .then((data) => {
           data = data[0];
+          setMetaTitle(data.title.rendered);
+          setMetaDescription(data.acf.content.intro);
+          setMetaImage(data.acf.featured_image.url)
           setDateTime(dateFormat(data.date, "mmmm d, yyyy"));
           setTitle(data.title.rendered);
           setContent(data.acf.content.main_content);
           setCoverBg(data.acf.featured_image.url);
+
+          // Get tags of blog
+          fetch(tagsURL + "?post=" + data.id, {
+            method: 'get'
+          }).then((res) => res.json())
+            .then((tags) => {
+              let formData = new FormData();
+              let getProductQuery = tags.length > 0 ? (tags.map((tag, index) => index == 0 ? (" AND (tag:" + tag.slug) : (" OR tag:" + tag.slug)) + ")").replaceAll(',', '') : '';
+              formData.append('position', 'first: 10');
+              formData.append("query", ("status:active" + getProductQuery));
+              fetch(productURL, {
+                method: 'post',
+                body: formData
+              }).then(res => res.json())
+                .then((product) => {
+                  setProducts(product.data);
+                  console.log(product)
+                })
+            })
+
           // Get author data by author ID of blog
           fetch(authorURL + "/" + data.author, {
             method: "get",
@@ -156,13 +234,18 @@ export default function Brief() {
                 description: author.description,
               });
             });
+
         });
     }
   }, [router.query]);
   return (
     <div className="brief_page">
       <Head>
-        <title>Brief | Royal Coster</title>
+        <title>{metaTitle} | Royal Coster</title>
+        {/* Google */}
+        <meta itemProp="name" content={metaTitle} />
+        <meta itemProp="description" content={metaDescription} />
+        <meta itemProp="image" content={metaImage} />
       </Head>
       {/*Header */}
       <Header />
@@ -179,11 +262,11 @@ export default function Brief() {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link passHref={true}  href="/">
+          <Link passHref={true} href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link passHref={true}  href="/blog">
+          <Link passHref={true} href="/blog">
             <a className="mx-2">BLOG</a>
           </Link>
           /
@@ -257,32 +340,32 @@ export default function Brief() {
                 <hr className="line" />
                 <div className="links-panel mt-4 d-flex justify-content-between">
                   {facebookLink && (
-                    <Link passHref={true}  href={facebookLink}>
+                    <Link passHref={true} href={facebookLink}>
                       <a>
                         <RiFacebookCircleFill />
                       </a>
                     </Link>
                   )}
                   {twitterLink && (
-                    <Link passHref={true}  href={twitterLink}>
+                    <Link passHref={true} href={twitterLink}>
                       <a>
                         <RiTwitterFill />
                       </a>
                     </Link>
                   )}
-                  <Link passHref={true}  href="#">
+                  <Link passHref={true} href="#">
                     <a>
                       <RiInstagramFill />
                     </a>
                   </Link>
                   {linkdinLink && (
-                    <Link passHref={true}  href={linkdinLink}>
+                    <Link passHref={true} href={linkdinLink}>
                       <a>
                         <RiLinkedinFill />
                       </a>
                     </Link>
                   )}
-                  <Link passHref={true}  href="#">
+                  <Link passHref={true} href="#">
                     <a>
                       <RiWhatsappFill />
                     </a>
@@ -301,7 +384,7 @@ export default function Brief() {
           <div className="link-panel-cover d-md-block d-none">
             <div className="link-panel">
               {facebookLink && (
-                <Link passHref={true}  href={facebookLink}>
+                <Link passHref={true} href={facebookLink}>
                   <a>
                     <div className="link-item d-flex align-items-center justify-content-center mb-3">
                       <RiFacebookLine />
@@ -310,7 +393,7 @@ export default function Brief() {
                 </Link>
               )}
               {twitterLink && (
-                <Link passHref={true}  href={twitterLink}>
+                <Link passHref={true} href={twitterLink}>
                   <a>
                     <div className="link-item d-flex align-items-center justify-content-center mb-3">
                       <RiTwitterLine />
@@ -318,7 +401,7 @@ export default function Brief() {
                   </a>
                 </Link>
               )}
-              <Link passHref={true}  href="#">
+              <Link passHref={true} href="#">
                 <a>
                   <div className="link-item d-flex align-items-center justify-content-center mb-3">
                     <RiInstagramLine />
@@ -326,7 +409,7 @@ export default function Brief() {
                 </a>
               </Link>
               {linkdinLink && (
-                <Link passHref={true}  href={linkdinLink}>
+                <Link passHref={true} href={linkdinLink}>
                   <a>
                     <div className="link-item d-flex align-items-center justify-content-center mb-3">
                       <RiLinkedinLine />
@@ -334,7 +417,7 @@ export default function Brief() {
                   </a>
                 </Link>
               )}
-              <Link passHref={true}  href="#">
+              <Link passHref={true} href="#">
                 <a>
                   <div className="link-item d-flex align-items-center justify-content-center">
                     <RiWhatsappLine />
@@ -359,7 +442,7 @@ export default function Brief() {
             </h2>
           </div>
           <div className="col-6 p-0 justify-content-end d-md-flex d-none align-items-end">
-            <Link passHref={true}  href="#">
+            <Link passHref={true} href="#">
               <a>VIEW ALL</a>
             </Link>
           </div>
@@ -392,7 +475,7 @@ export default function Brief() {
               },
             }}
             autoplay={{
-              delay: 2500000,
+              delay: 2500,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
@@ -410,29 +493,63 @@ export default function Brief() {
               });
             }}
           >
-            {products.map((item, index) => {
+            {products && products.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
                   <div className="product-image round">
-                    <img src={"/img/brief/" + item.img} alt="product-image" />
+                    <img src={item.image} alt="product-image" />
                   </div>
                   <div className="product-info py-4">
-                    <div className="product-id">
+                    {/* <div className="product-id">
                       <span className="me-2">{item.type}</span>|
                       <span className="ms-2">{item.id}</span>
-                    </div>
+                    </div> */}
                     <h3 className="product-title my-4 blue-text">
                       {item.title}
                     </h3>
-                    <p className="product-cost blue-text">{item.cost}</p>
+                    <p className="product-cost blue-text">
+                      <NumberFormat
+                        value={item.price}
+                        displayType="text"
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        thousandSeparator={true}
+                        prefix="€ "
+                      /></p>
                   </div>
+                  <button
+                    className={
+                      "btn favor-icon " +
+                      `${props.wishList &&
+                        props.wishList.find(
+                          (product) => product.shopifyid == item.shopifyid
+                        )
+                        ? "favor"
+                        : ""
+                      }`
+                    }
+                    onClick={(e) => setFavor(e, item)}
+                  >
+                    <RiHeartLine className="unfavor" />
+                    <RiHeartFill className="favor" />
+                  </button>
+
                   <div className="btn-panel">
-                    <button className="btn btn-cart pink-btn px-md-5 px-3 py-3 me-3 round-form">
+                    {/* <button className="btn btn-cart pink-btn px-md-5 px-3 py-3 me-3 round-form">
                       ADD TO CART
-                    </button>
-                    <button className="btn btn-more-info px-md-5 px-3 py-3 blue-text round-form">
-                      MORE INFO
-                    </button>
+                    </button> */}
+                    <Link
+                      passHref={true}
+                      href={{
+                        pathname: "/ring/[slug]",
+                        query: {
+                          slug: getFilterValue(item.title) + "-" + item.shopifyid,
+                        },
+                      }}>
+                      <a className="btn btn-more-info px-md-5 px-3 py-3 blue-text round-form">
+                        MORE INFO
+                      </a>
+                    </Link>
                   </div>
                 </SwiperSlide>
               );
@@ -456,3 +573,13 @@ export default function Brief() {
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  wishList: state.wishList.value
+});
+
+const mapDispatchToProps = {
+  setWishList: setWishList,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Brief)

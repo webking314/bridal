@@ -1170,8 +1170,6 @@ function Ring(props) {
   );
 }
 
-
-
 const mapStateToProps = state => ({
   wishList: state.wishList.value
 });
