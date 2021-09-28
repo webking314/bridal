@@ -35,10 +35,10 @@ export default function ContactUs() {
             <h3 className="title text-capitalize">Get in touch</h3>
           </div>
           <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
-            <p className="guide-text">
+            <p className="guide-text mb-5">
               Couldn’t find what you were looking for? Tell us your wishes as detailed as possible and a diamond consultant will get in touch with you shortly.
             </p>
-            <p className="guide-text">
+            <p className="guide-text mb-5">
               For questions about gifting and jewelry, contact a sales professional. For engagement guidance, contact a diamond consultant.
             </p>
             <p className="guide-text">

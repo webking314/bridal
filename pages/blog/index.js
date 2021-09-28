@@ -28,20 +28,23 @@ let blogData = [],
 
 export default function Blog() {
   const [categories, setCategories] = useState();
+  const [sticky, setSticky] = useState(1);
   const [loading, setLoading] = useState(true);
   const [post, setPost] = useState([]);
   const [result, setResult] = useState();
   const [postItems, setPostItems] = useState([]);
   const [filterCategory, setFilterCategory] = useState(tabState);
-  const [filterKey, setFilterKey] = useState();
+  const [filterKey, setFilterKey] = useState('');
   const [options, setOptions] = useState();
   const [notResult, setNotResult] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [excludID, setExcludID] = useState();
+  const [loadMoreStatus, setLoadMoreStatus] = useState(false);
 
   useEffect(() => {
     if (categoryData.length == 0) {
       fetch(
-        categoryURL + "?orderby=id&exclude=1&per_page=100&hide_empty=true",
+        categoryURL + "?orderby=id&per_page=100&hide_empty=true",
         {
           method: "get",
           headers,
@@ -62,8 +65,14 @@ export default function Blog() {
     if (filterCategory.length && mounted) {
       setLoading(true);
       let postArr = [];
+      let url;
+      if (excludID) {
+        url = blogURL + "?orderby=id&per_page=11&exclude=" + excludID + "&categories=" + filterCategory.join() + filterKey
+      } else {
+        url = blogURL + "?orderby=id&per_page=12&categories=" + filterCategory.join() + filterKey
+      }
       fetch(
-        blogURL + "?orderby=id&per_page=10&categories=" + filterCategory.join(),
+        url,
         {
           method: "get",
           headers,
@@ -80,13 +89,24 @@ export default function Blog() {
               categories: item.categories,
             });
           });
-          setPost(postArr);
-          setPostItems(postArr);
+          if (excludID) {
+            setPost([post[0], ...postArr]);
+            setPostItems([postItems[0], ...postItems])
+          } else {
+            setPost(postArr)
+            setPostItems(postArr);
+          }
         });
     } else if (!blogData.length) {
       setLoading(true);
+      let url;
       let postArr = [];
-      fetch(blogURL + "?orderby=id&per_page=10", {
+      if (excludID) {
+        url = blogURL + "?orderby=id&per_page=11&exclude=" + excludID;
+      } else {
+        url = blogURL + "?orderby=id&per_page=12";
+      }
+      fetch(url, {
         method: "get",
         headers,
       })
@@ -101,8 +121,13 @@ export default function Blog() {
               categories: item.categories,
             });
           });
-          setPost(postArr);
-          setPostItems(postArr);
+          if (excludID) {
+            setPost([post[0], ...postArr]);
+            setPostItems([postItems[0], ...postItems])
+          } else {
+            setPost(postArr)
+            setPostItems(postArr);
+          }
         });
     }
     setMounted(true);
@@ -122,6 +147,7 @@ export default function Blog() {
     if (post) {
       if (post.length != 0) {
         let postArr = [];
+        console.log(post)
         post.map((item, index) => {
           let categoryItems = [];
           item.categories.map((id) => {
@@ -140,6 +166,7 @@ export default function Blog() {
             postArr.sort((item1, item2) => item2.id - item1.id);
             setPostItems([...postArr]);
             setLoading(false);
+            setLoadMoreStatus(false)
           }
         });
       }
@@ -150,6 +177,9 @@ export default function Blog() {
     if (postItems.length) {
       categoryData = categories;
       blogData = postItems;
+      if (!excludID) {
+        setExcludID(postItems[0].id)
+      }
       setResult(postItems.length);
     }
   }, [postItems]);
@@ -158,7 +188,13 @@ export default function Blog() {
     if (filterKey) {
       setLoading(true);
       let postArr = [];
-      fetch(blogURL + "?orderby=id&per_page=10&" + filterCategory + filterKey, {
+      let url;
+      if (filterCategory) {
+        url = blogURL + "?orderby=id&per_page=11&exclude=" + excludID + "&categories=" + filterCategory + filterKey
+      } else {
+        url = blogURL + "?orderby=id&per_page=11&exclude=" + excludID + filterKey
+      }
+      fetch(url, {
         method: "get",
         headers,
       })
@@ -174,7 +210,7 @@ export default function Blog() {
                 categories: item.categories,
               });
             });
-            setPost(postArr);
+            setPost([post[0], ...postArr]);
             setNotResult(false);
           } else {
             setLoading(false);
@@ -238,14 +274,59 @@ export default function Blog() {
     }
   };
 
-  const searchHandle = (event) => {
+  const searchBlurHandle = (event) => {
+    console.log(event.target.value)
     if (!loading) {
-      if (event.keyCode == 13) {
+      if (filterKey != ("&search=" + event.target.value)) {
         setPostItems("");
         setFilterKey("&search=" + event.target.value);
       }
     }
   };
+
+  const searchKeyUpHandle = event => {
+    if (!loading) {
+      if (event.keyCode == 13) {
+        if (filterKey != ("&search=" + event.target.value)) {
+          setPostItems("");
+          setFilterKey("&search=" + event.target.value);
+        }
+      }
+    }
+  }
+
+  const loadMore = () => {
+    setSticky(sticky + 1);
+    setFilterCategory([]);
+    setFilterKey('');
+  }
+
+  useEffect(() => {
+    if (sticky > 1) {
+      setLoadMoreStatus(true)
+      let url = blogURL + "?orderby=id&per_page=11&page=" + sticky;
+      let postArr = [];
+
+      fetch(url, {
+        method: "get",
+        headers,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          data.map((item) => {
+            postArr.push({
+              id: item.id,
+              title: item.title.rendered,
+              slug: item.slug,
+              image: item.acf.featured_image.url,
+              categories: item.categories,
+            });
+          });
+          setPost([...post, ...postArr])
+        });
+    }
+  }, [sticky])
+
 
   return (
     <div className="blog_page">
@@ -255,21 +336,47 @@ export default function Blog() {
       {/*Header */}
       <Header />
       {/* Start banner section */}
-      <div className="banner-section">
-        <div className="r-container">
-          <div className="row text-panel mb-md-5 mb-0 pb-md-5 pb-0">
-            <h1 className="blog__banner--title text-capitalize text-white">
-              The Koh-I-Noor: More than only óur heritage
-            </h1>
-            <p className="blog__banner--description text-white mt-sm-5 mt-4">
-              Our Royal Legacy
-            </p>
+      {
+        postItems.length ?
+          <div className="banner-section">
+            <img className="cover-image" src={postItems[0].image} alt="blog-image" />
+            <div className="r-container">
+              <div className="row text-panel mb-md-5 mb-0 pb-md-5 pb-0">
+                <h1 className="blog__banner--title text-capitalize text-white">
+                  {renderHTML(postItems[0].title)}
+                </h1>
+                <p className="blog__banner--description text-white mt-sm-5 mt-4">
+                  {postItems[0].categoryItems &&
+                    postItems[0].categoryItems.map((item, index) => {
+                      return (
+                        <span key={index}>
+                          {index
+                            ? ", " + renderHTML(item)
+                            : renderHTML(item)}
+                        </span>
+                      );
+                    })}
+                </p>
+              </div>
+              <Link
+                passHref={true}
+                href={{
+                  pathname: "/blog/[slug]",
+                  query: {
+                    slug: "/blog/" + postItems[0].slug,
+                    id: postItems[0].id,
+                  },
+                }}
+                as={"/blog/" + postItems[0].slug}
+              >
+                <a className="btn text-uppercase mt-sm-5 mt-4 px-5 py-3 btn--read-more pink-btn round-form">
+                  Read more
+                </a>
+              </Link>
+            </div>
           </div>
-          <button className="btn text-uppercase mt-sm-5 mt-4 px-5 py-3 btn--read-more pink-btn round-form">
-            Read more
-          </button>
-        </div>
-      </div>
+          : <Skeleton variant="rectangular" animation="wave" width="100%" height={600} />
+      }
       {/* End banner section */}
 
       {/* Start blog section */}
@@ -284,7 +391,8 @@ export default function Blog() {
               className="form-control round-form px-3 py-2"
               id="searchPanel"
               placeholder="Search Here"
-              onKeyUp={searchHandle}
+              onBlur={searchBlurHandle}
+              onKeyUp={searchKeyUpHandle}
             />
             <label htmlFor="searchPanel">
               <RiSearchLine />
@@ -357,7 +465,7 @@ export default function Blog() {
           ) : <></>}
         </div>
         {
-          postItems.length > 0 ? (
+          postItems.length > 1 ? (
             <div className="main-blog-panel row m-0">
               <div className="col-md-8 col-12 p-0">
                 {
@@ -367,18 +475,18 @@ export default function Blog() {
                       href={{
                         pathname: "/blog/[slug]",
                         query: {
-                          slug: "/blog/" + postItems[0].slug,
-                          id: postItems[0].id,
+                          slug: "/blog/" + postItems[1].slug,
+                          id: postItems[1].id,
                         },
                       }}
-                      as={"/blog/" + postItems[0].slug}
+                      as={"/blog/" + postItems[1].slug}
                     >
                       <a>
                         <div className="blog-box main-blog ps-0 pt-5 pe-md-5 pe-0">
                           <div className="round blog-image">
-                            {postItems[0].image ? (
+                            {postItems[1].image ? (
                               <img
-                                src={postItems[0].image}
+                                src={postItems[1].image}
                                 className="round"
                                 alt="blog-image"
                               />
@@ -393,8 +501,8 @@ export default function Blog() {
                           </div>
                           <div className="blog-title pt-4 pb-5">
                             <p className="text-uppercase">
-                              {postItems[0].categoryItems &&
-                                postItems[0].categoryItems.map((item, index) => {
+                              {postItems[1].categoryItems &&
+                                postItems[1].categoryItems.map((item, index) => {
                                   return (
                                     <span key={index}>
                                       {index
@@ -405,7 +513,7 @@ export default function Blog() {
                                 })}
                             </p>
                             <h3 className="mb-4">
-                              {renderHTML(postItems[0].title)}
+                              {renderHTML(postItems[1].title)}
                             </h3>
                           </div>
                         </div>
@@ -416,7 +524,7 @@ export default function Blog() {
                 <div className="row m-0">
                   <div className="col-sm-6 col-12 p-0">
                     {postItems.map((item, index) => {
-                      if (index % 3 == 2)
+                      if ((index != 0) && (index % 3 == 0))
                         return (
                           <Link passHref={true} href={"/blog/" + item.slug} key={index}>
                             <a>
@@ -465,7 +573,7 @@ export default function Blog() {
                   </div>
                   <div className="col-sm-6 col-12 p-0">
                     {postItems.map((item, index) => {
-                      if ((index != 0) & (index % 3 == 0))
+                      if ((index != 1) && (index % 3 == 1))
                         return (
                           <Link passHref={true} href={"/blog/" + item.slug} key={index}>
                             <a>
@@ -522,7 +630,7 @@ export default function Blog() {
                   <div className="col-md-12 col-sm-6 col-12 p-0">
                     {postItems.map((item, index) => {
                       if (
-                        (index % 3 == 1) &
+                        (index % 3 == 2) &
                         (Math.ceil((postItems.length - 1) / 3) * 3 - 2 > index)
                       )
                         return (
@@ -574,7 +682,7 @@ export default function Blog() {
                   <div className="col-md-12 col-sm-6 col-12 p-0">
                     {postItems.map((item, index) => {
                       if (
-                        (index % 3 == 1) &
+                        (index % 3 == 2) &
                         (Math.ceil((postItems.length - 1) / 3) * 3 - 2 <= index)
                       )
                         return (
@@ -671,6 +779,22 @@ export default function Blog() {
             </div>
           ) :
             <h1 className="not-result-text text-center pt-5">Not Result</h1>}
+        {
+          loadMoreStatus && (
+            <div className="row">
+              <div className="col-md-4 col-sm-6">
+                <Skeleton variant="rectangular" animation="wave" height={300} />
+              </div>
+              <div className="col-md-4 col-sm-6 d-sm-block d-none">
+                <Skeleton variant="rectangular" animation="wave" height={300} />
+              </div>
+              <div className="col-md-4 d-md-block d-none">
+                <Skeleton variant="rectangular" animation="wave" height={300} />
+              </div>
+            </div>
+          )
+        }
+        <button className="btn btn-more py-3 px-5 round-form text-uppercase mt-5" onClick={loadMore}>Load More</button>
       </div>
       {/* End blog section */}
       {/* Schedule */}
