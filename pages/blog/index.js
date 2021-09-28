@@ -23,12 +23,13 @@ const headers = {
 };
 
 let tabState = [];
-let blogData = [],
-  categoryData = [];
+let blogData = [];
+let categoryData = [];
+let localSticky = 1;
 
 export default function Blog() {
   const [categories, setCategories] = useState();
-  const [sticky, setSticky] = useState(1);
+  const [sticky, setSticky] = useState(localSticky);
   const [loading, setLoading] = useState(true);
   const [post, setPost] = useState([]);
   const [result, setResult] = useState();
@@ -298,12 +299,13 @@ export default function Blog() {
   const loadMore = () => {
     setSticky(sticky + 1);
     setFilterCategory([]);
+    setLoadMoreStatus(true)
     setFilterKey('');
   }
 
   useEffect(() => {
-    if (sticky > 1) {
-      setLoadMoreStatus(true)
+    if (loadMoreStatus) {
+      localSticky = sticky
       let url = blogURL + "?orderby=id&per_page=11&page=" + sticky;
       let postArr = [];
 
@@ -322,7 +324,7 @@ export default function Blog() {
               categories: item.categories,
             });
           });
-          setPost([...post, ...postArr])
+          setPost([...blogData, ...postArr])
         });
     }
   }, [sticky])
