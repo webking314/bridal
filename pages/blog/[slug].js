@@ -186,6 +186,7 @@ function Brief(props) {
         "https://www.linkedin.com/shareArticle?mini=true&url=" + currentURL
       );
       setTwitterLink("https://twitter.com/share?url=" + currentURL);
+
       // Get blog data by slug
       fetch(blogURL + "?slug=" + router.query.slug, {
         method: "get",
@@ -207,18 +208,20 @@ function Brief(props) {
             method: 'get'
           }).then((res) => res.json())
             .then((tags) => {
-              let formData = new FormData();
-              let getProductQuery = tags.length > 0 ? (tags.map((tag, index) => index == 0 ? (" AND (tag:" + tag.slug) : (" OR tag:" + tag.slug)) + ")").replaceAll(',', '') : '';
-              formData.append('position', 'first: 10');
-              formData.append("query", ("status:active" + getProductQuery));
-              fetch(productURL, {
-                method: 'post',
-                body: formData
-              }).then(res => res.json())
-                .then((product) => {
-                  setProducts(product.data);
-                  console.log(product)
-                })
+              console.log(tags.length)
+              if (tags.length) {
+                let formData = new FormData();
+                let getProductQuery = tags.length > 0 ? (tags.map((tag, index) => index == 0 ? (" AND (tag:" + tag.slug) : (" OR tag:" + tag.slug)) + ")").replaceAll(',', '') : '';
+                formData.append('position', 'first: 10');
+                formData.append("query", ("status:active" + getProductQuery));
+                fetch(productURL, {
+                  method: 'post',
+                  body: formData
+                }).then(res => res.json())
+                  .then((product) => {
+                    setProducts(product.data);
+                  })
+              }
             })
 
           // Get author data by author ID of blog
@@ -238,7 +241,7 @@ function Brief(props) {
         });
     }
   }, [router.query]);
-  
+
   return (
     <div className="brief_page">
       <Head>
