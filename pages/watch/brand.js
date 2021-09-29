@@ -49,7 +49,7 @@ export default function Watch() {
   return (
     <div className="watch-brand_page">
       <Head>
-        <title>Bespoke Brand | Royal Coster</title>
+        <title>Watch Brand | Royal Coster</title>
       </Head>
       <Header />
       {/* Start hero section */}

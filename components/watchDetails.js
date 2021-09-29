@@ -11,9 +11,9 @@ export default function WatchDetails({ watchData }) {
             <div className="watch-detail-section r-container py-5" key={index}>
               <div className="watch-info-panel row m-0 mb-5">
                 <div className={"text-panel col-md-6 col-12 d-flex flex-column justify-content-center mt-md-0 mt-5 p-0 pe-md-5 " + (index % 2 == 1 && "ps-md-5")}>
-                  <h3 className={"blue-text watch-title text-capitalize mb-md-5 mb-3 " + (index % 2 == 0 ? "pe-md-5" : "ps-md-5")}>{watch.title}</h3>
-                  <p className={"watch-description pb-5 m-0 " + (index % 2 == 0 ? "pe-md-5" : "ps-md-5")}>{watch.description}</p>
-                  <div className={"btn-panel pt-md-5 pt-3 " + (index % 2 == 0 ? "pe-md-5" : "ps-md-5")}>
+                  <h3 className={"blue-text watch-title text-capitalize mb-md-5 mb-3 " + (index % 2 == 0 ? "pe-md-5" : "ps-md-5 ms-md-5")}>{watch.title}</h3>
+                  <p className={"watch-description pb-5 m-0 " + (index % 2 == 0 ? "pe-md-5" : "ps-md-5 ms-md-5")}>{watch.description}</p>
+                  <div className={"btn-panel pt-md-5 pt-3 " + (index % 2 == 0 ? "pe-md-5" : "ps-md-5 ms-md-5")}>
                     <button className="btn btn-show-watch text-uppercase round-form py-3 px-5 blue-btn">{watch.btnText}</button>
                   </div>
                 </div>

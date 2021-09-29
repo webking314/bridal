@@ -51,7 +51,7 @@ export default function Watch() {
   return (
     <div className="watch_page">
       <Head>
-        <title>Bespoke | Royal Coster</title>
+        <title>Watch | Royal Coster</title>
       </Head>
       <Header page="homepage" />
       {/* Start hero section */}
@@ -69,10 +69,10 @@ export default function Watch() {
       {/* Start guide section */}
       <div className="guide-section pt-5">
         <div className="row r-container py-sm-5 py-3">
-          <div className="col-lg-3 col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
+          <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
             <h3 className="title text-capitalize">The finest watch brands</h3>
           </div>
-          <div className="col-lg-9 col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
+          <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
             <p className="guide-text">
               At Royal Coster Watches we sell high-end Swiss watches. In the heart of our 4 monumental villa’s it is a beacon of Haute Horlogerie with 3 of our rooms dedicated to watches from the best Swiss manufactures.
             </p>
@@ -82,12 +82,25 @@ export default function Watch() {
       {/* End guide section */}
 
       {/* Start logo section */}
-      <div className="logo-panel r-container d-flex justify-content-between flex-wrap py-5">
+      <div className="logo-panel r-container d-flex justify-content-between flex-wrap pb-3 pt-5">
         {
           logos.map((logo, index) => {
             return (
               <Link href={logo.url} key={index} >
-                <a>
+                <a className="px-4 py-2 round-form pink-btn">
+                  <img src={"/img/watch/logo/" + logo.image} width="130" height="130" alt="logo-image" />
+                </a>
+              </Link>
+            )
+          })
+        }
+      </div>
+      <div className="logo-panel r-container d-flex justify-content-between flex-wrap pt-3 pb-5">
+        {
+          logos.map((logo, index) => {
+            return (
+              <Link href={logo.url} key={index} >
+                <a className="px-4 py-2 round-form pink-btn">
                   <img src={"/img/watch/logo/" + logo.image} width="130" height="130" alt="logo-image" />
                 </a>
               </Link>

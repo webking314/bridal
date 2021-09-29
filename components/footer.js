@@ -29,42 +29,42 @@ export default function Footer() {
     {
       title: "Shop Online",
       url: [
-        { link: "Engagement Rings", url: "#" },
-        { link: "Wedding & Anniversaries", url: "#" },
-        { link: "Empress Collection", url: "#" },
-        { link: "Bespoke Jewelry", url: "#" },
-        { link: "Consult with an expert", url: "#" },
+        { link: "Engagement Rings", url: "/shop", tags: "engagement", product_type: "rings" },
+        { link: "Wedding & Anniversaries", url: "#", tags: "", product_type: "" },
+        { link: "Empress Collection", url: "#", tags: "", product_type: "" },
+        { link: "Bespoke Jewelry", url: "#", tags: "", product_type: "" },
+        { link: "Consult with an expert", url: "#", tags: "", product_type: "" },
       ],
     },
     {
       title: "About Royal Coster",
       url: [
-        { link: "Our Story", url: "/our-story" },
-        { link: "Why Royal Coster", url: "#" },
-        { link: "Corporate Responsibility", url: "#" },
-        { link: "Press", url: "#" },
-        { link: "Jobs & internships", url: "#" },
+        { link: "Our Story", url: "/our-story", tags: "", product_type: "" },
+        { link: "Why Royal Coster", url: "#", tags: "", product_type: "" },
+        { link: "Corporate Responsibility", url: "#", tags: "", product_type: "" },
+        { link: "Press", url: "#", tags: "", product_type: "" },
+        { link: "Jobs & internships", url: "#", tags: "", product_type: "" },
       ],
     },
     {
       title: "Customer Services",
       url: [
-        { link: "Contact Us", url: "/contact" },
-        { link: "Reviews & TESTIMONIALS", url: "#" },
-        { link: "Faq’s", url: "#" },
-        { link: "Upgrade Service", url: "#" },
-        { link: "Global blue refunds", url: "#" },
+        { link: "Contact Us", url: "/contact", tags: "", product_type: ""  },
+        { link: "Reviews & TESTIMONIALS", url: "#", tags: "", product_type: "" },
+        { link: "Faq’s", url: "#", tags: "", product_type: "" },
+        { link: "Upgrade Service", url: "#", tags: "", product_type: "" },
+        { link: "Global blue refunds", url: "#", tags: "", product_type: "" },
       ],
     },
     {
       title: "Diamond Guides",
       url: [
-        { link: "Engagement ring buying guide", url: "#" },
-        { link: "Diamond buying guide", url: "#" },
-        { link: "WHAt to look in a diamond", url: "#" },
-        { link: "trends in diamond jewelry", url: "#" },
-        { link: "Proposal ideas", url: "#" },
-        { link: "What the royal bought", url: "#" },
+        { link: "Engagement ring buying guide", url: "#", tags: "", product_type: "" },
+        { link: "Diamond buying guide", url: "#", tags: "", product_type: "" },
+        { link: "WHAt to look in a diamond", url: "#", tags: "", product_type: "" },
+        { link: "trends in diamond jewelry", url: "#", tags: "", product_type: "" },
+        { link: "Proposal ideas", url: "#", tags: "", product_type: "" },
+        { link: "What the royal bought", url: "#", tags: "", product_type: "" },
       ],
     },
   ];
@@ -136,7 +136,14 @@ export default function Footer() {
                 <h3 className="mb-5">{items.title}</h3>
                 {items.url.map((item, key) => {
                   return (
-                    <Link  passHref={true} href={item.url} key={key}>
+                    <Link  passHref={true} href={{
+                      pathname: item.url,
+                      query: {
+                        tags: item.tags,
+                        productType: item.product_type
+                      },
+                    }}
+                    key={key}>
                       <a className="row m-0 mb-3 text-uppercase">{item.link}</a>
                     </Link>
                   );

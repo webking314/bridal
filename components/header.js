@@ -738,7 +738,16 @@ function Header(props) {
                             <h2>{menu.title}</h2>
                             {menu.menu.map((item, id) => {
                               return (
-                                <Link passHref={true} href={item.url} key={id}>
+                                <Link
+                                  passHref={true}
+                                  href={{
+                                    pathname: item.url,
+                                    query: {
+                                      tags: item.tag,
+                                      productType: item.product_type
+                                    },
+                                  }}
+                                  key={id}>
                                   <a>
                                     {item.img ? (
                                       <div className="link-item my-5 d-flex align-items-center">

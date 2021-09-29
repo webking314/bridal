@@ -726,7 +726,7 @@ function Ring(props) {
     if (tag.length) {
       formData.append("query", ("status:active AND product_type:" + productType + defaultTags + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
     } else {
-      formData.append("query", ("status:active"+ query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+      formData.append("query", ("status:active" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
     }
     fetch(productURL, {
       method: "post",
@@ -947,7 +947,7 @@ function Ring(props) {
               </div>
               {
                 loadMoreStatus && (
-                  <div className="m-0 mt-4 row">
+                  <div className="mt-4 row m-0">
                     <div className="col-lg-4 col-md-6 col-12">
                       <Skeleton
                         animation="wave"
@@ -1021,7 +1021,7 @@ function Ring(props) {
               )}
             </div>
           ) : !load ? <h3 className="none-text text-center col-lg-9 col-md-8 col-sm-7 col-12 p-0">No product</h3>
-            : <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row">
+            : <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row m-0">
               <div className="col-lg-4 col-md-6 col-12">
                 <Skeleton
                   animation="wave"

@@ -364,7 +364,7 @@ function ProductRing(props) {
                   })
                 }
                 <div className="selector-panel row m-0 py-4">
-                  {sizeList.length &&
+                  {sizeList.length > 0 &&
                     <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
                       <div className="d-flex justify-content-between pb-4 align-items-center">
                         <h3
