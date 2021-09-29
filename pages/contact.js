@@ -5,6 +5,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import Schedule from "../components/schedule";
 import NumberFormat from "react-number-format";
+import AppointmentModal from "../components/appointmentModal";
 import renderHTML from "react-render-html";
 import WatchItems from "../components/watchItems";
 import { RiArrowRightSFill, RiMailFill, RiPhoneFill, RiWhatsappFill, RiDvdFill } from "react-icons/ri";
@@ -120,15 +121,17 @@ export default function ContactUs() {
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2436.5967266461016!2d4.880994015994667!3d52.35959905585618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c609ef0246f37f%3A0x3cc8701575536c70!2sRoyal%20Coster%20Diamonds!5e0!3m2!1sen!2sru!4v1632814327214!5m2!1sen!2sru" width="100%" height="450" className="p-0 round mb-md-5" allowFullScreen="" loading="lazy"></iframe>
       </div>
 
-       {/* Start banner section */}
-       <div className="banner-section r-container round row mt-5 mb-4">
+      {/* Start banner section */}
+      <div className="banner-section r-container round row mt-5 mb-4">
         <div className="text-panel col-lg-6 col-12 p-0 p-md-5 p-sm-3">
           <h3 className="title text-capitalize px-5 pt-5 mb-5">Our Diamond<br /><span>Consultants</span></h3>
           <div className="description mb-5 px-5">
             <p>Our Diamond Consultants are highly trained and experienced experts in the field of diamonds, diamond jewelry, fashion and trends.</p>
             <p>Schedule a call with a Diamond Consultant to help you choose an engagement ring, wedding bands or that unique anniversary gift.</p>
           </div>
-          <button className="btn pink-btn round-form ms-5 mb-5 text-uppercase py-3 px-5">BOOK APPOINTMENT</button>
+          <button className="btn pink-btn round-form ms-5 mb-5 text-uppercase py-3 px-5"
+            data-bs-toggle="modal"
+            data-bs-target="#appointment">BOOK APPOINTMENT</button>
         </div>
         <div className="bg-panel col-lg-6 col-12 order-first order-lg-last"></div>
       </div>
@@ -141,6 +144,9 @@ export default function ContactUs() {
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}
+
+      <AppointmentModal />
+
     </div >
   );
 }

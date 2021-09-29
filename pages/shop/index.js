@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import Header from "../../components/header";
+import router, { useRouter } from "next/router";
 import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
@@ -178,6 +179,8 @@ const checkTreeIcons = {
 }
 
 let productStore = [], lastProductStatus, leftFilterStore, check0 = [], check1 = [], check2 = [], check3 = [], check4 = [], check5 = [], check6 = [], check7 = [], check8 = [], check9 = [];
+let tagData;
+
 
 function Ring(props) {
   const [result, setResult] = useState(0);
@@ -200,6 +203,8 @@ function Ring(props) {
   const [checked8, setChecked8] = useState(check8);
   const [checked9, setChecked9] = useState(check9);
   const [expanded, setExpanded] = useState([]);
+  const [productType, setProductType] = useState();
+  const [tag, setTag] = useState();
   const [totalFilterItems, setTotalFilterItems] = useState([]);
   const [cTagLastAdd, setCTagLastAdd] = useState(1);
   const [cTags, setCTags] = useState([]);
@@ -208,6 +213,29 @@ function Ring(props) {
   const [totalCounter, setTotalCounter] = useState(0)
   const [mounted, setMounted] = useState(false);
   const [filterMounted, setFilterMounted] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query) {
+      if (_.size(router.query)) {
+        if (router.query.tags || router.query.productType) {
+          setLoad(false);
+          setLoadMoreStatus(false);
+          setFilterMounted(false);
+          if (router.query.productType) {
+            setProductType(router.query.productType);
+          }
+          setTag(router.query.tags.split(','))
+        } else {
+          setTag([]);
+        }
+      } else {
+        if (router.asPath == '/shop') {
+          setTag([]);
+        }
+      }
+    }
+  }, [router.query])
 
   useEffect(() => {
     if (formData) {
@@ -235,7 +263,7 @@ function Ring(props) {
   }, [formData]);
 
   useEffect(() => {
-    if (cTags) {
+    if (cTags.length) {
       console.log(cTags)
       fetch(styleURL, {
         method: 'get',
@@ -280,7 +308,6 @@ function Ring(props) {
                 .then((res) => res.json())
                 .then((brands) => {
                   let middleArr = [];
-                  console.log(brands);
                   brands = brands.find(item => item.MainGroup == tags)
                   let brandsArr = brands.BrandID.split(',');
                   brandsArr.map((item, index) => {
@@ -581,52 +608,64 @@ function Ring(props) {
   }, [cTagLastAdd])
 
   useEffect(() => {
-    if (checked0 && mounted) {
-      check0 = checked0;
-      check1 = checked1;
-      check2 = checked2;
-      check3 = checked3;
-      check4 = checked4;
-      check5 = checked5;
-      check6 = checked6;
-      check7 = checked7;
-      check8 = checked8;
-      check9 = checked9;
-      let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query2 = checked2.length > 0 ? (checked2.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query3 = checked3.length > 0 ? (checked3.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query4 = checked4.length > 0 ? (checked4.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query5 = checked5.length > 0 ? (checked5.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query6 = checked6.length > 0 ? (checked6.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query7 = checked7.length > 0 ? (checked7.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query8 = checked8.length > 0 ? (checked8.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      let query9 = checked9.length > 0 ? (checked9.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-      setLoad(true)
-      let data = new FormData();
-      data.append("position", "first:9");
-      data.append("query", ("status:active AND product_type:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
-      setFormData(data);
-    } else {
-      if (productStore.length) {
-        console.log(123)
-        console.log(check0)
-        setProductData(productStore);
-        setLastProduct(lastProductStatus);
-        if (localStorage.wishList) {
-          props.setWishList(JSON.parse(localStorage.wishList));
-        }
-      }
-      else {
+    if (tag) {
+      let defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
+      if (checked0 && mounted) {
         setLoad(true)
+        check0 = checked0;
+        check1 = checked1;
+        check2 = checked2;
+        check3 = checked3;
+        check4 = checked4;
+        check5 = checked5;
+        check6 = checked6;
+        check7 = checked7;
+        check8 = checked8;
+        check9 = checked9;
+
+        let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query2 = checked2.length > 0 ? (checked2.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query3 = checked3.length > 0 ? (checked3.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query4 = checked4.length > 0 ? (checked4.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query5 = checked5.length > 0 ? (checked5.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query6 = checked6.length > 0 ? (checked6.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query7 = checked7.length > 0 ? (checked7.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query8 = checked8.length > 0 ? (checked8.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query9 = checked9.length > 0 ? (checked9.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
         let data = new FormData();
+
+        setLoad(true)
         data.append("position", "first:9");
-        data.append("query", "status:active AND product_type:Rings")
+        if (tag.length) {
+          data.append("query", ("status:active AND product_type:" + productType + defaultTags + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+        } else {
+          data.append("query", ("status:active" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+        }
         setFormData(data);
+      } else {
+        if (productStore.length) {
+          setProductData(productStore);
+          setLastProduct(lastProductStatus);
+          if (localStorage.wishList) {
+            props.setWishList(JSON.parse(localStorage.wishList));
+          }
+        }
+        else {
+          setLoad(true)
+          let data = new FormData();
+          data.append("position", "first:9");
+          if (tag.length) {
+            data.append("query", ("status:active AND product_type:" + productType + defaultTags))
+          } else {
+            data.append("query", ("status:active"))
+          }
+          setFormData(data);
+        }
       }
     }
     setMounted(true)
-  }, [checked0, checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9])
+  }, [checked0, checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9, tag])
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
@@ -672,6 +711,7 @@ function Ring(props) {
   const loadMore = () => {
     setLoadMoreStatus(true);
     let formData = new FormData();
+    let defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
     let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
     let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
     let query2 = checked2.length > 0 ? (checked2.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
@@ -683,7 +723,11 @@ function Ring(props) {
     let query8 = checked8.length > 0 ? (checked8.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
     let query9 = checked9.length > 0 ? (checked9.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
     formData.append("position", `first:9, after:"${lastProduct}"`);
-    formData.append("query", ("status:active AND product_type:Rings" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+    if (tag.length) {
+      formData.append("query", ("status:active AND product_type:" + productType + defaultTags + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+    } else {
+      formData.append("query", ("status:active"+ query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+    }
     fetch(productURL, {
       method: "post",
       body: formData,
@@ -711,7 +755,7 @@ function Ring(props) {
   return (
     <div className="ring_page">
       <Head>
-        <title>Ring | Royal Coster</title>
+        <title>Shop | Royal Coster</title>
       </Head>
       <Header />
       {/* Start hero section */}
@@ -726,7 +770,7 @@ function Ring(props) {
       <div className="product-section r-container py-4">
         <div className="top-bar row align-items-center m-0 py-3">
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
-            <h2>Engagement Rings</h2>
+            {tag && <h2 className="text-capitalize">{productType ? tag + " " + productType : "product"}</h2>}
             <p className="text-uppercase">{result} results</p>
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
@@ -823,7 +867,7 @@ function Ring(props) {
                       <Link
                         passHref={true}
                         href={{
-                          pathname: "/ring/[slug]",
+                          pathname: "/shop/[slug]",
                           query: {
                             slug: getFilterValue(item.title) + "-" + item.shopifyid,
                           },

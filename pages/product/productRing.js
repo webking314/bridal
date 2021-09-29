@@ -159,7 +159,7 @@ export default function ProductRing() {
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link passHref={true}  href="/ring">
+          <Link passHref={true}  href="/shop">
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /

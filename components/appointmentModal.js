@@ -166,7 +166,7 @@ export default function AppointmentModal() {
         className="modal-dialog modal-dialog-centered modal-dialog-scrollable r-container"
         id="appointmentModal"
       >
-        <div className="modal-content px-5 py-4 round">
+        <div className="modal-content px-3 py-4 round">
           <div className="modal-header  py-3">
             <h3 className="modal-title">Request an Appointment</h3>
             <button
@@ -176,7 +176,7 @@ export default function AppointmentModal() {
               aria-label="Close"
             ></button>
           </div>
-          <div className="modal-body px-0 py-5">
+          <div className="modal-body px-3 py-5">
             <div className="row m-0 align-items-start">
               <div
                 className="nav flex-column nav-pills col-sm-3 col-12"

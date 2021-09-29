@@ -143,6 +143,7 @@ function Brief(props) {
   const [metaImage, setMetaImage] = useState('');
   const target = React.createRef();
   const router = useRouter();
+  const [tagProps, setTagProps] = useState();
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
@@ -208,8 +209,8 @@ function Brief(props) {
             method: 'get'
           }).then((res) => res.json())
             .then((tags) => {
-              console.log(tags.length)
               if (tags.length) {
+                setTagProps(tags)
                 let formData = new FormData();
                 let getProductQuery = tags.length > 0 ? (tags.map((tag, index) => index == 0 ? (" AND (tag:" + tag.slug) : (" OR tag:" + tag.slug)) + ")").replaceAll(',', '') : '';
                 formData.append('position', 'first: 10');
@@ -448,9 +449,20 @@ function Brief(props) {
               </h2>
             </div>
             <div className="col-6 p-0 justify-content-end d-md-flex d-none align-items-end">
-              <Link passHref={true} href="#">
-                <a>VIEW ALL</a>
-              </Link>
+              {
+                tagProps && (
+                  <Link
+                    passHref={true}
+                    href={{
+                      pathname: "/shop",
+                      query: {
+                        tags:  tagProps.map((tag, index) => tag.slug).join(),
+                      },
+                    }}>
+                    <a>VIEW ALL</a>
+                  </Link>
+                )
+              }
             </div>
           </div>
           <div className="product-panel row m-0">
@@ -547,7 +559,7 @@ function Brief(props) {
                       <Link
                         passHref={true}
                         href={{
-                          pathname: "/ring/[slug]",
+                          pathname: "/shop/[slug]",
                           query: {
                             slug: getFilterValue(item.title) + "-" + item.shopifyid,
                           },

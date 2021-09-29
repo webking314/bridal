@@ -26,7 +26,7 @@ import {
 let submenus = [
   {
     title: "ENGAGEMENT",
-    url: "/ring",
+    url: "/shop",
     imagePanel: {
       image: "mega_img-1.png",
       title: "Ring Shopping Guide",
@@ -61,37 +61,37 @@ let submenus = [
       {
         title: "Shop by Style",
         menu: [
-          { name: "Halo", img: "mega_logo (5).png", url: "#" },
-          { name: "Solitaire", img: "mega_logo (6).png", url: "#" },
-          { name: "Slidestone", img: "mega_logo (7).png", url: "#" },
-          { name: "Threestone", img: "mega_logo (8).png", url: "#" },
-          { name: "Vintage", img: "mega_logo (9).png", url: "#" },
+          { name: "Halo", img: "mega_logo (5).png", url: "#", tag: "", product_type: "" },
+          { name: "Solitaire", img: "mega_logo (6).png", url: "#", tag: "", product_type: "" },
+          { name: "Slidestone", img: "mega_logo (7).png", url: "#", tag: "", product_type: "" },
+          { name: "Threestone", img: "mega_logo (8).png", url: "#", tag: "", product_type: "" },
+          { name: "Vintage", img: "mega_logo (9).png", url: "#", tag: "", product_type: "" },
         ],
       },
       {
         title: "Shop Popular Shapes",
         menu: [
-          { name: "Round", img: "mega_logo (10).png", url: "#" },
-          { name: "Cushion", img: "mega_logo (11).png", url: "#" },
-          { name: "Princess", img: "mega_logo (12).png", url: "#" },
-          { name: "Oval", img: "mega_logo (13).png", url: "#" },
-          { name: "Emerald", img: "mega_logo (14).png", url: "#" },
+          { name: "Round", img: "mega_logo (10).png", url: "#", tag: "", product_type: "" },
+          { name: "Cushion", img: "mega_logo (11).png", url: "#", tag: "", product_type: "" },
+          { name: "Princess", img: "mega_logo (12).png", url: "#", tag: "", product_type: "" },
+          { name: "Oval", img: "mega_logo (13).png", url: "#", tag: "", product_type: "" },
+          { name: "Emerald", img: "mega_logo (14).png", url: "#", tag: "", product_type: "" },
         ],
       },
       {
         title: "Quick Links",
         menu: [
-          { name: "1 Carat Engagement Rings", url: "#" },
-          { name: "1.5 Carat Engagement Rings", url: "#" },
-          { name: "2 Carat Engagement Rings", url: "#" },
-          { name: "3 Carat Engagement Rings", url: "#" },
+          { name: "1 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
+          { name: "1.5 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
+          { name: "2 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
+          { name: "3 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
         ],
       },
     ],
   },
   {
     title: "JEWELRY",
-    url: "/jewelry",
+    url: "",
     imagePanel: {
       image: "mega_img-2.png",
       title: "Jewelry Shopping Guide",
@@ -101,84 +101,84 @@ let submenus = [
       {
         title: "Rings",
         menu: [
-          { name: "Diamond rings", url: "#" },
-          { name: "Anniversary rings", url: "#" },
-          { name: "Engagement rings", url: "#" },
-          { name: "Gemstone rings", url: "#" },
+          { name: "Diamond rings", url: "/shop", tag: "diamond", product_type: "rings" },
+          { name: "Anniversary rings", url: "/shop", tag: "anniversary", product_type: "rings" },
+          { name: "Engagement rings", url: "/shop", tag: "engagement", product_type: "rings" },
+          { name: "Gemstone rings", url: "/shop", tag: "gemstone", product_type: "rings" },
         ],
       },
       {
         title: "Earrings",
         menu: [
-          { name: "Diamond studs", url: "#" },
-          { name: "Diamond earrings", url: "#" },
-          { name: "Gemstone earrings", url: "#" },
+          { name: "Diamond studs", url: "/shop", tag: "diamond", product_type: "studs" },
+          { name: "Diamond earrings", url: "/shop", tag: "diamond", product_type: "earrings" },
+          { name: "Gemstone earrings", url: "/shop", tag: "gemstone", product_type: "earrings" },
         ],
       },
       {
         title: "Bracelets",
         menu: [
-          { name: "Tennis bracelets", url: "#" },
-          { name: "Diamond bracelets", url: "#" },
+          { name: "Tennis bracelets", url: "/shop", tag: "tennis", product_type: "bracelets" },
+          { name: "Diamond bracelets", url: "/shop", tag: "diamond", product_type: "bracelets" },
         ],
       },
       {
         title: "Necklaces",
         menu: [
-          { name: "Diamond pendants", url: "#" },
-          { name: "Diamond necklace", url: "#" },
-          { name: "Gemstone necklaces", url: "#" },
+          { name: "Diamond pendants", url: "/shop", tag: "diamond", product_type: "pendants" },
+          { name: "Diamond necklace", url: "/shop", tag: "diamond", product_type: "necklace" },
+          { name: "Gemstone necklaces", url: "/shop", tag: "gemstone", product_type: "necklace" },
         ],
       },
       {
         title: "Gifts",
         menu: [
-          { name: "Birth gifts", url: "#" },
-          { name: "Gifts under euro 500", url: "#" },
-          { name: "Gifts under euro 1000", url: "#" },
+          { name: "Birth gifts", url: "/shop", tag: "birth", product_type: "gifts" },
+          { name: "Gifts under euro 500", url: "/shop", tag: "to-500", product_type: "gifts" },
+          { name: "Gifts under euro 1000", url: "/shop", tag: "to-500,1000-1499", product_type: "gifts" },
         ],
       },
     ],
   },
-  { title: "COLLECTIONS", url: "#" },
+  { title: "COLLECTIONS", url: "#", tag: "", product_type: "" },
   { title: "BESPOKE", url: "/bespoke" },
-  { title: "WATCHES", url: "#" },
+  { title: "WATCHES", url: "/watch", tag: "", product_type: "" },
   {
     title: "EDUCATION",
     url: "#",
-    imagePanel: { image: "mega_img-3.png", title: "Timeline", url: "#" },
+    imagePanel: { image: "mega_img-3.png", title: "Timeline", url: "#", tag: "", product_type: "" },
     megaMenu: [
       {
         title: "The diamond Experts",
         menu: [
-          { name: "about the C4's", url: "#" },
-          { name: "about colored diamonds & gemstone", url: "#" },
-          { name: "about the price diamonds", url: "#" },
-          { name: "about the sustainability", url: "#" },
-          { name: "about watches", url: "#" },
+          { name: "about the C4's", url: "#", tag: "", product_type: "" },
+          { name: "about colored diamonds & gemstone", url: "#", tag: "", product_type: "" },
+          { name: "about the price diamonds", url: "#", tag: "", product_type: "" },
+          { name: "about the sustainability", url: "#", tag: "", product_type: "" },
+          { name: "about watches", url: "#", tag: "", product_type: "" },
         ],
       },
       {
         title: "The history of Royal Coster",
         menu: [
-          { name: "Our Royal customers through time", url: "#" },
-          { name: "A timeline of brilliance", url: "#" },
-          { name: "Amsterdam City of Diamonds", url: "#" },
-          { name: "The kog I Noor & other legendary diamonds", url: "#" },
+          { name: "Our Royal customers through time", url: "#", tag: "", product_type: "" },
+          { name: "A timeline of brilliance", url: "#", tag: "", product_type: "" },
+          { name: "Amsterdam City of Diamonds", url: "#", tag: "", product_type: "" },
+          { name: "The kog I Noor & other legendary diamonds", url: "#", tag: "", product_type: "" },
         ],
       },
       {
         title: "Guides",
         menu: [
-          { name: "Ring size guide", url: "#" },
-          { name: "Diamond buying guide", url: "#" },
-          { name: "Engagement ring buying guide", url: "#" },
-          { name: "Royal Coster Wartches Guide", url: "#" },
+          { name: "Ring size guide", url: "#", tag: "", product_type: "" },
+          { name: "Diamond buying guide", url: "#", tag: "", product_type: "" },
+          { name: "Engagement ring buying guide", url: "#", tag: "", product_type: "" },
+          { name: "Royal Coster Wartches Guide", url: "#", tag: "", product_type: "" },
         ],
       },
     ],
   },
-  { title: "TOURS & WORKSHOPS", url: "#" },
+  { title: "TOURS & WORKSHOPS", url: "#", tag: "", product_type: "" },
   { title: "BLOG", url: "/blog" },
 ];
 
@@ -277,7 +277,7 @@ function Header(props) {
         <div className="scroll-header dr-none px-5">
           <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
             <div className="d-flex p-0 left-menu flex-1 flex-wrap py-2 ">
-              <Link  passHref={true} href="/">
+              <Link passHref={true} href="/">
                 <a className="me-5">
                   <img src="/img/common/mobile_logo.png" alt="logo" />
                 </a>
@@ -286,7 +286,7 @@ function Header(props) {
                 if (submenu.megaMenu)
                   return (
                     <div className="sub-item" key={index}>
-                      <Link  passHref={true} href={submenu.url}>
+                      <Link passHref={true} href={submenu.url}>
                         <a className="btn ps-0 py-0 pe-5 pt-3">
                           <span>{submenu.title}</span>
                           <hr className="mt-2" />
@@ -306,7 +306,16 @@ function Header(props) {
                                   </h2>
                                   {menu.menu.map((item, id) => {
                                     return (
-                                      <Link  passHref={true} href={item.url} key={id}>
+                                      <Link
+                                        passHref={true}
+                                        href={{
+                                          pathname: item.url,
+                                          query: {
+                                            tags: item.tag,
+                                            productType: item.product_type
+                                          },
+                                        }}
+                                        key={id}>
                                         <a>
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
@@ -339,7 +348,7 @@ function Header(props) {
                                 <h3 className="my-3">
                                   {submenu.imagePanel.title}
                                 </h3>
-                                <Link  passHref={true} href={submenu.imagePanel.url}>
+                                <Link passHref={true} href={submenu.imagePanel.url}>
                                   <a>
                                     <p className="link-item">Learn More</p>
                                   </a>
@@ -353,7 +362,7 @@ function Header(props) {
                   );
                 else
                   return (
-                    <Link  passHref={true} key={index} href={submenu.url}>
+                    <Link passHref={true} key={index} href={submenu.url}>
                       <a className="pe-5 pt-3 sub-item">
                         {submenu.title}
                         <hr className="mt-2" />
@@ -382,7 +391,7 @@ function Header(props) {
               <RiHeartLine />
             </button>
 
-            <Link  passHref={true} href="/cart">
+            <Link passHref={true} href="/cart">
               <a className="btn cart-link d-flex me-4">
                 <RiShoppingCartLine className="font-icon" />
               </a>
@@ -398,7 +407,7 @@ function Header(props) {
         </div>
         <div className="row m-0 px-5 py-3 top-bar">
           <div className="r-container d-flex justify-content-between align-items-center">
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a>WHY ROYAL COSTER ?</a>
             </Link>
             <ReactFlagsSelect
@@ -420,7 +429,7 @@ function Header(props) {
           <div className="r-container d-flex justify-content-between">
             <div className="d-flex left-menu align-items-center">
               <nav>
-                <Link  passHref={true} href="#">
+                <Link passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiMapPin2Line />
                     FIND A STORE
@@ -428,7 +437,7 @@ function Header(props) {
                 </Link>
               </nav>
               <nav className="mx-5">
-                <Link  passHref={true} href="#">
+                <Link passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiServiceLine />
                     SERVICES
@@ -436,7 +445,7 @@ function Header(props) {
                 </Link>
               </nav>
               <nav>
-                <Link  passHref={true} href="/contactus">
+                <Link passHref={true} href="/contact">
                   <a className="d-flex align-items-center">
                     <RiCustomerService2Fill />
                     CONTACT US
@@ -446,7 +455,7 @@ function Header(props) {
             </div>
             <div className="d-flex right-menu align-items-center">
               <nav>
-                <Link  passHref={true} href="#">
+                <Link passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiUser3Line />
                     NEWSLETTER
@@ -454,7 +463,7 @@ function Header(props) {
                 </Link>
               </nav>
               <nav className="mx-5">
-                <Link  passHref={true} href="#">
+                <Link passHref={true} href="#">
                   <a className="d-flex align-items-center">
                     <RiMailSendLine />
                     MY ACCOUNT
@@ -478,7 +487,7 @@ function Header(props) {
           <div className="r-container d-flex align-items-center">
             <div className="col-4 px-0"></div>
             <div className="col-4 px-0 text-center">
-              <Link  passHref={true} href="/">
+              <Link passHref={true} href="/">
                 <a>
                   <img
                     src={
@@ -502,7 +511,7 @@ function Header(props) {
               >
                 <RiSearchLine className="font-icon" />
               </button>
-              <Link  passHref={true} href="/cart">
+              <Link passHref={true} href="/cart">
                 <a className="btn me-4">
                   <RiShoppingCartLine className="font-icon" />
                 </a>
@@ -517,7 +526,7 @@ function Header(props) {
                 if (submenu.megaMenu) {
                   return (
                     <div className="sub-item" key={index}>
-                      <Link  passHref={true} href={submenu.url}>
+                      <Link passHref={true} href={submenu.url}>
                         <a className="btn ps-0 py-0 pe-5 pt-3">
                           <span>{submenu.title}</span>
                           <hr className="mt-2" />
@@ -537,7 +546,16 @@ function Header(props) {
                                   </h2>
                                   {menu.menu.map((item, id) => {
                                     return (
-                                      <Link  passHref={true} href={item.url} key={id}>
+                                      <Link
+                                        passHref={true}
+                                        href={{
+                                          pathname: item.url,
+                                          query: {
+                                            tags: item.tag,
+                                            productType: item.product_type
+                                          },
+                                        }}
+                                        key={id}>
                                         <a>
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
@@ -570,7 +588,7 @@ function Header(props) {
                                 <h3 className="my-3">
                                   {submenu.imagePanel.title}
                                 </h3>
-                                <Link  passHref={true} href={submenu.imagePanel.url}>
+                                <Link passHref={true} href={submenu.imagePanel.url}>
                                   <a>
                                     <p className="mb-0 link-item">Learn More</p>
                                   </a>
@@ -584,7 +602,7 @@ function Header(props) {
                   );
                 } else
                   return (
-                    <Link  passHref={true} key={index} href={submenu.url}>
+                    <Link passHref={true} key={index} href={submenu.url}>
                       <a className="pt-3 pe-5 sub-item">
                         <span>{submenu.title}</span>
                         <hr className="mt-2" />
@@ -605,7 +623,7 @@ function Header(props) {
       </div>
       <div className="mobile-header dr-none d-lg-none d-block">
         <div className="mobile__top-bar d-flex justify-content-between align-items-center px-5 py-4 text-white">
-          <Link  passHref={true} href="/">
+          <Link passHref={true} href="/">
             <a className="d-flex align-items-center">
               <RiUser3Line className="me-3" />
               MY ACCOUNT
@@ -626,7 +644,7 @@ function Header(props) {
           />
         </div>
         <div className="mobile__sub-bar d-flex justify-content-between align-items-center px-5 py-4">
-          <Link  passHref={true} href="#">
+          <Link passHref={true} href="#">
             <a>
               <img
                 src="/img/common/mobile_logo.png"
@@ -661,7 +679,7 @@ function Header(props) {
               <RiHeartLine />
             </button>
 
-            <Link  passHref={true} href="/cart">
+            <Link passHref={true} href="/cart">
               <a className="btn d-flex me-4">
                 <RiShoppingCartLine className="font-icon" />
               </a>
@@ -720,7 +738,7 @@ function Header(props) {
                             <h2>{menu.title}</h2>
                             {menu.menu.map((item, id) => {
                               return (
-                                <Link  passHref={true} href={item.url} key={id}>
+                                <Link passHref={true} href={item.url} key={id}>
                                   <a>
                                     {item.img ? (
                                       <div className="link-item my-5 d-flex align-items-center">
@@ -753,7 +771,7 @@ function Header(props) {
                         />
                         <div className="sub_title-panel">
                           <h3 className="my-5">{submenu.imagePanel.title}</h3>
-                          <Link  passHref={true} href={submenu.imagePanel.url}>
+                          <Link passHref={true} href={submenu.imagePanel.url}>
                             <a>
                               <p className="link-item">Learn More</p>
                             </a>
@@ -766,7 +784,7 @@ function Header(props) {
               );
             } else {
               return (
-                <Link  passHref={true} href={submenu.url} key={index}>
+                <Link passHref={true} href={submenu.url} key={index}>
                   <a className="submenu py-4">{submenu.title}</a>
                 </Link>
               );
@@ -783,21 +801,21 @@ function Header(props) {
           <div className="contact-panel text-center mt-5">
             <h3>Contact Us</h3>
             <div className="contact-links d-flex justify-content-around mt-5">
-              <Link  passHref={true} href="#">
+              <Link passHref={true} href="#">
                 <a>
                   <div className="contact-item d-flex align-items-center justify-content-center">
                     <RiMapPin2Line />
                   </div>
                 </a>
               </Link>
-              <Link  passHref={true} href="#">
+              <Link passHref={true} href="#">
                 <a>
                   <div className="contact-item d-flex align-items-center justify-content-center">
                     <RiMessageLine />
                   </div>
                 </a>
               </Link>
-              <Link  passHref={true} href="#">
+              <Link passHref={true} href="#">
                 <a>
                   <div className="contact-item d-flex align-items-center justify-content-center">
                     <RiMailLine />
