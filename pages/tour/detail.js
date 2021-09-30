@@ -202,13 +202,13 @@ export default function TourDetail() {
 
       {/* Start address section */}
       <div className="booking-section r-container my-5 pb-5">
-        <div className="ticket-panel round d-flex align-items-center justify-content-between py-2 ps-5 pe-2 flex-md-row flex-column">
+        <div className="ticket-panel round d-flex align-items-center justify-content-between py-2 ps-md-5 ps-4 pe-2 flex-md-row flex-column">
           <p className="mb-md-0 mb-4 text-center">Duration approx. 20 - 60 minutes | €12,50 per person</p>
           <button className="btn btn-ticket blue-btn px-5 py-2 text-uppercase round-form">Get your Tickets</button>
         </div>
         <div className="booking-panel round row mt-5">
           <div className="col-md-6">
-            <div className="booking-list-panel py-4 px-5 round">
+            <div className="booking-list-panel py-4 px-md-5 px-4 round">
               <div className="title-panel d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-sm-row flex-column mb-5">
                 <h3 className="title text-capitalize">Opening hours</h3>
                 <div className="status py-2 px-4">CLOSED NOW</div>
@@ -225,7 +225,7 @@ export default function TourDetail() {
             </div>
           </div>
           <div className="col-md-6 mt-md-0 mt-5">
-            <div className="direction-panel round py-4 px-5 d-flex flex-column">
+            <div className="direction-panel round py-4 px-md-5 px-4 d-flex flex-column">
               <div className="title-panel d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-sm-row flex-column mb-5">
                 <h3 className="title text-capitalize">Direction</h3>
                 <div className="status py-2 px-4">GET DIRECTION</div>
@@ -238,9 +238,9 @@ export default function TourDetail() {
       {/* End address section */}
 
       {/* Start more tour section */}
-      <div className="more-tour-section mb-5">
+      <div className="more-tour-section mb-md-5">
         <div className="title-panel py-5">
-          <h3 className="title my-md-5 text-center py-5 blue-text text-capitalize">Our Coster<br /><span>packages</span></h3>
+          <h3 className="title my-md-5 text-center blue-text text-capitalize">Our Coster<br /><span>packages</span></h3>
         </div>
         <div className="tours-panel">
           <div className="row r-container">

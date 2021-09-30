@@ -38,6 +38,7 @@ import "../styles/pages/blog/blog.scss";
 import "../styles/pages/blog/brief.scss";
 import "../styles/pages/jewelry.scss";
 import "../styles/pages/ring.scss";
+import "../styles/pages/vip.scss";
 import "../styles/pages/myCart/myCart.scss";
 import "../styles/pages/myCart/checkout.scss";
 import "../styles/pages/bespoke.scss";
