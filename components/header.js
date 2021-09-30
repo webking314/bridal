@@ -178,7 +178,7 @@ let submenus = [
       },
     ],
   },
-  { title: "TOURS & WORKSHOPS", url: "#", tag: "", product_type: "" },
+  { title: "TOURS & WORKSHOPS", url: "/tour", tag: "", product_type: "" },
   { title: "BLOG", url: "/blog" },
 ];
 
