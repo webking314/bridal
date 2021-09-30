@@ -84,36 +84,6 @@
       }
     }
   }
-  .banner-section {
-    overflow: hidden;
-    .bg-panel {
-      background: url(/img/contactus/banner_bg.png);
-      background-size: cover;
-      background-position: center;
-      min-height: 400px;
-    }
-    .text-panel {
-      background: #01215c;
-      .title {
-        font-weight: 400;
-        font-size: 3.6rem;
-        line-height: 120%;
-        color: #ffffff;
-        @media (max-width: 575px) {
-          font-size: 2.8rem;
-        }
-      }
-      .description {
-        font-weight: 350;
-        font-size: 1.8rem;
-        line-height: 150%;
-        color: rgba(255, 255, 255, 0.7);
-      }
-      .btn {
-        font-size: 1.6rem;
-      }
-    }
-  }
   .description-section {
     .main-panel {
       .image-panel {
@@ -139,6 +109,9 @@
           font-weight: 400;
           font-size: 48px;
           line-height: 120%;
+          @media (max-width: 767px) {
+            font-size: 3.4rem;
+          }
         }
         p {
           font-weight: 400;
@@ -162,6 +135,98 @@
         font-size: 16px;
         line-height: 150%;
         color: rgba(2, 24, 37, 0.8);
+      }
+    }
+    .btn-read-more {
+      font-size: 1.8rem;
+    }
+  }
+  .more-tour-section {
+    .title-panel {
+      background: #f7f3ec;
+      .title {
+        font-weight: normal;
+        font-size: 4.8rem;
+        line-height: 102%;
+        span {
+          font-family: FreeSerif;
+          font-size: 5.2rem;
+        }
+      }
+    }
+    .tours-panel {
+      position: relative;
+      &:after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        background: #f7f3ec;
+        height: 100px;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+      .r-container {
+        position: relative;
+        z-index: 2;
+        .image-panel {
+          overflow: hidden;
+          img {
+            width: 100%;
+          }
+        }
+        .title {
+          font-weight: 400;
+          font-size: 24px;
+          line-height: 130%;
+        }
+        .description {
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 150%;
+          color: rgba(2, 24, 37, 0.7);
+        }
+        .more-detail {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+          * {
+            font-size: 1.8rem;
+          }
+        }
+      }
+    }
+  }
+  .banner-section {
+    overflow: hidden;
+    .bg-panel {
+      background: url(/img/tour/banner-image.png);
+      background-size: cover;
+      background-position: center;
+      min-height: 400px;
+      @media (max-width: 575px) {
+        min-height: 280px;
+      }
+    }
+    .text-panel {
+      background: #021825;
+      .title {
+        font-weight: 400;
+        font-size: 3.6rem;
+        line-height: 120%;
+        color: #ffffff;
+        @media (max-width: 575px) {
+          font-size: 2.8rem;
+        }
+      }
+      .description {
+        font-weight: 350;
+        font-size: 1.8rem;
+        line-height: 150%;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .btn {
+        font-size: 1.6rem;
       }
     }
   }

@@ -112,7 +112,7 @@ export default function AppointmentModal() {
   useEffect(() => {
     if (typeof document !== undefined) {
       document.addEventListener("click", (e) => {
-        if (e.target.closest(".react-calendar__month-view__days__day")) {
+        if (e.target.closest(".react-calendar__month-view__days__day") && e.target.closest("#timeDate")) {
           toggleDatePicker(e);
         }
       });

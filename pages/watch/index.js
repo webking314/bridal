@@ -15,6 +15,12 @@ const logos = [
   { url: "#", image: "logo (4).png" },
   { url: "#", image: "logo (5).png" },
   { url: "#", image: "logo (6).png" },
+  { url: "#", image: "logo (1).png" },
+  { url: "#", image: "logo (2).png" },
+  { url: "#", image: "logo (3).png" },
+  { url: "#", image: "logo (4).png" },
+  { url: "#", image: "logo (5).png" },
+  { url: "#", image: "logo (6).png" },
 ]
 
 const watchData = [
@@ -82,12 +88,12 @@ export default function Watch() {
       {/* End guide section */}
 
       {/* Start logo section */}
-      <div className="logo-panel r-container d-flex justify-content-between flex-wrap pb-3 pt-5">
+      <div className="logo-panel r-container d-flex justify-content-between flex-wrap pb-3 mt-5">
         {
           logos.map((logo, index) => {
             return (
               <Link href={logo.url} key={index} >
-                <a className="px-4 py-2 round-form pink-btn">
+                <a className="px-4 py-2 round-form pink-btn mb-4">
                   <img src={"/img/watch/logo/" + logo.image} width="130" height="130" alt="logo-image" />
                 </a>
               </Link>
@@ -95,20 +101,7 @@ export default function Watch() {
           })
         }
       </div>
-      <div className="logo-panel r-container d-flex justify-content-between flex-wrap pt-3 pb-5">
-        {
-          logos.map((logo, index) => {
-            return (
-              <Link href={logo.url} key={index} >
-                <a className="px-4 py-2 round-form pink-btn">
-                  <img src={"/img/watch/logo/" + logo.image} width="130" height="130" alt="logo-image" />
-                </a>
-              </Link>
-            )
-          })
-        }
-      </div>
-      {/* End logo section */}
+     {/* End logo section */}
 
       {/* Start watch detail section */}
       <WatchDetails watchData={watchData} />

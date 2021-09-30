@@ -27,9 +27,6 @@
       }
     }
     @media (max-width: 767px) {
-      background: linear-gradient(66.22deg, #01215c9c 9.11%, rgba(1, 33, 92, 0) 39.58%),
-        url(/img/bespoke/hero_bg-mobile.jpg);
-      background-size: cover;
       margin-top: 11rem;
       .r-container {
         padding-top: 11rem;
@@ -48,7 +45,6 @@
     @media (max-width: 575px) {
       .r-container {
         .title {
-          width: 50%;
           font-size: 4.2rem;
           span {
             font-size: 4.2rem;
@@ -72,7 +68,7 @@
     }
     @media (max-width: 575px) {
       .title {
-        width: 60%;
+        width: 80%;
         font-size: 3.6rem;
       }
       .guide-text {

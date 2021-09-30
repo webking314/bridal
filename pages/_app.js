@@ -48,6 +48,7 @@ import "../styles/pages/about.scss";
 import "../styles/pages/watch/index.scss";
 import "../styles/pages/watch/brand.scss";
 import "../styles/pages/tour/index.scss";
+import "../styles/pages/tour/detail.scss";
 import "../styles/pages/customRing/chooseSetting.scss";
 import "../styles/pages/customRing/confirmSetting.scss";
 import "../styles/pages/customRing/chooseDiamond.scss";

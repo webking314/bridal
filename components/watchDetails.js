@@ -8,7 +8,7 @@ export default function WatchDetails({ watchData }) {
       {
         watchData.map((watch, index) => {
           return (
-            <div className="watch-detail-section r-container py-5" key={index}>
+            <div className="watch-detail-section r-container pt-5" key={index}>
               <div className="watch-info-panel row m-0 mb-5">
                 <div className={"text-panel col-md-6 col-12 d-flex flex-column justify-content-center mt-md-0 mt-5 p-0 pe-md-5 " + (index % 2 == 1 && "ps-md-5")}>
                   <h3 className={"blue-text watch-title text-capitalize mb-md-5 mb-3 " + (index % 2 == 0 ? "pe-md-5" : "ps-md-5 ms-md-5")}>{watch.title}</h3>
@@ -21,13 +21,13 @@ export default function WatchDetails({ watchData }) {
                   <img src={"/img/watch/" + watch.coverImage} className="watch-cover-image" alt="watch-cover-image" />
                 </div>
               </div>
-              <div className="watch-items-panel pb-5">
+              <div className="watch-items-panel">
                 <h3 className="title py-3 mb-4">{watch.itemTitle}</h3>
                 <div className="item-panel row">
                   {
                     watch.items.map((item, id) => {
                       return (
-                        <div className="col-lg-3 col-md-4 col-sm-6 col-12" key={id}>
+                        <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-5" key={id}>
                           <Link href={item.url}>
                             <a>
                               <div className="image-panel round hover-scale mb-3">
