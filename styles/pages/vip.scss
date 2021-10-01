@@ -32,6 +32,9 @@
         color: rgba(255, 255, 255, 0.7);
       }
     }
+    @media (max-width: 1100px) {
+      background-size: cover;
+    }
     @media (max-width: 767px) {
       background-size: cover;
       .r-container {
