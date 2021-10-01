@@ -5,7 +5,7 @@
     background-position: center;
     .r-container {
       padding-top: 8rem;
-      height: 110vh;
+      height: 100vh;
       mix-blend-mode: luminosity;
       @media (max-width: 991px) {
         padding-top: 6rem;
@@ -34,7 +34,7 @@
     }
     @media (max-width: 767px) {
       .r-container {
-        padding-top: 10rem;
+        padding-top: 5rem;
         padding-bottom: 3rem;
         .title {
           width: 80%;
@@ -91,6 +91,9 @@
         .title {
           font-weight: 500;
           font-size: 6.4rem;
+          @media (max-width: 575px) {
+            font-size: 4.8rem;
+          }
         }
         .description {
           font-weight: 400;

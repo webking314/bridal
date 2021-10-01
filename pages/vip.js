@@ -36,7 +36,7 @@ export default function Vip() {
   return (
     <div className="vip_page">
       <Head>
-        <title>Contact Us | Royal Coster</title>
+        <title>VIP | Royal Coster</title>
       </Head>
       <Header />
       {/* Start hero section */}
@@ -67,7 +67,7 @@ export default function Vip() {
         <div className="top-panel py-5">
           <div className="text-panel py-md-5">
             <h3 className="title text-capitalize text-center blue-text mb-4">Benifits of<br />been member</h3>
-            <p className="description text-center dark-text mb-5">As a member of The Diamond Priviledge Club you<br />will receive the following perks forever:
+            <p className="description text-center dark-text mb-5">As a member of The Diamond Priviledge Club you<br className="d-sm-block d-none" />will receive the following perks forever:
             </p>
             <div className="btn-panel text-center">
               <button className="btn btn-join blue-btn text-uppercase px-5 py-3 round-form">join now</button>
