@@ -1,11 +1,11 @@
 .vip_page {
   .hero-section {
     background: url(/img/vip/banner_bg.png), url(/img/vip/banner_cover-bg.png), linear-gradient(0deg, #021825, #021825);
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     .r-container {
       padding-top: 8rem;
-      height: 100vh;
+      height: 95vh;
       mix-blend-mode: luminosity;
       @media (max-width: 991px) {
         padding-top: 6rem;
@@ -33,6 +33,7 @@
       }
     }
     @media (max-width: 767px) {
+      background-size: cover;
       .r-container {
         height: 85vh;
         padding-top: 5rem;
