@@ -78,8 +78,8 @@ export default function Vip() {
           {
             cardData.map((card, index) => {
               return (
-                <div className="col-lg-4 col-md-6 mb-4 d-flex">
-                  <div className="round card-item p-4" key={index}>
+                <div className="col-lg-4 col-md-6 mb-4 d-flex" key={index}>
+                  <div className="round card-item p-4">
                     <h3 className="title blue-text text-capitalize">{card.title}</h3>
                     <p className="discription dark-text">{renderHTML(card.content)}</p>
                   </div>
