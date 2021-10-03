@@ -42,7 +42,7 @@ export default function Tour() {
   return (
     <div className="tour_page">
       <Head>
-        <title>Contact Us | Royal Coster</title>
+        <title>Tour | Royal Coster</title>
       </Head>
       <Header />
       {/* Start hero section */}
