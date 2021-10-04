@@ -22,7 +22,6 @@
       }
     }
   }
-
   .hero-section {
     background: rgba(250, 211, 218, 0.5);
     .r-container {
@@ -97,6 +96,39 @@
         font-size: 20px;
         bottom: 30px;
         right: 25px;
+      }
+    }
+  }
+  .detail-section {
+    .btn-panel {
+      border-bottom: 4px solid rgba(2, 24, 37, 0.1);
+      .btn-type {
+        font-weight: 400;
+        font-size: 18px;
+        color: rgba(2, 24, 37, 0.5);
+        margin-bottom: -4px;
+        &.active {
+          color: #01215c;
+          font-weight: 500;
+          border-bottom: 4px solid #01215c;
+        }
+      }
+    }
+    .detail-panel {
+      .image-panel {
+        border: 1px solid rgba(2, 24, 37, 0.1);
+        img {
+          width: 100%;
+        }
+      }
+      .detail-title {
+        font-size: 3.6rem;
+        font-weight: 400;
+      }
+      .description {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 150%;
       }
     }
   }

@@ -1,0 +1,50 @@
+.thank-you_page .thank-you_header .top-bar {
+  position: relative;
+  background: #01215c;
+}
+.thank-you_page .thank-you_header .top-bar .r-container {
+  width: 100%;
+  max-width: 1500px;
+  margin: auto;
+}
+.thank-you_page .thank-you_header .top-bar * {
+  font-size: 1.3rem;
+  color: white;
+}
+.thank-you_page .thank-you_header .top-bar a:hover {
+  color: white;
+}
+.thank-you_page .thank-you_header .top-bar .flag-select * {
+  font-size: 1.6rem;
+}
+.thank-you_page .thank-you_header .top-bar .flag-select #rfs-btn {
+  border: 0;
+  padding: 0;
+}
+.thank-you_page .thank-you_header .top-bar .flag-select #rfs-btn * {
+  font-size: 1.8rem;
+}
+.thank-you_page .thank-you_header .top-bar .flag-select #rfs-btn::after {
+  border-top-color: white;
+  margin-left: 0;
+}
+.thank-you_page .thank-you_header .top-bar .flag-select #rfs-btn[aria-expanded=true]::after {
+  border-bottom-color: white;
+}
+.thank-you_page .text-panel {
+  width: 50%;
+}
+.thank-you_page .text-panel .title {
+  font-weight: 400;
+  font-size: 72px;
+  line-height: 100%;
+}
+.thank-you_page .text-panel .description {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+}
+.thank-you_page .list-panel {
+  max-width: 1024px;
+  width: 95%;
+}

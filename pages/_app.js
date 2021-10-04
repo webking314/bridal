@@ -46,6 +46,7 @@ import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
 import "../styles/pages/timeline.scss";
 import "../styles/pages/about.scss";
+import "../styles/pages/thank-you.scss";
 import "../styles/pages/watch/index.scss";
 import "../styles/pages/watch/brand.scss";
 import "../styles/pages/education/index.scss";
