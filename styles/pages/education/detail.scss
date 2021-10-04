@@ -113,6 +113,12 @@
           border-bottom: 4px solid #01215c;
         }
       }
+      @media (max-width: 960px) {
+        border-bottom: 0;
+        .btn-type {
+          margin-bottom: 5px;
+        }
+      }
     }
     .detail-panel {
       .image-panel {

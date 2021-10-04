@@ -57,12 +57,8 @@
         width: 90%;
         max-width: 1440px;
         margin: 0 auto;
-        // .history-box {
-        //   .image-box {
-        //     overflow: hidden;
         img {
           object-fit: cover;
-          // }
           &.horizontal {
             max-height: 35vh;
             width: 100%;
@@ -101,8 +97,10 @@
       &.horizontal-layout {
         background: #010e16;
         .time-line-image {
-          height: 100%;
-          max-height: 80vh;
+          height: calc(100vh - 111px);
+        }
+        @media (max-width: 1314px) {
+          height: calc(100vh - 121px);
         }
       }
     }

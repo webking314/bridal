@@ -121,7 +121,7 @@ export default function EducationDetail() {
       {/* Start hero section */}
       <div className="hero-section">
         <div className="r-container row py-5">
-          <div className="col-md-6 pt-5 pb-md-5 pe-md-5">
+          <div className="col-md-6 pt-5 pb-md-5 pe-md-5 mb-md-0 mb-5">
             <div className="round banner-image hover-scale me-md-5">
               <img src="/img/education/detail-banner.png" alt="detail-banner-image" />
             </div>
@@ -135,7 +135,7 @@ export default function EducationDetail() {
       {/* End hero section */}
       {/* Start detail-section */}
       <div className="detail-section r-container py-5">
-        <div className="btn-panel d-flex justify-content-between">
+        <div className="btn-panel d-flex flex-wrap justify-content-between">
           {
             typeBtns.map((item, index) => {
               return (
@@ -151,7 +151,7 @@ export default function EducationDetail() {
             detailData.map((detail, index) => {
               return (
                 <div className="detail-item row mb-5 m-0" key={index}>
-                  <div className="col-md-5 mb-md-0 mb-5">
+                  <div className="col-md-5 mb-md-0 mb-5 p-0">
                     <div className="image-panel round hover-scale p-0">
                       <img src={detail.image} alt="detail-image" />
                     </div>

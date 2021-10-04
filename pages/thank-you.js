@@ -37,7 +37,7 @@ export default function ContactUs() {
           <img src="/img/common/thank-you_logo.png" alt="logo-img" />
         </div>
       </div >
-      <div className="text-panel text-center mx-auto">
+      <div className="text-panel text-center r-container mx-auto mb-5">
         <h1 className="title text-capitalize blue-text mb-5">Thank you for your order</h1>
         <p className="description dark-text pb-5">Your recently ordered an from our website. Thank you for your order. Please check your mail. The delivery service will fulfill the order as soon as possible. In the mean time, here you can read the rules of care!</p>
       </div>
@@ -54,6 +54,19 @@ export default function ContactUs() {
           <h3 className="blue-text text-end">Thursday, October 7th<br />2021 @ 13:00 - 13:30</h3>
         </div>
       </div>
+      <div className="btn-panel d-flex py-5 mb-5  justify-content-center">
+        <Link href="/">
+          <a className="btn blue-btn px-5 py-3 btn-home text-uppercase me-4 round-form">
+            back to home
+          </a>
+        </Link>
+        <button className="btn btn-subscribe text-uppercase round-form px-5 py-3">
+          Subscribe
+        </button>
+      </div>
+      <div className="top-pink-panel" />
+      <div className="bottom-blue-panel" />
+      <div className="bottom-pink-panel" />
     </div>
   );
 }
