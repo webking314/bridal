@@ -41,7 +41,7 @@ export default function ContactUs() {
         <h1 className="title text-capitalize blue-text mb-5">Thank you for your order</h1>
         <p className="description dark-text pb-5">Your recently ordered an from our website. Thank you for your order. Please check your mail. The delivery service will fulfill the order as soon as possible. In the mean time, here you can read the rules of care!</p>
       </div>
-      <div className="list-panel round p-4">
+      <div className="list-panel round p-4 mx-auto">
         <div className="d-flex justify-content-between booking-panel">
           <p>You're Booking</p>
           <p>Tour Date</p>
@@ -51,7 +51,7 @@ export default function ContactUs() {
             <h3>The Royal Experience</h3>
             <p>Adult  -  $12.50</p>
           </div>
-          <h3>Thursday, October 7th 2021 @ 13:00 - 13:30</h3>
+          <h3>Thursday, October 7th<br />2021 @ 13:00 - 13:30</h3>
         </div>
       </div>
     </div>

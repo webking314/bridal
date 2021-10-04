@@ -25,7 +25,6 @@
     "es": "^0.8.0",
     "fs": "^0.0.1-security",
     "gsap": "3.5.1",
-    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "next": "^11.1.2",
     "next-redux-wrapper": "^7.0.5",

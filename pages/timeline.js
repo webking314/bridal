@@ -6,7 +6,6 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { TweenMax } from "gsap";
-import $ from "jQuery";
 
 const timeLists = [
   {
@@ -88,7 +87,7 @@ export default function TimeLine() {
   useEffect(() => {
     gsap.registerPlugin(Draggable, TweenMax, ScrollTrigger);
 
-    var $masthead = $('.time-list-section');
+    var $masthead = document.querySelector('.time-list-section')
 
     var mastheadWidth = 0;
     function getMastheadWidth() {
