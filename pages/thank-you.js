@@ -34,11 +34,15 @@ export default function ContactUs() {
           </div>
         </div >
         <div className="logo-bar text-center py-5">
-          <img src="/img/common/thank-you_logo.png" alt="logo-img" />
+          <Link href="/">
+            <a>
+              <img src="/img/common/thank-you_logo.png" alt="logo-img" />
+            </a>
+          </Link>
         </div>
       </div >
-      <div className="text-panel text-center r-container mx-auto mb-5">
-        <h1 className="title text-capitalize blue-text mb-5">Thank you for your order</h1>
+      <div className="text-panel text-center r-container mx-auto mt-md-5 mb-5">
+        <h1 className="title text-capitalize blue-text my-5">Thank you for your order</h1>
         <p className="description dark-text pb-5">Your recently ordered an from our website. Thank you for your order. Please check your mail. The delivery service will fulfill the order as soon as possible. In the mean time, here you can read the rules of care!</p>
       </div>
       <div className="list-panel round p-4 mx-auto">
