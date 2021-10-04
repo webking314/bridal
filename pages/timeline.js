@@ -87,11 +87,11 @@ export default function TimeLine() {
   useEffect(() => {
     gsap.registerPlugin(Draggable, TweenMax, ScrollTrigger);
 
-    var $masthead = document.querySelector('.time-list-section')
+    var masthead = document.querySelector('.time-list-section')
 
     var mastheadWidth = 0;
     function getMastheadWidth() {
-      mastheadWidth = $masthead.get(0).scrollWidth;
+      mastheadWidth = masthead.scrollWidth;
     }
     getMastheadWidth();
     // ScrollTrigger.addEventListener('refreshInit', getMastheadWidth);

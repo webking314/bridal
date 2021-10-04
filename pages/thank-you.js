@@ -48,10 +48,10 @@ export default function ContactUs() {
         </div>
         <div className="experience-panel d-flex justify-content-between">
           <div className="experience-box">
-            <h3>The Royal Experience</h3>
-            <p>Adult  -  $12.50</p>
+            <h3 className="blue-text">The Royal Experience</h3>
+            <p>Adult  -  <span>$12.50</span></p>
           </div>
-          <h3>Thursday, October 7th<br />2021 @ 13:00 - 13:30</h3>
+          <h3 className="blue-text text-end">Thursday, October 7th<br />2021 @ 13:00 - 13:30</h3>
         </div>
       </div>
     </div>

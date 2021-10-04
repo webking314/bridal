@@ -52,5 +52,26 @@
 	.list-panel {
 		max-width: 768px;
 		width: 95%;
+		background: white;
+		.booking-panel {
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 150%;
+			color: rgba(2, 24, 37, 0.5);
+		}
+		.experience-box {
+			font-weight: 400;
+			font-size: 24px;
+			line-height: 120%;
+			p {
+				font-size: 1.8rem;
+				line-height: 120%;
+				color: rgba(2, 24, 37, 0.7);
+				span {
+					font-weight: FreeSerif;
+					font-size: 2rem;
+				}
+			}
+		}
 	}
 }
