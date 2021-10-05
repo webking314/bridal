@@ -51,7 +51,10 @@
     }
     .timeline-box {
       background: #021825;
-      height: calc(100vh - 61.5px);
+      max-height: calc(100vh - 51.5px);
+      @media (max-width: 1314px) {
+        max-height: calc(100vh - 61px);
+      }
       max-height: 900px;
       .main-box {
         width: 90%;
@@ -97,10 +100,10 @@
       &.horizontal-layout {
         background: #010e16;
         .time-line-image {
-          height: calc(100vh - 111px);
-        }
-        @media (max-width: 1314px) {
-          height: calc(100vh - 121px);
+          max-height: calc(100vh - 111px);
+          @media (max-width: 1314px) {
+            max-height: calc(100vh - 121px);
+          }
         }
       }
     }

@@ -1,0 +1,194 @@
+.ringRecommend_page .hero-section {
+  margin-top: 4rem;
+  background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 41.07%), url(/img/ringRecommend/hero_bg.jpg);
+  background-size: cover;
+}
+.ringRecommend_page .hero-section .r-container {
+  padding-top: 40rem;
+  padding-bottom: 15rem;
+}
+@media (max-width: 991px) {
+  .ringRecommend_page .hero-section .r-container {
+    padding-top: 20rem;
+  }
+}
+.ringRecommend_page .hero-section .r-container .title {
+  font-size: 7.2rem;
+  font-weight: 400;
+  color: white;
+}
+.ringRecommend_page .hero-section .r-container .title > span {
+  font-family: FreeSerif;
+  font-weight: 400;
+  font-size: 7.6rem;
+  line-height: 120%;
+}
+@media (max-width: 767px) {
+  .ringRecommend_page .hero-section {
+    background: linear-gradient(66.22deg, #01215c9c 9.11%, rgba(1, 33, 92, 0) 39.58%), url(/img/ringRecommend/hero_bg-mobile.jpg);
+    background-size: cover;
+    margin-top: 11rem;
+  }
+  .ringRecommend_page .hero-section .r-container {
+    padding-top: 18rem;
+    padding-bottom: 3rem;
+  }
+  .ringRecommend_page .hero-section .r-container .title {
+    width: 80%;
+    font-size: 5.8rem;
+    line-height: 1;
+  }
+  .ringRecommend_page .hero-section .r-container .title span {
+    font-size: 5.8rem;
+    line-height: 98%;
+  }
+}
+@media (max-width: 575px) {
+  .ringRecommend_page .hero-section .r-container .title {
+    width: 50%;
+    font-size: 4.2rem;
+  }
+  .ringRecommend_page .hero-section .r-container .title span {
+    font-size: 4.2rem;
+  }
+}
+.ringRecommend_page .guide-section {
+  background: #f7f3ec;
+}
+.ringRecommend_page .guide-section .title {
+  font-size: 4.8rem;
+  font-weight: 400;
+  color: #01215c;
+}
+.ringRecommend_page .guide-section .guide-text {
+  font-size: 24px;
+  line-height: 150%;
+  font-weight: 400;
+  color: rgba(2, 24, 37, 0.8);
+}
+@media (max-width: 575px) {
+  .ringRecommend_page .guide-section .title {
+    font-size: 3.6rem;
+  }
+  .ringRecommend_page .guide-section .guide-text {
+    font-size: 1.8rem;
+  }
+}
+@media (max-width: 767px) {
+  .ringRecommend_page .stepper-panel .MuiStep-root {
+    padding: 0;
+  }
+}
+.ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root {
+  padding: 0;
+}
+@media (max-width: 767px) {
+  .ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root .MuiStepLabel-iconContainer {
+    padding: 0;
+  }
+}
+.ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root .MuiStepLabel-iconContainer .MuiSvgIcon-root {
+  width: 38px;
+  height: 38px;
+  color: transparent;
+  border: 2px solid rgba(1, 33, 92, 0.5);
+  border-radius: 50%;
+}
+.ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root .MuiStepLabel-iconContainer .MuiSvgIcon-root text {
+  font-family: FreeSerif;
+  font-size: 1.2rem;
+  fill: rgba(1, 33, 92, 0.5);
+}
+.ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root .MuiStepLabel-iconContainer .MuiSvgIcon-root.Mui-active, .ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root .MuiStepLabel-iconContainer .MuiSvgIcon-root.Mui-completed {
+  width: 40px;
+  height: 40px;
+  color: #01215c;
+  border: 0;
+}
+.ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root .MuiStepLabel-iconContainer .MuiSvgIcon-root.Mui-active text, .ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root .MuiStepLabel-iconContainer .MuiSvgIcon-root.Mui-completed text {
+  fill: white;
+}
+.ringRecommend_page .stepper-panel .MuiStep-root .MuiStepLabel-root .MuiStepLabel-labelContainer span {
+  font-size: 2.4rem;
+  color: #01215c;
+  font-weight: 400;
+}
+.ringRecommend_page .stepper-panel .MuiStepConnector-root {
+  margin-left: 19px;
+}
+@media (max-width: 767px) {
+  .ringRecommend_page .stepper-panel .MuiStepConnector-root {
+    margin-left: 0;
+  }
+}
+.ringRecommend_page .stepper-panel .MuiStepConnector-root .MuiStepConnector-line {
+  border-left-width: 2px;
+}
+.ringRecommend_page .stepper-panel .MuiStepConnector-root.Mui-active .MuiStepConnector-line {
+  border-color: #01215c;
+}
+.ringRecommend_page .stepper-panel .content-panel label {
+  font-size: 4.8rem;
+  font-family: FreeSerif;
+  color: #01215c;
+}
+.ringRecommend_page .stepper-panel .content-panel select {
+  font-size: 2rem;
+  color: #01215c;
+  font-weight: 400;
+}
+.ringRecommend_page .stepper-panel .content-panel .btn-panel .btn-back {
+  background: rgba(1, 33, 92, 0.1);
+}
+.ringRecommend_page .stepper-panel .content-panel .btn-panel .btn-back * {
+  font-size: 2.4rem;
+}
+.ringRecommend_page .stepper-panel .content-panel .btn-panel .btn-next {
+  font-size: 1.8rem;
+}
+@media (max-width: 767px) {
+  .ringRecommend_page .stepper-panel .content-panel label {
+    font-size: 3.8rem;
+  }
+}
+@media (max-width: 575px) {
+  .ringRecommend_page .stepper-panel .content-panel label {
+    font-size: 3.2rem;
+  }
+  .ringRecommend_page .stepper-panel .content-panel select {
+    font-size: 1.6rem;
+  }
+  .ringRecommend_page .stepper-panel .content-panel .btn-panel .btn-next {
+    font-size: 1.6rem;
+  }
+}
+.ringRecommend_page .need-help-panel {
+  border: 1px solid rgba(2, 24, 37, 0.1);
+}
+.ringRecommend_page .need-help-panel .title-panel {
+  border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+}
+.ringRecommend_page .need-help-panel .title-panel h3 {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+.ringRecommend_page .need-help-panel .title-panel .link-panel {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #01215c;
+}
+.ringRecommend_page .need-help-panel .purchase-panel h3 {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+.ringRecommend_page .need-help-panel .purchase-panel button {
+  background: #fad3da;
+  border-radius: 0.6rem;
+  font-weight: 400;
+  font-size: 1.4rem;
+  border: 1px solid transparent;
+}
+.ringRecommend_page .need-help-panel .purchase-panel button:hover {
+  border-color: #01215c;
+  background: transparent;
+}

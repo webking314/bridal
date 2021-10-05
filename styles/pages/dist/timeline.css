@@ -54,8 +54,13 @@
 }
 .timeline_page .time-list-section .timeline-box {
   background: #021825;
-  height: calc(100vh - 61.5px);
+  max-height: calc(100vh - 51.5px);
   max-height: 900px;
+}
+@media (max-width: 1314px) {
+  .timeline_page .time-list-section .timeline-box {
+    max-height: calc(100vh - 61px);
+  }
 }
 .timeline_page .time-list-section .timeline-box .main-box {
   width: 90%;
@@ -108,11 +113,11 @@
   background: #010e16;
 }
 .timeline_page .time-list-section .timeline-box.horizontal-layout .time-line-image {
-  height: calc(100vh - 111px);
+  max-height: calc(100vh - 111px);
 }
 @media (max-width: 1314px) {
-  .timeline_page .time-list-section .timeline-box.horizontal-layout {
-    height: calc(100vh - 121px);
+  .timeline_page .time-list-section .timeline-box.horizontal-layout .time-line-image {
+    max-height: calc(100vh - 121px);
   }
 }
 .timeline_page .time-list-section {
