@@ -176,12 +176,12 @@ export default function TimeLine() {
       <div className="guide-section pt-md-5">
         <div className="row r-container pt-5 pb-sm-0 pb-5">
           <div className="col-lg-4 col-md-5 col-12 p-0 pe-md-5 pe-5 py-md-5">
-            <h3 className="title text-capitalize text-md-start text-center">
+            <h3 className="title text-capitalize">
               180 years of craftsmanship.
             </h3>
           </div>
           <div className="col-lg-8 col-md-7 col-12 p-0 ps-md-5 ps-0 pt-5">
-            <p className="guide-text text-md-start text-center">
+            <p className="guide-text">
               Not long after our establishment in 1840, Queen Victoria of England reached out
               to Coster for a very special assignment. Without realizing it at that time, this
               assignment would mark the start of an impressive legacy.
@@ -226,7 +226,7 @@ export default function TimeLine() {
                       <p className="m-0">{item.description}</p>
                       <h2
                         className={index % 2
-                          ? (item.subImage ? "m-0 order-sm-last order-first" : "pt-5 m-0 mt-sm-5 order-sm-last order-first")
+                          ? (item.subImage ? "m-0 order-sm-last order-first pt-5 pt-sm-5" : "pt-5 m-0 mt-sm-5 order-sm-last order-first")
                           : "order-first pt-5 m-0 pe-sm-5 me-sm-5"}>
                         {item.year}
                       </h2>

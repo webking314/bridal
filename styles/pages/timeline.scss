@@ -158,8 +158,9 @@
             max-height: 220px;
           }
           @media (max-width: 575px) {
-            height: 150px;
-            max-height: 150px;;
+            min-height: 150px;
+            // height: 150px;
+            // max-height: 150px;;
           }
         }
         .text-box {
