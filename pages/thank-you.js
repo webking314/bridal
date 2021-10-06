@@ -4,7 +4,7 @@ import Head from "next/head";
 import renderHTML from "react-render-html";
 import ReactFlagsSelect from "react-flags-select";
 
-export default function ContactUs() {
+export default function ThankYou() {
   const [selected, setSelected] = useState("LU");
 
   return (

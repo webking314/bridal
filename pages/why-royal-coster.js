@@ -63,7 +63,12 @@ export default function WhyRoyalCoster() {
       {/* Start passport section */}
       <div className="passpost-section py-5">
         <div className="r-container py-5 d-flex justify-content-between">
-<h3 className="title"></h3>
+          <h3 className="title">The Royal Coster Passport explains our core values. These three values are:</h3>
+          <ul>
+            <li>Flexible</li>
+            <li>Family & Connection</li>
+            <li>Dedication & Service</li>
+          </ul>
         </div>
       </div>
       {/* End passport section */}
