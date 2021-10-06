@@ -76,9 +76,9 @@ export default function TimeLine() {
 
       function updateProxy() {
         let viewportArr = [];
-        const timelineHeight = document.querySelector('.pin-spacer').offsetTop;
+        const timelineHeight = document.querySelector('.pin-spacer')?.offsetTop;
         yearList.map((year, index) => {
-          const scrollStep = document.querySelector('.time-' + year).offsetLeft;
+          const scrollStep = document.querySelector('.time-' + year)?.offsetLeft;
           viewportArr.push({ year: year, scrollHeight: (scrollStep + timelineHeight) });
         })
 
@@ -92,15 +92,16 @@ export default function TimeLine() {
           }
         }
         const targetTag = document.querySelector(".time-list-bar");
-        if (window.scrollY >= (timelineHeight - 70)) {
-          if (!targetTag.classList.contains('show')) {
-            targetTag.classList.add('show');
+        if (targetTag)
+          if (window.scrollY >= (timelineHeight - 70)) {
+            if (!targetTag.classList.contains('show')) {
+              targetTag.classList.add('show');
+            }
+          } else {
+            if (targetTag.classList.contains('show')) {
+              targetTag.classList.remove('show');
+            }
           }
-        } else {
-          if (targetTag.classList.contains('show')) {
-            targetTag.classList.remove('show');
-          }
-        }
         // move the handler to the corresponding ratio according to the page's scroll position.
         if (mastheadScrollTrigger) {
           gsap.set(proxy, { x: -mastheadScrollTrigger.scroll(), overwrite: 'auto' });

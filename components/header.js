@@ -407,7 +407,7 @@ function Header(props) {
         </div>
         <div className="row m-0 px-5 py-3 top-bar">
           <div className="r-container d-flex justify-content-between align-items-center">
-            <Link passHref={true} href="#">
+            <Link passHref={true} href="/why-royal-coster">
               <a>WHY ROYAL COSTER ?</a>
             </Link>
             <ReactFlagsSelect
