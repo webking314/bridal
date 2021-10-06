@@ -41,7 +41,7 @@ export default function Footer() {
       url: [
         { link: "Our Story", url: "/our-story", tags: "", product_type: "" },
         { link: "Why Royal Coster", url: "/why-royal-coster", tags: "", product_type: "" },
-        { link: "Corporate Responsibility", url: "#", tags: "", product_type: "" },
+        { link: "Corporate Responsibility", url: "/responsibility", tags: "", product_type: "" },
         { link: "Press", url: "#", tags: "", product_type: "" },
         { link: "Jobs & internships", url: "#", tags: "", product_type: "" },
       ],

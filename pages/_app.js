@@ -31,6 +31,7 @@ import "../styles/components/myCartList.scss";
 import "../styles/components/aboutSlider.scss";
 import "../styles/components/watchDetails.scss";
 import "../styles/components/watchItems.scss";
+import "../styles/components/answerPanel.scss";
 
 import "../styles/pages/homepage.scss";
 import "../styles/pages/contactus.scss";
@@ -47,6 +48,7 @@ import "../styles/pages/product/index.scss";
 import "../styles/pages/timeline.scss";
 import "../styles/pages/about.scss";
 import "../styles/pages/thank-you.scss";
+import "../styles/pages/responsibility.scss";
 import "../styles/pages/why-royal-coster.scss";
 import "../styles/pages/watch/index.scss";
 import "../styles/pages/watch/brand.scss";
@@ -66,10 +68,10 @@ const client = Client.buildClient({
   domain: 'costerdiamonds.myshopify.com'
 });
 // creatCheckout(client);
-store.dispatch({type: 'CLIENT_CREATED', payload: client});
+store.dispatch({ type: 'CLIENT_CREATED', payload: client });
 
 client.checkout.create().then((res) => {
-  store.dispatch({type: 'CHECKOUT_FOUND', payload: res});
+  store.dispatch({ type: 'CHECKOUT_FOUND', payload: res });
 });
 
 function MyApp({ Component, pageProps }) {

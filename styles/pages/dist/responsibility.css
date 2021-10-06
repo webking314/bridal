@@ -1,0 +1,241 @@
+.responsibility_page .hero-section {
+  background: linear-gradient(0deg, #021825 0%, rgba(1, 33, 92, 0) 100%), url(/img/responsibility/banner_bg.jpg);
+  background-size: cover;
+  background-position: center;
+}
+.responsibility_page .hero-section .r-container {
+  padding-top: 15rem;
+  padding-bottom: 8rem;
+}
+@media (max-width: 991px) {
+  .responsibility_page .hero-section .r-container {
+    padding-top: 10rem;
+  }
+}
+.responsibility_page .hero-section .r-container p {
+  font-size: 2.4rem;
+  color: white;
+}
+.responsibility_page .hero-section .r-container .title {
+  font-size: 7.2rem;
+  font-weight: 400;
+  color: white;
+}
+.responsibility_page .hero-section .r-container .title > span {
+  font-family: FreeSerif;
+  font-weight: 400;
+  font-size: 7.6rem;
+  line-height: 102%;
+}
+.responsibility_page .hero-section .r-container .description {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: rgba(255, 255, 255, 0.7);
+}
+@media (max-width: 767px) {
+  .responsibility_page .hero-section .r-container {
+    padding-top: 10rem;
+    padding-bottom: 3rem;
+  }
+  .responsibility_page .hero-section .r-container .title {
+    width: 80%;
+    font-size: 5.8rem;
+    line-height: 1;
+  }
+  .responsibility_page .hero-section .r-container .title span {
+    font-size: 5.8rem;
+    line-height: 98%;
+  }
+}
+@media (max-width: 575px) {
+  .responsibility_page .hero-section .r-container p {
+    font-size: 1.8rem;
+  }
+  .responsibility_page .hero-section .r-container .title {
+    width: 100%;
+    font-size: 3.4rem;
+  }
+  .responsibility_page .hero-section .r-container .title span {
+    font-size: 3.4rem;
+  }
+}
+.responsibility_page .guide-section {
+  background: #f7f3ec;
+}
+.responsibility_page .guide-section .title {
+  font-size: 4.8rem;
+  font-weight: 400;
+  color: #01215c;
+}
+.responsibility_page .guide-section .guide-text {
+  font-size: 24px;
+  line-height: 150%;
+  font-weight: 400;
+  color: rgba(2, 24, 37, 0.8);
+}
+@media (max-width: 575px) {
+  .responsibility_page .guide-section .title {
+    width: 100%;
+    font-size: 3.6rem;
+  }
+  .responsibility_page .guide-section .guide-text {
+    font-size: 1.8rem;
+  }
+}
+.responsibility_page .description-section .main-panel .image-panel {
+  position: relative;
+  overflow: hidden;
+}
+.responsibility_page .description-section .main-panel .image-panel img {
+  width: 100%;
+}
+.responsibility_page .description-section .main-panel .image-panel .cost-box {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  background: #fad3da;
+}
+.responsibility_page .description-section .main-panel .image-panel .cost-box * {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 15px;
+}
+.responsibility_page .description-section .main-panel .text-panel .title {
+  font-weight: 400;
+  font-size: 3.2rem;
+  line-height: 120%;
+}
+@media (max-width: 767px) {
+  .responsibility_page .description-section .main-panel .text-panel .title {
+    font-size: 2.4rem;
+  }
+}
+.responsibility_page .description-section .main-panel .text-panel p {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: rgba(2, 24, 37, 0.8);
+}
+.responsibility_page .description-section .sub-panel img {
+  width: 100%;
+}
+.responsibility_page .description-section .sub-panel .title {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 120%;
+}
+.responsibility_page .description-section .sub-panel p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: rgba(2, 24, 37, 0.8);
+}
+.responsibility_page .description-section .sub-panel .more-detail {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+}
+.responsibility_page .description-section .sub-panel .more-detail * {
+  font-size: 1.8rem;
+}
+.responsibility_page .description-section .btn-read-more {
+  font-size: 1.8rem;
+}
+.responsibility_page .sponsorship-section .title-panel {
+  background: rgba(250, 211, 218, 0.5);
+}
+.responsibility_page .sponsorship-section .title-panel .title {
+  font-weight: normal;
+  font-size: 4.8rem;
+  line-height: 102%;
+}
+.responsibility_page .sponsorship-section .title-panel .title span {
+  font-family: FreeSerif;
+  font-size: 5.2rem;
+}
+.responsibility_page .sponsorship-section .title-panel p {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: rgba(2, 24, 37, 0.7);
+}
+.responsibility_page .sponsorship-section .tours-panel {
+  position: relative;
+}
+.responsibility_page .sponsorship-section .tours-panel:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  background: #f7f3ec;
+  height: 100px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.responsibility_page .sponsorship-section .tours-panel .r-container {
+  position: relative;
+  z-index: 2;
+}
+.responsibility_page .sponsorship-section .tours-panel .r-container .image-panel {
+  overflow: hidden;
+}
+.responsibility_page .sponsorship-section .tours-panel .r-container .image-panel img {
+  width: 100%;
+}
+.responsibility_page .sponsorship-section .tours-panel .r-container .title {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 130%;
+}
+.responsibility_page .sponsorship-section .tours-panel .r-container .description {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: rgba(2, 24, 37, 0.7);
+}
+.responsibility_page .sponsorship-section .tours-panel .r-container .more-detail {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+}
+.responsibility_page .sponsorship-section .tours-panel .r-container .more-detail * {
+  font-size: 1.8rem;
+}
+.responsibility_page .banner-section {
+  overflow: hidden;
+}
+.responsibility_page .banner-section .bg-panel {
+  background: url(/img/tour/banner-image.png);
+  background-size: cover;
+  background-position: center;
+  min-height: 400px;
+}
+@media (max-width: 575px) {
+  .responsibility_page .banner-section .bg-panel {
+    min-height: 280px;
+  }
+}
+.responsibility_page .banner-section .text-panel {
+  background: #021825;
+}
+.responsibility_page .banner-section .text-panel .title {
+  font-weight: 400;
+  font-size: 3.6rem;
+  line-height: 120%;
+  color: #ffffff;
+}
+@media (max-width: 575px) {
+  .responsibility_page .banner-section .text-panel .title {
+    font-size: 2.8rem;
+  }
+}
+.responsibility_page .banner-section .text-panel .description {
+  font-weight: 350;
+  font-size: 1.8rem;
+  line-height: 150%;
+  color: rgba(255, 255, 255, 0.7);
+}
+.responsibility_page .banner-section .text-panel .btn {
+  font-size: 1.6rem;
+}

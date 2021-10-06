@@ -149,3 +149,93 @@
   filter: blur(200px);
   transform: rotate(-45deg);
 }
+.why-royal-coster_page .passpost-section {
+  background: #01215c;
+  font-size: 2.4rem;
+  font-weight: 400;
+}
+.why-royal-coster_page .passpost-section .title {
+  width: 30%;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 150%;
+}
+@media (max-width: 767px) {
+  .why-royal-coster_page .passpost-section .title {
+    width: 100%;
+  }
+}
+.why-royal-coster_page .middle-answer-panel {
+  position: relative;
+  background: rgba(250, 211, 218, 0.5);
+  margin-bottom: -60px;
+}
+.why-royal-coster_page .middle-answer-panel::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: white;
+  width: 100%;
+  height: 30%;
+  z-index: 1;
+}
+.why-royal-coster_page .foundation-section {
+  background: #f7f3ec;
+  margin-bottom: 70px;
+}
+@media (max-width: 767px) {
+  .why-royal-coster_page .foundation-section {
+    margin-bottom: 150px;
+  }
+}
+@media (max-width: 565px) {
+  .why-royal-coster_page .foundation-section {
+    margin-bottom: 200px;
+  }
+}
+.why-royal-coster_page .foundation-section .r-container {
+  position: relative;
+}
+.why-royal-coster_page .foundation-section .r-container .text-panel h3 {
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 110%;
+}
+.why-royal-coster_page .foundation-section .r-container .text-panel h3 span {
+  font-family: FreeSerif;
+  font-size: 50px;
+}
+.why-royal-coster_page .foundation-section .r-container .text-panel p {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: rgba(2, 24, 37, 0.7);
+}
+.why-royal-coster_page .foundation-section .r-container .book-panel {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 70%;
+  height: 120%;
+  background: white;
+  box-shadow: 0px 14px 50px rgba(2, 24, 37, 0.1);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 150%;
+}
+@media (max-width: 991px) {
+  .why-royal-coster_page .foundation-section .r-container .book-panel {
+    width: 55%;
+  }
+}
+@media (max-width: 767px) {
+  .why-royal-coster_page .foundation-section .r-container .book-panel {
+    bottom: 30px;
+    top: auto;
+    transform: translateY(100%);
+    width: 100%;
+    height: 100%;
+    max-height: 250px;
+  }
+}

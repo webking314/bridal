@@ -136,7 +136,6 @@
   width: 100%;
   overflow-y: hidden;
   min-width: 1024px;
-  max-height: 900px;
 }
 .timeline_page .time-list-section .timeline-box:last-child {
   width: calc(100% + 91px);
@@ -183,8 +182,7 @@
 }
 @media (max-width: 575px) {
   .timeline_page .time-list-section .timeline-box .main-box img {
-    height: 150px;
-    max-height: 150px;
+    min-height: 150px;
   }
 }
 .timeline_page .time-list-section .timeline-box .main-box .text-box h2 {
