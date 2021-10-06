@@ -1,0 +1,151 @@
+.why-royal-coster_page .hero-section {
+  background: linear-gradient(75.87deg, #01215c 12.8%, rgba(1, 33, 92, 0) 66.93%), url(/img/whyRoyalCoster/banner_bg.jpg);
+  background-size: cover;
+  background-position: center;
+}
+.why-royal-coster_page .hero-section .r-container {
+  padding-top: 15rem;
+  padding-bottom: 8rem;
+}
+@media (max-width: 991px) {
+  .why-royal-coster_page .hero-section .r-container {
+    padding-top: 10rem;
+  }
+}
+.why-royal-coster_page .hero-section .r-container p {
+  font-size: 2.4rem;
+  color: white;
+}
+.why-royal-coster_page .hero-section .r-container .title {
+  font-size: 7.2rem;
+  font-weight: 400;
+  color: white;
+}
+.why-royal-coster_page .hero-section .r-container .title > span {
+  font-family: FreeSerif;
+  font-weight: 400;
+  font-size: 7.6rem;
+  line-height: 102%;
+}
+.why-royal-coster_page .hero-section .r-container .description {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  color: rgba(255, 255, 255, 0.7);
+}
+@media (max-width: 767px) {
+  .why-royal-coster_page .hero-section .r-container {
+    padding-top: 10rem;
+    padding-bottom: 3rem;
+  }
+  .why-royal-coster_page .hero-section .r-container .title {
+    width: 80%;
+    font-size: 5.8rem;
+    line-height: 1;
+  }
+  .why-royal-coster_page .hero-section .r-container .title span {
+    font-size: 5.8rem;
+    line-height: 98%;
+  }
+}
+@media (max-width: 575px) {
+  .why-royal-coster_page .hero-section .r-container p {
+    font-size: 1.8rem;
+  }
+  .why-royal-coster_page .hero-section .r-container .title {
+    width: 100%;
+    font-size: 3.4rem;
+  }
+  .why-royal-coster_page .hero-section .r-container .title span {
+    font-size: 3.4rem;
+  }
+}
+.why-royal-coster_page .guide-section {
+  background: #f7f3ec;
+}
+.why-royal-coster_page .guide-section .title {
+  font-size: 4.8rem;
+  font-weight: 400;
+  color: #01215c;
+}
+.why-royal-coster_page .guide-section .guide-text {
+  font-size: 24px;
+  line-height: 150%;
+  font-weight: 400;
+  color: rgba(2, 24, 37, 0.8);
+}
+@media (max-width: 575px) {
+  .why-royal-coster_page .guide-section .title {
+    width: 100%;
+    font-size: 3.6rem;
+  }
+  .why-royal-coster_page .guide-section .guide-text {
+    font-size: 1.8rem;
+  }
+}
+.why-royal-coster_page .our-value-section {
+  position: relative;
+}
+.why-royal-coster_page .our-value-section .title {
+  position: relative;
+  z-index: 3;
+  font-weight: normal;
+  font-size: 7.2rem;
+  line-height: 110%;
+}
+.why-royal-coster_page .our-value-section .title span {
+  font-family: FreeSerif;
+  font-size: 7.4rem;
+}
+.why-royal-coster_page .our-value-section .idea-panel {
+  position: relative;
+  z-index: 3;
+  background: white;
+  margin-bottom: 60px;
+  box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.06);
+}
+.why-royal-coster_page .our-value-section .idea-panel .mark-image {
+  width: 40px;
+  height: 40px;
+}
+.why-royal-coster_page .our-value-section .idea-panel .text-panel * {
+  font-family: FreeSerif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 150%;
+}
+.why-royal-coster_page .our-value-section .idea-panel .text-panel span {
+  color: #bd9a5b;
+}
+.why-royal-coster_page .our-value-section .top-pink-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(229, 215, 191, 0.4);
+  filter: blur(500px);
+  width: 20vw;
+  height: 20vw;
+}
+.why-royal-coster_page .our-value-section .bottom-pink-box {
+  position: absolute;
+  bottom: 0px;
+  left: 5%;
+  width: 150px;
+  height: 80%;
+  background: #fad3da;
+  opacity: 0.7;
+  filter: blur(200px);
+  transform: rotate(-45deg);
+}
+.why-royal-coster_page .our-value-section .bottom-blue-box {
+  position: absolute;
+  bottom: 0px;
+  left: 10%;
+  width: 150px;
+  height: 80%;
+  background: #13439b;
+  opacity: 0.7;
+  filter: blur(200px);
+  transform: rotate(-45deg);
+}
