@@ -27,6 +27,7 @@ const timeLists = [
   }, {
     year: 1851,
     image: "timeline-1851.png",
+    subImage: "timeline-1851_sub.png",
     description: "Martin Coster moves to Paris, where he sets up a cutting factory as well. In the" +
       " following years he acquires a near-monopoly on diamond cutting in the world’s j" +
       "ewellery capital.."
@@ -53,90 +54,104 @@ const timeLists = [
   }
 ];
 
-const settingSlider = {
-  slidesPerView: 4,
-  freeMode: true,
-  mousewheel: true,
-  breakpoints: {
-    1440: {
-      slidesPerView: 1
-    },
-    1024: {
-      slidesPerView: .9
-    },
-    996: {
-      slidesPerView: .8
-    },
-    768: {
-      slidesPerView: .5
-    },
-    590: {
-      slidesPerView: .4
-    },
-    480: {
-      slidesPerView: .3
-    },
-    1: {
-      slidesPerView: .2
-    }
-  }
-};
+const yearList = [
+  1840, 1850
+]
 
 export default function TimeLine() {
 
   useEffect(() => {
-    gsap.registerPlugin(Draggable, TweenMax, ScrollTrigger);
+    if (window.innerWidth >= 576) {
 
-    var masthead = document.querySelector('.time-list-section')
+      gsap.registerPlugin(Draggable, TweenMax, ScrollTrigger);
 
-    var mastheadWidth = 0;
-    function getMastheadWidth() {
-      mastheadWidth = masthead.scrollWidth;
-    }
-    getMastheadWidth();
-    // ScrollTrigger.addEventListener('refreshInit', getMastheadWidth);
+      var masthead = document.querySelector('.time-list-section')
 
-    function updateProxy() {
-      // move the handler to the corresponding ratio according to the page's scroll position.
-      if (mastheadScrollTrigger) {
-        gsap.set(proxy, { x: -mastheadScrollTrigger.scroll(), overwrite: 'auto' });
+      var mastheadWidth = 0;
+      function getMastheadWidth() {
+        mastheadWidth = masthead.scrollWidth;
       }
-    }
+      getMastheadWidth();
+      // ScrollTrigger.addEventListener('refreshInit', getMastheadWidth);    
 
-    var mastheadScrollTrigger = ScrollTrigger.create({
-      id: 'time-list-section',
-      animation: gsap.to('.time-list-section', {
-        x: function () {
-          return -(mastheadWidth - window.innerWidth);
+      function updateProxy() {
+        let viewportArr = [];
+        const timelineHeight = document.querySelector('.pin-spacer').offsetTop;
+        yearList.map((year, index) => {
+          const scrollStep = document.querySelector('.time-' + year).offsetLeft;
+          viewportArr.push({ year: year, scrollHeight: (scrollStep + timelineHeight) });
+        })
+
+        const currentPos = viewportArr.sort((a, b) => b.year - a.year).find(n => (n.scrollHeight - window.innerWidth / 2) < window.scrollY);
+
+        if (currentPos) {
+          let target = document.querySelector('#year-' + currentPos.year);
+          if (!target.classList.contains('active')) {
+            document.querySelector('.btn-timelist-item.active').classList.remove('active');
+            target.classList.add('active')
+          }
+        }
+        const targetTag = document.querySelector(".time-list-bar");
+        if (window.scrollY >= (timelineHeight - 70)) {
+          if (!targetTag.classList.contains('show')) {
+            targetTag.classList.add('show');
+          }
+        } else {
+          if (targetTag.classList.contains('show')) {
+            targetTag.classList.remove('show');
+          }
+        }
+        // move the handler to the corresponding ratio according to the page's scroll position.
+        if (mastheadScrollTrigger) {
+          gsap.set(proxy, { x: -mastheadScrollTrigger.scroll(), overwrite: 'auto' });
+        }
+      }
+
+      var mastheadScrollTrigger = ScrollTrigger.create({
+        id: 'time-list-section',
+        animation: gsap.to('.time-list-section', {
+          x: function () {
+            return -(mastheadWidth - window.innerWidth);
+          },
+          ease: 'none',
+        }),
+        trigger: '.time-list-section',
+        end: function () {
+          return mastheadWidth;
         },
-        ease: 'none',
-      }),
-      trigger: '.time-list-section',
-      end: function () {
-        return mastheadWidth;
-      },
-      scrub: true,
-      pin: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true
-    });
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      });
 
-    var proxy = document.createElement('div');
-    var draggable = Draggable.create(proxy, {
-      trigger: '.time-list-section',
-      type: 'x',
-      inertia: true,
-      throwProps: true,
-      onThrowUpdate: function () {
-        mastheadScrollTrigger.scroll(-this.x);
-      },
-      onDrag: function () {
-        mastheadScrollTrigger.scroll(-this.x);
-      }
-    })[0];
+      var proxy = document.createElement('div');
+      // var draggable = Draggable.create(proxy, {
+      //   trigger: '.time-list-section',
+      //   type: 'x',
+      //   inertia: true,
+      //   throwProps: true,
+      //   onThrowUpdate: function () {
+      //     console.log(123)
+      //     mastheadScrollTrigger.scroll(-this.x);
+      //   },
+      //   onDrag: function () {
+      //     console.log(this.x)
+      //     mastheadScrollTrigger.scroll(-this.x);
+      //   }
+      // })[0];
 
-    window.addEventListener('wheel', updateProxy);
+      window.addEventListener('scroll', updateProxy);
+    }
   }, []);
+
+  const handleScroll = (year) => {
+    const bodyHeight = document.body.clientHeight;
+    const timelineHeight = document.querySelector('.pin-spacer').offsetTop;
+    const startPoint = bodyHeight - timelineHeight;
+    const scrollStep = document.querySelector('.time-' + year).offsetLeft;
+    scrollTo(0, timelineHeight + scrollStep)
+  }
 
   return (
     <div className="timeline_page">
@@ -157,9 +172,9 @@ export default function TimeLine() {
       {/* End Hero section */}
 
       {/* Start guide section */}
-      <div className="guide-section pt-5">
-        <div className="row r-container pt-5">
-          <div className="col-lg-4 col-md-5 col-12 p-0 pe-md-5 pe-5 py-5">
+      <div className="guide-section pt-md-5">
+        <div className="row r-container pt-5 pb-sm-0 pb-5">
+          <div className="col-lg-4 col-md-5 col-12 p-0 pe-md-5 pe-5 py-md-5">
             <h3 className="title text-capitalize text-md-start text-center">
               180 years of craftsmanship.
             </h3>
@@ -175,37 +190,43 @@ export default function TimeLine() {
       </div>
       {/* End guide section */}
       {/* Start time list section */}
+      <div className="time-list-bar text-center">
+        {
+          yearList.map((year, index) => {
+            return (
+              <button id={"year-" + year} className={"btn btn-timelist-item mb-1 p-0 " + (index == 0 ? 'active' : '')} key={index} onClick={() => handleScroll(year)}>{year}</button>
+            )
+          })
+        }
+      </div>
       <div className="time-list-section">
         {timeLists && timeLists.map((item, index) => {
           return (
             <div
               key={index}
-              className={index % 2
-                ? "horizontal-layout timeline-box ps-5"
-                : "timeline-box ps-5"}>
+              className={"timeline-box ps-sm-5 py-5 " + "time-" + (item.year - item.year % 10) + (index % 2 ? " horizontal-layout" : "")}>
               <div className="main-box justify-content-end row p-5">
-                <div className="col-11 history-box">
+                <div className="col-sm-11 history-box">
                   <div className="row m-0">
-                    {/* <div
+                    <img
+                      src={"/img/timeline/" + item.image}
                       className={index % 2
-                        ? "col-5 image-box round p-0 pe-5"
-                        : "image-box round p-0"}> */}
-                      <img
-                        src={"/img/timeline/" + item.image}
-                        className={index % 2
-                          ? "col-5 round time-line-image"
-                          : "round horizontal time-line-image"}
-                        alt="timeline-image" />
-                    {/* </div> */}
+                        ? "col-sm-5 round time-line-image p-0"
+                        : "round horizontal time-line-image p-0"}
+                      alt="timeline-image" />
                     <div
                       className={index % 2
-                        ? "col-7 text-box p-0 ps-5"
-                        : "col-12 text-box p-0 d-flex mt-5"}>
+                        ? "col-sm-7 text-box p-0 ps-sm-5 row"
+                        : "col-12 text-box p-0 d-flex flex-sm-row flex-column mt-sm-5"}>
+                      {
+                        item.subImage && index % 2 &&
+                        <img src={"/img/timeline/" + item.subImage} className="col-12 d-sm-block d-none sub-image round-form mb-5" />
+                      }
                       <p className="m-0">{item.description}</p>
                       <h2
                         className={index % 2
-                          ? "pt-5 m-0 mt-5"
-                          : "order-first pt-5 m-0 pe-5 me-5"}>
+                          ? (item.subImage ? "m-0 order-sm-last order-first" : "pt-5 m-0 mt-sm-5 order-sm-last order-first")
+                          : "order-first pt-5 m-0 pe-sm-5 me-sm-5"}>
                         {item.year}
                       </h2>
                     </div>
@@ -217,6 +238,6 @@ export default function TimeLine() {
         })}
       </div>
       {/* End time list section */}
-    </div>
+    </div >
   );
 }

@@ -8,18 +8,34 @@
     .r-container {
       padding-top: 40rem;
       padding-bottom: 15rem;
-      @media (max-width: 991px) {
-        padding-top: 20rem;
-      }
       .title {
         font-size: 7.2rem;
         font-weight: 400;
         color: white;
+        line-height: 102%;
         & > span {
           font-family: FreeSerif;
           font-weight: 400;
           font-size: 7.6rem;
-          line-height: 91.2px;
+        }
+      }
+      @media (max-width: 991px) {
+        padding-top: 20rem;
+        .title {
+          font-size: 6.4rem;
+          &>span {
+            font-size: 6.8rem;
+          }
+        }
+      }
+      @media (max-width: 575px) {
+        padding-top: 15rem;
+        padding-bottom: 8rem;
+        .title {
+          font-size: 5.2rem;
+          &>span {
+            font-size: 5.6rem;
+          }
         }
       }
     }
@@ -41,7 +57,58 @@
       color: rgba(2, 24, 37, 0.8);
     }
   }
+  .time-list-bar {
+    position: fixed;
+    height: 100%;
+    width: 150px;
+    left: -150px;
+    z-index: 6;
+    background: #021825;
+    padding-top: 60px;
+    // transition-duration: 0.3s;
+    top: 51px !important;
+    @media (max-width: 1314px) {
+      top: 61px !important;
+    }
+    .btn {
+      width: 100%;
+      font-family: FreeSerif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 120%;
+      color: rgba(255, 255, 255, 0.3);
+      &.active {
+        color: white;
+        font-weight: 500;
+        margin-left: -10px;
+        &::before {
+          content: "·";
+          color: white;
+          font-size: 4.2rem;
+          margin-right: 5px;
+        }
+      }
+    }
+    &.show {
+      transition-duration: 0.3s;
+      left: 0px;
+    }
+  }
   .time-list-section {
+    position: relative;
+    display: flex;
+    height: calc(100vh - 51px) !important;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    padding-top: 51px !important;
+    @media (max-width: 1314px) {
+      padding-top: 61px !important;
+    }
+    @media (max-width: 575px) {
+      display: block;
+      padding-top: 0 !important;
+    }
     .swiper-slide {
       height: 62.5vw;
     }
@@ -51,20 +118,48 @@
     }
     .timeline-box {
       background: #021825;
-      max-height: calc(100vh - 51.5px);
-      @media (max-width: 1314px) {
-        max-height: calc(100vh - 61px);
-      }
+      height: calc(100vh - 51.5px);
+      flex-shrink: 0;
+      width: 100%;
+      overflow-y: hidden;
+      min-width: 1024px;
       max-height: 900px;
+      &:last-child {
+        width: calc(100% + 91px);
+        min-width: 1115px;
+        @media (max-width: 575px) {
+          min-width: auto;
+          width: 100%;
+        };
+      }
+      @media (max-width: 1314px) {
+        height: calc(100vh - 61px);
+      }
+      @media (max-width: 575px) {
+        min-width: auto;
+        max-height: auto;
+        height: auto;
+      }
       .main-box {
         width: 90%;
         max-width: 1440px;
         margin: 0 auto;
+        @media (max-width: 575px) {
+          width: 100%;
+        }
         img {
           object-fit: cover;
           &.horizontal {
             max-height: 35vh;
             width: 100%;
+          }
+          &.sub-image {
+            width: 100%;
+            max-height: 220px;
+          }
+          @media (max-width: 575px) {
+            height: 150px;
+            max-height: 150px;;
           }
         }
         .text-box {
@@ -80,6 +175,9 @@
             @media (max-width: 1024px) {
               font-size: 100px;
             }
+            @media (max-width: 575px) {
+              font-size: 5.8rem;
+            }
           }
           p {
             font-family: Marlin Geo SQ;
@@ -94,39 +192,21 @@
             @media (max-width: 1024px) {
               font-size: 2.4rem;
             }
+            @media (max-width: 575px) {
+              font-size: 1.8rem;
+            }
           }
         }
       }
       &.horizontal-layout {
         background: #010e16;
         .time-line-image {
-          max-height: calc(100vh - 111px);
+          height: calc(100vh - 171px);
           @media (max-width: 1314px) {
-            max-height: calc(100vh - 121px);
+            height: calc(100vh - 181px);
           }
         }
       }
     }
-  }
-
-  .time-list-section {
-    display: flex;
-    height: calc(100vh - 51px) !important;
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
-    padding-top: 51px !important;
-    @media (max-width: 1314px) {
-      padding-top: 61px !important;
-    }
-  }
-  .timeline-box {
-    flex-shrink: 0;
-    width: 100%;
-    background: #133377;
-    min-width: 1024px;
-    overflow-y: hidden;
-  }
-  .timeline-box:nth-of-type(even) {
-    background: #abafb8;
   }
 }
