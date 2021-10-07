@@ -43,6 +43,20 @@ a {
 }
 
 @font-face {
+  font-family: MarlinGeoSQ;
+  src: url("/font/marlin-geo-sq/MarlinGeoSQ-Italic.eot");
+  src: local("/font/marlin-geo-sq/Marlin Geo SQ Italic"),
+    local("/font/marlin-geo-sq/MarlinGeoSQ-Italic"),
+    url("/font/marlin-geo-sq/MarlinGeoSQ-Italic.eot?#iefix")
+      format("embedded-opentype"),
+    url("/font/marlin-geo-sq/MarlinGeoSQ-Italic.woff2") format("woff2"),
+    url("/font/marlin-geo-sq/MarlinGeoSQ-Italic.woff") format("woff"),
+    url("/font/marlin-geo-sq/MarlinGeoSQ-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
   font-family: FreeSerif;
   src: url(/font/freeserif/FreeSerifItalic.ttf);
   font-style: italic;

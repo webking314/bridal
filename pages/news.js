@@ -1,0 +1,222 @@
+import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import Head from "next/head";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import Schedule from "../components/schedule";
+import NumberFormat from "react-number-format";
+import AppointmentModal from "../components/appointmentModal";
+import renderHTML from "react-render-html";
+import WatchItems from "../components/watchItems";
+import SwiperCore, { Autoplay, Navigation } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { RiArrowRightSFill, RiMailFill, RiPhoneFill, RiWhatsappFill, RiDvdFill } from "react-icons/ri";
+
+const descritionData = [
+  {
+    title: "How we Guarantee Our Diamonds are Untainted",
+    image: "/img/news/image-2.png",
+  },
+  {
+    title: "Our In-House Sustainability is a Team Effort",
+    image: "/img/news/image-3.png",
+  },
+  {
+    title: "Interview with CEO Kees Noomen about Corporate Responsibilty",
+    image: "/img/news/image-4.png",
+  },
+  {
+    title: "How we Guarantee Our Diamonds are Untainted",
+    image: "/img/news/image-2.png",
+  },
+  {
+    title: "Our In-House Sustainability is a Team Effort",
+    image: "/img/news/image-3.png",
+  },
+  {
+    title: "Interview with CEO Kees Noomen about Corporate Responsibilty",
+    image: "/img/news/image-4.png",
+  },
+]
+
+const sliderData = [
+  {
+    image: "/img/news/logo1.png",
+    description: "“77 DIAMONDS IS HELPING THE JEWELRY INDUSTRY BE MORE ETHICAL AND INNOVATIVE”",
+  },
+  {
+    image: "/img/news/logo2.png",
+    description: "“77 DIAMONDS IS HELPING THE JEWELRY INDUSTRY BE MORE ETHICAL AND INNOVATIVE”",
+  },
+  {
+    image: "/img/news/logo3.png",
+    description: "“77 DIAMONDS IS HELPING THE JEWELRY INDUSTRY BE MORE ETHICAL AND INNOVATIVE”",
+  },
+  {
+    image: "/img/news/logo1.png",
+    description: "“77 DIAMONDS IS HELPING THE JEWELRY INDUSTRY BE MORE ETHICAL AND INNOVATIVE”",
+  },
+]
+
+SwiperCore.use([Autoplay, Navigation]);
+
+export default function News() {
+  const navigationPrevRef = React.useRef(null);
+  const navigationNextRef = React.useRef(null);
+
+  return (
+    <div className="news_page">
+      <Head>
+        <title>New & Press | Royal Coster</title>
+      </Head>
+      <Header />
+      {/* Start hero section */}
+      <div className="hero-section">
+        <div className="r-container">
+          <h1 className="title text-white col-lg-6 col-sm-8 text-capitalize mb-5">
+            News <span>&</span> <br />Press
+          </h1>
+        </div>
+      </div>
+
+      {/* Start guide section */}
+      <div className="guide-section py-5">
+        <div className="row r-container py-5">
+          <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
+            <h3 className="title text-capitalize pe-lg-5">In the press around the world</h3>
+          </div>
+          <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
+            <p className="guide-text mb-4">
+              At Royal Coster Diamonds, there are many facets to our diamond family. From sales executives to jewellery craftsmen, from technology to design we have many roles that keep the company moving. We are always looking for talented and motivated people to join our family. Don't see a relevant role advertised? Contact us anyway to see if we can find a role for you</p>
+          </div>
+        </div>
+      </div>
+      {/* End guide section */}
+
+      {/* Start Description section */}
+      <div className="description-section r-container py-5 my-5 d-flex align-items-center flex-column">
+        <div className="main-panel row m-0 mb-5 align-items-center">
+          <div className="image-panel col-lg-7 pe-lg-4 p-0 round mb-5 mb-lg-0">
+            <img src="/img/news/image-1.png" />
+          </div>
+          <div className="col-lg-5 p-0 ps-lg-4 text-panel">
+            <h3 className="title blue-text mb-md-5 mb-4">Precautions Regarding the Coronavirus</h3>
+            <p className="mb-4">COVID-19 has the world in its grip. We are now trying to find our way from an "intelligent lockdown" into the "New Normal". This also applies to Royal Coster Diamonds. You were always used to our 'Royal Service'. But how will we provide this now, at the time of Corona? Don’t worry. Of course, you still receive the service you are used to from us. However, we took a number of measures to protect you and ourselves.
+            </p>
+          </div>
+        </div>
+        <div className="sub-panel row pb-lg-5">
+          {
+            descritionData.map((item, index) => {
+              return (
+                <div className="col-lg-4 col-md-6 mb-lg-0 mb-5" key={index}>
+                  <div className="hover-scale round mb-4">
+                    <img src={item.image} alt="description-image" />
+                  </div>
+                  <h3 className="mb-4 title blue-text">{item.title}</h3>
+                  <Link href="#">
+                    <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
+                  </Link>
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
+      {/* End Description section */}
+
+      {/* Start sponsorship section */}
+      <div className="sponsorship-section">
+        <div className="title-panel">
+          <div className="r-container py-5 d-flex align-items-center justify-content-between flex-md-row flex-column">
+            <h3 className="title  mb-4 py-5 blue-text col-lg-5 col-md-6 text-capitalize">What <span>they</span> <br className="d-none d-md-block" />say</h3>
+            <div className="btn-bottom-panel text-center">
+              <button ref={navigationPrevRef} className="btn px-0 me-5">
+                <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
+              </button>
+              <button ref={navigationNextRef} className="btn px-0">
+                <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="tours-panel">
+          <div className="row r-container">
+            <Swiper
+              navigation={{
+                prevEl: navigationPrevRef.current,
+                nextEl: navigationNextRef.current,
+              }}
+              slidesPerView={3}
+              spaceBetween={30}
+              loop={true}
+              className="mySwiper"
+              breakpoints={{
+                996: {
+                  slidesPerView: 3,
+                },
+                768: {
+                  slidesPerView: 2.5,
+                },
+                590: {
+                  slidesPerView: 2,
+                },
+                480: {
+                  slidesPerView: 1,
+                },
+                1: {
+                  slidesPerView: 1,
+                },
+              }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              onSwiper={(swiper) => {
+                // Delay execution for the refs to be defined
+                setTimeout(() => {
+                  // Override prevEl & nextEl now that refs are defined
+                  swiper.params.navigation.prevEl = navigationPrevRef.current;
+                  swiper.params.navigation.nextEl = navigationNextRef.current;
+
+                  // Re-init navigation
+                  swiper.navigation.destroy();
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+                });
+              }}
+            >
+              {
+                sliderData.map((item, index) => {
+                  return (
+                    <SwiperSlide key={index}>
+                      <div className="info-box round p-4">
+                        <div className="image-panel mb-4">
+                          <img src={item.image} className="logo-image" alt="logo-image" />
+                        </div>
+                        <p className="description blue-text text-lowercase">{item.description}</p>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+            </Swiper>
+          </div>
+        </div>
+      </div>
+      {/* End more tour section */}
+
+      {/* Start Schedule section */}
+      <Schedule />
+      {/* End Schedule section */}
+
+      {/* Start Footer */}
+      <Footer />
+      {/* End Footer */}
+
+      <AppointmentModal />
+
+    </div >
+  );
+}
