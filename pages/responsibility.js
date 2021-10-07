@@ -113,11 +113,11 @@ export default function Responsibility() {
           </p>
         </div>
       </div>
-      <div className="sub-panel row m-0 pb-lg-5">
+      <div className="sub-panel row pb-lg-5">
         {
           descritionData.map((item, index) => {
             return (
-              <div className="col-lg-4 p-0 col-md-6 mb-lg-0 mb-5" key={index}>
+              <div className="col-lg-4 col-md-6 mb-lg-0 mb-5" key={index}>
                 <div className="hover-scale round mb-4">
                   <img src={item.image} alt="description-image" />
                 </div>
@@ -139,7 +139,7 @@ export default function Responsibility() {
     <div className="title-panel">
       <div className="r-container py-5 d-flex align-items-center flex-column text-center">
         <h3 className="title  mt-lg-5 mb-4 pt-5 blue-text col-lg-5 col-md-6">Sponsorships</h3>
-        <p className="col-lg-4 col-md-6">Over the past centuries, Royal Coster and Amsterdam grew and flourished side by side. We love our city and we love to help our city</p>
+        <p className="col-lg-4 col-md-6 text-capitalize">Over the past centuries, Royal Coster and Amsterdam grew and flourished side by side. We love our city and we love to help our city</p>
       </div>
     </div>
     <div className="tours-panel">
