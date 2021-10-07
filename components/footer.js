@@ -39,17 +39,17 @@ export default function Footer() {
     {
       title: "About Royal Coster",
       url: [
-        { link: "Our Story", url: "/our-story", tags: "", product_type: "" },
-        { link: "Why Royal Coster", url: "/why-royal-coster", tags: "", product_type: "" },
-        { link: "Corporate Responsibility", url: "/responsibility", tags: "", product_type: "" },
-        { link: "Press", url: "#", tags: "#", product_type: "" },
-        { link: "Jobs & internships", url: "internships", tags: "", product_type: "" },
+        { link: "Our Story", url: "/our-story" },
+        { link: "Why Royal Coster", url: "/why-royal-coster" },
+        { link: "Corporate Responsibility", url: "/responsibility" },
+        { link: "Press", url: "#" },
+        { link: "Jobs & internships", url: "/internships" },
       ],
     },
     {
       title: "Customer Services",
       url: [
-        { link: "Contact Us", url: "/contact", tags: "", product_type: ""  },
+        { link: "Contact Us", url: "/contact", tags: "", product_type: "" },
         { link: "Reviews & TESTIMONIALS", url: "#", tags: "", product_type: "" },
         { link: "Faq’s", url: "#", tags: "", product_type: "" },
         { link: "Upgrade Service", url: "#", tags: "", product_type: "" },
@@ -73,35 +73,35 @@ export default function Footer() {
       <div className="main-footer r-container d-md-block d-none">
         <div className="footer-top row p-0 m-0 py-5">
           <div className="col-lg-6 col-12 py-lg-5 pb-lg-5 pb-0 px-0 social-links d-flex justify-content-lg-start justify-content-center">
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a className="me-4">
                 <div>
                   <RiFacebookCircleFill />
                 </div>
               </a>
             </Link>
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a className="me-4">
                 <div>
                   <RiInstagramFill />
                 </div>
               </a>
             </Link>
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a className="me-4">
                 <div>
                   <RiLinkedinFill />
                 </div>
               </a>
             </Link>
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a className="me-4">
                 <div>
                   <RiPinterestFill />
                 </div>
               </a>
             </Link>
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a className="me-4">
                 <div>
                   <RiYoutubeFill />
@@ -112,7 +112,7 @@ export default function Footer() {
           <div className="col-lg-6 col-12 py-lg-5 py-0 px-0 text-lg-end payment-links text-center">
             {paymentLogo.map((item, index) => {
               return (
-                <Link  passHref={true} key={index} href={item.url}>
+                <Link passHref={true} key={index} href={item.url}>
                   <a className={index == 0 ? "ms-0" : "ms-4"}>
                     <img
                       src={"/img/common/" + item.img}
@@ -136,14 +136,14 @@ export default function Footer() {
                 <h3 className="mb-5">{items.title}</h3>
                 {items.url.map((item, key) => {
                   return (
-                    <Link  passHref={true} href={{
+                    <Link passHref={true} href={item.tags ? {
                       pathname: item.url,
                       query: {
                         tags: item.tags,
                         productType: item.product_type
                       },
-                    }}
-                    key={key}>
+                    } : item.url}
+                      key={key}>
                       <a className="row m-0 mb-3 text-uppercase">{item.link}</a>
                     </Link>
                   );
@@ -162,35 +162,35 @@ export default function Footer() {
           </p>
         </div>
         <div className="mobile-social-link d-flex justify-content-center pb-5">
-          <Link  passHref={true} href="#">
+          <Link passHref={true} href="#">
             <a>
               <div className="social-link me-4">
                 <RiFacebookCircleFill />
               </div>
             </a>
           </Link>{" "}
-          <Link  passHref={true} href="#">
+          <Link passHref={true} href="#">
             <a>
               <div className="social-link me-4">
                 <RiInstagramFill />
               </div>
             </a>
           </Link>{" "}
-          <Link  passHref={true} href="#">
+          <Link passHref={true} href="#">
             <a>
               <div className="social-link me-4">
                 <RiLinkedinFill />
               </div>
             </a>
           </Link>{" "}
-          <Link  passHref={true} href="#">
+          <Link passHref={true} href="#">
             <a>
               <div className="social-link me-4">
                 <RiPinterestFill />
               </div>
             </a>
           </Link>{" "}
-          <Link  passHref={true} href="#">
+          <Link passHref={true} href="#">
             <a>
               <div className="social-link">
                 <RiYoutubeFill />
@@ -218,7 +218,7 @@ export default function Footer() {
                   <div className="accordion-body">
                     {item.url.map((link, key) => {
                       return (
-                        <Link  passHref={true} href={link.url} key={key}>
+                        <Link passHref={true} href={link.url} key={key}>
                           <a>
                             <div className="link-item mb-5 text-uppercase">
                               {link.link}
@@ -244,19 +244,19 @@ export default function Footer() {
             </h2>
             <div className="accordion-collapse collapse" id="footerPrivacy">
               <div className="accordion-body">
-                <Link  passHref={true} href="#">
+                <Link passHref={true} href="#">
                   <a>
                     <div className="link-item mb-5 text-uppercase">
                       Privacy Policy
                     </div>
                   </a>
                 </Link>
-                <Link  passHref={true} href="#">
+                <Link passHref={true} href="#">
                   <a>
                     <div className="link-item mb-5 text-uppercase">Cookies</div>
                   </a>
                 </Link>
-                <Link  passHref={true} href="#">
+                <Link passHref={true} href="#">
                   <a>
                     <div className="link-item mb-5 text-uppercase">Terms</div>
                   </a>
@@ -268,7 +268,7 @@ export default function Footer() {
         <div className="col-12 py-4 px-0 text-center">
           {paymentLogo.map((item, index) => {
             return (
-              <Link  passHref={true} key={index} href={item.url}>
+              <Link passHref={true} key={index} href={item.url}>
                 <a className={index == 0 ? "ms-0" : "ms-4"}>
                   <img
                     src={"/img/common/" + item.img}
@@ -288,13 +288,13 @@ export default function Footer() {
             © 2020 Royal Coster Diamonds - All rights reserved
           </div>
           <div className="col-md-6 d-md-block d-none px-0 mt-md-0 mt-3 text-md-end text-center">
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a className="text-uppercase">Privacy Policy</a>
             </Link>
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a className="text-uppercase ms-5">Cookies</a>
             </Link>
-            <Link  passHref={true} href="#">
+            <Link passHref={true} href="#">
               <a className="text-uppercase ms-5">Terms</a>
             </Link>
           </div>
