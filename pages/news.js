@@ -95,7 +95,7 @@ export default function News() {
       {/* End guide section */}
 
       {/* Start Description section */}
-      <div className="description-section r-container py-5 my-5 d-flex align-items-center flex-column">
+      <div className="description-section r-container py-5 my-md-5 d-flex align-items-center flex-column">
         <div className="main-panel row m-0 mb-5 align-items-center">
           <div className="image-panel col-lg-7 pe-lg-4 p-0 round mb-5 mb-lg-0">
             <img src="/img/news/image-1.png" />
@@ -192,7 +192,7 @@ export default function News() {
                 sliderData.map((item, index) => {
                   return (
                     <SwiperSlide key={index}>
-                      <div className="info-box round p-4">
+                      <div className="info-box border round p-4">
                         <div className="image-panel mb-4">
                           <img src={item.image} className="logo-image" alt="logo-image" />
                         </div>

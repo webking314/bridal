@@ -308,13 +308,13 @@ function Header(props) {
                                     return (
                                       <Link
                                         passHref={true}
-                                        href={{
+                                        href={item.tag ? {
                                           pathname: item.url,
                                           query: {
                                             tags: item.tag,
                                             productType: item.product_type
                                           },
-                                        }}
+                                        } : item.url}
                                         key={id}>
                                         <a>
                                           {item.img ? (
@@ -548,13 +548,13 @@ function Header(props) {
                                     return (
                                       <Link
                                         passHref={true}
-                                        href={{
+                                        href={item.tag ? {
                                           pathname: item.url,
                                           query: {
                                             tags: item.tag,
                                             productType: item.product_type
                                           },
-                                        }}
+                                        } : item.url}
                                         key={id}>
                                         <a>
                                           {item.img ? (
@@ -740,13 +740,13 @@ function Header(props) {
                               return (
                                 <Link
                                   passHref={true}
-                                  href={{
+                                  href={item.tag ? {
                                     pathname: item.url,
                                     query: {
                                       tags: item.tag,
                                       productType: item.product_type
                                     },
-                                  }}
+                                  } : item.url}
                                   key={id}>
                                   <a>
                                     {item.img ? (

@@ -145,6 +145,10 @@
       font-size: 1.6rem;
       background: white;
       font-weight: 400;
+      &:hover {
+        color: white;
+        background: #01215c;
+      }
     }
   }
 }

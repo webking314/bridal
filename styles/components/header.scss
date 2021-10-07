@@ -375,7 +375,6 @@ $flagSelectColor: white;
       color: #000000;
     }
   }
-
   .desktop-header {
     .middle-bar {
       button {
@@ -494,12 +493,20 @@ $flagSelectColor: white;
             font-size: 2rem;
             font-weight: 500;
           }
-          .link-item {
-            font-size: 1.6rem;
-            color: #000000;
-            span {
+          a {
+            .link-item {
               font-size: 1.6rem;
               color: #000000;
+              span {
+                font-size: 1.6rem;
+                color: #000000;
+              }
+            }
+            &:hover {
+              span, div {
+                color: #000000 !important;
+                text-decoration: underline;
+              }
             }
           }
         }
@@ -518,9 +525,16 @@ $flagSelectColor: white;
               font-weight: 500;
               color: #021825;
             }
-            p {
-              font-size: 1.8rem;
-              font-weight: 500;
+            a {
+              p {
+                font-size: 1.8rem;
+                font-weight: 500;
+              }
+              &:hover {
+                p {
+                  color: #000000 !important;
+                }
+              }
             }
           }
         }

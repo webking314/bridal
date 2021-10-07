@@ -9,8 +9,11 @@ import Help from "../components/help";
 import Instagram from "../components/instagram";
 import { Modal, Button } from "react-bootstrap"
 import { RiCloseFill } from "react-icons/ri"
+
+let showVal = false;
+
 export default function Home() {
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
   let categories = [
     { img: "category1.png", url: "#", title: "Earrings" },
     { img: "category2.png", url: "#", title: "Earrings" },
@@ -18,6 +21,13 @@ export default function Home() {
     { img: "category4.png", url: "#", title: "Earrings" },
   ];
   let videoUrl = "/video/video.mp4";
+
+  useEffect(() => {
+    if (!showVal) {
+      showVal = true;
+      setShow(showVal)
+    }
+  }, [])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

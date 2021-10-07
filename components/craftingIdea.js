@@ -25,7 +25,8 @@ export default function CraftingIdea() {
               <button className="btn blue-btn px-5 py-3 text-uppercase round-form me-sm-4 me-0 mb-sm-0 mb-4">
                 Send an enquiry
               </button>
-              <button className="btn pink-btn px-5 py-3 text-uppercase round-form">
+              <button className="btn pink-btn px-5 py-3 text-uppercase round-form" data-bs-toggle="modal"
+                data-bs-target="#appointment">
                 Book Appointment
               </button>
             </div>
