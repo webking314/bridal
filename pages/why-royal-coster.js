@@ -100,7 +100,7 @@ export default function WhyRoyalCoster() {
         <h1 className="title py-5 my-md-5 blue-text text-center">Our <span>Core</span><br />Values</h1>
         <div className="idea-panel round text-center p-5">
           <img className="mark-image mb-5" src="/img/common/mobile_logo.png" alt="mark-image" />
-          <div className="text-panel d-flex justify-content-md-evenly justify-content-between flex-wrap">
+          <div className="text-panel d-flex justify-content-md-evenly justify-content-between flex-wrap flex-sm-row flex-column text-start">
             <p><span>C</span>raftsmanship</p>
             <p><span>O</span>penness</p>
             <p><span>S</span>upportive</p>
@@ -119,7 +119,7 @@ export default function WhyRoyalCoster() {
       <div className="passpost-section text-white py-5">
         <div className="r-container py-md-5 d-flex justify-content-between flex-column flex-md-row align-items-md-center">
           <h3 className="title mb-4 mb-md-0">The Royal Coster Passport explains our core values. These three values are:</h3>
-          <ul>
+          <ul className="ms-md-0 ms-5">
             <li>Flexible</li>
             <li>Family & Connection</li>
             <li>Dedication & Service</li>

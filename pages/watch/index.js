@@ -88,20 +88,22 @@ export default function Watch() {
       {/* End guide section */}
 
       {/* Start logo section */}
-      <div className="logo-panel r-container d-flex justify-content-between flex-wrap pb-3 mt-5">
+      <div className="logo-panel r-container row justify-content-between flex-wrap pb-3 mt-5">
         {
           logos.map((logo, index) => {
             return (
               <Link href={logo.url} key={index} >
-                <a className="px-4 py-2 round-form pink-btn mb-4">
-                  <img src={"/img/watch/logo/" + logo.image} width="130" height="130" alt="logo-image" />
-                </a>
+                <div className="col-lg-2 col-md-3 col-sm-4 d-flex justify-content-center mb-4">
+                  <a className="px-4 py-2 round-form pink-btn">
+                    <img src={"/img/watch/logo/" + logo.image} width="130" height="130" alt="logo-image" />
+                  </a>
+                </div>
               </Link>
             )
           })
         }
       </div>
-     {/* End logo section */}
+      {/* End logo section */}
 
       {/* Start watch detail section */}
       <WatchDetails watchData={watchData} />
