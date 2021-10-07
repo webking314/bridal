@@ -4,12 +4,12 @@
   background-position: center;
 }
 .responsibility_page .hero-section .r-container {
-  padding-top: 15rem;
-  padding-bottom: 8rem;
+  padding-top: 20rem;
+  padding-bottom: 5rem;
 }
 @media (max-width: 991px) {
   .responsibility_page .hero-section .r-container {
-    padding-top: 10rem;
+    padding-top: 15rem;
   }
 }
 .responsibility_page .hero-section .r-container p {
@@ -20,12 +20,12 @@
   font-size: 7.2rem;
   font-weight: 400;
   color: white;
+  line-height: 102%;
 }
 .responsibility_page .hero-section .r-container .title > span {
   font-family: FreeSerif;
   font-weight: 400;
   font-size: 7.6rem;
-  line-height: 102%;
 }
 .responsibility_page .hero-section .r-container .description {
   font-weight: 400;

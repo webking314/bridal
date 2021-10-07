@@ -86,7 +86,7 @@ export default function Responsibility() {
       </div>
 
       {/* Start guide section */}
-      <div className="guide-section">
+      <div className="guide-section py-5">
         <div className="row r-container py-5">
           <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
             <h3 className="title text-capitalize">For planet and for people</h3>
@@ -108,127 +108,127 @@ export default function Responsibility() {
           <div className="col-lg-5 p-0 ps-lg-4 text-panel">
             <h3 className="title blue-text mb-md-5 mb-4">The most brilliant sparkle is a responsible one</h3>
             <p className="mb-4">Diamonds are a product of nature and a product of people. The little pieces of carbon are pressed together by Mother Nature that are mined and polished by people. The results are sparkling diamonds. These precious stones have been loved and adored by millions of people for hundreds and hundreds of years. however lovely they may be. We needed to make sure all of our diamonds are obtained in a responsible way and that everyone who is included in the process is treated well.
-              So we did.
-              But of course, we try to do more to create a better and greener tomorrow.
-            </p>
-          </div>
+              <br />So we did.<br/>
+            But of course, we try to do more to create a better and greener tomorrow.
+          </p>
         </div>
-        <div className="sub-panel row m-0 pb-lg-5">
-          {
-            descritionData.map((item, index) => {
-              return (
-                <div className="col-lg-4 p-0 col-md-6 mb-lg-0 mb-5" key={index}>
-                  <div className="hover-scale round mb-4">
-                    <img src={item.image} alt="description-image" />
-                  </div>
-                  <h3 className="mb-4 title blue-text">{item.title}</h3>
-                  <p>{item.dscription}</p>
-                  <Link href="#">
-                    <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
-                  </Link>
+      </div>
+      <div className="sub-panel row m-0 pb-lg-5">
+        {
+          descritionData.map((item, index) => {
+            return (
+              <div className="col-lg-4 p-0 col-md-6 mb-lg-0 mb-5" key={index}>
+                <div className="hover-scale round mb-4">
+                  <img src={item.image} alt="description-image" />
                 </div>
-              )
-            })
-          }
+                <h3 className="mb-4 title blue-text">{item.title}</h3>
+                <p>{item.dscription}</p>
+                <Link href="#">
+                  <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
+                </Link>
+              </div>
+            )
+          })
+        }
+      </div>
+    </div>
+      {/* End Description section */ }
+
+  {/* Start sponsorship section */ }
+  <div className="sponsorship-section">
+    <div className="title-panel">
+      <div className="r-container py-5 d-flex align-items-center flex-column text-center">
+        <h3 className="title  mt-lg-5 mb-4 pt-5 blue-text col-lg-5 col-md-6">Sponsorships</h3>
+        <p className="col-lg-4 col-md-6">Over the past centuries, Royal Coster and Amsterdam grew and flourished side by side. We love our city and we love to help our city</p>
+      </div>
+    </div>
+    <div className="tours-panel">
+      <div className="row r-container">
+        <Swiper
+          navigation={{
+            prevEl: navigationPrevRef.current,
+            nextEl: navigationNextRef.current,
+          }}
+          slidesPerView={4}
+          spaceBetween={30}
+          loop={true}
+          className="mySwiper"
+          breakpoints={{
+            996: {
+              slidesPerView: 4,
+            },
+            768: {
+              slidesPerView: 3,
+            },
+            590: {
+              slidesPerView: 2,
+            },
+            480: {
+              slidesPerView: 1,
+            },
+            1: {
+              slidesPerView: 1,
+            },
+          }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          onSwiper={(swiper) => {
+            // Delay execution for the refs to be defined
+            setTimeout(() => {
+              // Override prevEl & nextEl now that refs are defined
+              swiper.params.navigation.prevEl = navigationPrevRef.current;
+              swiper.params.navigation.nextEl = navigationNextRef.current;
+
+              // Re-init navigation
+              swiper.navigation.destroy();
+              swiper.navigation.init();
+              swiper.navigation.update();
+            });
+          }}
+        >
+          {
+            sliderData.map((slider, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <div className="tour-item px-3 mb-5">
+                    <div className="image-panel hover-scale round mb-4">
+                      <img src={slider.image} className="tour-image" alt="tour-image" />
+                    </div>
+                    <h3 className="title mb-4 blue-text">{slider.title}</h3>
+                    <p className="description mb-5">{slider.description}</p>
+                    <Link href="#">
+                      <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
+                    </Link>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+        </Swiper>
+        <div className="btn-bottom-panel mt-5 pt-md-5 text-center">
+          <button ref={navigationPrevRef} className="btn px-0 me-5">
+            <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
+          </button>
+          <button ref={navigationNextRef} className="btn px-0">
+            <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
+          </button>
         </div>
       </div>
-      {/* End Description section */}
+    </div>
+  </div>
+  {/* End more tour section */ }
 
-      {/* Start sponsorship section */}
-      <div className="sponsorship-section">
-        <div className="title-panel">
-          <div className="r-container py-5 d-flex align-items-center flex-column text-center">
-            <h3 className="title  mt-lg-5 mb-4 pt-5 blue-text col-lg-5 col-md-6">Sponsorships</h3>
-            <p className="col-lg-4 col-md-6">Over the past centuries, Royal Coster and Amsterdam grew and flourished side by side. We love our city and we love to help our city</p>
-          </div>
-        </div>
-        <div className="tours-panel">
-          <div className="row r-container">
-            <Swiper
-              navigation={{
-                prevEl: navigationPrevRef.current,
-                nextEl: navigationNextRef.current,
-              }}
-              slidesPerView={4}
-              spaceBetween={30}
-              loop={true}
-              className="mySwiper"
-              breakpoints={{
-                996: {
-                  slidesPerView: 4,
-                },
-                768: {
-                  slidesPerView: 3,
-                },
-                590: {
-                  slidesPerView: 2,
-                },
-                480: {
-                  slidesPerView: 1,
-                },
-                1: {
-                  slidesPerView: 1,
-                },
-              }}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              onSwiper={(swiper) => {
-                // Delay execution for the refs to be defined
-                setTimeout(() => {
-                  // Override prevEl & nextEl now that refs are defined
-                  swiper.params.navigation.prevEl = navigationPrevRef.current;
-                  swiper.params.navigation.nextEl = navigationNextRef.current;
+  {/* Start Schedule section */ }
+  <Schedule />
+  {/* End Schedule section */ }
 
-                  // Re-init navigation
-                  swiper.navigation.destroy();
-                  swiper.navigation.init();
-                  swiper.navigation.update();
-                });
-              }}
-            >
-              {
-                sliderData.map((slider, index) => {
-                  return (
-                    <SwiperSlide key={index}>
-                      <div className="tour-item px-3 mb-5">
-                        <div className="image-panel hover-scale round mb-4">
-                          <img src={slider.image} className="tour-image" alt="tour-image" />
-                        </div>
-                        <h3 className="title mb-4 blue-text">{slider.title}</h3>
-                        <p className="description mb-5">{slider.description}</p>
-                        <Link href="#">
-                          <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
-                        </Link>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-            </Swiper>
-            <div className="btn-bottom-panel mt-5 pt-md-5 text-center">
-              <button ref={navigationPrevRef} className="btn px-0 me-5">
-                <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
-              </button>
-              <button ref={navigationNextRef} className="btn px-0">
-                <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* End more tour section */}
+  {/* Start Footer */ }
+  <Footer />
+  {/* End Footer */ }
 
-      {/* Start Schedule section */}
-      <Schedule />
-      {/* End Schedule section */}
-
-      {/* Start Footer */}
-      <Footer />
-      {/* End Footer */}
-
-      <AppointmentModal />
+  <AppointmentModal />
 
     </div >
   );

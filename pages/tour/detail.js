@@ -83,7 +83,7 @@ export default function TourDetail() {
       </div>
 
       {/* Start guide section */}
-      <div className="guide-section">
+      <div className="guide-section py-5">
         <div className="row r-container py-5">
           <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
             <h3 className="title text-capitalize">

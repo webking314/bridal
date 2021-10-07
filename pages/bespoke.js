@@ -277,7 +277,7 @@ export default function Bespoke() {
             {signatureSliders.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <Link passHref={true}  href="#">
+                  <Link passHref={true} href="#">
                     <a>
                       <div className="image-panel round hover-scale">
                         <img

@@ -4,8 +4,8 @@
     background-size: cover;
     background-position: center;
     .r-container {
-      padding-top: 15rem;
-      padding-bottom: 8rem;
+      padding-top: 20rem;
+      padding-bottom: 5rem;
       @media (max-width: 991px) {
         padding-top: 10rem;
       }
@@ -17,11 +17,11 @@
         font-size: 7.2rem;
         font-weight: 400;
         color: white;
+        line-height: 102%;
         & > span {
           font-family: FreeSerif;
           font-weight: 400;
           font-size: 7.6rem;
-          line-height: 102%;
         }
       }
       .description {

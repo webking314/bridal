@@ -4,12 +4,12 @@
   background-position: center;
 }
 .why-royal-coster_page .hero-section .r-container {
-  padding-top: 15rem;
-  padding-bottom: 8rem;
+  padding-top: 20rem;
+  padding-bottom: 5rem;
 }
 @media (max-width: 991px) {
   .why-royal-coster_page .hero-section .r-container {
-    padding-top: 10rem;
+    padding-top: 15rem;
   }
 }
 .why-royal-coster_page .hero-section .r-container p {
@@ -19,13 +19,13 @@
 .why-royal-coster_page .hero-section .r-container .title {
   font-size: 7.2rem;
   font-weight: 400;
+  line-height: 102%;
   color: white;
 }
 .why-royal-coster_page .hero-section .r-container .title > span {
   font-family: FreeSerif;
   font-weight: 400;
   font-size: 7.6rem;
-  line-height: 102%;
 }
 .why-royal-coster_page .hero-section .r-container .description {
   font-weight: 400;
