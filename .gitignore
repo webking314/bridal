@@ -12,10 +12,6 @@
 /.next/
 /.vscode/
 /out/
-/pages/dist/
-/styles/dist/
-/styles/*/dist/
-/components/dist/
 
 # production
 /build
