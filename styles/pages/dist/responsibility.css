@@ -167,7 +167,7 @@
   position: absolute;
   content: "";
   width: 100%;
-  background: #f7f3ec;
+  background: rgba(250, 211, 218, 0.5);
   height: 100px;
   top: 0;
   left: 0;

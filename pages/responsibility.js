@@ -102,7 +102,7 @@ export default function Responsibility() {
       {/* Start Description section */}
       <div className="description-section r-container py-5 my-5 d-flex align-items-center flex-column">
         <div className="main-panel row m-0 mb-5 align-items-center">
-          <div className="image-panel col-lg-7 pe-lg-4 round mb-5 mb-lg-0">
+          <div className="image-panel col-lg-7 pe-lg-4 p-0 round mb-5 mb-lg-0">
             <img src="/img/responsibility/image-1.png" />
           </div>
           <div className="col-lg-5 p-0 ps-lg-4 text-panel">
@@ -117,8 +117,10 @@ export default function Responsibility() {
           {
             descritionData.map((item, index) => {
               return (
-                <div className="col-lg-4 col-md-6 mb-lg-0 mb-5" key={index}>
-                  <img src={item.image} className="mb-4" alt="description-image" />
+                <div className="col-lg-4 p-0 col-md-6 mb-lg-0 mb-5" key={index}>
+                  <div className="hover-scale round mb-4">
+                    <img src={item.image} alt="description-image" />
+                  </div>
                   <h3 className="mb-4 title blue-text">{item.title}</h3>
                   <p>{item.dscription}</p>
                   <Link href="#">
@@ -134,9 +136,11 @@ export default function Responsibility() {
 
       {/* Start sponsorship section */}
       <div className="sponsorship-section">
-        <div className="title-panel py-5 d-flex align-items-center flex-column text-center">
-          <h3 className="title mt-lg-5 mb-4 pt-5 blue-text col-lg-4 col-md-6">Sponsorships</h3>
-          <p className="col-lg-4 col-md-6">Over the past centuries, Royal Coster and Amsterdam grew and flourished side by side. We love our city and we love to help our city</p>
+        <div className="title-panel">
+          <div className="r-container py-5 d-flex align-items-center flex-column text-center">
+            <h3 className="title  mt-lg-5 mb-4 pt-5 blue-text col-lg-5 col-md-6">Sponsorships</h3>
+            <p className="col-lg-4 col-md-6">Over the past centuries, Royal Coster and Amsterdam grew and flourished side by side. We love our city and we love to help our city</p>
+          </div>
         </div>
         <div className="tours-panel">
           <div className="row r-container">
@@ -203,7 +207,7 @@ export default function Responsibility() {
                   );
                 })}
             </Swiper>
-            <div className="btn-bottom-panel mt-5 pt-5 text-center">
+            <div className="btn-bottom-panel mt-5 pt-md-5 text-center">
               <button ref={navigationPrevRef} className="btn px-0 me-5">
                 <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
               </button>
