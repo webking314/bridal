@@ -1,6 +1,9 @@
 .thank-you_page {
   position: relative;
 }
+.thank-you_page.thank-you_page-contact {
+  height: 100vh;
+}
 .thank-you_page .thank-you_header {
   position: relative;
   z-index: 5;
@@ -41,7 +44,7 @@
 .thank-you_page .text-panel {
   position: relative;
   z-index: 5;
-  width: 50%;
+  width: 42%;
 }
 .thank-you_page .text-panel .title {
   font-weight: 400;
@@ -69,6 +72,11 @@
   }
   .thank-you_page .text-panel .title {
     font-size: 5.4rem;
+  }
+}
+@media (max-width: 400px) {
+  .thank-you_page .text-panel .title {
+    font-size: 3.8rem;
   }
 }
 .thank-you_page .list-panel {
