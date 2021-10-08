@@ -5,14 +5,10 @@
     background-position: center;
     .r-container {
       padding-top: 17rem;
-      padding-bottom: 17rem;
+      padding-bottom: 11rem;
       @media (max-width: 991px) {
         padding-top: 12rem;
-        padding-bottom: 12rem;
-      }
-      p {
-        font-size: 2.4rem;
-        color: white;
+        padding-bottom: 9rem;
       }
       .title {
         font-size: 7.2rem;
@@ -21,17 +17,28 @@
         font-weight: 400;
         font-size: 7.6rem;
       }
-      .description {
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 150%;
+      .btn-play {
+        font-size: 4rem;
+        z-index: 3;
         color: rgba(255, 255, 255, 0.7);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        &:hover {
+          font-size: 4.3rem;
+          transition-duration: 0.7s;
+        }
+        @media (max-width: 767px) {
+          font-size: 3.2rem;
+          &:hover {
+            font-size: 3.6rem;
+          }
+        }
       }
     }
     @media (max-width: 767px) {
       .r-container {
         padding-top: 10rem;
-        padding-bottom: 10rem;
+        padding-bottom: 5rem;
         .title {
           font-size: 5.8rem;
           line-height: 1;
@@ -41,7 +48,7 @@
     @media (max-width: 575px) {
       .r-container {
         padding-top: 6rem;
-        padding-bottom: 6rem;
+        padding-bottom: 3rem;
         .title {
           width: 100%;
           font-size: 4.42rem;
@@ -84,7 +91,7 @@
       .image-panel {
         .sub-image {
           width: 50%;
-          margin-right: -10%;
+          margin-right: -6%;
           z-index: 2;
           filter: drop-shadow(-24px 0px 50px rgba(0, 0, 0, 0.06));
           border-radius: 12px;
@@ -92,7 +99,7 @@
         .main-image {
           width: 70%;
           border-radius: 12px;
-          margin-left: -10%;
+          margin-left: -6%;
         }
       }
       .text-panel {
@@ -122,7 +129,6 @@
       }
     }
   }
-
   .our-collection-section {
     background: rgba(250, 211, 218, 0.5);
     .title-panel {

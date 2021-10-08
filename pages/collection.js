@@ -8,7 +8,7 @@ import NumberFormat from "react-number-format";
 import AppointmentModal from "../components/appointmentModal";
 import renderHTML from "react-render-html";
 import Instagram from "../components/instagram";
-import { RiArrowRightSFill, RiMailFill, RiPhoneFill, RiWhatsappFill, RiDvdFill } from "react-icons/ri";
+import { RiArrowRightSFill, RiMailFill, RiPhoneFill, RiWhatsappFill, RiDvdFill, RiPlayCircleFill } from "react-icons/ri";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -95,10 +95,11 @@ export default function Collection() {
       <Header />
       {/* Start hero section */}
       <div className="hero-section">
-        <div className="r-container">
-          <h1 className="title text-white text-center text-capitalize">
+        <div className="r-container text-center">
+          <h1 className="title text-white text-center text-capitalize pb-md-5">
             Our Collections
           </h1>
+          <button className="btn btn-play p-0 mt-sm-5"><RiPlayCircleFill/></button>
         </div>
       </div>
 
