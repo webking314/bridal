@@ -158,16 +158,19 @@ export default function Tour() {
           }
         </div>
         <div className="text-center">
-          <Link
-            passHref={true}
-            href={{
-              pathname: "/tour/[slug]",
-              query: {
-                slug: mainTour.slug,
-              },
-            }}>
-            <a className="btn blue-btn btn-read-more round-form px-5 py-3 text-uppercase mb-lg-5">Read More</a>
-          </Link>
+          {
+            mainTour &&
+            <Link
+              passHref={true}
+              href={{
+                pathname: "/tour/[slug]",
+                query: {
+                  slug: mainTour.slug,
+                },
+              }}>
+              <a className="btn blue-btn btn-read-more round-form px-5 py-3 text-uppercase mb-lg-5">Read More</a>
+            </Link>
+          }
         </div>
       </div>
       {/* End Description section */}
@@ -177,70 +180,72 @@ export default function Tour() {
         <div className="title-panel py-5">
           <h3 className="title my-lg-5 text-center py-5 blue-text">More <span>Tours</span> & Experiences</h3>
         </div>
-        <div className="tours-panel r-container">
-          <div className="row">
-            {tours.length > 0 &&
-              tours.map((tour, index) => {
-                return (
-                  <div className="col-lg-4 col-md-6 tour-item px-3 mb-5" key={index}>
-                    <div className="image-panel hover-scale round mb-4">
-                      <img src={window.innerWidth > 575 ? tour.acf.landing.image.url : tour.acf.landing.image_mobile.url} className="tour-image" alt="tour-image" />
+        <div className="tours-panel">
+          <div className="r-container">
+            <div className="row">
+              {tours.length > 0 &&
+                tours.map((tour, index) => {
+                  return (
+                    <div className="col-lg-4 col-md-6 tour-item px-3 mb-5" key={index}>
+                      <div className="image-panel hover-scale round mb-4">
+                        <img src={window.innerWidth > 575 ? tour.acf.landing.image.url : tour.acf.landing.image_mobile.url} className="tour-image" alt="tour-image" />
+                      </div>
+                      <h3 className="title mb-4 blue-text">{renderHTML(tour.title.rendered)}</h3>
+                      <p className="description mb-5">{renderHTML(tour.acf.overview.content)}</p>
+                      <Link
+                        passHref={true}
+                        href={{
+                          pathname: "/tour/[slug]",
+                          query: {
+                            slug: tour.slug,
+                          },
+                        }}>
+                        <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
+                      </Link>
                     </div>
-                    <h3 className="title mb-4 blue-text">{renderHTML(tour.title.rendered)}</h3>
-                    <p className="description mb-5">{renderHTML(tour.acf.overview.content)}</p>
-                    <Link
-                      passHref={true}
-                      href={{
-                        pathname: "/tour/[slug]",
-                        query: {
-                          slug: tour.slug,
-                        },
-                      }}>
-                      <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
-                    </Link>
+                  )
+                })
+              }
+              {
+                loadding && <>
+                  <div className="col-lg-4 col-md-6 px-3 mb-5">
+                    <div className="image-panel hover-scale round mb-4">
+                      <Skeleton variant="rect" animation="wave" width="100%" height={250} />
+                    </div>
+                    <Skeleton variant="text" animation="wave" width="100%" height={50} />
+                    <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width={100} height={30} />
                   </div>
-                )
-              })
-            }
+                  <div className="col-lg-4 col-md-6 px-3 mb-5 d-md-block d-none">
+                    <div className="image-panel hover-scale round mb-4">
+                      <Skeleton variant="rect" animation="wave" width="100%" height={250} />
+                    </div>
+                    <Skeleton variant="text" animation="wave" width="100%" height={50} />
+                    <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width={100} height={30} />
+                  </div>
+                  <div className="col-lg-4 col-md-6 px-3 mb-5 d-lg-block d-none">
+                    <div className="image-panel hover-scale round mb-4">
+                      <Skeleton variant="rect" animation="wave" width="100%" height={250} />
+                    </div>
+                    <Skeleton variant="text" animation="wave" width="100%" height={50} />
+                    <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                    <Skeleton variant="text" animation="wave" width={100} height={30} />
+                  </div>
+                </>
+              }
+            </div>
             {
-              loadding && <>
-                <div className="col-lg-4 col-md-6 px-3 mb-5">
-                  <div className="image-panel hover-scale round mb-4">
-                    <Skeleton variant="rect" animation="wave" width="100%" height={250} />
-                  </div>
-                  <Skeleton variant="text" animation="wave" width="100%" height={50} />
-                  <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width={100} height={30} />
-                </div>
-                <div className="col-lg-4 col-md-6 px-3 mb-5 d-md-block d-none">
-                  <div className="image-panel hover-scale round mb-4">
-                    <Skeleton variant="rect" animation="wave" width="100%" height={250} />
-                  </div>
-                  <Skeleton variant="text" animation="wave" width="100%" height={50} />
-                  <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width={100} height={30} />
-                </div>
-                <div className="col-lg-4 col-md-6 px-3 mb-5 d-lg-block d-none">
-                  <div className="image-panel hover-scale round mb-4">
-                    <Skeleton variant="rect" animation="wave" width="100%" height={250} />
-                  </div>
-                  <Skeleton variant="text" animation="wave" width="100%" height={50} />
-                  <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
-                  <Skeleton variant="text" animation="wave" width={100} height={30} />
-                </div>
-              </>
+              !loadding && showLoadMore &&
+              <button className="btn btn-load text-uppercase blue-btn round-form px-5 py-3" onClick={() => { setSticky(sticky + 1) }}>Load More</button>
             }
           </div>
-          {
-            !loadding && showLoadMore &&
-            <button className="btn btn-load text-uppercase blue-btn round-form px-5 py-3" onClick={() => { setSticky(sticky + 1) }}>Load More</button>
-          }
         </div>
       </div>
       {/* End more tour section */}
