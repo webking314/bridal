@@ -8,25 +8,9 @@ import NumberFormat from "react-number-format";
 import AppointmentModal from "../../components/appointmentModal";
 import renderHTML from "react-render-html";
 import WatchItems from "../../components/watchItems";
+import Skeleton from "@mui/material/Skeleton";
 import { RiArrowRightSFill, RiMailFill, RiPhoneFill, RiWhatsappFill, RiDvdFill } from "react-icons/ri";
 
-const descritionData = [
-  {
-    title: "Amsterdam Diamonds",
-    image: "/img/tour/image-2.png",
-    dscription: "Find out why Amsterdam became the City of Diamonds. And why Royals from all over the world chose Royal Coster Diamonds for their precious jewelry."
-  },
-  {
-    title: "The Craft Up Close",
-    image: "/img/tour/image-3.png",
-    dscription: "Get the chance to sit behind a diamond polishing table where famous diamonds have been polished. Also, capture this unique moment on camera."
-  },
-  {
-    title: "A Sparkling Memory",
-    image: "/img/tour/image-4.png",
-    dscription: "You will not only be bringing your newly gained knowledge home. You also receive a goodie bag with a sparkling surprise at the end of the tour."
-  }
-]
 
 const toursData = [
   { title: "Luxury Shopping Experience", description: "During our Luxury Shopping Experience, you will be completely pampered. Choosing a diamond is a special occasion. While enjoying a glass of champagne, one of our diamond consultants will take you through all the ins and outs that come with choosing the perfect diamond.", image: "/img/tour/tour-1.png" },
@@ -36,8 +20,72 @@ const toursData = [
   { title: "Luxury Shopping Experience", description: "Come in for a Royal Experience at Royal Coster Diamonds and combine it with 'This is Holland'. Discover all the beautiful things the Dutch are so famous for.", image: "/img/tour/tour-5.png" },
 ]
 
+const tourURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tours?order=asc&orderby=id";
+let tourData, mainTourData, localSticky = 1;
+
 export default function Tour() {
   const [cost, setCost] = useState(23);
+  const [mainTour, setMainTour] = useState();
+  const [perPage, setPerPage] = useState(6);
+  const [loadding, setLoadding] = useState(true);
+  const [tours, setTours] = useState([]);
+  const [sticky, setSticky] = useState(localSticky);
+  const [mounted, setMounted] = useState(false);
+  const [showLoadMore, setShowLoadMore] = useState(true);
+
+  // Get all tour's data and set local tour's data, loadding statu and loadmore button's state // --count=6
+  const getTourData = () => {
+    localSticky = sticky;
+    setLoadding(true)
+    fetch(tourURL + "&per_page=" + perPage + "&page=" + sticky + (mainTour ? "&exclude=" + mainTour.id : ''), {
+      method: 'get'
+    }).then(res => res.json()).
+      then(data => {
+        setShowLoadMore(data.length >= 6);
+        setLoadding(false);
+        if (data.length) {
+          tourData = [...tours, ...data];
+          setTours(tourData);
+          console.log(tourData)
+        }
+      })
+  }
+
+  // Get main tour's data and set local tour's data
+  const getMainTour = () => {
+    fetch(tourURL + "&per_page=1", {
+      method: 'get'
+    }).then(res => res.json()).
+      then(data => {
+        setMainTour(data[0]);
+        mainTourData = data[0]
+      })
+  }
+
+  // when first mounte, set main tour's data
+  useEffect(() => {
+    !mainTour && !mounted &&
+      mainTourData
+      ? setMainTour(mainTourData)
+      : getMainTour()
+  }, [])
+
+  // when first mounted, if there is local tour's data, set tour' data from it. if else, call getTourData() function and set tour's data. when sticky change, call getTourData() function and set tour's data
+  useEffect(() => {
+    if (sticky && mainTour) {
+      if (mounted) {
+        getTourData();
+      } else {
+        if (tourData) {
+          setTours(tourData);
+          setLoadding(false);
+        } else {
+          getTourData();
+        }
+        setMounted(true);
+      }
+    }
+  }, [mainTour, sticky])
 
   return (
     <div className="tour_page">
@@ -70,47 +118,57 @@ export default function Tour() {
       {/* End guide section */}
 
       {/* Start Description section */}
-      <div className="description-section r-container py-5 my-5 d-flex align-items-center flex-column">
-        <div className="main-panel row m-0 mb-5">
-          <div className="image-panel col-lg-6 p-0 pe-lg-4 round mb-5 mb-lg-0">
-            <img src="/img/tour/image-1.png" />
-            <div className="px-4 py-3 cost-box blue-text round-form">
-              <NumberFormat
-                value={cost}
-                displayType="text"
-                decimalScale={2}
-                fixedDecimalScale={true}
-                thousandSeparator={true}
-                prefix="$ "
-              />
+      <div className="description-section r-container py-5 my-5">
+        <div className="main-panel row m-0 mb-5 mb-lg-0">
+          <div className="col-lg-6 p-0 pe-lg-4 mb-5">
+            <div className="image-panel round">
+              {
+                mainTour
+                  ? <img src={window.innerWidth > 575 ? mainTour.acf.landing.image.url : mainTour.acf.landing.image_mobile.url} />
+                  : <Skeleton variant="rect" animation="wave" width="100%" height={300} />
+              }
+              {
+                mainTour && mainTour.acf.general.price > 0 && (
+                  <div className="px-4 py-3 cost-box blue-text round-form">
+                    <NumberFormat
+                      value={mainTour.acf.general.price}
+                      displayType="text"
+                      decimalScale={2}
+                      fixedDecimalScale={true}
+                      thousandSeparator={true}
+                      prefix="$ "
+                    />
+                  </div>
+                )
+              }
             </div>
           </div>
-          <div className="col-lg-6 p-0 ps-lg-4 text-panel">
-            <h3 className="title text-capitalize blue-text mb-5">A Royal Experience</h3>
-            <p className="mb-4">Diamonds can be bought at any jeweler around the world. So why is Royal Coster Diamonds the most renowned diamond supplier for Royal families around the world for 180 years? We believe the reason for this is a combination of unparalleled craftsmanship and trust.
-            </p>
-            <p className="mb-4">
-              With our new Royal Experience we offer a new tour where you learn even more about our rich heritage.
-            </p>
-            <p>
-              Learn why Queen Victoria, Empress Sisi and King Rama V of Siam not only trusted us with their diamonds but took the time to travel all the way to Amsterdam to witness with their own eyes how we crafted the most sparkling diamond jewelry.
-            </p>
-          </div>
-        </div>
-        <div className="sub-panel row m-0 pb-lg-5">
           {
-            descritionData.map((item, index) => {
-              return (
-                <div className="col-lg-4 col-md-6 mb-lg-0 mb-5" key={index}>
-                  <img src={item.image} className="mb-4" alt="description-image" />
-                  <h3 className="mb-4 title blue-text">{item.title}</h3>
-                  <p>{item.dscription}</p>
-                </div>
-              )
-            })
+            mainTour
+              ? <div className="col-lg-6 p-0 ps-lg-4 text-panel">
+                <h3 className="title text-capitalize blue-text mb-5">{mainTour.title.rendered}</h3>
+                <p>{renderHTML(mainTour.acf.overview.content)}</p>
+              </div>
+              : <div className="col-lg-6 p-0 ps-lg-4">
+                <Skeleton variant="text" width="100%" height={50} animation="wave" />
+                <Skeleton className="mt-4" variant="text" width="100%" height={30} animation="wave" />
+                <Skeleton variant="text" width="100%" height={30} animation="wave" />
+                <Skeleton variant="text" width="100%" height={30} animation="wave" />
+              </div>
           }
         </div>
-        <button className="btn blue-btn btn-read-more round-form px-5 py-3 text-uppercase mb-lg-5">Read More</button>
+        <div className="text-center">
+          <Link
+            passHref={true}
+            href={{
+              pathname: "/tour/[slug]",
+              query: {
+                slug: mainTour.slug,
+              },
+            }}>
+            <a className="btn blue-btn btn-read-more round-form px-5 py-3 text-uppercase mb-lg-5">Read More</a>
+          </Link>
+        </div>
       </div>
       {/* End Description section */}
 
@@ -119,25 +177,70 @@ export default function Tour() {
         <div className="title-panel py-5">
           <h3 className="title my-lg-5 text-center py-5 blue-text">More <span>Tours</span> & Experiences</h3>
         </div>
-        <div className="tours-panel">
-          <div className="row r-container">
-            {
-              toursData.map((tour, index) => {
+        <div className="tours-panel r-container">
+          <div className="row">
+            {tours.length > 0 &&
+              tours.map((tour, index) => {
                 return (
                   <div className="col-lg-4 col-md-6 tour-item px-3 mb-5" key={index}>
                     <div className="image-panel hover-scale round mb-4">
-                      <img src={tour.image} className="tour-image" alt="tour-image" />
+                      <img src={window.innerWidth > 575 ? tour.acf.landing.image.url : tour.acf.landing.image_mobile.url} className="tour-image" alt="tour-image" />
                     </div>
-                    <h3 className="title mb-4 blue-text">{tour.title}</h3>
-                    <p className="description mb-5">{tour.description}</p>
-                    <Link href="#">
-                      <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2"/></a>
+                    <h3 className="title mb-4 blue-text">{renderHTML(tour.title.rendered)}</h3>
+                    <p className="description mb-5">{renderHTML(tour.acf.overview.content)}</p>
+                    <Link
+                      passHref={true}
+                      href={{
+                        pathname: "/tour/[slug]",
+                        query: {
+                          slug: tour.slug,
+                        },
+                      }}>
+                      <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
                     </Link>
                   </div>
                 )
               })
             }
+            {
+              loadding && <>
+                <div className="col-lg-4 col-md-6 px-3 mb-5">
+                  <div className="image-panel hover-scale round mb-4">
+                    <Skeleton variant="rect" animation="wave" width="100%" height={250} />
+                  </div>
+                  <Skeleton variant="text" animation="wave" width="100%" height={50} />
+                  <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width={100} height={30} />
+                </div>
+                <div className="col-lg-4 col-md-6 px-3 mb-5 d-md-block d-none">
+                  <div className="image-panel hover-scale round mb-4">
+                    <Skeleton variant="rect" animation="wave" width="100%" height={250} />
+                  </div>
+                  <Skeleton variant="text" animation="wave" width="100%" height={50} />
+                  <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width={100} height={30} />
+                </div>
+                <div className="col-lg-4 col-md-6 px-3 mb-5 d-lg-block d-none">
+                  <div className="image-panel hover-scale round mb-4">
+                    <Skeleton variant="rect" animation="wave" width="100%" height={250} />
+                  </div>
+                  <Skeleton variant="text" animation="wave" width="100%" height={50} />
+                  <Skeleton className="mt-3" variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width="100%" height={30} />
+                  <Skeleton variant="text" animation="wave" width={100} height={30} />
+                </div>
+              </>
+            }
           </div>
+          {
+            !loadding && showLoadMore &&
+            <button className="btn btn-load text-uppercase blue-btn round-form px-5 py-3" onClick={() => { setSticky(sticky + 1) }}>Load More</button>
+          }
         </div>
       </div>
       {/* End more tour section */}

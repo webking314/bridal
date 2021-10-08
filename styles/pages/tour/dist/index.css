@@ -117,20 +117,6 @@
   line-height: 150%;
   color: rgba(2, 24, 37, 0.8);
 }
-.tour_page .description-section .sub-panel img {
-  width: 100%;
-}
-.tour_page .description-section .sub-panel .title {
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 120%;
-}
-.tour_page .description-section .sub-panel p {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
-  color: rgba(2, 24, 37, 0.8);
-}
 .tour_page .description-section .btn-read-more {
   font-size: 1.8rem;
 }
@@ -159,33 +145,44 @@
   left: 0;
   z-index: 1;
 }
-.tour_page .more-tour-section .tours-panel .r-container {
+.tour_page .more-tour-section .tours-panel .row {
   position: relative;
   z-index: 2;
 }
-.tour_page .more-tour-section .tours-panel .r-container .image-panel {
+.tour_page .more-tour-section .tours-panel .row .image-panel {
   overflow: hidden;
 }
-.tour_page .more-tour-section .tours-panel .r-container .image-panel img {
+.tour_page .more-tour-section .tours-panel .row .image-panel img {
   width: 100%;
+  height: 250px;
+  object-fit: cover;
 }
-.tour_page .more-tour-section .tours-panel .r-container .title {
+.tour_page .more-tour-section .tours-panel .row .title {
   font-weight: 400;
   font-size: 24px;
   line-height: 130%;
 }
-.tour_page .more-tour-section .tours-panel .r-container .description {
+.tour_page .more-tour-section .tours-panel .row .description {
   font-weight: 400;
   font-size: 18px;
   line-height: 150%;
   color: rgba(2, 24, 37, 0.7);
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.tour_page .more-tour-section .tours-panel .r-container .more-detail {
+.tour_page .more-tour-section .tours-panel .row .more-detail {
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
 }
-.tour_page .more-tour-section .tours-panel .r-container .more-detail * {
+.tour_page .more-tour-section .tours-panel .row .more-detail * {
+  font-size: 1.8rem;
+}
+.tour_page .more-tour-section .btn-load {
   font-size: 1.8rem;
 }
 .tour_page .banner-section {

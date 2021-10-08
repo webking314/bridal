@@ -121,22 +121,6 @@
         }
       }
     }
-    .sub-panel {
-      img {
-        width: 100%;
-      }
-      .title {
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 120%;
-      }
-      p {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 150%;
-        color: rgba(2, 24, 37, 0.8);
-      }
-    }
     .btn-read-more {
       font-size: 1.8rem;
     }
@@ -166,13 +150,15 @@
         left: 0;
         z-index: 1;
       }
-      .r-container {
+      .row {
         position: relative;
         z-index: 2;
         .image-panel {
           overflow: hidden;
           img {
             width: 100%;
+            height: 250px;
+            object-fit: cover;
           }
         }
         .title {
@@ -185,6 +171,12 @@
           font-size: 18px;
           line-height: 150%;
           color: rgba(2, 24, 37, 0.7);
+          display: -webkit-box;
+          word-break: break-all;
+          -webkit-line-clamp: 5;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .more-detail {
           font-weight: 500;
@@ -195,6 +187,9 @@
           }
         }
       }
+    }
+    .btn-load {
+      font-size: 1.8rem;
     }
   }
   .banner-section {
