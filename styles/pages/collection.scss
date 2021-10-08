@@ -24,14 +24,11 @@
         transition-duration: 0.5s;
         cursor: pointer;
         &:hover {
-          font-size: 4.3rem;
+          color: rgba(255, 255, 255, 0.8);
           transition-duration: 0.7s;
         }
         @media (max-width: 767px) {
           font-size: 3.2rem;
-          &:hover {
-            font-size: 3.6rem;
-          }
         }
       }
     }
