@@ -140,7 +140,7 @@ let submenus = [
       },
     ],
   },
-  { title: "COLLECTIONS", url: "#", tag: "", product_type: "" },
+  { title: "COLLECTIONS", url: "/collection", },
   { title: "BESPOKE", url: "/bespoke" },
   { title: "WATCHES", url: "/watch", tag: "", product_type: "" },
   {

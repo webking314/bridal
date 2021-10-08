@@ -45,6 +45,7 @@ import "../styles/pages/myCart/checkout.scss";
 import "../styles/pages/bespoke.scss";
 import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
+import "../styles/pages/collection.scss";
 import "../styles/pages/news.scss";
 import "../styles/pages/timeline.scss";
 import "../styles/pages/about.scss";
