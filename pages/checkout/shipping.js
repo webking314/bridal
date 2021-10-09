@@ -17,24 +17,24 @@ function Shipping(props) {
   const goPay = (e) => {
     e.preventDefault()
 
-    const checkoutID = props.checkOut.checkout.id;
-    const contactInfo = JSON.parse(localStorage.shipping).contact;
-    const shippingAdd = JSON.parse(localStorage.shipping).address;
-    const lineItemsToAdd = [];
-    const shippingAddress = {
-      address1: shippingAdd.apartment,
-      address2: shippingAdd.street,
-      city: shippingAdd.town,
-      company: null,
-      country: 'United States',
-      firstName: contactInfo.firstName,
-      lastName: contactInfo.surName,
-      phone: contactInfo.phoneNumber,
-      province: null,
-      zip: '40202',
-    };
+    // const checkoutID = props.checkOut.checkout.id;
+    // const contactInfo = JSON.parse(localStorage.shipping).contact;
+    // const shippingAdd = JSON.parse(localStorage.shipping).address;
+    // const lineItemsToAdd = [];
+    // const shippingAddress = {
+    //   address1: shippingAdd.apartment,
+    //   address2: shippingAdd.street,
+    //   city: shippingAdd.town,
+    //   company: null,
+    //   country: 'United States',
+    //   firstName: contactInfo.firstName,
+    //   lastName: contactInfo.surName,
+    //   phone: contactInfo.phoneNumber,
+    //   province: null,
+    //   zip: '40202',
+    // };
 
-    // router.push("/checkout/payment");
+    router.push("/checkout/payment");
     let shippingData = JSON.parse(localStorage.shipping);
     if (!shippingData.shippingMethod) {
       if (freeShippingMethod == true) {
@@ -54,19 +54,19 @@ function Shipping(props) {
       }
     }
 
-    JSON.parse(localStorage.cart).cartData.map(cart => {
-      lineItemsToAdd.push({ variantId: cart.variant.storefrontId, quantity: cart.amount })
-    })
+    // JSON.parse(localStorage.cart).cartData.map(cart => {
+    //   lineItemsToAdd.push({ variantId: cart.variant.storefrontId, quantity: cart.amount })
+    // })
 
-    props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
-      console.log(res)
-    })
+    // props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
+    //   console.log(res)
+    // })
 
-    props.checkOut.client.checkout.updateShippingAddress(checkoutID, shippingAddress).then(checkout => {
-      console.log(shippingAddress)
-      console.log("then updating shipping add", checkout)
-      router.push(checkout.webUrl)
-    });
+    // props.checkOut.client.checkout.updateShippingAddress(checkoutID, shippingAddress).then(checkout => {
+    //   console.log(shippingAddress)
+    //   console.log("then updating shipping add", checkout)
+    //   router.push(checkout.webUrl)
+    // });
   };
 
   useEffect(() => {

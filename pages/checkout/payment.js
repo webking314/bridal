@@ -10,6 +10,8 @@ import MyCartList from "../../components/myCartList";
 import { connect } from "react-redux";
 import { creatCheckout } from "../../redux/actions/checkOutAction";
 
+const payURL = "https://royalcoster.nl/api/safepay.php";
+
 function Payment(props) {
   const [storage, setStorage] = useState();
   const [saveData, setSaveData] = useState(true);
@@ -27,81 +29,84 @@ function Payment(props) {
 
   const payNow = (e) => {
     e.preventDefault()
-    const checkoutID = props.checkOut.checkout.id;
-    const lineItemsToAdd = [];
-    console.log(props.checkOut)
+    let lineItems = [];
 
     JSON.parse(localStorage.cart).cartData.map((cart, index) => {
-      lineItemsToAdd.push({ variantId: "6229002682562", quantity: cart.amount })
+      lineItems.push({ variantID: cart.variant.variantId, quantity: cart.amount })
     })
 
-    console.log(checkoutID, lineItemsToAdd)
+    if (!saveData) {
+      e.preventDefault();
+      localStorage.removeItem("cart");
+      localStorage.removeItem("shipping");
+      localStorage.removeItem("products");
+      localStorage.removeItem("billing");
+    } else {
+      if (billingMode == "same") {
+        e.preventDefault();
+        localStorage.setItem(
+          "billing",
+          JSON.stringify(JSON.parse(localStorage.shipping))
+        );
+      } else {
+        if (!surName | !street | !zipCode | !town | !country | !phoneNumber) {
+          console.log(e);
+        } else {
+          e.preventDefault();
+          if (typeof phoneNumber !== "undefined") {
+            var pattern = new RegExp(/^[0-9\b]+$/);
+            if (!pattern.test(phoneNumber)) {
+              setErrorPhone("Please enter only number.");
+            } else if (phoneNumber.length < 10 || phoneNumber.length > 12) {
+              setErrorPhone("Please enter valid phone number.");
+            } else {
+              setErrorPhone("");
+              localStorage.setItem(
+                "billing",
+                JSON.stringify({
+                  contact: {
+                    email: JSON.parse(localStorage.shipping).contact.email,
+                    firstName: firstName,
+                    surName: surName,
+                    phoneNumber: phoneNumber,
+                  },
+                  address: {
+                    street: street,
+                    apartment: apartment,
+                    zipCode: zipCode,
+                    town: town,
+                    country: country,
+                  },
+                })
+              );
+              setBillingMode('');
+            }
+          }
+        }
+      }
+    }
 
-    props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
-      console.log(res)
-    })
+    let postData = {
+      orderData: lineItems,
+      discountCode: localStorage.discountCode ? localStorage.discountCode : '',
+      shippingAddress: localStorage.shipping,
+      billingAddress: localStorage.billing
+    }
 
-    // if (!saveData) {
-    //   e.preventDefault();
-    //   localStorage.removeItem("cart");
-    //   localStorage.removeItem("shipping");
-    //   localStorage.removeItem("products");
-    //   localStorage.removeItem("billing");
-    // } else {
-    //   if (billingMode == "same") {
-    //     e.preventDefault();
-    //     localStorage.setItem(
-    //       "billing",
-    //       JSON.stringify(JSON.parse(localStorage.shipping))
-    //     );
-    //   } else {
-    //     if (!surName | !street | !zipCode | !town | !country | !phoneNumber) {
-    //       console.log(e);
-    //     } else {
-    //       e.preventDefault();
-    //       if (typeof phoneNumber !== "undefined") {
-    //         var pattern = new RegExp(/^[0-9\b]+$/);
-    //         if (!pattern.test(phoneNumber)) {
-    //           setErrorPhone("Please enter only number.");
-    //         } else if (phoneNumber.length < 10 || phoneNumber.length > 12) {
-    //           setErrorPhone("Please enter valid phone number.");
-    //         } else {
-    //           setErrorPhone("");
-    //           localStorage.setItem(
-    //             "billing",
-    //             JSON.stringify({
-    //               contact: {
-    //                 email: JSON.parse(localStorage.shipping).contact.email,
-    //                 firstName: firstName,
-    //                 surName: surName,
-    //                 phoneNumber: phoneNumber,
-    //               },
-    //               address: {
-    //                 street: street,
-    //                 apartment: apartment,
-    //                 zipCode: zipCode,
-    //                 town: town,
-    //                 country: country,
-    //               },
-    //             })
-    //           );
-    //           setBillingMode('')
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
+    fetch(payURL, {
+      method: 'post',
+      body: JSON.parse(postData)
+    }).then(res=>res.json)
+    .then(data => console.log(data))
+
   };
-
-  useEffect(() => {
-    console.log(billingMode);
-  }, [billingMode]);
 
   useEffect(() => {
     setStorage(localStorage);
   }, []);
+
   if (storage) {
-    if (!JSON.parse(localStore.cart).subTotal) {
+    if (!JSON.parse(localStorage.cart).subTotal) {
       router.push("/cart");
       return <div></div>;
     } else if (!localStorage.shipping) {

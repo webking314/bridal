@@ -44,7 +44,6 @@ const cartItems = [
 
 let subTotalPrice = 0;
 
-let addedIds = [];
 
 function MyCart(props) {
   const [items, setItems] = useState();
@@ -59,21 +58,17 @@ function MyCart(props) {
 
   const checkOut = (e) => {
     e.preventDefault();
-    const checkoutID = props.checkOut.checkout.id;
-    const lineItemsToAdd = [];
+    // const checkoutID = props.checkOut.checkout.id;
+    // const lineItemsToAdd = [];
 
-    JSON.parse(localStorage.cart).cartData.map(cart => {
-      lineItemsToAdd.push({ variantId: cart.variant.storefrontId, quantity: cart.amount });
-    })
+    // JSON.parse(localStorage.cart).cartData.map(cart => {
+    //   lineItemsToAdd.push({ variantId: cart.variant.storefrontId, quantity: cart.amount });
+    // })
 
-    props.checkOut.client.checkout.removeLineItems(checkoutID, addedIds).then((res) => {
-      console.log(res)
-      props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
-        console.log(res)
-        res.lineItems.map(item => addedIds.push(item.id))
-        window.open(res.webUrl)
-      })
-    })
+    // props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
+    //   console.log(res)
+      router.push('/checkout/information')
+    // })
   };
 
   useEffect(() => {

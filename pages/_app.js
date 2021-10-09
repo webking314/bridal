@@ -66,16 +66,16 @@ import "../styles/pages/customRing/confirmDiamond.scss";
 import "../styles/pages/customRing/confirmRing.scss";
 
 //build shopify client
-const client = Client.buildClient({
-  storefrontAccessToken: '2e49efb3d94b8e094332586738a7a374',
-  domain: 'costerdiamonds.myshopify.com'
-});
-// creatCheckout(client);
-store.dispatch({ type: 'CLIENT_CREATED', payload: client });
+// const client = Client.buildClient({
+//   storefrontAccessToken: '2e49efb3d94b8e094332586738a7a374',
+//   domain: 'costerdiamonds.myshopify.com'
+// });
+// // creatCheckout(client);
+// store.dispatch({ type: 'CLIENT_CREATED', payload: client });
 
-client.checkout.create().then((res) => {
-  store.dispatch({ type: 'CHECKOUT_FOUND', payload: res });
-});
+// client.checkout.create().then((res) => {
+//   store.dispatch({ type: 'CHECKOUT_FOUND', payload: res });
+// });
 
 function MyApp({ Component, pageProps }) {
   return (

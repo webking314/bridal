@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 export default function MyCartList() {
   const [cartData, setCartData] = useState();
+  const [discountCode, setDiscountCode] = useState();
   const [subTotal, setSubTotal] = useState();
   const router = useRouter();
 
@@ -13,7 +14,15 @@ export default function MyCartList() {
       setCartData(JSON.parse(localStorage.cart).cartData);
       setSubTotal(JSON.parse(localStorage.cart).subTotal);
     }
+    if(localStorage.discountCode) {
+      setDiscountCode(localStorage.discountCode)
+    }
   }, []);
+
+  const handleDiscountCode = (e) => {
+    e.preventDefault();
+    localStorage.setItem('discountCode', discountCode)
+  }
 
   return (
     <div className="my-cart-list round p-5">
@@ -60,8 +69,10 @@ export default function MyCartList() {
           type="text"
           className="form-control discount-code px-5 py-3 round-form me-3"
           placeholder="Discount Code"
+          value={discountCode}
+          onChange={(e) => setDiscountCode(e.target.value)}
         />
-        <button className="btn btn-discount text-uppercase round-form px-5 py-3">
+        <button className="btn btn-discount text-uppercase round-form px-5 py-3" onClick={handleDiscountCode}>
           apply
         </button>
       </div>
