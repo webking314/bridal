@@ -95,7 +95,7 @@ function Payment(props) {
 
     fetch(payURL, {
       method: 'post',
-      body: JSON.parse(postData)
+      body: JSON.stringify(postData)
     }).then(res=>res.json)
     .then(data => console.log(data))
 
