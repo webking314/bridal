@@ -29,7 +29,7 @@ export default function Information() {
       let address = JSON.parse(localStorage.shipping).address;
       setFirstName(personInfo.firstName);
       setSurName(personInfo.surName);
-      setEmail(personInfo.email);
+      setEmail(localStorage.customerInfo);
       setPhoneNumber(personInfo.phoneNumber);
       setStreet(address.street);
       setApartment(address.apartment);
