@@ -26,6 +26,7 @@ function Payment(props) {
   const [phoneNumber, setPhoneNumber] = useState();
   const [errorPhone, setErrorPhone] = useState();
   const [billingMode, setBillingMode] = useState("same");
+  const [paymentMethod, setPaymentMethod] = useState('MASTERCARD');
 
   const payNow = (e) => {
     e.preventDefault()
@@ -90,8 +91,12 @@ function Payment(props) {
       discount_code: localStorage.discountCode ? localStorage.discountCode : '',
       shipping: JSON.parse(localStorage.shipping),
       billing: JSON.parse(localStorage.billing),
-      customer_info: localStorage.customerInfo,
-      payment_method: "MASTERCARD"
+      customer_info: {
+        email: localStorage.customerInfo,
+        ...(JSON.parse(localStorage.shipping).contact),
+        address: JSON.parse(localStorage.shipping).address
+      },
+      payment_method: paymentMethod
     }
 
     fetch(payURL, {
@@ -106,7 +111,7 @@ function Payment(props) {
     setStorage(localStorage);
     let personInfo
     let address;
-    if(localStorage.billing) {
+    if (localStorage.billing) {
       address = JSON.parse(localStorage.billing).address;
       personInfo = JSON.parse(localStorage.billing).contact;
     } else {
@@ -229,6 +234,7 @@ function Payment(props) {
                         type="radio"
                         name="flexRadioDefault"
                         id="paymentMethod-1"
+                        onChange={() => setPaymentMethod('IDEAL')}
                       />
                       <img src="/img/myCart/payment-1.png" className="ms-3" />
                     </label>
@@ -244,6 +250,7 @@ function Payment(props) {
                           type="radio"
                           name="flexRadioDefault"
                           id="paymentMethod-2"
+                          onChange={() => setPaymentMethod('MASTERCARD')}
                           defaultChecked
                         />
                         <img src="/img/myCart/payment-2.png" className="ms-3" />
@@ -263,6 +270,7 @@ function Payment(props) {
                         type="radio"
                         name="flexRadioDefault"
                         id="paymentMethod-3"
+                        onChange={() => setPaymentMethod('PAYPAL')}
                       />
                       <img src="/img/myCart/payment-5.png" className="ms-3" />
                     </label>
@@ -277,6 +285,7 @@ function Payment(props) {
                         type="radio"
                         name="flexRadioDefault"
                         id="paymentMethod-4"
+                        onChange={() => setPaymentMethod('BANCONTACT')}
                       />
                       <img src="/img/myCart/payment-6.png" className="ms-3" />
                     </label>
