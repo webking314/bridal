@@ -64,7 +64,6 @@ export default function Information() {
             "shipping",
             JSON.stringify({
               contact: {
-                email: email,
                 firstName: firstName,
                 surName: surName,
                 phoneNumber: phoneNumber,
@@ -78,6 +77,7 @@ export default function Information() {
               },
             })
           );
+          localStorage.setItem('customerInfo', email)
           router.push("/checkout/shipping");
         }
       }

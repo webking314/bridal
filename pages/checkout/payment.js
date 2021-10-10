@@ -65,7 +65,6 @@ function Payment(props) {
                 "billing",
                 JSON.stringify({
                   contact: {
-                    email: JSON.parse(localStorage.shipping).contact.email,
                     firstName: firstName,
                     surName: surName,
                     phoneNumber: phoneNumber,
@@ -87,22 +86,41 @@ function Payment(props) {
     }
 
     let postData = {
-      orderData: lineItems,
-      discountCode: localStorage.discountCode ? localStorage.discountCode : '',
-      shippingAddress: localStorage.shipping,
-      billingAddress: localStorage.billing
+      order_data: lineItems,
+      discount_code: localStorage.discountCode ? localStorage.discountCode : '',
+      shipping: JSON.parse(localStorage.shipping),
+      billing: JSON.parse(localStorage.billing),
+      customer_info: localStorage.customerInfo,
+      payment_method: "MASTERCARD"
     }
 
     fetch(payURL, {
       method: 'post',
       body: JSON.stringify(postData)
-    }).then(res=>res.json)
-    .then(data => console.log(data))
+    }).then(res => res.json)
+      .then(data => console.log(data))
 
   };
 
   useEffect(() => {
     setStorage(localStorage);
+    let personInfo
+    let address;
+    if(localStorage.billing) {
+      address = JSON.parse(localStorage.billing).address;
+      personInfo = JSON.parse(localStorage.billing).contact;
+    } else {
+      address = JSON.parse(localStorage.shipping).address;
+      personInfo = JSON.parse(localStorage.shipping).contact;
+    }
+    setFirstName(personInfo.firstName);
+    setSurName(personInfo.surName);
+    setPhoneNumber(personInfo.phoneNumber);
+    setStreet(address.street);
+    setApartment(address.apartment);
+    setCountry(address.country);
+    setTown(address.town);
+    setZipCode(address.zipCode);
   }, []);
 
   if (storage) {
