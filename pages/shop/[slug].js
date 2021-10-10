@@ -27,6 +27,7 @@ import {
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { Skeleton } from "@material-ui/lab";
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 SwiperCore.use([Autoplay, Navigation]);
 
@@ -104,6 +105,7 @@ function ProductRing(props) {
   const [productData, setProductData] = useState();
   const [optionValue, setOptionValue] = useState();
   const [sizeList, setSizeList] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (typeof document !== undefined) {
@@ -146,6 +148,8 @@ function ProductRing(props) {
           let available = productData.available - cartAmount;
           
           if (!available) {
+            const variant = "warning"
+          enqueueSnackbar("Stock is not enough.", { variant })
             return;
           }
 

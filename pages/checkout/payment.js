@@ -9,6 +9,7 @@ import { CountryDropdown } from "react-country-region-selector";
 import MyCartList from "../../components/myCartList";
 import { connect } from "react-redux";
 import { creatCheckout } from "../../redux/actions/checkOutAction";
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 const payURL = "https://royalcoster.nl/api/safepay.php";
 
@@ -27,6 +28,7 @@ function Payment(props) {
   const [errorPhone, setErrorPhone] = useState();
   const [billingMode, setBillingMode] = useState("same");
   const [paymentMethod, setPaymentMethod] = useState('MASTERCARD');
+  const { enqueueSnackbar } = useSnackbar();
 
   const payNow = (e) => {
     e.preventDefault()
@@ -93,8 +95,8 @@ function Payment(props) {
       billing: JSON.parse(localStorage.billing),
       customer_info: {
         email: localStorage.customerInfo,
-        ...(JSON.parse(localStorage.shipping).contact),
-        address: JSON.parse(localStorage.shipping).address
+        ...(JSON.parse(localStorage.billing).contact),
+        address: JSON.parse(localStorage.billing).address
       },
       payment_method: paymentMethod
     }
@@ -102,8 +104,16 @@ function Payment(props) {
     fetch(payURL, {
       method: 'post',
       body: JSON.stringify(postData)
-    }).then(res => res.json)
-      .then(data => console.log(data))
+    }).then(res => res.json())
+      .then(data => {
+        if (data.body.RedirectUrl) {
+          router.push(data.body.RedirectUrl);
+        } else {
+          let variant = "warning"
+          enqueueSnackbar("Something went wrong.", { variant })
+        }
+        console.log(data)
+      })
 
   };
 

@@ -6,6 +6,7 @@ import withRedux from "next-redux-wrapper";
 import Client from 'shopify-buy';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import { SnackbarProvider, useSnackbar } from 'notistack';
 config.autoAddCss = false;
 import { creatCheckout, productFound, checkoutFound, shopFound } from "../redux/actions/checkOutAction";
 
@@ -80,7 +81,9 @@ import "../styles/pages/customRing/confirmRing.scss";
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <SnackbarProvider maxSnack={3}>
+        <Component {...pageProps} />
+      </SnackbarProvider>
     </Provider>
   )
 }
