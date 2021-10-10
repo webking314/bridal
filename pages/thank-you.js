@@ -67,15 +67,18 @@ export default function ThankYou() {
                   <h3 className="blue-text">{cart.title}</h3>
                   <p className="m-0">{cart.product_type}</p>
                 </div>
-                <h3 className="blue-text text-end">
-                  {<NumberFormat
-                    value={cart.price}
-                    displayType="text"
-                    decimalScale={2}
-                    fixedDecimalScale={true}
-                    thousandSeparator={true}
-                    prefix="€ "
-                  />} x {cart.amount}</h3>
+                <div className="text-end">
+                  <h3 className="blue-text text-end">
+                    {<NumberFormat
+                      value={cart.price}
+                      displayType="text"
+                      decimalScale={2}
+                      fixedDecimalScale={true}
+                      thousandSeparator={true}
+                      prefix="€ "
+                    />}</h3>
+                  <p>x {cart.amount}</p>
+                </div>
               </div>
             )
           })
