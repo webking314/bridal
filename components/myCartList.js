@@ -70,11 +70,11 @@ export default function MyCartList() {
           className="form-control discount-code px-5 py-3 round-form me-3"
           placeholder="Discount Code"
           value={discountCode}
-          onChange={(e) => setDiscountCode(e.target.value)}
+          onChange={(e) => {localStorage.setItem('discountCode', e.target.value); setDiscountCode(e.target.value)}}
         />
-        <button className="btn btn-discount text-uppercase round-form px-5 py-3" onClick={handleDiscountCode}>
+        {/* <button className="btn btn-discount text-uppercase round-form px-5 py-3" onClick={handleDiscountCode}>
           apply
-        </button>
+        </button> */}
       </div>
       <div className="sub-price py-4">
         <div className="sub-total d-flex justify-content-between">

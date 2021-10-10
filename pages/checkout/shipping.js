@@ -129,7 +129,7 @@ function Shipping(props) {
                 <div className="contact-panel round-panel round-form d-flex justify-content-between py-4 px-5 mt-4 flex-sm-row flex-column">
                   <div className="text-panel d-flex align-items-center">
                     <h3 className="m-0 me-4">Contact</h3>
-                    <p className="m-0">{shippingData.contact.email}</p>
+                    <p className="m-0">{localStorage.customerInfo}</p>
                   </div>
                   <Link passHref={true} href="/checkout/information">
                     <a className="text-primary text-decoration-underline text-end">
