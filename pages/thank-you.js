@@ -2,10 +2,20 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import renderHTML from "react-render-html";
+import NumberFormat from "react-number-format";
 import ReactFlagsSelect from "react-flags-select";
 
 export default function ThankYou() {
   const [selected, setSelected] = useState("LU");
+  const [cartData, setCartData] = useState([]);
+
+  useEffect(() => {
+    setCartData(JSON.parse(localStorage.cart).cartData)
+  }, [])
+
+  useEffect(() => {
+    console.log(cartData)
+  }, [cartData])
 
   return (
     <div className="thank-you_page">
@@ -46,17 +56,30 @@ export default function ThankYou() {
         <p className="description dark-text pb-5">Your recently ordered an from our website. Thank you for your order. Please check your mail. The delivery service will fulfill the order as soon as possible. In the mean time, here you can read the rules of care!</p>
       </div>
       <div className="list-panel round p-4 mx-auto">
-        <div className="d-flex justify-content-between booking-panel">
-          <p>You're Booking</p>
-          <p>Tour Date</p>
+        <div className="d-flex justify-content-between booking-panel mb-3">
+          <p className="m-0">Order Details</p>
         </div>
-        <div className="experience-panel d-flex justify-content-between">
-          <div className="experience-box">
-            <h3 className="blue-text">The Royal Experience</h3>
-            <p>Adult  -  <span>$12.50</span></p>
-          </div>
-          <h3 className="blue-text text-end">Thursday, October 7th<br />2021 @ 13:00 - 13:30</h3>
-        </div>
+        {
+          cartData.length > 0 && cartData.map((cart, index) => {
+            return (
+              <div className="experience-panel d-flex justify-content-between align-items-center mt-3" key={index}>
+                <div className="experience-box">
+                  <h3 className="blue-text">{cart.title}</h3>
+                  <p className="m-0">{cart.product_type}</p>
+                </div>
+                <h3 className="blue-text text-end">
+                  {<NumberFormat
+                    value={cart.price}
+                    displayType="text"
+                    decimalScale={2}
+                    fixedDecimalScale={true}
+                    thousandSeparator={true}
+                    prefix="€ "
+                  />} x {cart.amount}</h3>
+              </div>
+            )
+          })
+        }
       </div>
       <div className="btn-panel d-flex py-5 mb-5  justify-content-center">
         <Link href="/">
