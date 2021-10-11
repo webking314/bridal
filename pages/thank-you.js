@@ -4,18 +4,37 @@ import Head from "next/head";
 import renderHTML from "react-render-html";
 import NumberFormat from "react-number-format";
 import ReactFlagsSelect from "react-flags-select";
+import router, { useRouter } from "next/router";
+import Skeleton from "@mui/material/Skeleton";
+
+const orderDetailURL = "https://royalcoster.nl/api/getOrderDetails.php";
 
 export default function ThankYou() {
   const [selected, setSelected] = useState("LU");
   const [cartData, setCartData] = useState([]);
+  const [currencyCode, setCurrencyCode] = useState();
+  const [orderData, setOrderData] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     setCartData(JSON.parse(localStorage.cart).cartData)
-  }, [])
+    let orderID = router.asPath.split('orderid=')[1];
+    let formData = new FormData();
+    formData.append('orderid', orderID);
+    formData.append('token', localStorage.token);
 
-  useEffect(() => {
-    console.log(cartData)
-  }, [cartData])
+    fetch(orderDetailURL, {
+      method: 'post',
+      body: formData
+    }).then(res => res.json())
+      .then(data => {
+        if (data) {
+          console.log(data)
+          setOrderData(data)
+          setCurrencyCode(data.currency);
+        }
+      })
+  }, [])
 
   return (
     <div className="thank-you_page">
@@ -55,35 +74,84 @@ export default function ThankYou() {
         <h1 className="title text-capitalize blue-text my-5">Thank you for your order</h1>
         <p className="description dark-text pb-5">Your recently ordered an from our website. Thank you for your order. Please check your mail. The delivery service will fulfill the order as soon as possible. In the mean time, here you can read the rules of care!</p>
       </div>
-      <div className="list-panel round p-4 mx-auto">
-        <div className="d-flex justify-content-between booking-panel mb-3">
-          <p className="m-0">Order Details</p>
-        </div>
-        {
-          cartData.length > 0 && cartData.map((cart, index) => {
-            return (
-              <div className="experience-panel d-flex justify-content-between align-items-center mt-3" key={index}>
-                <div className="experience-box">
-                  <h3 className="blue-text">{cart.title}</h3>
-                  <p className="m-0">{cart.product_type}</p>
-                </div>
-                <div className="text-end">
-                  <h3 className="blue-text text-end">
-                    {<NumberFormat
-                      value={cart.price}
-                      displayType="text"
-                      decimalScale={2}
-                      fixedDecimalScale={true}
-                      thousandSeparator={true}
-                      prefix="€ "
-                    />}</h3>
-                  <p>x {cart.amount}</p>
-                </div>
+      {
+        orderData
+          ? <div className="list-panel round p-4 mx-auto row justify-content-end">
+            <div className="d-flex justify-content-between booking-panel mb-3">
+              <p className="m-0">Order Details</p>
+            </div>
+            {
+              orderData.line_items.map((product, index) => {
+                return (
+                  <div className="experience-panel d-flex justify-content-between align-items-center mt-3 border-bottom" key={index}>
+                    <div className="experience-box">
+                      <h3 className="blue-text">{product.title}</h3>
+                    </div>
+                    <div className="text-end">
+                      <h3 className="blue-text text-end">
+                        {currencyCode && <NumberFormat
+                          value={product.price}
+                          displayType="text"
+                          decimalScale={2}
+                          fixedDecimalScale={true}
+                          thousandSeparator={true}
+                          suffix={" " + currencyCode}
+                        />}</h3>
+                      <p>x {product.quantity}</p>
+                    </div>
+                  </div>
+                )
+              })
+            }
+            <div className="price-panel col-6 pt-3">
+              <div className="total-tax-panel pt-3 d-flex justify-content-between border-bottom">
+                <h3 className="blue-text">Discount</h3>
+                <h3> {<NumberFormat
+                  value={orderData.total_discounts}
+                  displayType="text"
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                  thousandSeparator={true}
+                  suffix={" " + currencyCode}
+                />}</h3>
               </div>
-            )
-          })
-        }
-      </div>
+              <div className="total-tax-panel pt-3 d-flex justify-content-between">
+                <h3 className="blue-text">Shipping</h3>
+                <h3> {<NumberFormat
+                  value={orderData.total_shipping_price_set.shop_money.amount}
+                  displayType="text"
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                  thousandSeparator={true}
+                  suffix={" " + currencyCode}
+                />}</h3>
+              </div>
+              <div className="total-tax-panel pt-3 d-flex justify-content-between">
+                <h3 className="blue-text">Tax</h3>
+                <h3> {<NumberFormat
+                  value={orderData.total_tax}
+                  displayType="text"
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                  thousandSeparator={true}
+                  suffix={" " + currencyCode}
+                />}</h3>
+              </div>
+              <div className="total-tax-panel pt-3 d-flex justify-content-between">
+                <h3 className="blue-text">Total Price</h3>
+                <h3> {<NumberFormat
+                  value={orderData.total_price}
+                  displayType="text"
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                  thousandSeparator={true}
+                  suffix={" " + currencyCode}
+                />}</h3>
+              </div>
+            </div>
+          </div>
+          : <Skeleton variant="rect" className="list-panel-skeleton mx-auto round" width="100%" height={100} />
+      }
       <div className="btn-panel d-flex py-5 mb-5  justify-content-center">
         <Link href="/">
           <a className="btn blue-btn px-5 py-3 btn-home text-uppercase me-4 round-form">

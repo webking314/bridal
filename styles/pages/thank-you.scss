@@ -104,6 +104,18 @@
 				}
 			}
 		}
+		.price-panel {
+			h3 {
+				font-weight: 400;
+				font-size: 1.8rem;
+				line-height: 120%;
+			}
+		}
+	}
+	.list-panel-skeleton {
+		max-width: 768px;
+		width: 95% !important;
+		box-shadow: 0 5px 10px rgb(231, 231, 231);
 	}
 	.btn-panel {
 		position: relative;

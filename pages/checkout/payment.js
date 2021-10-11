@@ -98,7 +98,8 @@ function Payment(props) {
         ...(JSON.parse(localStorage.billing).contact),
         address: JSON.parse(localStorage.billing).address
       },
-      payment_method: paymentMethod
+      payment_method: paymentMethod,
+      remember_me: saveData
     }
 
     fetch(payURL, {
@@ -108,6 +109,7 @@ function Payment(props) {
       .then(data => {
         if (data.body.RedirectUrl) {
           router.push(data.body.RedirectUrl);
+          localStorage.setItem('token', data.body.Token)
         } else {
           let variant = "warning"
           enqueueSnackbar("Something went wrong.", { variant })

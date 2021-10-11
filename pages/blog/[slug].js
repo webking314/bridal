@@ -142,8 +142,8 @@ function Brief(props) {
   const [metaDescription, setMetaDescription] = useState('');
   const [metaImage, setMetaImage] = useState('');
   const target = React.createRef();
-  const router = useRouter();
   const [tagProps, setTagProps] = useState();
+  const router = useRouter();
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
