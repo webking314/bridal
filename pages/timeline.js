@@ -6,6 +6,9 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { TweenMax } from "gsap";
+import SwiperCore, { Autoplay, Navigation } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const timeLists = [
   {
@@ -54,11 +57,21 @@ const timeLists = [
   }
 ];
 
-const yearList = [
-  1840, 1850
-]
+let yearList = [];
+
+timeLists.map((time, index) => {
+  let yearItem = time.year - time.year % 10;
+  if (!yearList.find(item => item.year == yearItem)) {
+    yearList.push({ year: yearItem, yearList: time.year })
+  }
+})
+
+SwiperCore.use([Autoplay, Navigation]);
 
 export default function TimeLine() {
+  const navigationPrevRef = React.useRef(null);
+  const navigationNextRef = React.useRef(null);
+  const swiperRef = useRef(null)
 
   useEffect(() => {
     if (window.innerWidth >= 576) {
@@ -78,8 +91,8 @@ export default function TimeLine() {
         let viewportArr = [];
         const timelineHeight = document.querySelector('.pin-spacer')?.offsetTop;
         yearList.map((year, index) => {
-          const scrollStep = document.querySelector('.time-' + year)?.offsetLeft;
-          viewportArr.push({ year: year, scrollHeight: (scrollStep + timelineHeight) });
+          const scrollStep = document.querySelector('.time-' + year.year)?.offsetLeft;
+          viewportArr.push({ year: year.year, scrollHeight: (scrollStep + timelineHeight) });
         })
 
         const currentPos = viewportArr.sort((a, b) => b.year - a.year).find(n => (n.scrollHeight - window.innerWidth / 2) < window.scrollY);
@@ -143,6 +156,33 @@ export default function TimeLine() {
       // })[0];
 
       window.addEventListener('scroll', updateProxy);
+    } else {
+      const timelineHeight = document.querySelector('.time-list-section').offsetTop;
+      const timeListBarHeight = document.querySelector('.moblie-time-list-bar').clientHeight;
+      const headerHeight = document.querySelector('#header .mobile__sub-bar').clientHeight;
+      const totalHeight = timelineHeight - timeListBarHeight - headerHeight;
+      let viewportArr = [];
+      yearList.map((year, index) => {
+        const scrollStep = document.querySelector('.time-' + year.year).offsetTop;
+        viewportArr.push({ year: year.year, scrollHeight: (scrollStep + totalHeight) });
+      })
+      document.addEventListener('wheel', () => {
+        const currentPos = viewportArr.sort((a, b) => b.year - a.year).find(n => n.scrollHeight < window.scrollY);
+        if (currentPos) {
+          const target = document.querySelector(".mobile-time-" + currentPos.year);
+          swiperRef.current.swiper.slideTo(target.id)
+        }
+      })
+      swiperRef.current.swiper.on('activeIndexChange', (e) => {
+        let element = document.querySelector(".moblie-time-list-item-" + e.realIndex);
+        const timelineHeight = document.querySelector('.time-list-section').offsetTop;
+        const timeListBarHeight = document.querySelector('.moblie-time-list-bar').clientHeight;
+        const headerHeight = document.querySelector('#header .mobile__sub-bar').clientHeight;
+        const totalHeight = timelineHeight - timeListBarHeight - headerHeight;
+        let target = document.querySelector('.timeline-box.' + element.getAttribute('target'));
+        swiperRef.current.swiper.slideTo(element.id)
+        window.scrollTo(0, totalHeight + target.offsetTop)
+      })
     }
   }, []);
 
@@ -152,6 +192,16 @@ export default function TimeLine() {
     const startPoint = bodyHeight - timelineHeight;
     const scrollStep = document.querySelector('.time-' + year).offsetLeft;
     scrollTo(0, timelineHeight + scrollStep)
+  }
+
+  const handleSlider = (e) => {
+    const timelineHeight = document.querySelector('.time-list-section').offsetTop;
+    const timeListBarHeight = document.querySelector('.moblie-time-list-bar').clientHeight;
+    const headerHeight = document.querySelector('#header .mobile__sub-bar').clientHeight;
+    const totalHeight = timelineHeight - timeListBarHeight - headerHeight;
+    let target = document.querySelector('.timeline-box.' + e.target.getAttribute('target'));
+    swiperRef.current.swiper.slideTo(e.target.id)
+    window.scrollTo(0, totalHeight + target.offsetTop)
   }
 
   return (
@@ -191,23 +241,46 @@ export default function TimeLine() {
       </div>
       {/* End guide section */}
       {/* Start time list section */}
-      <div className="time-list-bar text-center">
+      <div className="time-list-bar text-center d-sm-block d-none">
         {
           yearList.map((year, index) => {
             return (
-              <button id={"year-" + year} className={"btn btn-timelist-item mb-1 p-0 " + (index == 0 ? 'active' : '')} key={index} onClick={() => handleScroll(year)}>{year}</button>
+              <button id={"year-" + year.year} className={"btn btn-timelist-item mb-1 p-0 " + (index == 0 ? 'active' : '')} key={index} onClick={() => handleScroll(year.year)}>{year.year}</button>
             )
           })
         }
       </div>
       <div className="time-list-section">
+        <div className="moblie-time-list-bar d-block d-sm-none pt-3 pb-4">
+          <Swiper
+            ref={swiperRef}
+            centeredSlides={true}
+            slidesPerView={5}
+            spaceBetween={20}
+            className="mySwiper"
+          >
+            {
+              yearList.map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <button className={"btn time-item mobile-time-" + item.year + " moblie-time-list-item-" + index} id={index} target={"time-" + item.year} onClick={handleSlider}>
+                      {item.year}
+                    </button>
+                  </SwiperSlide>
+                );
+              })}
+          </Swiper>
+          <div className="bottom-line d-flex justify-content-center align-items-center">
+            <div className="line-dot"></div>
+          </div>
+        </div>
         {timeLists && timeLists.map((item, index) => {
           return (
             <div
               key={index}
               className={"timeline-box ps-sm-5 py-5 " + "time-" + (item.year - item.year % 10) + (index % 2 ? " horizontal-layout" : "")}>
               <div className="main-box justify-content-end row p-5">
-                <div className="col-sm-11 history-box">
+                <div className="col-sm-11 history-box p-0">
                   <div className="row m-0">
                     <img
                       src={"/img/timeline/" + item.image}
@@ -217,17 +290,17 @@ export default function TimeLine() {
                       alt="timeline-image" />
                     <div
                       className={index % 2
-                        ? "col-sm-7 text-box p-0 ps-sm-5 row"
-                        : "col-12 text-box p-0 d-flex flex-sm-row flex-column mt-sm-5"}>
+                        ? "col-sm-7 text-box p-0 ps-sm-5 d-flex flex-sm-column flex-row"
+                        : "col-12 text-box p-0 d-flex mt-sm-5"}>
                       {
                         item.subImage && index % 2 &&
                         <img src={"/img/timeline/" + item.subImage} className="col-12 d-sm-block d-none sub-image round-form mb-5" />
                       }
-                      <p className="m-0">{item.description}</p>
+                      <p className="m-0 pt-sm-0 pt-4 ps-sm-0 ps-3">{item.description}</p>
                       <h2
                         className={index % 2
-                          ? (item.subImage ? "m-0 order-sm-last order-first pt-5 pt-sm-5" : "pt-5 m-0 mt-sm-5 order-sm-last order-first")
-                          : "order-first pt-5 m-0 pe-sm-5 me-sm-5"}>
+                          ? (item.subImage ? "m-0 order-sm-last order-first pt-4 pt-sm-5" : "pt-sm-5 pt-4 m-0 mt-sm-5 order-sm-last order-first")
+                          : "order-first pt-sm-5 pt-4 m-0 pe-sm-5 me-sm-5"}>
                         {item.year}
                       </h2>
                     </div>

@@ -1,5 +1,9 @@
 .timeline_page {
   background: #f7f3ec;
+  overflow-x: hidden;
+  @media (max-width: 575px) {
+    overflow-x: unset;
+  }
   .hero-section {
     margin-top: 4rem;
     background: linear-gradient(124.07deg, #021825 16.09%, rgba(2, 24, 37, 0) 60.17%),
@@ -23,7 +27,7 @@
         padding-top: 20rem;
         .title {
           font-size: 6.4rem;
-          &>span {
+          & > span {
             font-size: 6.8rem;
           }
         }
@@ -33,7 +37,7 @@
         padding-bottom: 8rem;
         .title {
           font-size: 5.2rem;
-          &>span {
+          & > span {
             font-size: 5.6rem;
           }
         }
@@ -99,22 +103,17 @@
     position: relative;
     display: flex;
     height: calc(100vh - 51px) !important;
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
+    // will-change: transform;
+    // transform: translate3d(0, 0, 0);
     padding-top: 51px !important;
     @media (max-width: 1314px) {
       padding-top: 61px !important;
     }
     @media (max-width: 575px) {
+      position: relative;
       display: block;
       padding-top: 0 !important;
-    }
-    .swiper-slide {
-      height: 62.5vw;
-    }
-    .swiper-wrapper {
-      display: flex;
-      transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+      height: auto !important;
     }
     .timeline-box {
       background: #021825;
@@ -130,7 +129,7 @@
         @media (max-width: 575px) {
           min-width: auto;
           width: 100%;
-        };
+        }
       }
       @media (max-width: 1314px) {
         height: calc(100vh - 61px);
@@ -177,7 +176,8 @@
               font-size: 100px;
             }
             @media (max-width: 575px) {
-              font-size: 5.8rem;
+              font-size: 3.6rem;
+              line-height: 0.9;
             }
           }
           p {
@@ -194,7 +194,7 @@
               font-size: 2.4rem;
             }
             @media (max-width: 575px) {
-              font-size: 1.8rem;
+              font-size: 1.3rem;
             }
           }
         }
@@ -207,6 +207,43 @@
             height: calc(100vh - 181px);
           }
         }
+      }
+    }
+  }
+  .moblie-time-list-bar {
+    position: sticky;
+    width: 100%;
+    background: #0b283a;
+    top: 61.5px;
+    .time-item {
+      font-family: FreeSerif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 31px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .swiper-slide-active {
+     .btn {
+       color: white;
+     }
+    }
+    .bottom-line {
+      .line-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: white;
+      }
+      &::before,
+      &::after {
+        content: "";
+        width: 50%;
+        height: 2px;
+        background: linear-gradient(45deg, rgba(248, 248, 248, 0.384) 30%, rgba(255, 255, 255, 0.575) 50%);
+      }
+      &::after {
+        background: linear-gradient(225deg, rgba(248, 248, 248, 0.384) 30%, rgba(255, 255, 255, 0.575) 50%);
       }
     }
   }
