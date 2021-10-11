@@ -104,7 +104,7 @@ export default function ThankYou() {
               })
             }
             <div className="price-panel col-6 pt-3">
-              <div className="total-tax-panel pt-3 d-flex justify-content-between border-bottom">
+              <div className="total-tax-panel pt-3 d-flex justify-content-between">
                 <h3 className="blue-text">Discount</h3>
                 <h3> {<NumberFormat
                   value={orderData.total_discounts}
@@ -137,8 +137,8 @@ export default function ThankYou() {
                   suffix={" " + currencyCode}
                 />}</h3>
               </div>
-              <div className="total-tax-panel pt-3 d-flex justify-content-between">
-                <h3 className="blue-text">Total Price</h3>
+              <div className="total-tax-panel pt-3 d-flex justify-content-between border-bottom">
+                <h3 className="blue-text">Total</h3>
                 <h3> {<NumberFormat
                   value={orderData.total_price}
                   displayType="text"

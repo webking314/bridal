@@ -180,7 +180,11 @@ export default function TimeLine() {
         const headerHeight = document.querySelector('#header .mobile__sub-bar').clientHeight;
         const totalHeight = timelineHeight - timeListBarHeight - headerHeight;
         let target = document.querySelector('.timeline-box.' + element.getAttribute('target'));
+        let nextTarget = document.querySelector('.timeline-box.time-' + (+element.getAttribute('target').split('-')[1] + 10))
         swiperRef.current.swiper.slideTo(element.id)
+        if (nextTarget && window.scrollY > (totalHeight + target.offsetTop) && window.scrollY < (totalHeight + nextTarget.offsetTop)) {
+          return
+        }
         window.scrollTo(0, totalHeight + target.offsetTop)
       })
     }
@@ -200,8 +204,13 @@ export default function TimeLine() {
     const headerHeight = document.querySelector('#header .mobile__sub-bar').clientHeight;
     const totalHeight = timelineHeight - timeListBarHeight - headerHeight;
     let target = document.querySelector('.timeline-box.' + e.target.getAttribute('target'));
+    let nextTarget = document.querySelector('.timeline-box.time-' + (+e.target.getAttribute('target').split('-')[1] + 10))
     swiperRef.current.swiper.slideTo(e.target.id)
+    if (nextTarget && window.scrollY > (totalHeight + target.offsetTop) && window.scrollY < (totalHeight + nextTarget.offsetTop)) {
+      return
+    }
     window.scrollTo(0, totalHeight + target.offsetTop)
+    // console.log(window.scrollY,totalHeight + target.offsetTop, totalHeight + nextTarget.offsetTop, nextTarget)
   }
 
   return (
