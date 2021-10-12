@@ -264,7 +264,7 @@ function Ring(props) {
 
   useEffect(() => {
     if (cTags.length) {
-      console.log(cTags)
+      // console.log(cTags)
       fetch(styleURL, {
         method: 'get',
         headers,
@@ -308,7 +308,7 @@ function Ring(props) {
                 .then((res) => res.json())
                 .then((brands) => {
                   let middleArr = [];
-                  brands = brands.find(item => item.MainGroup == tags)
+                  brands = brands.find(item => item.MainGroup.toLowerCase() == productType)
                   let brandsArr = brands.BrandID.split(',');
                   brandsArr.map((item, index) => {
                     if (cTags.find(ctag => ctag == getFilterValue(item))) {
@@ -538,7 +538,7 @@ function Ring(props) {
       } else {
         formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
       }
-      formData.append('query', 'status:active AND product_type:Rings');
+      formData.append('query', 'status:active AND product_type:' + productType);
       fetch(CTagURL, {
         method: 'post',
         body: formData,
@@ -575,7 +575,7 @@ function Ring(props) {
         } else {
           formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
         }
-        formData.append('query', 'status:active AND product_type:Rings');
+        formData.append('query', 'status:active AND product_type:' + productType);
         fetch(CTagURL, {
           method: 'post',
           body: formData,
@@ -680,13 +680,13 @@ function Ring(props) {
       }
     } else {
       if (localStorage.wishList) {
-        props.setWishList([...props.wishList, { ...product, amount: 1, product_type: tags }])
+        props.setWishList([...props.wishList, { ...product, amount: 1, product_type: productType }])
       } else {
         localStorage.setItem(
           "wishList",
-          JSON.stringify([{ ...product, amount: 1, product_type: tags }])
+          JSON.stringify([{ ...product, amount: 1, product_type: productType }])
         );
-        props.setWishList([{ ...product, amount: 1, product_type: tags }])
+        props.setWishList([{ ...product, amount: 1, product_type: productType }])
       }
     }
   };
@@ -880,9 +880,9 @@ function Ring(props) {
                             {item.title}
                           </h3>
                           <p className="pb-4 text-uppercase m-0">
-                            {tags &&
+                            {productType &&
                               <span className="me-2">
-                                {tags}
+                                {productType}
                               </span>
                             }
                           </p>

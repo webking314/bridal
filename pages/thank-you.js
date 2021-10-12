@@ -22,6 +22,13 @@ export default function ThankYou() {
     let formData = new FormData();
     formData.append('orderid', orderID);
     formData.append('token', localStorage.token);
+    
+    localStorage.removeItem('cart');
+    localStorage.removeItem('shipping');
+    localStorage.removeItem('token');
+    localStorage.removeItem('customerInfo');
+    localStorage.removeItem('discountCode');
+    localStorage.removeItem('billing');
 
     fetch(orderDetailURL, {
       method: 'post',
