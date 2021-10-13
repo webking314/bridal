@@ -19,6 +19,7 @@ $titleSize: 7.2rem;
       h1 {
         font-size: $titleSize;
         color: #01215c;
+        font-weight: 400;
         span {
           font-family: FreeSerif;
           font-weight: normal;
@@ -176,6 +177,7 @@ $titleSize: 7.2rem;
         font-size: 38px;
         line-height: 110%;
         span {
+          font-style: italic;
           font-family: FreeSerif;
         }
       }

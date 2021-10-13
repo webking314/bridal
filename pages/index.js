@@ -23,6 +23,7 @@ export default function Home() {
   useEffect(() => {
     if (!localStorage.visited) {
       window.scrollTo(0, 0)
+      console.log(123123)
       setShow(true)
       localStorage.setItem('visited', true);
     }
