@@ -47,8 +47,7 @@ import "../styles/pages/myCart/checkout.scss";
 import "../styles/pages/bespoke.scss";
 import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
-// import "../styles/pages/collection.scss";
-// import "../styles/pages/collection/index.scss";
+import "../styles/pages/collection/index.scss";
 // import "../styles/pages/collection/detail.scss";
 // import "../styles/pages/warranty.scss";
 // import "../styles/pages/tax-refund.scss";
@@ -74,10 +73,8 @@ import "../styles/pages/customRing/confirmRing.scss";
 
 function MyApp({ Component, pageProps }) {
   const [show, setShow] = useState(false)
-console.log(1111)
   useEffect(() => {
     if (localStorage && !localStorage.visited) {
-      console.log('XXX-PPPPPPP-OOOOOOOOOOO')
       setTimeout(() => {
         setShow(true)
         localStorage.setItem('visited', true);

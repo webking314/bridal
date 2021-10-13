@@ -111,6 +111,7 @@ export default function ContactUs() {
                   )
                 })
               }
+              <div id="direction" />
             </div>
           </div>
         </div>

@@ -36,10 +36,12 @@ export default function Schedule({ normalMode }) {
                       <span className="text-uppercase">Contact Us</span>
                     </a>
                   </Link>
-                  <button className="direction-btn pink-outline-btn btn round-form d-flex align-items-center justify-content-sm-center px-5 py-3">
-                    <RiCompassDiscoverLine className="me-3" />
-                    <span className="text-uppercase">Get Direction</span>
-                  </button>
+                  <Link href="/contact#direction">
+                    <a className="direction-btn pink-outline-btn btn round-form d-flex align-items-center justify-content-sm-center px-5 py-3">
+                      <RiCompassDiscoverLine className="me-3" />
+                      <span className="text-uppercase">Get Direction</span>
+                    </a>
+                  </Link>
                 </div>
                 <button
                   className={
@@ -81,7 +83,7 @@ export default function Schedule({ normalMode }) {
                 <input
                   type="email"
                   className="form-control round-form p-3 mb-4"
-                  placeholder="syedkaift@gmail.com"
+                  placeholder="yourname@emailaddress.com "
                 />
                 <button
                   className={

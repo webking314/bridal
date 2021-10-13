@@ -19,24 +19,9 @@ export default function Help() {
                 Tell us your budget and preferences and we’ll find you the right
                 diamond and setting.
               </p>
-              <Link  passHref={true} href="#">
-                <a className="design-service pink-btn round-form text-uppercase py-4 px-5 mb-4">
+              <Link  passHref={true} href="/bespoke">
+                <a className="design-service pink-btn round-form text-uppercase py-4 px-5">
                   Custom Design Services
-                </a>
-              </Link>
-              <Link  passHref={true} href="#">
-                <a className="upgrade-diamond blue-btn round-form py-4 text-uppercase px-5 d-flex justify-content-between align-items-center">
-                  <p className="m-0 p-0">Upgrade your Diamonds</p>
-                  <img
-                    src="/img/common/rightArrow.png"
-                    alt="rightArrow"
-                    className="white-arrow"
-                  />
-                  <img
-                    src="/img/common/rightArrow_blue.png"
-                    alt="rightArrow"
-                    className="blue-arrow"
-                  />
                 </a>
               </Link>
             </div>
