@@ -50,13 +50,13 @@ import "../styles/pages/product/index.scss";
 import "../styles/pages/collection.scss";
 // import "../styles/pages/collection/index.scss";
 // import "../styles/pages/collection/detail.scss";
-import "../styles/pages/news.scss";
+// import "../styles/pages/warranty.scss";
+// import "../styles/pages/tax-refund.scss";
 // import "../styles/pages/faq.scss";
+import "../styles/pages/news.scss";
 import "../styles/pages/timeline.scss";
 import "../styles/pages/about.scss";
 import "../styles/pages/thank-you.scss";
-// import "../styles/pages/warranty.scss";
-// import "../styles/pages/tax-refund.scss";
 import "../styles/pages/internships.scss";
 import "../styles/pages/responsibility.scss";
 import "../styles/pages/why-royal-coster.scss";
@@ -82,6 +82,15 @@ function MyApp({ Component, pageProps }) {
       localStorage.setItem('visited', true);
     }
   }, [])
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+  }, [show])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
