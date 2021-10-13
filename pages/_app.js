@@ -83,14 +83,14 @@ function MyApp({ Component, pageProps }) {
     }
   }, [])
 
-  useEffect(() => {
-    if (show) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+  // useEffect(() => {
+  //   if (show) {
+  //     document.body.style.overflow = 'hidden';
+  //   } else {
+  //     document.body.style.overflow = 'unset';
+  //   }
 
-  }, [show])
+  // }, [show])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
