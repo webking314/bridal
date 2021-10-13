@@ -20,14 +20,13 @@ export default function Home() {
   ];
   let videoUrl = "/video/video.mp4";
 
-  useEffect(() => {
-    if (!localStorage.visited) {
-      window.scrollTo(0, 0)
-      console.log(123123)
-      setShow(true)
-      localStorage.setItem('visited', true);
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (localStorage && !localStorage.visited) {
+  //     console.log(123123)
+  //     setShow(true)
+  //     localStorage.setItem('visited', true);
+  //   }
+  // }, [])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -39,7 +38,7 @@ export default function Home() {
       </Head>
 
       {/* Start discount modal */}
-      <Modal
+      {/* <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -67,7 +66,7 @@ export default function Home() {
           </div>
           <button className="btn close-btn d-flex p-0 justify-content-center align-items-center" onClick={handleClose}><RiCloseFill /></button>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
       {/* End discount modal */}
 
       <Header page="homepage" />

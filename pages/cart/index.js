@@ -255,7 +255,7 @@ function MyCart(props) {
             })
           ) : (
             <h3 className="none-text m-0 py-5 text-center text-capitalize">
-              My Cart items none
+              Cart is empty
             </h3>
           )}
         </div>

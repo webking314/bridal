@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GlobalContext from "../utils/global-context";
 import { Provider } from "react-redux";
 import store from "../redux/store";
@@ -7,8 +7,9 @@ import Client from 'shopify-buy';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { SnackbarProvider, useSnackbar } from 'notistack';
+import { Modal, Button } from "react-bootstrap"
+import { RiCloseFill } from "react-icons/ri"
 config.autoAddCss = false;
-import { creatCheckout, productFound, checkoutFound, shopFound } from "../redux/actions/checkOutAction";
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -47,10 +48,15 @@ import "../styles/pages/bespoke.scss";
 import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
 import "../styles/pages/collection.scss";
+// import "../styles/pages/collection/index.scss";
+// import "../styles/pages/collection/detail.scss";
 import "../styles/pages/news.scss";
+// import "../styles/pages/faq.scss";
 import "../styles/pages/timeline.scss";
 import "../styles/pages/about.scss";
 import "../styles/pages/thank-you.scss";
+// import "../styles/pages/warranty.scss";
+// import "../styles/pages/tax-refund.scss";
 import "../styles/pages/internships.scss";
 import "../styles/pages/responsibility.scss";
 import "../styles/pages/why-royal-coster.scss";
@@ -66,21 +72,52 @@ import "../styles/pages/customRing/chooseDiamond.scss";
 import "../styles/pages/customRing/confirmDiamond.scss";
 import "../styles/pages/customRing/confirmRing.scss";
 
-//build shopify client
-// const client = Client.buildClient({
-//   storefrontAccessToken: '2e49efb3d94b8e094332586738a7a374',
-//   domain: 'costerdiamonds.myshopify.com'
-// });
-// // creatCheckout(client);
-// store.dispatch({ type: 'CLIENT_CREATED', payload: client });
-
-// client.checkout.create().then((res) => {
-//   store.dispatch({ type: 'CHECKOUT_FOUND', payload: res });
-// });
-
 function MyApp({ Component, pageProps }) {
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    if (localStorage && !localStorage.visited) {
+      console.log('KKKK-KKKKK')
+      setShow(true)
+      localStorage.setItem('visited', true);
+    }
+  }, [])
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <Provider store={store}>
+      {/* Start discount modal */}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        className="discount-modal"
+        dialogClassName="modal-90w mx-auto"
+        aria-labelledby="contained-modal-title-vcenter"
+        keyboard={false}
+        size="lg"
+        centered
+        scrollable
+      >
+        <Modal.Body className="p-0">
+          <div className="row m-0">
+            <img src="/img/common/discount-modal_img.png" className="modal-image col-sm-6 p-0" alt="modal-image" />
+            <div className="col-sm-6 left-panel d-flex flex-column justify-content-between p-5">
+              <div className="text-panel mb-4">
+                <h3 className="blue-text title text-capitalize">Save <span>20%</span> on all <span>jewelries</span> on your next <span>order</span></h3>
+                <p className="m-0">Subscribe to our website’s mailing list and get a special gifts and more, just for you!</p>
+              </div>
+              <div className="form-panel d-flex round-form">
+                <input type="text" className="form-control px-5 py-3" placeholder="Type Your Email" />
+                <button className="btn">JOIN NOW</button>
+              </div>
+            </div>
+          </div>
+          <button className="btn close-btn d-flex p-0 justify-content-center align-items-center" onClick={handleClose}><RiCloseFill /></button>
+        </Modal.Body>
+      </Modal>
+      {/* End discount modal */}
       <SnackbarProvider maxSnack={3}>
         <Component {...pageProps} />
       </SnackbarProvider>
