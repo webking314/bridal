@@ -8,30 +8,36 @@ import Schedule from "../components/schedule";
 import Collection from "../components/collection";
 import Help from "../components/help";
 import Instagram from "../components/instagram";
+import { data } from "dom7";
 
 const url = "https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/225800";
 const heroGradientStyle = "linear-gradient(180deg, #01215c 0%, rgba(1, 33, 92, 0) 50%),";
-let localHeroData, localProductData;
+let localData;
 
+export async function getStaticProps() {
+  let data = {};
+  if (localData) {
+    data = localData;
+  } else {
+    const res = await fetch(url, {
+      method: "get"
+    });
+    data = await res.json();
+    localData = data;
+  }
+  return {
+    props: {
+      data
+    }
+  }
+}
 
-export default function Home() {
-  const [heroData, setHeroData] = useState(localHeroData);
-  const [productData, setProductData] = useState(localProductData);
+export default function Home({ data }) {
   const [windowWidth, setWindowWidth] = useState();
+  const heroData = data.acf.landing.slider[0];
+  const productData = data.acf.product_row;
 
   useEffect(() => {
-    if (!localHeroData) {
-      fetch(url, {
-        method: "get"
-      }).then(res => res.json())
-        .then(data => {
-          localHeroData = data.acf.landing.slider[0];
-          localProductData = data.acf.product_row;
-          console.log(data)
-          setHeroData(localHeroData);
-          setProductData(localProductData);
-        })
-    }
     setWindowWidth(window.innerWidth);
   }, [])
 

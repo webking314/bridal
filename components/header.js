@@ -644,7 +644,7 @@ function Header(props) {
           />
         </div>
         <div className="mobile__sub-bar d-flex justify-content-between align-items-center px-5 py-4">
-          <Link passHref={true} href="#">
+          <Link passHref={true} href="/">
             <a>
               <img
                 src="/img/common/mobile_logo.png"
@@ -748,7 +748,7 @@ function Header(props) {
                                     },
                                   } : item.url}
                                   key={id}>
-                                  <a>
+                                  <a data-bs-dismiss="offcanvas">
                                     {item.img ? (
                                       <div className="link-item my-5 d-flex align-items-center">
                                         <img
@@ -794,7 +794,7 @@ function Header(props) {
             } else {
               return (
                 <Link passHref={true} href={submenu.url} key={index}>
-                  <a className="submenu py-4">{submenu.title}</a>
+                  <a className="submenu py-4" data-bs-dismiss="offcanvas">{submenu.title}</a>
                 </Link>
               );
             }

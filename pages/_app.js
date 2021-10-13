@@ -48,7 +48,7 @@ import "../styles/pages/bespoke.scss";
 import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
 import "../styles/pages/collection/index.scss";
-// import "../styles/pages/collection/detail.scss";
+import "../styles/pages/collection/detail.scss";
 // import "../styles/pages/warranty.scss";
 // import "../styles/pages/tax-refund.scss";
 // import "../styles/pages/faq.scss";
