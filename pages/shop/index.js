@@ -531,44 +531,8 @@ function Ring(props) {
   }, [props.wishList])
 
   useEffect(() => {
-    if (filterMounted) {
-      let formData = new FormData();
-      if (cTagLastAdd == 1) {
-        formData.append('position', 'first:50');
-      } else {
-        formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
-      }
-      formData.append('query', 'status:active AND product_type:' + productType);
-      fetch(CTagURL, {
-        method: 'post',
-        body: formData,
-      }).then((res) => res.json())
-        .then((data) => {
-          let middleArr = [];
-          if (data.last) {
-            setTotalCounter(totalCounter + data.productsCount)
-            let tags = cTagMiddleStore;
-            data.tags.map((tag, index) => {
-              if (!tags.find(item => item == getFilterValue(tag))) {
-                middleArr.push(getFilterValue(tag));
-              }
-              if (index == data.tags.length - 1) {
-                setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
-                if (data.hasNextPage == 'No') {
-                  setResult(totalCounter + data.productsCount)
-                  setCTags([...cTagMiddleStore, ...middleArr])
-                }
-              }
-            })
-            if (data.hasNextPage == 'Yes') {
-              setCTagLastAdd(data.last)
-            }
-          }
-        })
-    } else {
-      if (leftFilterStore) {
-        setLeftFilterItems(leftFilterStore);
-      } else {
+    if (productType) {
+      if (filterMounted) {
         let formData = new FormData();
         if (cTagLastAdd == 1) {
           formData.append('position', 'first:50');
@@ -602,10 +566,49 @@ function Ring(props) {
               }
             }
           })
+      } else {
+        if (leftFilterStore) {
+          setLeftFilterItems(leftFilterStore);
+        } else {
+          let formData = new FormData();
+          if (cTagLastAdd == 1) {
+            formData.append('position', 'first:50');
+          } else {
+            formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
+          }
+          console.log(123, productType);
+          formData.append('query', 'status:active AND product_type:' + productType);
+          fetch(CTagURL, {
+            method: 'post',
+            body: formData,
+          }).then((res) => res.json())
+            .then((data) => {
+              let middleArr = [];
+              if (data.last) {
+                setTotalCounter(totalCounter + data.productsCount)
+                let tags = cTagMiddleStore;
+                data.tags.map((tag, index) => {
+                  if (!tags.find(item => item == getFilterValue(tag))) {
+                    middleArr.push(getFilterValue(tag));
+                  }
+                  if (index == data.tags.length - 1) {
+                    setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
+                    if (data.hasNextPage == 'No') {
+                      setResult(totalCounter + data.productsCount)
+                      setCTags([...cTagMiddleStore, ...middleArr])
+                    }
+                  }
+                })
+                if (data.hasNextPage == 'Yes') {
+                  setCTagLastAdd(data.last)
+                }
+              }
+            })
+        }
       }
+      setFilterMounted(true);
     }
-    setFilterMounted(true);
-  }, [cTagLastAdd])
+  }, [cTagLastAdd, productType])
 
   useEffect(() => {
     if (tag) {

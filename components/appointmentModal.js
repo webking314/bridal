@@ -2,6 +2,7 @@ import { useDebugValue, useEffect, useState } from "react";
 import { RiArrowRightLine } from "react-icons/ri";
 import PropTypes from "prop-types";
 import { RiAddLine } from "react-icons/ri";
+import router, { useRouter } from "next/router";
 import {
   getCountries,
   getCountryCallingCode,
@@ -13,37 +14,57 @@ import en from "react-phone-number-input/locale/en.json";
 var dateFormat = require("dateformat");
 
 const options = [
-  "ENGAGEMENT RINGS",
-  "RINGS",
-  "EARRINGS",
-  "NECKLACES",
-  "BRACELETS",
-  "DIAMONDS",
-  "BRACELETS",
-  "DIAMONDS",
-  "GEMSTONES",
-  "OTHER",
+  "I’m interested in purchasing a diamond jewel. ",
+  "I’d like to know more about engagement rings",
+  "I’m interested in a diamond tour ",
+  "I’d like to have my diamond jewelry examined/ cleaned.",
 ];
 
 const times = [
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "1:00 PM",
-  "3:00 PM",
-  "4:00 PM",
-  "5:00 PM",
-  "5:30 PM",
-  "6:00 PM",
-  "7:00 PM",
+  "09:00",
+  "09:15",
+  "09:30",
+  "09:45",
+  "10:00",
+  "10:15",
+  "10:30",
+  "10:45",
+  "11:00",
+  "11:15",
+  "11:30",
+  "11:45",
+  "12:00",
+  "12:15",
+  "12:30",
+  "12:45",
+  "13:00",
+  "13:15",
+  "13:30",
+  "13:45",
+  "14:00",
+  "14:15",
+  "14:30",
+  "14:45",
+  "15:00",
+  "15:15",
+  "15:30",
+  "15:45",
+  "16:00",
+  "16:15",
+  "16:30",
 ];
 
 const languages = [{ language: "English" }, { language: "Dutch" }];
 
-const contactMethods = [{ title: "Google Meet" }, { title: "Instagram" }];
+const contactMethods = [
+  { title: "Google Meet" },
+  { title: "Zoom" },
+  { title: "Skype" },
+  { title: "Phonecall " },
+];
 
 export default function AppointmentModal() {
-  const [contactMethod, setContactMethod] = useState();
+  const [contactMethod, setContactMethod] = useState(0);
   const [language, setLanguage] = useState();
   const [safeMode, setSafeMode] = useState();
   const [country, setCountry] = useState("NP");
@@ -56,6 +77,14 @@ export default function AppointmentModal() {
   const [step2, setStep2] = useState(true);
   const [step3, setStep3] = useState(true);
   const [step4, setStep4] = useState(true);
+  const [location, setLocation] = useState();
+  const [service, setService] = useState([]);
+  const [time, setTime] = useState();
+  const [contactInfo, setContactInfo] = useState();
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const router = useRouter();
 
   const [filteredCountries, setFilteredCountries] = useState([]);
   useEffect(() => {
@@ -102,6 +131,7 @@ export default function AppointmentModal() {
   };
 
   const toggleDatePicker = (e) => {
+    console.log("toggle!")
     e.target.closest("#timeDate").classList.toggle("visible");
   };
 
@@ -120,6 +150,7 @@ export default function AppointmentModal() {
   }, []);
 
   const handleTime = (e) => {
+    setTime(e.target.innerText)
     document.querySelectorAll(".time-item").forEach((item) => {
       if (item.classList.contains("active")) item.classList.remove("active");
     });
@@ -135,6 +166,7 @@ export default function AppointmentModal() {
   const checkingLocation = (e) => {
     e.preventDefault();
     setStep2(false);
+    setLocation(e.target.innerText)
     document.querySelector("#location-tab").classList.remove("active");
     document.querySelector("#service-tab").classList.add("active");
     document.querySelector("#location").classList.remove("show", "active");
@@ -142,17 +174,32 @@ export default function AppointmentModal() {
   };
 
   const checkingService = (e) => {
-    document.querySelectorAll(".option-item").forEach((item) => {
-      if (item.classList.contains("active")) item.classList.remove("active");
-    });
-    if (!e.target.closest(".option-item").classList.contains("active"))
-      e.target.closest(".option-item").classList.toggle("active");
+    const value = e.target.innerText;
+    // document.querySelectorAll(".option-item").forEach((item) => {
+    //   if (item.classList.contains("active")) item.classList.remove("active");
+    // });
+    // if (!e.target.closest(".option-item").classList.contains("active"))
+    e.target.closest(".option-item").classList.toggle("active");
     if (step3) setStep3(false);
-    document.querySelector("#service").classList.remove("show", "active");
-    document.querySelector("#timeDate").classList.add("show", "active");
-    document.querySelector("#service-tab").classList.remove("active");
-    document.querySelector("#timeDate-tab").classList.add("active");
+    if (!service.find(item => item == value)) {
+      setService([...service, value]);
+    } else {
+      service.splice(service.indexOf(value), 1)
+      setService([...service])
+    }
+    // document.querySelector("#service").classList.remove("show", "active");
+    // document.querySelector("#timeDate").classList.add("show", "active");
+    // document.querySelector("#service-tab").classList.remove("active");
+    // document.querySelector("#timeDate-tab").classList.add("active");
   };
+
+  const sendRequest = () => {
+    router.push('/thank-you-contact')
+  }
+
+  useEffect(() => {
+    setContactInfo(contactMethods[contactMethod])
+  }, [contactMethod])
 
   return (
     <div
@@ -251,22 +298,19 @@ export default function AppointmentModal() {
                     Select Showroom
                   </h3>
                   <p className="description">
-                    Covid-19 Update: our showrooms are temporarily closed, but
-                    you now can book in advance for when we reopen. If you wish
-                    to speak to our experts urgently, we recommend you choose an
-                    online consultation.
+                    Would you like to visit our monumental villas in Amsterdam or schedule an online appointment?
                   </p>
                   <button
-                    className="btn btn-unavailable text-uppercase text-start px-5 mt-5 py-3 text-sm-start text-center round-form"
+                    className="btn btn-unavailable pink-btn text-start px-5 mt-5 py-3 text-sm-start text-center round-form"
                     onClick={checkingLocation}
                   >
-                    Offline appointments unavailable
+                    Visit us in Amsterdam
                   </button>
                   <button
                     className="btn btn-consultation d-flex py-3 blue-btn round-form px-5 mt-4 justify-content-between align-items-center"
                     onClick={checkingLocation}
                   >
-                    <span>ONLINE CONSULTATION</span>
+                    <span>Schedule an online diamond consult</span>
                     <RiArrowRightLine />
                   </button>
                 </div>
@@ -284,7 +328,7 @@ export default function AppointmentModal() {
                       return (
                         <div
                           className={
-                            "col-sm-6 p-0 " + (index % 2 ? "" : "pe-sm-3")
+                            "p-0 " + (index % 2 ? "" : "pe-sm-3")
                           }
                           key={index}
                         >
@@ -327,14 +371,11 @@ export default function AppointmentModal() {
                   </div>
                   <div className="time-panel mt-5">
                     <h3 className="title mb-5">Select a Preferred time</h3>
-                    <div className="row m-0">
+                    <div className="row">
                       {times.map((item, index) => {
                         return (
                           <div
-                            className={
-                              "col-md-3 col-6 mb-4 p-0 pe-md-3 ps-md-0 " +
-                              (index % 2 ? "ps-3" : "pe-3")
-                            }
+                            className="col-md-2 col-sm-3 col-4 mb-4"
                             key={index}
                           >
                             <nav
@@ -388,21 +429,15 @@ export default function AppointmentModal() {
                       className="col-sm-6 p-0 ps-sm-3 mt-5"
                     >
                       Preferred Language*
-                      <select
-                        className="form-select blue-text ps-4 mt-3 round-form py-3"
-                        aria-label="Default select example"
+                      <input
+                        type="text"
                         id="preferredLanguage"
+                        className="form-control px-4 mt-3 py-3 round-form"
+                        placeholder="Preferred Language"
                         value={language}
-                        onChange={(event) => setLanguage(event.target.value)}
-                      >
-                        {languages.map((item, index) => {
-                          return (
-                            <option value={index} key={index}>
-                              {item.language}
-                            </option>
-                          );
-                        })}
-                      </select>
+                        required
+                        onChange={(e) => setLanguage(e.target.value)}
+                      />
                     </label>
                     <label
                       htmlFor="firstName"
@@ -414,6 +449,8 @@ export default function AppointmentModal() {
                         id="firstName"
                         className="form-control px-4 mt-3 py-3 round-form"
                         placeholder="first name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                         required
                       />
                     </label>
@@ -427,6 +464,8 @@ export default function AppointmentModal() {
                         id="lastName"
                         className="form-control px-4 py-3 mt-3 round-form"
                         placeholder="last name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
                         required
                       />
                     </label>
@@ -440,6 +479,8 @@ export default function AppointmentModal() {
                         id="email"
                         className="form-control px-4 py-3 mt-3 round-form"
                         placeholder="Email Address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                     </label>
@@ -465,6 +506,19 @@ export default function AppointmentModal() {
                         <div className="invalid-feedback">{errorPhone}</div>
                       </div>
                     </label>
+                    <label
+                      htmlFor="moreInformation"
+                      className="p-0 mt-5"
+                    >
+                      More Information*
+                      <textarea
+                        id="moreInformation"
+                        rows="4"
+                        className="form-control px-4 py-3 mt-3 round-form"
+                        placeholder="More information"
+                        style={{ resize: "none" }}
+                      />
+                    </label>
                     <div className="col-12 p-0 py-5 safe-panel form-check">
                       <h3 className="m-0 mb-3">Safeguarding Your Privacy</h3>
                       <div className="d-flex">
@@ -483,7 +537,7 @@ export default function AppointmentModal() {
                         </label>
                       </div>
                     </div>
-                    <button className="btn col-12 pink-btn py-3 btn-request round-form">
+                    <button className="btn col-12 pink-btn py-3 btn-request round-form" onClick={sendRequest}>
                       SEND APPOINTMENT REQUEST
                     </button>
                   </form>

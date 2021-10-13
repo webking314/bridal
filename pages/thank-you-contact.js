@@ -10,7 +10,7 @@ export default function ThankYouContact() {
   return (
     <div className="thank-you_page  thank-you_page-contact d-flex flex-column justify-content-between pb-5">
       <Head>
-        <title>Thank You Page VIP | Royal Coster</title>
+        <title>Thank You | Royal Coster</title>
       </Head>
       <div className="thank-you_header">
         <div className="top-bar px-5 py-3 mb-5">

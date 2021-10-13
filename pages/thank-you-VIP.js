@@ -10,7 +10,7 @@ export default function ThankYouVIP() {
   return (
     <div className="thank-you_page  thank-you_page-VIP">
       <Head>
-        <title>Thank You Page VIP | Royal Coster</title>
+        <title>Thank You | Royal Coster</title>
       </Head>
       <div className="thank-you_header">
         <div className="top-bar px-5 py-3">
