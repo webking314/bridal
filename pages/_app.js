@@ -77,7 +77,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (localStorage && !localStorage.visited) {
-      console.log('KKKK-KKKKK')
+      console.log('PPP-XXXXXX')
       setShow(true)
       localStorage.setItem('visited', true);
     }
