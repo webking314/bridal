@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import Header from "../components/header";
-import Footer from "../components/footer";
-import Schedule from "../components/schedule";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import Schedule from "../../components/schedule";
 import NumberFormat from "react-number-format";
-import AppointmentModal from "../components/appointmentModal";
+import AppointmentModal from "../../components/appointmentModal";
 import renderHTML from "react-render-html";
-import Instagram from "../components/instagram";
+import Instagram from "../../components/instagram";
 import { RiArrowRightSFill, RiMailFill, RiPhoneFill, RiWhatsappFill, RiDvdFill, RiPlayCircleFill } from "react-icons/ri";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -56,26 +56,26 @@ const collectionData = [
     subImage: "/img/collection/sub-item-3.png"
   },
   {
-    title: "Rainbow Collection",
-    description: "All the colors of rain and sunshine",
+    title: "The Royal 201 Collection",
+    description: "More facets, more sparkle, more fire! The regular brilliant cut with 57 facets was introduced in the 1920’s. For many years,...",
     image: "/img/collection/item-4.png",
     subImage: "/img/collection/sub-item-4.png"
   },
   {
-    title: "The Royal 201 Collection",
-    description: "More facets, more sparkle, more fire! The regular brilliant cut with 57 facets was introduced in the 1920’s. For many years,...",
+    title: "Touch of Glam ",
+    description: "This collection of diamond jewelry focuses on the youthful woman. The jewels exude refined luxury and elegance and tell the story of who you are. ",
     image: "/img/collection/item-5.png",
     subImage: "/img/collection/sub-item-5.png"
   },
   {
-    title: "Touch of Glam ",
-    description: "This collection of diamond jewelry focuses on the youthful woman. The jewels exude refined luxury and elegance and tell the story of who you are. ",
+    title: "NIKKIE x Royal Coster Diamonds",
+    description: "The  Diamonds by NIKKIE x Royal Coster Diamonds  collection is a classic and timeless diamond line for young and old. Diamonds...",
     image: "/img/collection/item-6.png",
     subImage: "/img/collection/sub-item-6.png"
   },
   {
-    title: "NIKKIE x Royal Coster Diamonds",
-    description: "The  Diamonds by NIKKIE x Royal Coster Diamonds  collection is a classic and timeless diamond line for young and old. Diamonds...",
+    title: "Watches Collection",
+    description: "This collection of diamond jewelry focuses on the youthful woman. The jewels exude refined luxury and elegance and tell the story of who you are.",
     image: "/img/collection/item-7.png",
     subImage: "/img/collection/sub-item-7.png"
   },
