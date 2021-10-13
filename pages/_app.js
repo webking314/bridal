@@ -74,7 +74,7 @@ import "../styles/pages/customRing/confirmRing.scss";
 
 function MyApp({ Component, pageProps }) {
   const [show, setShow] = useState(false)
-
+console.log(1111)
   useEffect(() => {
     if (localStorage && !localStorage.visited) {
       console.log('PPP-XXXXXX')
