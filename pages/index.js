@@ -24,7 +24,7 @@ export default function Home() {
     if (!localStorage.visited) {
       // window.scrollTo(0, 0)
       setShow(true)
-      localStorage.setItem('visited', showVal);
+      localStorage.setItem('visited', true);
     }
   }, [])
 
