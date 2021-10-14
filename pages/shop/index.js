@@ -154,15 +154,14 @@ const firstFilterItem = [
       { label: "NIKKIE x Royal Coster Diamonds", value: "nikkie-x-royal-coster-diamonds" },
     ]
   },
-  { title: "style", filter: [] },
-  { title: "mounting", filter: [] },
-  { title: "brand", filter: [] },
-  { title: "stone", filter: [] },
-  { title: "brightness", filter: [] },
-  { title: "cut", filter: [] },
-  { title: "material", filter: [] },
-  { title: "material color", filter: [] },
-
+  // { title: "style", filter: [] },
+  // { title: "mounting", filter: [] },
+  // { title: "brand", filter: [] },
+  // { title: "stone", filter: [] },
+  // { title: "brightness", filter: [] },
+  // { title: "cut", filter: [] },
+  // { title: "material", filter: [] },
+  // { title: "material color", filter: [] },
 ]
 
 const checkTreeIcons = {
@@ -178,13 +177,10 @@ const checkTreeIcons = {
   leaf: ""
 }
 
-let productStore = [], lastProductStatus, leftFilterStore, check0 = [], check1 = [], check2 = [], check3 = [], check4 = [], check5 = [], check6 = [], check7 = [], check8 = [], check9 = [];
-let tagData, localProductType, localTag = [];
-
+let productStore = [], lastProductStatus, cTagData, check0 = [], check1 = [], check2 = [], check3 = [], check4 = [], check5 = [], check6 = [], check7 = [], check8 = [], check9 = [], localProductType, localTag = [], basicStyleData, basicMountingData, basicBrandData, basicStoneData, basicBrightnessData, basicCutData, basicMetarialData, basicMaterialColorData, localResultCounter;
 
 function Ring(props) {
   const [result, setResult] = useState(0);
-  const [tags, setTags] = useState("Rings");
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [selectFilter, setSelectFilter] = useState([]);
   const [productData, setProductData] = useState([]);
@@ -205,7 +201,6 @@ function Ring(props) {
   const [expanded, setExpanded] = useState([]);
   const [productType, setProductType] = useState();
   const [tag, setTag] = useState();
-  const [totalFilterItems, setTotalFilterItems] = useState([]);
   const [cTagLastAdd, setCTagLastAdd] = useState(1);
   const [cTags, setCTags] = useState([]);
   const [cTagMiddleStore, setCTagMiddleStore] = useState([]);
@@ -215,6 +210,128 @@ function Ring(props) {
   const [filterMounted, setFilterMounted] = useState(false);
   const router = useRouter();
 
+  const [basicStyleFilter, setBasicStyleFilter] = useState();
+  const [basicMountingFilter, setBasicMountingFilter] = useState();
+  const [basicBrandFilter, setBasicBrandFilter] = useState();
+  const [basicStoneFilter, setBasicStoneFilter] = useState();
+  const [basicBrightnessFilter, setBasicBrightnessFilter] = useState();
+  const [basicCutFilter, setBasicCutFilter] = useState();
+  const [basicMetarialFilter, setBasicMetarialFilter] = useState();
+  const [basicMaterialColorFilter, setBasicMaterialColorFilter] = useState();
+
+  const [styleFilter, setStyleFilter] = useState();
+  const [mountingFilter, setMountingFilter] = useState();
+  const [brandFilter, setBrandFilter] = useState();
+  const [stoneFilter, setStoneFilter] = useState();
+  const [brightnessFilter, setBrightnessFilter] = useState();
+  const [cutFilter, setCutFilter] = useState();
+  const [metarialFilter, setMetarialFilter] = useState();
+  const [materialColorFilter, setMaterialColorFilter] = useState();
+
+  useEffect(() => {
+    if (!basicStyleData) {
+      // get style filter data
+      fetch(styleURL, {
+        method: 'get',
+      })
+        .then((res) => res.json())
+        .then((style) => {
+          basicStyleData = style.Collection.split(',');
+          setBasicStyleFilter(basicStyleData)
+        })
+
+      // get mounting filter data
+      fetch(mountingURL, {
+        method: 'get',
+      })
+        .then((res) => res.json())
+        .then((mounting) => {
+          basicMountingData = mounting.Style.split(',');
+          setBasicMountingFilter(basicMountingData)
+        })
+
+      // get brand filter data
+      fetch(brandURL, {
+        method: 'get',
+      })
+        .then((res) => res.json())
+        .then((brands) => {
+          basicBrandData = brands
+          setBasicBrandFilter(basicBrandData)
+        })
+
+      // get stone filter data
+      fetch(stoneURL, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((stones) => {
+          basicStoneData = stones
+          setBasicStoneFilter(basicStoneData)
+        })
+
+      // get brightness filter data
+      fetch(brightnessURL, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((brightness) => {
+          basicBrightnessData = brightness
+          setBasicBrightnessFilter(basicBrightnessData)
+        })
+
+      // get cut filter data
+      fetch(cutURL, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((cut) => {
+          basicCutData = cut
+          setBasicCutFilter(basicCutData)
+        })
+
+      // get metarial filter data
+      fetch(metarialURL, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((metarial) => {
+          metarial = metarial[0].colorDesc;
+          basicMetarialData = metarial.split(',');
+          setBasicMetarialFilter(basicMetarialData)
+        })
+
+      // get materialColor filter data
+      fetch(materialColorURL, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((materialColor) => {
+          basicMaterialColorData = materialColor
+          setBasicMaterialColorFilter(basicMaterialColorData)
+        })
+    } else {
+      setBasicStyleFilter(basicStyleData)
+      setBasicMountingFilter(basicMountingData)
+      setBasicBrandFilter(basicBrandData)
+      setBasicStoneFilter(basicStoneData)
+      setBasicBrightnessFilter(basicBrightnessData)
+      setBasicCutFilter(basicCutData)
+      setBasicMetarialFilter(basicMetarialData)
+      setBasicMaterialColorFilter(basicMaterialColorData)
+      setResult(localResultCounter)
+      setStyleFilter()
+      setMountingFilter()
+      setBrandFilter()
+      setStoneFilter()
+      setBrightnessFilter()
+      setCutFilter()
+      setMetarialFilter()
+      setMaterialColorFilter()
+      setCTags([])
+    }
+  }, [])
+
   useEffect(() => {
     if (router.query) {
       if (_.size(router.query)) {
@@ -222,6 +339,18 @@ function Ring(props) {
           setLoad(false);
           setLoadMoreStatus(false);
           setFilterMounted(false);
+          setCTagMiddleStore([]);
+          setCTagLastAdd(1);
+          setCTags([])
+          setTotalCounter(0);
+          setStyleFilter()
+          setMountingFilter()
+          setBrandFilter()
+          setStoneFilter()
+          setBrightnessFilter()
+          setCutFilter()
+          setMetarialFilter()
+          setMaterialColorFilter()
           if (router.query.productType) {
             setProductType(router.query.productType);
           }
@@ -264,266 +393,203 @@ function Ring(props) {
 
   useEffect(() => {
     if (cTags.length) {
-      console.log(cTags)
-      fetch(styleURL, {
-        method: 'get',
-        headers,
-      })
-        .then((res) => res.json())
-        .then((style) => {
-          let middleArr = [];
-          let valueArr = style.Collection.split(',');
-          valueArr.map((item, index) => {
-            if (cTags.find(ctag => ctag == getFilterValue(item))) {
-              middleArr.push({ label: item, value: getFilterValue(item) })
-            }
-            if (index == valueArr.length - 1) {
-              let filterArr = leftFilterItems;
-              filterArr[2].filter = middleArr;
-              setLeftFilterItems([...filterArr]);
-            }
-          })
-          fetch(mountingURL, {
-            method: 'get',
-            headers,
-          })
-            .then((res) => res.json())
-            .then((mounting) => {
-              let middleArr = [];
-              let valueArr = mounting.Style.split(',');
-              valueArr.map((item, index) => {
+      if (basicStyleFilter && !styleFilter) {
+        let middleArr = [];
+        basicStyleFilter.map((item, index) => {
+          if (cTags.find(ctag => ctag == getFilterValue(item))) {
+            middleArr.push({ label: item, value: getFilterValue(item) })
+          }
+          if (index == basicStyleFilter.length - 1) {
+            setStyleFilter(middleArr);
+          }
+        })
+      }
+      if (basicMountingFilter && !mountingFilter) {
+        let middleArr = [];
+        basicMountingFilter.map((item, index) => {
+          if (cTags.find(ctag => ctag == getFilterValue(item))) {
+            middleArr.push({ label: item, value: getFilterValue(item) })
+          }
+          if (index == basicMountingFilter.length - 1) {
+            setMountingFilter(middleArr);
+          }
+        })
+      }
+      if (basicBrandFilter && !brandFilter) {
+        const brands = basicBrandFilter.find(item => item.MainGroup.toLowerCase() == productType)
+        const basicArr = brands.BrandID.split(',');
+        let middleArr = [];
+        basicArr.map((item, index) => {
+          if (cTags.find(ctag => ctag == getFilterValue(item))) {
+            middleArr.push({ label: item, value: getFilterValue(item) })
+          }
+          if (index == basicArr.length - 1) {
+            setBrandFilter(middleArr);
+          }
+        })
+      }
+      if (basicStoneFilter && !stoneFilter) {
+        let stoneArr = [];
+        let counter = [];
+        for (const key in basicStoneFilter) {
+          if (Object.hasOwnProperty.call(basicStoneFilter, key)) {
+            let middleArr = [];
+            counter++;
+            const element = basicStoneFilter[key];
+            let itemArr = [];
+            if (element.length == 1) {
+              if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
+                middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+              }
+            } else {
+              element.map((item, index) => {
                 if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                  middleArr.push({ label: item, value: getFilterValue(item) })
+                  itemArr.push({ label: item, value: getFilterValue(item) })
                 }
-                if (index == valueArr.length - 1) {
-                  let filterArr = leftFilterItems;
-                  filterArr[3].filter = middleArr;
-                  setLeftFilterItems([...filterArr]);
+                if (index == element.length - 1) {
+                  if (itemArr.length) {
+                    if (itemArr.length == 1) {
+                      middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                    } else {
+                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                    }
+                  }
                 }
               })
-              fetch(brandURL, {
-                method: 'get',
-                headers,
+            }
+            stoneArr.push(...middleArr)
+            if (counter == _.size(basicStoneFilter)) {
+              setStoneFilter(stoneArr)
+            }
+          }
+        }
+      }
+      if (basicBrightnessFilter && !brightnessFilter) {
+        let brightnessArr = [];
+        let counter = [];
+        for (const key in basicBrightnessFilter) {
+          if (Object.hasOwnProperty.call(basicBrightnessFilter, key)) {
+            let middleArr = [];
+            const element = basicBrightnessFilter[key];
+            counter++;
+            let itemArr = [];
+            if (element.length == 1) {
+              if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
+                middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+              }
+            } else {
+              element.map((item, index) => {
+                if (cTags.find(ctag => ctag == getFilterValue(item))) {
+                  itemArr.push({ label: item, value: getFilterValue(item) })
+                }
+                if (index == element.length - 1) {
+                  if (itemArr.length) {
+                    if (itemArr.length == 1) {
+                      middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                    } else {
+                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                    }
+                  }
+                }
               })
-                .then((res) => res.json())
-                .then((brands) => {
-                  let middleArr = [];
-                  brands = brands.find(item => item.MainGroup.toLowerCase() == productType)
-                  let brandsArr = brands.BrandID.split(',');
-                  brandsArr.map((item, index) => {
-                    if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                      middleArr.push({ label: item, value: getFilterValue(item) })
+            }
+            brightnessArr.push(...middleArr)
+            if (counter == _.size(basicBrightnessFilter)) {
+              setBrightnessFilter(brightnessArr)
+            }
+          }
+        }
+      }
+      if (basicCutFilter && !cutFilter) {
+        let cutArr = [];
+        let counter = 0;
+        for (const key in basicCutFilter) {
+          if (Object.hasOwnProperty.call(basicCutFilter, key)) {
+            let middleArr = [];
+            const element = basicCutFilter[key];
+            counter++;
+            let itemArr = [];
+            if (element.length == 1) {
+              if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
+                middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+              }
+            } else {
+              element.map((item, index) => {
+                if (cTags.find(ctag => ctag == getFilterValue(item))) {
+                  itemArr.push({ label: item, value: getFilterValue(item) })
+                }
+                if (index == element.length - 1) {
+                  if (itemArr.length) {
+                    if (itemArr.length == 1) {
+                      middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                    } else {
+                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
                     }
-                    if (index == brandsArr.length - 1) {
-                      let filterArr = leftFilterItems;
-                      filterArr[4].filter = middleArr;
-                      setLeftFilterItems([...filterArr]);
+                  }
+                }
+              })
+            }
+            cutArr.push(...middleArr)
+            if (counter == _.size(basicCutFilter)) {
+              setCutFilter(cutArr)
+            }
+          }
+        }
+      }
+      if (basicMetarialFilter && !metarialFilter) {
+        let middleArr = [];
+        basicMetarialFilter.map((item, index) => {
+          if (item == '18k Gold') {
+            item = '18k'
+          } else if (item == '14k Gold') {
+            item = '14k'
+          }
+          if (cTags.find(ctag => ctag == getFilterValue(item))) {
+            middleArr.push({ label: item == '18k' ? '18k Gold' : item == '14k' ? '14k Gold' : item, value: getFilterValue(item) })
+          }
+          if (index == basicMetarialFilter.length - 1) {
+            setMetarialFilter(middleArr);
+          }
+        })
+      }
+      if (basicMaterialColorFilter && !materialColorFilter) {
+        let materialColorArr = [];
+        let counter = 0;
+        for (const key in basicMaterialColorFilter) {
+          if (Object.hasOwnProperty.call(basicMaterialColorFilter, key)) {
+            let middleArr = [];
+            counter++;
+            const element = basicMaterialColorFilter[key];
+            let itemArr = [];
+            if (element.length == 1) {
+              if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
+                middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+              }
+            } else {
+              element.map((item, index) => {
+                if (cTags.find(ctag => ctag == getFilterValue(item))) {
+                  itemArr.push({ label: item, value: getFilterValue(item) })
+                }
+                if (index == element.length - 1) {
+                  if (itemArr.length) {
+                    if (itemArr.length == 1) {
+                      middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                    } else {
+                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
                     }
-                  })
-                  fetch(stoneURL, {
-                    method: "get",
-                    headers,
-                  })
-                    .then((res) => res.json())
-                    .then((stones) => {
-                      let stoneArr = [];
-                      let counter = [];
-                      for (const key in stones) {
-                        if (Object.hasOwnProperty.call(stones, key)) {
-                          let middleArr = [];
-                          counter++;
-                          const element = stones[key];
-                          let itemArr = [];
-                          if (element.length == 1) {
-                            if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
-                              middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
-                            }
-                          } else {
-                            element.map((item, index) => {
-                              if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                                itemArr.push({ label: item, value: getFilterValue(item) })
-                              }
-                              if (index == element.length - 1) {
-                                if (itemArr.length) {
-                                  if (itemArr.length == 1) {
-                                    middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
-                                  } else {
-                                    middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
-                                  }
-                                }
-                              }
-                            })
-                          }
-                          stoneArr.push(...middleArr)
-                          if (counter == _.size(stones)) {
-                            let filterArr = leftFilterItems;
-                            filterArr[5].filter = stoneArr;
-                            setLeftFilterItems([...filterArr])
-                          }
-                        }
-                      }
-                      fetch(brightnessURL, {
-                        method: "get",
-                        headers,
-                      })
-                        .then((res) => res.json())
-                        .then((brightness) => {
-                          let brightnessArr = [];
-                          let counter = [];
-                          for (const key in brightness) {
-                            if (Object.hasOwnProperty.call(brightness, key)) {
-                              let middleArr = [];
-                              const element = brightness[key];
-                              counter++;
-                              let itemArr = [];
-                              if (element.length == 1) {
-                                if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
-                                  middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
-                                }
-                              } else {
-                                element.map((item, index) => {
-                                  if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                                    itemArr.push({ label: item, value: getFilterValue(item) })
-                                  }
-                                  if (index == element.length - 1) {
-                                    if (itemArr.length) {
-                                      if (itemArr.length == 1) {
-                                        middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
-                                      } else {
-                                        middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
-                                      }
-                                    }
-                                  }
-                                })
-                              }
-                              brightnessArr.push(...middleArr)
-                              if (counter == _.size(stones)) {
-                                let filterArr = leftFilterItems;
-                                filterArr[6].filter = brightnessArr;
-                                setLeftFilterItems([...filterArr])
-                              }
-                            }
-                          }
-                          fetch(cutURL, {
-                            method: "get",
-                            headers,
-                          })
-                            .then((res) => res.json())
-                            .then((cut) => {
-                              let cutArr = [];
-                              let counter = 0;
-                              for (const key in cut) {
-                                if (Object.hasOwnProperty.call(cut, key)) {
-                                  let middleArr = [];
-                                  const element = cut[key];
-                                  counter++;
-                                  let itemArr = [];
-                                  if (element.length == 1) {
-                                    if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
-                                      middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
-                                    }
-                                  } else {
-                                    element.map((item, index) => {
-                                      if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                                        itemArr.push({ label: item, value: getFilterValue(item) })
-                                      }
-                                      if (index == element.length - 1) {
-                                        if (itemArr.length) {
-                                          if (itemArr.length == 1) {
-                                            middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
-                                          } else {
-                                            middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
-                                          }
-                                        }
-                                      }
-                                    })
-                                  }
-                                  cutArr.push(...middleArr)
-                                  if (counter == _.size(cut)) {
-                                    let filterArr = leftFilterItems;
-                                    filterArr[7].filter = cutArr;
-                                    setLeftFilterItems([...filterArr])
-                                  }
-                                }
-                              }
-                              fetch(metarialURL, {
-                                method: "get",
-                                headers,
-                              })
-                                .then((res) => res.json())
-                                .then((metarial) => {
-                                  metarial = metarial[0].colorDesc;
-                                  let middleArr = [];
-                                  let valueArr = metarial.split(',');
-                                  valueArr.map((item, index) => {
-                                    if (item == '18k Gold') {
-                                      item = '18k'
-                                    } else if (item == '14k Gold') {
-                                      item = '14k'
-                                    }
-                                    if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                                      middleArr.push({ label: item == '18k' ? '18k Gold' : item == '14k' ? '14k Gold' : item, value: getFilterValue(item) })
-                                    }
-                                    if (index == valueArr.length - 1) {
-                                      let filterArr = leftFilterItems;
-                                      filterArr[8].filter = middleArr;
-                                      setLeftFilterItems([...filterArr]);
-                                    }
-                                  })
-
-                                  fetch(materialColorURL, {
-                                    method: "get",
-                                    headers,
-                                  })
-                                    .then((res) => res.json())
-                                    .then((materialColor) => {
-                                      let materialColorArr = [];
-                                      let counter = 0;
-                                      for (const key in materialColor) {
-                                        if (Object.hasOwnProperty.call(materialColor, key)) {
-                                          let middleArr = [];
-                                          counter++;
-                                          const element = materialColor[key];
-                                          let itemArr = [];
-                                          if (element.length == 1) {
-                                            if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
-                                              middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
-                                            }
-                                          } else {
-                                            element.map((item, index) => {
-                                              if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                                                itemArr.push({ label: item, value: getFilterValue(item) })
-                                              }
-                                              if (index == element.length - 1) {
-                                                if (itemArr.length) {
-                                                  if (itemArr.length == 1) {
-                                                    middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
-                                                  } else {
-                                                    middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
-                                                  }
-                                                }
-                                              }
-                                            })
-                                          }
-                                          materialColorArr.push(...middleArr)
-                                          if (counter == _.size(materialColor)) {
-                                            let filterArr = leftFilterItems;
-                                            filterArr[9].filter = materialColorArr;
-                                            setLeftFilterItems([...filterArr]);
-                                            leftFilterStore = [...filterArr];
-                                          }
-                                        }
-                                      }
-                                    })
-                                })
-                            })
-                        })
-                    })
-                })
-            })
-        });
+                  }
+                }
+              })
+            }
+            materialColorArr.push(...middleArr)
+            if (counter == _.size(basicMaterialColorFilter)) {
+              setMaterialColorFilter(materialColorArr);
+            }
+          }
+        }
+      }
     }
-  }, [cTags]);
+  }, [cTags, basicStyleFilter, basicMountingFilter, basicBrandFilter, basicStoneFilter, basicBrightnessFilter, basicCutFilter, basicMetarialFilter, basicMaterialColorFilter]);
 
   useEffect(() => {
     props.wishList &&
@@ -557,8 +623,10 @@ function Ring(props) {
                 if (index == data.tags.length - 1) {
                   setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
                   if (data.hasNextPage == 'No') {
-                    setResult(totalCounter + data.productsCount)
-                    setCTags([...cTagMiddleStore, ...middleArr])
+                    localResultCounter = totalCounter + data.productsCount
+                    setResult(localResultCounter)
+                    cTagData = [...cTagMiddleStore, ...middleArr]
+                    setCTags(cTagData)
                   }
                 }
               })
@@ -568,17 +636,13 @@ function Ring(props) {
             }
           })
       } else {
-        if (JSON.stringify(localTag) == JSON.stringify(tag) && localProductType == productType && leftFilterStore) {
-          setLeftFilterItems(leftFilterStore);
+        if (JSON.stringify(localTag) == JSON.stringify(tag) && localProductType == productType && cTagData) {
+          setCTags(cTagData);
         } else {
-          console.log(localTag, ":", tag, ",", localProductType, ":", productType)
           localTag = tag;
           localProductType = productType;
-          setLeftFilterItems(firstFilterItem);
-          setTotalCounter(0);
           setResult(0);
-          setCTagMiddleStore([]);
-          setCTagLastAdd(1);
+          console.log(cTags)
           let formData = new FormData();
           if (cTagLastAdd == 1) {
             formData.append('position', 'first:50');
@@ -602,8 +666,10 @@ function Ring(props) {
                   if (index == data.tags.length - 1) {
                     setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
                     if (data.hasNextPage == 'No') {
-                      setResult(totalCounter + data.productsCount)
-                      setCTags([...cTagMiddleStore, ...middleArr])
+                      localResultCounter = totalCounter + data.productsCount
+                      setResult(localResultCounter)
+                      cTagData = [...cTagMiddleStore, ...middleArr]
+                      setCTags(cTagData)
                     }
                   }
                 })
@@ -617,10 +683,6 @@ function Ring(props) {
       setFilterMounted(true);
     }
   }, [cTagLastAdd, productType, tag])
-
-  useEffect(() => {
-console.log(totalCounter)
-  }, [totalCounter])
 
   useEffect(() => {
     if (tag) {
@@ -838,28 +900,28 @@ console.log(totalCounter)
         </div>
         <div className="main-panel d-flex m-0 py-5 justify-content-end flex-wrap">
           <div className="col-lg-3 col-md-4 col-sm-5 col-12 d-sm-block d-none p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
-            {leftFilterItems.length && leftFilterItems.map((item, index) => {
+            {firstFilterItem.map((item, index) => {
               return (
                 <div className="accordion-item mb-3" key={index}>
                   <h2 className="accordion-header">
                     <button
                       className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                      data-bs-target={"#index" + index}
+                      data-bs-target={"#filter-" + index}
                       data-bs-toggle="collapse"
                     >
                       {item.title}
                     </button>
                   </h2>
                   <div
-                    id={"index" + index}
+                    id={"filter-" + index}
                     className="accordion-collapse collapse"
                   >
                     <div className="accordion-body">
                       <CheckboxTree
                         nodes={item.filter}
-                        checked={index == 0 ? checked0 : index == 1 ? checked1 : index == 2 ? checked2 : index == 3 ? checked3 : index == 4 ? checked4 : index == 5 ? checked5 : index == 6 ? checked6 : index == 7 ? checked7 : index == 8 ? checked8 : checked9}
+                        checked={index == 0 ? checked0 : checked1}
                         expanded={expanded}
-                        onCheck={checkValue => index == 0 ? setChecked0(checkValue) : index == 1 ? setChecked1(checkValue) : index == 2 ? setChecked2(checkValue) : index == 3 ? setChecked3(checkValue) : index == 4 ? setChecked4(checkValue) : index == 5 ? setChecked5(checkValue) : index == 6 ? setChecked6(checkValue) : index == 7 ? setChecked7(checkValue) : index == 8 ? setChecked8(checkValue) : setChecked9(checkValue)}
+                        onCheck={checkValue => index == 0 ? setChecked0(checkValue) : setChecked1(checkValue)}
                         onExpand={expandValue => setExpanded(expandValue)}
                         icons={checkTreeIcons}
                       />
@@ -868,6 +930,238 @@ console.log(totalCounter)
                 </div>
               );
             })}
+            {
+              styleFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#styleTree"
+                    data-bs-toggle="collapse"
+                  >
+                    style
+                  </button>
+                </h2>
+                <div
+                  id="styleTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={styleFilter}
+                      checked={checked2}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked2(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              mountingFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#mountingTree"
+                    data-bs-toggle="collapse"
+                  >
+                    mounting
+                  </button>
+                </h2>
+                <div
+                  id="mountingTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={mountingFilter}
+                      checked={checked3}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked3(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              brandFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#brandTree"
+                    data-bs-toggle="collapse"
+                  >
+                    brand
+                  </button>
+                </h2>
+                <div
+                  id="brandTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={mountingFilter}
+                      checked={checked4}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked4(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              stoneFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#stoneTree"
+                    data-bs-toggle="collapse"
+                  >
+                    stone
+                  </button>
+                </h2>
+                <div
+                  id="stoneTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={mountingFilter}
+                      checked={checked5}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked5(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              brightnessFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#brightnessTree"
+                    data-bs-toggle="collapse"
+                  >
+                    brightness
+                  </button>
+                </h2>
+                <div
+                  id="brightnessTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={brightnessFilter}
+                      checked={checked6}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked6(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              cutFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#cutTree"
+                    data-bs-toggle="collapse"
+                  >
+                    cut
+                  </button>
+                </h2>
+                <div
+                  id="cutTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={cutFilter}
+                      checked={checked7}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked7(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              metarialFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#metarialTree"
+                    data-bs-toggle="collapse"
+                  >
+                    metarial
+                  </button>
+                </h2>
+                <div
+                  id="metarialTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={metarialFilter}
+                      checked={checked8}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked8(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              materialColorFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#materialColorTree"
+                    data-bs-toggle="collapse"
+                  >
+                    materialColor
+                  </button>
+                </h2>
+                <div
+                  id="materialColorTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={materialColorFilter}
+                      checked={checked9}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked9(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
           </div>
           {/* {false ? ( */}
           {!load && productData && productData.length > 0 ? (
@@ -1131,28 +1425,6 @@ console.log(totalCounter)
           </div>
         </div>
         <div className="offcanvas-body r-container pt-2 p-0">
-          {/* <button
-            className="btn btn-price text-uppercase mt-3 round-form d-flex justify-content-between align-items-center px-4 py-3"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#shapeMenu"
-            aria-controls="shapeMenu"
-            onClick={handleMenuBtn}
-          >
-            shape
-            <RiArrowRightSLine />
-          </button>
-          <button
-            className="btn btn-price text-uppercase mt-3 round-form d-flex justify-content-between align-items-center px-4 py-3"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#styleMenu"
-            aria-controls="styleMenu"
-            onClick={handleMenuBtn}
-          >
-            style
-            <RiArrowRightSLine />
-          </button> */}
           <div className="r-container row pt-4">
             <div className="accordion-item mb-3">
               <h2 className="accordion-header">
@@ -1188,28 +1460,28 @@ console.log(totalCounter)
                 </div>
               </div>
             </div>
-            {leftFilterItems.length && leftFilterItems.map((item, index) => {
+            {firstFilterItem.map((item, index) => {
               return (
                 <div className="accordion-item mb-3" key={index}>
                   <h2 className="accordion-header">
                     <button
                       className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                      data-bs-target={"#index" + index}
+                      data-bs-target={"#filter-" + index}
                       data-bs-toggle="collapse"
                     >
                       {item.title}
                     </button>
                   </h2>
                   <div
-                    id={"index" + index}
+                    id={"filter-" + index}
                     className="accordion-collapse collapse"
                   >
                     <div className="accordion-body">
                       <CheckboxTree
                         nodes={item.filter}
-                        checked={index == 0 ? checked0 : index == 1 ? checked1 : index == 2 ? checked2 : index == 3 ? checked3 : index == 4 ? checked4 : index == 5 ? checked5 : index == 6 ? checked6 : index == 7 ? checked7 : index == 8 ? checked8 : checked9}
+                        checked={index == 0 ? checked0 : checked1}
                         expanded={expanded}
-                        onCheck={checkValue => index == 0 ? setChecked0(checkValue) : index == 1 ? setChecked1(checkValue) : index == 2 ? setChecked2(checkValue) : index == 3 ? setChecked3(checkValue) : index == 4 ? setChecked4(checkValue) : index == 5 ? setChecked5(checkValue) : index == 6 ? setChecked6(checkValue) : index == 7 ? setChecked7(checkValue) : index == 8 ? setChecked8(checkValue) : setChecked9(checkValue)}
+                        onCheck={checkValue => index == 0 ? setChecked0(checkValue) : setChecked1(checkValue)}
                         onExpand={expandValue => setExpanded(expandValue)}
                         icons={checkTreeIcons}
                       />
@@ -1218,6 +1490,238 @@ console.log(totalCounter)
                 </div>
               );
             })}
+            {
+              styleFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#styleTree"
+                    data-bs-toggle="collapse"
+                  >
+                    style
+                  </button>
+                </h2>
+                <div
+                  id="styleTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={styleFilter}
+                      checked={checked2}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked2(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              mountingFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#mountingTree"
+                    data-bs-toggle="collapse"
+                  >
+                    mounting
+                  </button>
+                </h2>
+                <div
+                  id="mountingTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={mountingFilter}
+                      checked={checked3}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked3(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              brandFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#brandTree"
+                    data-bs-toggle="collapse"
+                  >
+                    brand
+                  </button>
+                </h2>
+                <div
+                  id="brandTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={mountingFilter}
+                      checked={checked4}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked4(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              stoneFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#stoneTree"
+                    data-bs-toggle="collapse"
+                  >
+                    stone
+                  </button>
+                </h2>
+                <div
+                  id="stoneTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={mountingFilter}
+                      checked={checked5}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked5(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              brightnessFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#brightnessTree"
+                    data-bs-toggle="collapse"
+                  >
+                    brightness
+                  </button>
+                </h2>
+                <div
+                  id="brightnessTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={brightnessFilter}
+                      checked={checked6}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked6(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              cutFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#cutTree"
+                    data-bs-toggle="collapse"
+                  >
+                    cut
+                  </button>
+                </h2>
+                <div
+                  id="cutTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={cutFilter}
+                      checked={checked7}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked7(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              metarialFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#metarialTree"
+                    data-bs-toggle="collapse"
+                  >
+                    metarial
+                  </button>
+                </h2>
+                <div
+                  id="metarialTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={metarialFilter}
+                      checked={checked8}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked8(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              materialColorFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#materialColorTree"
+                    data-bs-toggle="collapse"
+                  >
+                    materialColor
+                  </button>
+                </h2>
+                <div
+                  id="materialColorTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={materialColorFilter}
+                      checked={checked9}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked9(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
           </div>
         </div>
       </div>
