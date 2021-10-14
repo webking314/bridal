@@ -748,7 +748,7 @@ function Header(props) {
                                     },
                                   } : item.url}
                                   key={id}>
-                                  <a data-bs-dismiss="offcanvas">
+                                  <a>
                                     {item.img ? (
                                       <div className="link-item my-5 d-flex align-items-center">
                                         <img
@@ -793,8 +793,8 @@ function Header(props) {
               );
             } else {
               return (
-                <Link passHref={true} href={submenu.url} key={index}>
-                  <a className="submenu py-4" data-bs-dismiss="offcanvas">{submenu.title}</a>
+                <Link passHref={true} href={submenu.url} data-bs-dismiss="offcanvas" key={index}>
+                  <a className="submenu py-4" >{submenu.title}</a>
                 </Link>
               );
             }

@@ -6,6 +6,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-size: 10px;
   padding-right: 0 !important;
+  overflow-y: unset !important;
 }
 
 a {
@@ -58,6 +59,13 @@ a {
   font-family: FreeSerif;
   src: url(/font/freeserif/FreeSerifItalic.ttf);
   font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: FreeSerif;
+  src: url(/font/freeserif/FreeSerif.ttf);
+  font-style: normal;
   font-weight: normal;
 }
 

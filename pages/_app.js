@@ -3,13 +3,15 @@ import GlobalContext from "../utils/global-context";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 import withRedux from "next-redux-wrapper";
-import Client from 'shopify-buy';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import { Modal, Button } from "react-bootstrap"
 import { RiCloseFill } from "react-icons/ri"
 config.autoAddCss = false;
+import Router from 'next/router';
+import NProgress from 'nprogress'; //nprogress module
+import 'nprogress/nprogress.css'; //styles of nprogress
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -49,6 +51,8 @@ import "../styles/pages/ringRecommend.scss";
 import "../styles/pages/product/index.scss";
 import "../styles/pages/collection/index.scss";
 import "../styles/pages/collection/detail.scss";
+// import "../styles/pages/our-experts.scss";
+// import "../styles/pages/buying-guide.scss";
 // import "../styles/pages/warranty.scss";
 // import "../styles/pages/tax-refund.scss";
 // import "../styles/pages/faq.scss";
@@ -70,6 +74,10 @@ import "../styles/pages/customRing/confirmSetting.scss";
 import "../styles/pages/customRing/chooseDiamond.scss";
 import "../styles/pages/customRing/confirmDiamond.scss";
 import "../styles/pages/customRing/confirmRing.scss";
+
+Router.events.on('routeChangeStart', () => NProgress.start()); 
+Router.events.on('routeChangeComplete', () => NProgress.done()); 
+Router.events.on('routeChangeError', () => NProgress.done());
 
 function MyApp({ Component, pageProps }) {
   const [show, setShow] = useState(false)

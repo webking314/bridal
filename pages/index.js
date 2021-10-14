@@ -8,7 +8,6 @@ import Schedule from "../components/schedule";
 import Collection from "../components/collection";
 import Help from "../components/help";
 import Instagram from "../components/instagram";
-import { data } from "dom7";
 
 const url = "https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/225800";
 const heroGradientStyle = "linear-gradient(180deg, #01215c 0%, rgba(1, 33, 92, 0) 50%),";

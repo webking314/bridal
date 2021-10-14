@@ -179,7 +179,7 @@ const checkTreeIcons = {
 }
 
 let productStore = [], lastProductStatus, leftFilterStore, check0 = [], check1 = [], check2 = [], check3 = [], check4 = [], check5 = [], check6 = [], check7 = [], check8 = [], check9 = [];
-let tagData;
+let tagData, localProductType, localTag = [];
 
 
 function Ring(props) {
@@ -264,7 +264,7 @@ function Ring(props) {
 
   useEffect(() => {
     if (cTags.length) {
-      // console.log(cTags)
+      console.log(cTags)
       fetch(styleURL, {
         method: 'get',
         headers,
@@ -532,6 +532,7 @@ function Ring(props) {
 
   useEffect(() => {
     if (productType) {
+      let defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
       if (filterMounted) {
         let formData = new FormData();
         if (cTagLastAdd == 1) {
@@ -539,7 +540,7 @@ function Ring(props) {
         } else {
           formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
         }
-        formData.append('query', 'status:active AND product_type:' + productType);
+        formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
         fetch(CTagURL, {
           method: 'post',
           body: formData,
@@ -567,17 +568,24 @@ function Ring(props) {
             }
           })
       } else {
-        if (leftFilterStore) {
+        if (JSON.stringify(localTag) == JSON.stringify(tag) && localProductType == productType && leftFilterStore) {
           setLeftFilterItems(leftFilterStore);
         } else {
+          console.log(localTag, ":", tag, ",", localProductType, ":", productType)
+          localTag = tag;
+          localProductType = productType;
+          setLeftFilterItems(firstFilterItem);
+          setTotalCounter(0);
+          setResult(0);
+          setCTagMiddleStore([]);
+          setCTagLastAdd(1);
           let formData = new FormData();
           if (cTagLastAdd == 1) {
             formData.append('position', 'first:50');
           } else {
             formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
           }
-          console.log(123, productType);
-          formData.append('query', 'status:active AND product_type:' + productType);
+          formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
           fetch(CTagURL, {
             method: 'post',
             body: formData,
@@ -608,7 +616,11 @@ function Ring(props) {
       }
       setFilterMounted(true);
     }
-  }, [cTagLastAdd, productType])
+  }, [cTagLastAdd, productType, tag])
+
+  useEffect(() => {
+console.log(totalCounter)
+  }, [totalCounter])
 
   useEffect(() => {
     if (tag) {
