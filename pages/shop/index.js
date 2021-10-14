@@ -416,7 +416,12 @@ function Ring(props) {
         })
       }
       if (basicBrandFilter && !brandFilter) {
-        const brands = basicBrandFilter.find(item => item.MainGroup.toLowerCase() == productType)
+        let brands;
+        if (productType) {
+          brands = basicBrandFilter.find(item => item.MainGroup.toLowerCase() == productType)
+        } else {
+          brands = basicBrandFilter.find(item => item.MainGroup.toLowerCase() == 'rings')
+        }
         const basicArr = brands.BrandID.split(',');
         let middleArr = [];
         basicArr.map((item, index) => {
@@ -597,8 +602,11 @@ function Ring(props) {
   }, [props.wishList])
 
   useEffect(() => {
-    if (productType) {
-      let defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
+    if (productType || router.asPath == "/shop") {
+      let defaultTags = '';
+      if (tag && tag.length) {
+        defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
+      }
       if (filterMounted) {
         let formData = new FormData();
         if (cTagLastAdd == 1) {
@@ -606,7 +614,12 @@ function Ring(props) {
         } else {
           formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
         }
-        formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
+        if (productType) {
+          formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
+        } else {
+          console.log(totalCounter)
+          formData.append('query', 'status:active' + defaultTags);
+        }
         fetch(CTagURL, {
           method: 'post',
           body: formData,
@@ -642,14 +655,21 @@ function Ring(props) {
           localTag = tag;
           localProductType = productType;
           setResult(0);
-          console.log(cTags)
           let formData = new FormData();
           if (cTagLastAdd == 1) {
             formData.append('position', 'first:50');
           } else {
             formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
           }
-          formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
+          if (productType) {
+            formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
+          } else {
+            if (defaultTags) {
+              formData.append('query', 'status:active' + defaultTags);
+            } else {
+              formData.append('query', 'status:active');
+            }
+          }
           fetch(CTagURL, {
             method: 'post',
             body: formData,
@@ -687,7 +707,7 @@ function Ring(props) {
   useEffect(() => {
     if (tag) {
       let defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
-      if (checked0 && mounted) {
+      if (checked0.length && mounted) {
         setLoad(true)
         check0 = checked0;
         check1 = checked1;
@@ -740,8 +760,8 @@ function Ring(props) {
           setFormData(data);
         }
       }
+      setMounted(true)
     }
-    setMounted(true)
   }, [checked0, checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9, tag])
 
   const setFavor = (event, product) => {
@@ -1006,7 +1026,7 @@ function Ring(props) {
                 >
                   <div className="accordion-body">
                     <CheckboxTree
-                      nodes={mountingFilter}
+                      nodes={brandFilter}
                       checked={checked4}
                       expanded={expanded}
                       onCheck={checkValue => setChecked4(checkValue)}
@@ -1035,7 +1055,7 @@ function Ring(props) {
                 >
                   <div className="accordion-body">
                     <CheckboxTree
-                      nodes={mountingFilter}
+                      nodes={stoneFilter}
                       checked={checked5}
                       expanded={expanded}
                       onCheck={checkValue => setChecked5(checkValue)}
