@@ -107,36 +107,32 @@ export default function Instagram() {
             }}
           >
             {instagramData && instagramData.map((item, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <Link passHref={true} href={item.permalink}>
-                    <a>
-                      <div className="image-panel hover-scale round">
-                        {
-                          item.media_type == "IMAGE"
-                            ? < img
-                              src={item.media_url}
-                              className="round"
-                              alt="gallery-img"
-                            />
-                            : <video
-                              autoPlay="autoplay"
-                              loop="loop"
-                              muted
-                              defaultmuted="defaultmuted"
-                              playsInline
-                              onContextMenu={() => false}
-                              preload="auto"
-                              className="bg_video"
-                            >
-                              <source src={item.media_url} type="video/mp4" />
-                            </video>
-                        }
-                      </div>
-                    </a>
-                  </Link>
-                </SwiperSlide>
-              );
+              if (index < 10)
+                return (
+                  <SwiperSlide key={index}>
+                    <Link passHref={true} href={item.permalink}>
+                      <a>
+                        <div className="image-panel hover-scale round">
+                          {
+                            item.media_type == "IMAGE"
+                              ? < img
+                                src={item.media_url}
+                                className="round"
+                                alt="gallery-img"
+                              />
+                              : <video
+                                playsInline
+                                onContextMenu={() => false}
+                                preload="auto"
+                              >
+                                <source src={item.media_url} type="video/mp4" />
+                              </video>
+                          }
+                        </div>
+                      </a>
+                    </Link>
+                  </SwiperSlide>
+                );
             })}
           </Swiper>
           <div className="btn-bottom-panel mt-sm-5 mt-0 pt-5" >
@@ -165,14 +161,9 @@ export default function Instagram() {
                               alt="gallery-img"
                             />
                             : <video
-                              autoPlay="autoplay"
-                              loop="loop"
-                              muted
-                              defaultmuted="defaultmuted"
                               playsInline
                               onContextMenu={() => false}
                               preload="auto"
-                              className="bg_video"
                             >
                               <source src={instagramData[0].media_url} type="video/mp4" />
                             </video>
@@ -183,7 +174,7 @@ export default function Instagram() {
                   </Link>
                 </div>
                 <div className="col-6 d-flex m-0 p-0">
-                  <Link passHref={true} href={instagramData[0].permalink}>
+                  <Link passHref={true} href={instagramData[1].permalink}>
                     <a className="instagram-link gallery-type-1">
                       <div className="gallery-item round">
                         {
@@ -194,14 +185,9 @@ export default function Instagram() {
                               alt="gallery-img"
                             />
                             : <video
-                              autoPlay="autoplay"
-                              loop="loop"
-                              muted
-                              defaultmuted="defaultmuted"
                               playsInline
                               onContextMenu={() => false}
                               preload="auto"
-                              className="bg_video"
                             >
                               <source src={instagramData[1].media_url} type="video/mp4" />
                             </video>
@@ -224,14 +210,9 @@ export default function Instagram() {
                             alt="gallery-img"
                           />
                           : <video
-                            autoPlay="autoplay"
-                            loop="loop"
-                            muted
-                            defaultmuted="defaultmuted"
                             playsInline
                             onContextMenu={() => false}
                             preload="auto"
-                            className="bg_video"
                           >
                             <source src={instagramData[2].media_url} type="video/mp4" />
                           </video>
@@ -257,14 +238,9 @@ export default function Instagram() {
                                 alt="gallery-img"
                               />
                               : <video
-                                autoPlay="autoplay"
-                                loop="loop"
-                                muted
-                                defaultmuted="defaultmuted"
                                 playsInline
                                 onContextMenu={() => false}
                                 preload="auto"
-                                className="bg_video"
                               >
                                 <source src={instagramData[3].media_url} type="video/mp4" />
                               </video>
@@ -286,14 +262,9 @@ export default function Instagram() {
                                 alt="gallery-img"
                               />
                               : <video
-                                autoPlay="autoplay"
-                                loop="loop"
-                                muted
-                                defaultmuted="defaultmuted"
                                 playsInline
                                 onContextMenu={() => false}
                                 preload="auto"
-                                className="bg_video"
                               >
                                 <source src={instagramData[4].media_url} type="video/mp4" />
                               </video>
@@ -316,14 +287,9 @@ export default function Instagram() {
                               alt="gallery-img"
                             />
                             : <video
-                              autoPlay="autoplay"
-                              loop="loop"
-                              muted
-                              defaultmuted="defaultmuted"
                               playsInline
                               onContextMenu={() => false}
                               preload="auto"
-                              className="bg_video"
                             >
                               <source src={instagramData[5].media_url} type="video/mp4" />
                             </video>
@@ -337,6 +303,106 @@ export default function Instagram() {
             </div>
           </div>
         }
+        {/* <div className="row gallery-panel d-md-flex d-none m-0 p-0">
+          <div className="col-md-6 col-12 m-0 p-0 d-flex flex-column justify-content-between">
+            <div className="row m-0 p-0">
+              <div className="col-6 d-flex m-0 p-0">
+                <Link passHref={true} href="#">
+                  <a className="instagram-link gallery-type-1">
+                    <div className="gallery-item round">
+                      < img
+                        src="/img/homepage/Rectangle 33.png"
+                        className="round"
+                        alt="gallery-img"
+                      />
+                      <div className="hover-panel"></div>
+                    </div>
+                  </a>
+                </Link>
+              </div>
+              <div className="col-6 d-flex m-0 p-0">
+                <Link passHref={true} href="#">
+                  <a className="instagram-link gallery-type-1">
+                    <div className="gallery-item round">
+                      < img
+                        src="/img/homepage/Rectangle 33.png"
+                        className="round"
+                        alt="gallery-img"
+                      />
+                      <div className="hover-panel"></div>
+                    </div>
+                  </a>
+                </Link>
+              </div>
+            </div>
+            <div className="row m-0 p-0">
+              <Link passHref={true} href="#">
+                <a className="instagram-link p-0 gallery-type-1">
+                  <div className="gallery-item round">
+                    <video
+                      playsInline
+                      onContextMenu={() => false}
+                      preload="auto"
+                    >
+                      <source src="video/video.mp4" type="video/mp4" />
+                    </video>
+                    <div className="hover-panel"></div>
+                  </div>
+                </a>
+              </Link>
+            </div>
+          </div>
+          <div className="col-md-6 col-12 p-0">
+            <div className="row m-0 p-0">
+              <div className="col-6 p-0">
+                <div className="row m-0 p-0">
+                  <Link passHref={true} href="#">
+                    <a className="instagram-link p-0 gallery-type-1">
+                      <div className="gallery-item round">
+                        < img
+                          src="/img/homepage/Rectangle 33.png"
+                          className="round"
+                          alt="gallery-img"
+                        />
+                        <div className="hover-panel"></div>
+                      </div>
+                    </a>
+                  </Link>
+                </div>
+                <div className="row m-0 p-0">
+                  <Link passHref={true} href="#">
+                    <a className="instagram-link p-0 gallery-type-1">
+                      <div className="gallery-item round">
+                        <video
+                          playsInline
+                          onContextMenu={() => false}
+                          preload="auto"
+                        >
+                          <source src="video/video.mp4" type="video/mp4" />
+                        </video>
+                        <div className="hover-panel"></div>
+                      </div>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+              <div className="col-6 d-flex p-0">
+                <Link passHref={true} href="#">
+                  <a className="instagram-link gallery-type-2">
+                    <div className="gallery-item round">
+                      < img
+                        src="/img/homepage/Rectangle 33.png"
+                        className="round"
+                        alt="gallery-img"
+                      />
+                      <div className="hover-panel"></div>
+                    </div>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div> */}
         <button className="btn round-form mt-5 px-5 py-3 follow-btn blue-outline-btn">
           Follow @Costerdiamondsofficial
         </button>

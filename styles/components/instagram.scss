@@ -34,6 +34,7 @@ $titleSize: 7.2rem;
     .gallery-type-1 {
       img, video {
         height: calc((100vw - 330px) / 4);
+        max-height: 300px;
         @media (max-width: 1400px) {
           height: calc(90vw / 4);
         }
@@ -52,6 +53,7 @@ $titleSize: 7.2rem;
     }
     a {
       padding: 10px !important;
+      width: 100%;
     }
     .gallery-item {
       position: relative;
@@ -90,6 +92,7 @@ $titleSize: 7.2rem;
       }
       video {
         width: 100%;
+        background: rgb(18, 38, 61);
       }
       img {
         width: 100%;
