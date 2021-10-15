@@ -27,125 +27,125 @@ export default function Instagram() {
 
   return (
     <div className="instagram pb-5">
-      <div className="r-container">
-        <div className="row mx-0 mb-5 text-panel">
-          <div className="col-md-6 col-12 p-0">
-            <h1 className="m-0 text-capitalize">
-              Follow us on <div>Instagram</div>
-            </h1>
-          </div>
-          <div className="col-md-6 col-12 p-0 d-flex flex-column justify-content-end link-panel">
-            <div className="mx-0 text-md-end text-start">
-              Follow{" "}
-              <Link passHref={true} href="#">
-                <a className="text-primary">#Royalcoster</a>
-              </Link>{" "}
-              @Instagram For
+      {
+        instagramData &&
+        <div className="r-container">
+          <div className="row mx-0 mb-5 text-panel">
+            <div className="col-md-6 col-12 p-0">
+              <h1 className="m-0 text-capitalize">
+                Follow us on <div>Instagram</div>
+              </h1>
             </div>
-            <div className="mx-0 text-md-end text-start">
-              <Link passHref={true} href="#">
-                <a className="text-primary">#Diamondstories</a>
-              </Link>
-              ,{" "}
-              <Link passHref={true} href="#">
-                <a className="text-primary">#Inspiration</a>
-              </Link>{" "}
-              &{" "}
-              <Link passHref={true} href="#">
-                <a className="text-primary">#Amsterdiamonds</a>
-              </Link>
+            <div className="col-md-6 col-12 p-0 d-flex flex-column justify-content-end link-panel">
+              <div className="mx-0 text-md-end text-start">
+                Follow{" "}
+                <Link passHref={true} href="#">
+                  <a className="text-primary">#Royalcoster</a>
+                </Link>{" "}
+                @Instagram For
+              </div>
+              <div className="mx-0 text-md-end text-start">
+                <Link passHref={true} href="#">
+                  <a className="text-primary">#Diamondstories</a>
+                </Link>
+                ,{" "}
+                <Link passHref={true} href="#">
+                  <a className="text-primary">#Inspiration</a>
+                </Link>{" "}
+                &{" "}
+                <Link passHref={true} href="#">
+                  <a className="text-primary">#Amsterdiamonds</a>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-        {/* <div className="instagram-feed-panel">
+          {/* <div className="instagram-feed-panel">
           <InstagramFeed token="IGQVJYWjhoWlB5SGIzSU9NTndXODBya1pCZAWxWbGt1NmNQNUdHSnFrakoyd1hjUFJSZAHJDU1MxQ3BQOC1qWmM1X2s0TzZAockVFRm5fTUsyRTA5MDlkT3NNdURlNnNyWFFraUg2cUpVRE9zV2RvWmxSTQZDZD" counter="8" />
         </div> */}
-        <div className="d-md-none d-block instagram-slider-panel">
-          <Swiper
-            navigation={{
-              prevEl: navigationPrevRef.current,
-              nextEl: navigationNextRef.current,
-            }}
-            slidesPerView={3}
-            spaceBetween={30}
-            loop={true}
-            className="about-slider"
-            breakpoints={{
-              1024: {
-                slidesPerView: 3,
-              },
-              990: {
-                slidesPerView: 2.8,
-              },
-              768: {
-                slidesPerView: 2.4,
-              },
-              480: {
-                slidesPerView: 1,
-              },
-              1: {
-                slidesPerView: 1,
-              },
-            }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            onSwiper={(swiper) => {
-              // Delay execution for the refs to be defined
-              setTimeout(() => {
-                // Override prevEl & nextEl now that refs are defined
-                swiper.params.navigation.prevEl = navigationPrevRef.current;
-                swiper.params.navigation.nextEl = navigationNextRef.current;
+          <div className="d-md-none d-block instagram-slider-panel">
+            <Swiper
+              navigation={{
+                prevEl: navigationPrevRef.current,
+                nextEl: navigationNextRef.current,
+              }}
+              slidesPerView={3}
+              spaceBetween={30}
+              loop={true}
+              className="about-slider"
+              breakpoints={{
+                1024: {
+                  slidesPerView: 3,
+                },
+                990: {
+                  slidesPerView: 2.8,
+                },
+                768: {
+                  slidesPerView: 2.4,
+                },
+                480: {
+                  slidesPerView: 1,
+                },
+                1: {
+                  slidesPerView: 1,
+                },
+              }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              onSwiper={(swiper) => {
+                // Delay execution for the refs to be defined
+                setTimeout(() => {
+                  // Override prevEl & nextEl now that refs are defined
+                  swiper.params.navigation.prevEl = navigationPrevRef.current;
+                  swiper.params.navigation.nextEl = navigationNextRef.current;
 
-                // Re-init navigation
-                swiper.navigation.destroy();
-                swiper.navigation.init();
-                swiper.navigation.update();
-              });
-            }}
-          >
-            {instagramData && instagramData.map((item, index) => {
-              if (index < 10)
-                return (
-                  <SwiperSlide key={index}>
-                    <Link passHref={true} href={item.permalink}>
-                      <a>
-                        <div className="image-panel hover-scale round">
-                          {
-                            item.media_type == "IMAGE"
-                              ? < img
-                                src={item.media_url}
-                                className="round"
-                                alt="gallery-img"
-                              />
-                              : <video
-                                playsInline
-                                onContextMenu={() => false}
-                                preload="auto"
-                              >
-                                <source src={item.media_url} type="video/mp4" />
-                              </video>
-                          }
-                        </div>
-                      </a>
-                    </Link>
-                  </SwiperSlide>
-                );
-            })}
-          </Swiper>
-          <div className="btn-bottom-panel mt-sm-5 mt-0 pt-5" >
-            <button ref={navigationPrevRef} className="btn px-0 me-5">
-              <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
-            </button>
-            <button ref={navigationNextRef} className="btn px-0">
-              <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
-            </button>
+                  // Re-init navigation
+                  swiper.navigation.destroy();
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+                });
+              }}
+            >
+              {instagramData && instagramData.map((item, index) => {
+                if (index < 10)
+                  return (
+                    <SwiperSlide key={index}>
+                      <Link passHref={true} href={item.permalink}>
+                        <a>
+                          <div className="image-panel hover-scale round">
+                            {
+                              item.media_type == "IMAGE"
+                                ? < img
+                                  src={item.media_url}
+                                  className="round"
+                                  alt="gallery-img"
+                                />
+                                : <video
+                                  playsInline
+                                  onContextMenu={() => false}
+                                  preload="auto"
+                                >
+                                  <source src={item.media_url} type="video/mp4" />
+                                </video>
+                            }
+                          </div>
+                        </a>
+                      </Link>
+                    </SwiperSlide>
+                  );
+              })}
+            </Swiper>
+            <div className="btn-bottom-panel mt-sm-5 mt-0 pt-5" >
+              <button ref={navigationPrevRef} className="btn px-0 me-5">
+                <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
+              </button>
+              <button ref={navigationNextRef} className="btn px-0">
+                <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
+              </button>
+            </div>
           </div>
-        </div>
-        {
-          instagramData &&
           <div className="row gallery-panel d-md-flex d-none m-0 p-0">
             <div className="col-md-6 col-12 m-0 p-0 d-flex flex-column justify-content-between">
               <div className="row m-0 p-0">
@@ -302,8 +302,7 @@ export default function Instagram() {
               </div>
             </div>
           </div>
-        }
-        {/* <div className="row gallery-panel d-md-flex d-none m-0 p-0">
+          {/* <div className="row gallery-panel d-md-flex d-none m-0 p-0">
           <div className="col-md-6 col-12 m-0 p-0 d-flex flex-column justify-content-between">
             <div className="row m-0 p-0">
               <div className="col-6 d-flex m-0 p-0">
@@ -403,10 +402,11 @@ export default function Instagram() {
             </div>
           </div>
         </div> */}
-        <button className="btn round-form mt-5 px-5 py-3 follow-btn blue-outline-btn">
-          Follow @Costerdiamondsofficial
-        </button>
-      </div>
+          <button className="btn round-form mt-5 px-5 py-3 follow-btn blue-outline-btn">
+            Follow @Costerdiamondsofficial
+          </button>
+        </div>
+      }
     </div>
   );
 }
