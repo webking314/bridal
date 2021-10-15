@@ -137,31 +137,23 @@ const firstFilterItem = [
   {
     title: "price", filter: [
       { label: "To €500", value: "to-500" },
-      { label: "€1000 - €1499", value: "1000-1499" },
-      { label: "€1500 - €2499", value: "1500-2499" },
-      { label: "€2500 - €4999", value: "2500-4999" },
-      { label: "€5000 - €9999", value: "5000-9999" },
+      { label: "€1000 - €1499", value: "-1000-1499" },
+      { label: "€1500 - €2499", value: "-1500-2499" },
+      { label: "€2500 - €4999", value: "-2500-4999" },
+      { label: "€5000 - €9999", value: "-5000-9999" },
       { label: "More than €10000", value: "more-than-10000" },
     ]
   },
   {
     title: "collection", filter: [
-      { label: "Empress Collection", value: "empress-collection" },
-      { label: "Rainbow Collection", value: "rainbow-collection" },
-      { label: "Luna Collection", value: "luna-collection" },
-      { label: "Touch of Glam Collection", value: "touch-of-glam-collection" },
-      { label: "Wedding Rings Collection", value: "wedding-rings-collection" },
+      { label: "Empress Collection", value: "empress-collectie" },
+      { label: "Rainbow Collection", value: "rainbow-collectie" },
+      { label: "Luna Collection", value: "luna-collectie" },
+      { label: "Touch of Glam Collection", value: "touch-of-glam" },
+      { label: "Wedding Rings Collection", value: "wedding-rings-collectie" },
       { label: "NIKKIE x Royal Coster Diamonds", value: "nikkie-x-royal-coster-diamonds" },
     ]
   },
-  // { title: "style", filter: [] },
-  // { title: "mounting", filter: [] },
-  // { title: "brand", filter: [] },
-  // { title: "stone", filter: [] },
-  // { title: "brightness", filter: [] },
-  // { title: "cut", filter: [] },
-  // { title: "material", filter: [] },
-  // { title: "material color", filter: [] },
 ]
 
 const checkTreeIcons = {
@@ -219,6 +211,8 @@ function Ring(props) {
   const [basicMetarialFilter, setBasicMetarialFilter] = useState();
   const [basicMaterialColorFilter, setBasicMaterialColorFilter] = useState();
 
+  const [priceFilter, setPriceFilter] = useState();
+  const [collectionFilter, setCollectionFilter] = useState();
   const [styleFilter, setStyleFilter] = useState();
   const [mountingFilter, setMountingFilter] = useState();
   const [brandFilter, setBrandFilter] = useState();
@@ -393,7 +387,30 @@ function Ring(props) {
 
   useEffect(() => {
     if (cTags.length) {
-      if (basicStyleFilter && !styleFilter) {
+      if (firstFilterItem[0]) {
+        let middleArr = [];
+        firstFilterItem[0].filter.map((item, index) => {
+          if (cTags.find(ctag => ctag == item.value)) {
+            middleArr.push({ label: item.label, value: item.value })
+          }
+        })
+        setPriceFilter(middleArr);
+      }
+      if (firstFilterItem[1]) {
+        let middleArr = [];
+        firstFilterItem[1].filter.map((item, index) => {
+          if (cTags.find(ctag => ctag == item.value)) {
+            middleArr.push({ label: item.label, value: item.value })
+          }
+        })
+        setCollectionFilter(middleArr);
+      }
+    }
+  }, [cTags]);
+
+  useEffect(() => {
+    if (cTags.length) {
+      if (basicStyleFilter) {
         let middleArr = [];
         basicStyleFilter.map((item, index) => {
           if (cTags.find(ctag => ctag == getFilterValue(item))) {
@@ -404,7 +421,12 @@ function Ring(props) {
           }
         })
       }
-      if (basicMountingFilter && !mountingFilter) {
+    }
+  }, [cTags, basicStyleFilter]);
+
+  useEffect(() => {
+    if (cTags.length) {
+      if (basicMountingFilter) {
         let middleArr = [];
         basicMountingFilter.map((item, index) => {
           if (cTags.find(ctag => ctag == getFilterValue(item))) {
@@ -415,7 +437,12 @@ function Ring(props) {
           }
         })
       }
-      if (basicBrandFilter && !brandFilter) {
+    }
+  }, [cTags, basicMountingFilter]);
+
+  useEffect(() => {
+    if (cTags.length) {
+      if (basicBrandFilter) {
         let brands;
         if (productType) {
           brands = basicBrandFilter.find(item => item.MainGroup.toLowerCase() == productType)
@@ -433,7 +460,12 @@ function Ring(props) {
           }
         })
       }
-      if (basicStoneFilter && !stoneFilter) {
+    }
+  }, [cTags, basicBrandFilter]);
+
+  useEffect(() => {
+    if (cTags.length) {
+      if (basicStoneFilter) {
         let stoneArr = [];
         let counter = [];
         for (const key in basicStoneFilter) {
@@ -469,7 +501,12 @@ function Ring(props) {
           }
         }
       }
-      if (basicBrightnessFilter && !brightnessFilter) {
+    }
+  }, [cTags, basicStoneFilter]);
+
+  useEffect(() => {
+    if (cTags.length) {
+      if (basicBrightnessFilter) {
         let brightnessArr = [];
         let counter = [];
         for (const key in basicBrightnessFilter) {
@@ -505,7 +542,12 @@ function Ring(props) {
           }
         }
       }
-      if (basicCutFilter && !cutFilter) {
+    }
+  }, [cTags, basicBrightnessFilter]);
+
+  useEffect(() => {
+    if (cTags.length) {
+      if (basicCutFilter) {
         let cutArr = [];
         let counter = 0;
         for (const key in basicCutFilter) {
@@ -541,7 +583,12 @@ function Ring(props) {
           }
         }
       }
-      if (basicMetarialFilter && !metarialFilter) {
+    }
+  }, [cTags, basicMetarialFilter]);
+
+  useEffect(() => {
+    if (cTags.length) {
+      if (basicMetarialFilter) {
         let middleArr = [];
         basicMetarialFilter.map((item, index) => {
           if (item == '18k Gold') {
@@ -557,7 +604,12 @@ function Ring(props) {
           }
         })
       }
-      if (basicMaterialColorFilter && !materialColorFilter) {
+    }
+  }, [cTags, basicMetarialFilter]);
+
+  useEffect(() => {
+    if (cTags.length) {
+      if (basicMaterialColorFilter) {
         let materialColorArr = [];
         let counter = 0;
         for (const key in basicMaterialColorFilter) {
@@ -594,7 +646,7 @@ function Ring(props) {
         }
       }
     }
-  }, [cTags, basicStyleFilter, basicMountingFilter, basicBrandFilter, basicStoneFilter, basicBrightnessFilter, basicCutFilter, basicMetarialFilter, basicMaterialColorFilter]);
+  }, [cTags, basicMaterialColorFilter]);
 
   useEffect(() => {
     props.wishList &&
@@ -617,7 +669,6 @@ function Ring(props) {
         if (productType) {
           formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
         } else {
-          console.log(totalCounter)
           formData.append('query', 'status:active' + defaultTags);
         }
         fetch(CTagURL, {
@@ -635,11 +686,11 @@ function Ring(props) {
                 }
                 if (index == data.tags.length - 1) {
                   setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
+                  cTagData = [...cTagMiddleStore, ...middleArr]
+                  setCTags(cTagData)
                   if (data.hasNextPage == 'No') {
                     localResultCounter = totalCounter + data.productsCount
                     setResult(localResultCounter)
-                    cTagData = [...cTagMiddleStore, ...middleArr]
-                    setCTags(cTagData)
                   }
                 }
               })
@@ -707,7 +758,7 @@ function Ring(props) {
   useEffect(() => {
     if (tag) {
       let defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
-      if (checked0.length && mounted) {
+      if (checked0.length || mounted) {
         setLoad(true)
         check0 = checked0;
         check1 = checked1;
@@ -858,7 +909,7 @@ function Ring(props) {
       {/* Start hero section */}
       <div className="hero-section">
         <div className="r-container">
-          <h1 className="title text-white">Rings</h1>
+          <h1 className="title text-white text-capitalize">{productType ? productType : "rings"}</h1>
         </div>
       </div>
       {/* End Hero section */}
@@ -867,7 +918,7 @@ function Ring(props) {
       <div className="product-section r-container py-4">
         <div className="top-bar row align-items-center m-0 py-3">
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
-            {tag && <h2 className="text-capitalize">{productType ? tag + " " + productType : "product"}</h2>}
+            {tag && <h2 className="text-capitalize">{productType ? tag + " " + productType : "rings"}</h2>}
             <p className="text-uppercase">{result} results</p>
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
@@ -920,36 +971,64 @@ function Ring(props) {
         </div>
         <div className="main-panel d-flex m-0 py-5 justify-content-end flex-wrap">
           <div className="col-lg-3 col-md-4 col-sm-5 col-12 d-sm-block d-none p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
-            {firstFilterItem.map((item, index) => {
-              return (
-                <div className="accordion-item mb-3" key={index}>
-                  <h2 className="accordion-header">
-                    <button
-                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                      data-bs-target={"#filter-" + index}
-                      data-bs-toggle="collapse"
-                    >
-                      {item.title}
-                    </button>
-                  </h2>
-                  <div
-                    id={"filter-" + index}
-                    className="accordion-collapse collapse"
+            {
+              priceFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#priceTree"
+                    data-bs-toggle="collapse"
                   >
-                    <div className="accordion-body">
-                      <CheckboxTree
-                        nodes={item.filter}
-                        checked={index == 0 ? checked0 : checked1}
-                        expanded={expanded}
-                        onCheck={checkValue => index == 0 ? setChecked0(checkValue) : setChecked1(checkValue)}
-                        onExpand={expandValue => setExpanded(expandValue)}
-                        icons={checkTreeIcons}
-                      />
-                    </div>
+                    price
+                  </button>
+                </h2>
+                <div
+                  id="priceTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={priceFilter}
+                      checked={checked0}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked0(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            }
+            {
+              collectionFilter &&
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#collectionTree"
+                    data-bs-toggle="collapse"
+                  >
+                    collection
+                  </button>
+                </h2>
+                <div
+                  id="collectionTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={collectionFilter}
+                      checked={checked1}
+                      expanded={expanded}
+                      onCheck={checkValue => setChecked1(checkValue)}
+                      onExpand={expandValue => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
             {
               styleFilter &&
               <div className="accordion-item mb-3">
