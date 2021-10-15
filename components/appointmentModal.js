@@ -63,6 +63,11 @@ const contactMethods = [
   { title: "Phonecall " },
 ];
 
+const toggleDatePicker = (e) => {
+  console.log("toggle!")
+  e.target.closest("#timeDate").classList.toggle("visible");
+};
+
 export default function AppointmentModal() {
   const [contactMethod, setContactMethod] = useState(0);
   const [language, setLanguage] = useState();
@@ -130,11 +135,6 @@ export default function AppointmentModal() {
     onChange: PropTypes.func.isRequired,
   };
 
-  const toggleDatePicker = (e) => {
-    console.log("toggle!")
-    e.target.closest("#timeDate").classList.toggle("visible");
-  };
-
   useEffect(() => {
     setDisDate(dateFormat(preDate, "dddd  d,  mmmm  yyyy"));
   }, [preDate]);
@@ -143,7 +143,8 @@ export default function AppointmentModal() {
     if (typeof document !== undefined) {
       document.addEventListener("click", (e) => {
         if (e.target.closest(".react-calendar__month-view__days__day") && e.target.closest("#timeDate")) {
-          toggleDatePicker(e);
+          if (e.target.closest("#timeDate").classList.contains("visible"))
+            e.target.closest("#timeDate").classList.remove("visible");
         }
       });
     }
@@ -175,11 +176,11 @@ export default function AppointmentModal() {
 
   const checkingService = (e) => {
     const value = e.target.innerText;
-    // document.querySelectorAll(".option-item").forEach((item) => {
-    //   if (item.classList.contains("active")) item.classList.remove("active");
-    // });
-    // if (!e.target.closest(".option-item").classList.contains("active"))
-    e.target.closest(".option-item").classList.toggle("active");
+    document.querySelectorAll(".option-item").forEach((item) => {
+      if (item.classList.contains("active")) item.classList.remove("active");
+    });
+    if (!e.target.closest(".option-item").classList.contains("active"))
+      e.target.closest(".option-item").classList.toggle("active");
     if (step3) setStep3(false);
     if (!service.find(item => item == value)) {
       setService([...service, value]);
@@ -187,10 +188,10 @@ export default function AppointmentModal() {
       service.splice(service.indexOf(value), 1)
       setService([...service])
     }
-    // document.querySelector("#service").classList.remove("show", "active");
-    // document.querySelector("#timeDate").classList.add("show", "active");
-    // document.querySelector("#service-tab").classList.remove("active");
-    // document.querySelector("#timeDate-tab").classList.add("active");
+    document.querySelector("#service").classList.remove("show", "active");
+    document.querySelector("#timeDate").classList.add("show", "active");
+    document.querySelector("#service-tab").classList.remove("active");
+    document.querySelector("#timeDate-tab").classList.add("active");
   };
 
   const sendRequest = () => {
