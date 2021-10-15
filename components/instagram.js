@@ -45,7 +45,7 @@ export default function Instagram() {
             </div>
           </div>
         </div>
-        <InstagramFeed token="IGQVJYWjhoWlB5SGIzSU9NTndXODBya1pCZAWxWbGt1NmNQNUdHSnFrakoyd1hjUFJSZAHJDU1MxQ3BQOC1qWmM1X2s0TzZAockVFRm5fTUsyRTA5MDlkT3NNdURlNnNyWFFraUg2cUpVRE9zV2RvWmxSTQZDZD"  counter="6"/>
+        <InstagramFeed token="IGQVJYWjhoWlB5SGIzSU9NTndXODBya1pCZAWxWbGt1NmNQNUdHSnFrakoyd1hjUFJSZAHJDU1MxQ3BQOC1qWmM1X2s0TzZAockVFRm5fTUsyRTA5MDlkT3NNdURlNnNyWFFraUg2cUpVRE9zV2RvWmxSTQZDZD"  counter="8"/>
         {/* <div className="d-md-none d-block instagram-slider-panel">
           <AboutSlider componentProduct={true} slides={instagramItems} />
         </div>
