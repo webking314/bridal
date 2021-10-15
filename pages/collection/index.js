@@ -41,43 +41,50 @@ const collectionData = [
     title: "Rainbow Collection",
     description: "All the colors of rain and sunshine",
     image: "/img/collection/item-1.png",
-    subImage: "/img/collection/sub-item-1.png"
+    subImage: "/img/collection/sub-item-1.png",
+    slug: "rainbow-collectie"
   },
   {
     title: "Empress Collection",
     description: "‘The City of Diamonds” As an homage to this unique visitor, we created the Empress Collection. A tribute to a very special woman.",
     image: "/img/collection/item-2.png",
-    subImage: "/img/collection/sub-item-2.png"
+    subImage: "/img/collection/sub-item-2.png",
+    slug: "empress-collectie"
   },
   {
     title: "Diamond Petals Spring Collection",
     description: "Spring brings along fresh hope, enthusiasm of new beginnings and the promise of renewal as nature bursts to life....",
     image: "/img/collection/item-3.png",
-    subImage: "/img/collection/sub-item-3.png"
+    subImage: "/img/collection/sub-item-3.png",
+    slug: "rainbow-collectie"
   },
   {
     title: "The Royal 201 Collection",
     description: "More facets, more sparkle, more fire! The regular brilliant cut with 57 facets was introduced in the 1920’s. For many years,...",
     image: "/img/collection/item-4.png",
-    subImage: "/img/collection/sub-item-4.png"
+    subImage: "/img/collection/sub-item-4.png",
+    slug: "rainbow-collectie"
   },
   {
     title: "Touch of Glam ",
     description: "This collection of diamond jewelry focuses on the youthful woman. The jewels exude refined luxury and elegance and tell the story of who you are. ",
     image: "/img/collection/item-5.png",
-    subImage: "/img/collection/sub-item-5.png"
+    subImage: "/img/collection/sub-item-5.png",
+    slug: "touch-of-glam"
   },
   {
     title: "NIKKIE x Royal Coster Diamonds",
     description: "The  Diamonds by NIKKIE x Royal Coster Diamonds  collection is a classic and timeless diamond line for young and old. Diamonds...",
     image: "/img/collection/item-6.png",
-    subImage: "/img/collection/sub-item-6.png"
+    subImage: "/img/collection/sub-item-6.png",
+    slug: "nikkie-x-royal-coster-diamonds"
   },
   {
     title: "Watches Collection",
     description: "This collection of diamond jewelry focuses on the youthful woman. The jewels exude refined luxury and elegance and tell the story of who you are.",
     image: "/img/collection/item-7.png",
-    subImage: "/img/collection/sub-item-7.png"
+    subImage: "/img/collection/sub-item-7.png",
+    slug: "rainbow-collectie"
   },
 ]
 
@@ -99,7 +106,7 @@ export default function Collection() {
           <h1 className="title text-white text-center text-capitalize pb-md-5">
             Our Collections
           </h1>
-          <button className="btn btn-play p-0 mt-sm-5"><RiPlayCircleFill/></button>
+          <button className="btn btn-play p-0 mt-sm-5"><RiPlayCircleFill /></button>
         </div>
       </div>
 
@@ -131,7 +138,19 @@ export default function Collection() {
                   <h3 className="title mx-lg-5 px-md-5 mb-5 blue-text">{collection.title}</h3>
                   <p className="description mx-lg-5 px-md-5 pb-5 mb-0">{collection.description}</p>
                   <div className="btn-panel mt-md-5 mx-lg-5 px-5">
-                    <button className="btn btn-explore px-5 py-3">EXPLORE</button>
+                    <Link
+                      passHref={true}
+                      href={{
+                        pathname: "/collection/[slug]",
+                        query: {
+                          slug: collection.slug,
+                        },
+                      }}
+                    >
+                      <a className="btn btn-explore px-5 py-3">
+                        EXPLORE
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </div>

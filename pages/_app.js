@@ -53,6 +53,7 @@ import "../styles/pages/collection/index.scss";
 import "../styles/pages/collection/detail.scss";
 // import "../styles/pages/our-experts.scss";
 // import "../styles/pages/buying-guide.scss";
+// import "../styles/pages/diamond-buying-guide.scss";
 // import "../styles/pages/warranty.scss";
 // import "../styles/pages/tax-refund.scss";
 // import "../styles/pages/faq.scss";
