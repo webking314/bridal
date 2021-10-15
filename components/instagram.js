@@ -1,5 +1,7 @@
 import Link from "next/link";
 import AboutSlider from "./aboutSlider";
+import InstagramFeed  from 'react-ig-feed'
+import 'react-ig-feed/dist/index.css'
 
 const instagramItems = [
   { img: "/img/homepage/Rectangle 34.png" },
@@ -43,7 +45,8 @@ export default function Instagram() {
             </div>
           </div>
         </div>
-        <div className="d-md-none d-block instagram-slider-panel">
+        <InstagramFeed token="IGQVJYWjhoWlB5SGIzSU9NTndXODBya1pCZAWxWbGt1NmNQNUdHSnFrakoyd1hjUFJSZAHJDU1MxQ3BQOC1qWmM1X2s0TzZAockVFRm5fTUsyRTA5MDlkT3NNdURlNnNyWFFraUg2cUpVRE9zV2RvWmxSTQZDZD"  counter="6"/>
+        {/* <div className="d-md-none d-block instagram-slider-panel">
           <AboutSlider componentProduct={true} slides={instagramItems} />
         </div>
         <div className="row gallery-panel d-md-flex d-none m-0 p-0">
@@ -60,7 +63,6 @@ export default function Instagram() {
                       />
                       <div className="hover-panel"></div>
                     </div>
-                    {/* <img src="/img/homepage/Rectangle 34.png" alt="gallery-img" /> */}
                   </a>
                 </Link>
               </div>
@@ -75,7 +77,6 @@ export default function Instagram() {
                       />
                       <div className="hover-panel"></div>
                     </div>
-                    {/* <img src="/img/homepage/Rectangle 38.png"  className="round" alt="gallery-img" /> */}
                   </a>
                 </Link>
               </div>
@@ -91,7 +92,6 @@ export default function Instagram() {
                     />
                     <div className="hover-panel"></div>
                   </div>
-                  {/* <img src="/img/homepage/Rectangle 37.png"  className="round" alt="gallery-img" /> */}
                 </a>
               </Link>
             </div>
@@ -110,14 +110,12 @@ export default function Instagram() {
                         />
                         <div className="hover-panel"></div>
                       </div>
-                      {/* <img src="/img/homepage/Rectangle 36.png"  className="round" alt="gallery-img" /> */}
                     </a>
                   </Link>
                 </div>
                 <div className="row m-0 p-0">
                   <Link  passHref={true} href="#">
                     <a className="instagram-link p-0 gallery-type-1">
-                      {/* <img src="/img/homepage/Rectangle 35.png"  className="round" alt="gallery-img" /> */}
                       <div className="gallery-item round">
                         <img
                           src="/img/homepage/Rectangle 35.png"
@@ -141,13 +139,12 @@ export default function Instagram() {
                       />
                       <div className="hover-panel"></div>
                     </div>
-                    {/* <img src="/img/homepage/Rectangle 1.png"  className="round" alt="gallery-img" /> */}
                   </a>
                 </Link>
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <button className="btn round-form mt-5 px-5 py-3 follow-btn blue-outline-btn">
           Follow @Costerdiamondsofficial
         </button>
