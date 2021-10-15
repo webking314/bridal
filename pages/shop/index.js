@@ -337,6 +337,8 @@ function Ring(props) {
           setCTagLastAdd(1);
           setCTags([])
           setTotalCounter(0);
+          setPriceFilter()
+          setCollectionFilter()
           setStyleFilter()
           setMountingFilter()
           setBrandFilter()
@@ -1428,7 +1430,7 @@ function Ring(props) {
                 </button>
               )}
             </div>
-          ) : !load ? <h3 className="none-text text-center col-lg-9 col-md-8 col-sm-7 col-12 p-0">No product</h3>
+          ) : !load ? <h3 className="none-text text-center col-12 p-0">No product</h3>
             : <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row m-0">
               <div className="col-lg-4 col-md-6 col-12">
                 <Skeleton
