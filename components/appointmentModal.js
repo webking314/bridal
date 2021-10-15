@@ -450,7 +450,7 @@ export default function AppointmentModal() {
                         type="text"
                         id="firstName"
                         className="form-control px-4 mt-3 py-3 round-form"
-                        placeholder="first name"
+                        placeholder="First name"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required
@@ -465,7 +465,7 @@ export default function AppointmentModal() {
                         type="text"
                         id="lastName"
                         className="form-control px-4 py-3 mt-3 round-form"
-                        placeholder="last name"
+                        placeholder="Last name"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required
@@ -492,14 +492,14 @@ export default function AppointmentModal() {
                     >
                       Telephone*
                       <div className="d-flex m-0 mt-3 telephone-form">
-                        <CountrySelect
+                        {/* <CountrySelect
                           className="form-select ps-5 py-3 round-form"
                           value={country}
                           onChange={setCountry}
-                        />
+                        /> */}
                         <input
                           className="form-control px-4 py-3 me-2 round-form phone-form"
-                          placeholder="0000 000 000"
+                          placeholder="Phone number"
                           id="phoneNumber"
                           value={phoneNumber}
                           onChange={(e) => setPhoneNumber(e.target.value)}
