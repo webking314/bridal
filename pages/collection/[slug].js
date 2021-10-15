@@ -231,32 +231,32 @@ export default function CollectionDetail() {
             </div>
             : <div className="row pb-5">
               <div className="col-md-4 col-sm-6 mb-5">
-                <Skeleton variant="rect" height={200} />
+                <Skeleton variant="rect" height={300} />
                 <Skeleton variant="text" className="mt-1" height={20} />
                 <Skeleton variant="text" height={20} />
               </div>
               <div className="col-md-4 col-sm-6 mb-5">
-                <Skeleton variant="rect" height={200} />
+                <Skeleton variant="rect" height={300} />
                 <Skeleton variant="text" className="mt-1" height={20} />
                 <Skeleton variant="text" height={20} />
               </div>
               <div className="col-md-4 col-sm-6 mb-5">
-                <Skeleton variant="rect" height={200} />
+                <Skeleton variant="rect" height={300} />
                 <Skeleton variant="text" className="mt-1" height={20} />
                 <Skeleton variant="text" height={20} />
               </div>
               <div className="col-md-4 col-sm-6 mb-5">
-                <Skeleton variant="rect" height={200} />
+                <Skeleton variant="rect" height={300} />
                 <Skeleton variant="text" className="mt-1" height={20} />
                 <Skeleton variant="text" height={20} />
               </div>
               <div className="col-md-4 col-sm-6 mb-5">
-                <Skeleton variant="rect" height={200} />
+                <Skeleton variant="rect" height={300} />
                 <Skeleton variant="text" className="mt-1" height={20} />
                 <Skeleton variant="text" height={20} />
               </div>
               <div className="col-md-4 col-sm-6 mb-5">
-                <Skeleton variant="rect" height={200} />
+                <Skeleton variant="rect" height={300} />
                 <Skeleton variant="text" className="mt-1" height={20} />
                 <Skeleton variant="text" height={20} />
               </div>

@@ -1,20 +1,35 @@
 import React, { useState, useRef, useEffect } from "react";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
 import "swiper/css";
 
 let collectionSliders = [
-  { url: "Rectangle 29.png", title: "Empress Collection" },
-  { url: "Rectangle 30.png", title: "Wedding & Anniversary" },
-  { url: "Rectangle 31.png", title: "Royal Classics" },
-  { url: "Rectangle 32.png", title: "Fine Jewelry" },
-  { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
-  // { url: "Rectangle 33.png", title: "Watches" },
+  {
+    url: "Rectangle 29.png",
+    title: "Empress Collection",
+    slug: "empress-collectie"
+  },
+  {
+    url: "Rectangle 30.png",
+    title: "Wedding & Anniversary",
+    slug: "rainbow-collectie"
+  },
+  {
+    url: "Rectangle 31.png",
+    title: "Royal Classics",
+    slug: "rainbow-collectie"
+  },
+  {
+    url: "Rectangle 32.png",
+    title: "Fine Jewelry",
+    slug: "rainbow-collectie"
+  },
+  {
+    url: "Rectangle 33.png",
+    title: "Watches",
+    slug: "rainbow-collectie"
+  },
 ];
 SwiperCore.use([Autoplay, Navigation]);
 
@@ -75,12 +90,24 @@ export default function Collection() {
           {collectionSliders.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <img
-                  src={"/img/homepage/" + item.url}
-                  alt="category"
-                  className="round"
-                />
-                <p className="mt-3">{item.title}</p>
+                <Link
+                  passHref={true}
+                  href={{
+                    pathname: "/collection/[slug]",
+                    query: {
+                      slug: item.slug,
+                    },
+                  }}
+                >
+                  <a>
+                    <img
+                      src={"/img/homepage/" + item.url}
+                      alt="category"
+                      className="round"
+                    />
+                    <p className="mt-3">{item.title}</p>
+                  </a>
+                </Link>
               </SwiperSlide>
             );
           })}
