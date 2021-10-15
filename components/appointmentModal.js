@@ -18,6 +18,7 @@ const options = [
   "I’d like to know more about engagement rings",
   "I’m interested in a diamond tour ",
   "I’d like to have my diamond jewelry examined/ cleaned.",
+  "Something else.",
 ];
 
 const times = [
