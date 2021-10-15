@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AboutSlider from "./aboutSlider";
 import InstagramFeed from 'react-ig-feed'
 import 'react-ig-feed/dist/index.css'
@@ -12,8 +12,8 @@ SwiperCore.use([Autoplay, Navigation]);
 const getInstagramURL = "https://graph.instagram.com/me/media?fields=media_count,media_type,permalink,media_url&&access_token=IGQVJYWjhoWlB5SGIzSU9NTndXODBya1pCZAWxWbGt1NmNQNUdHSnFrakoyd1hjUFJSZAHJDU1MxQ3BQOC1qWmM1X2s0TzZAockVFRm5fTUsyRTA5MDlkT3NNdURlNnNyWFFraUg2cUpVRE9zV2RvWmxSTQZDZD";
 
 export default function Instagram() {
-  const navigationPrevRef = React.useRef(null);
-  const navigationNextRef = React.useRef(null);
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
   const [instagramData, setInstagramData] = useState();
 
   useEffect(() => {
@@ -139,11 +139,7 @@ export default function Instagram() {
               );
             })}
           </Swiper>
-          <div
-            className={
-              "btn-bottom-panel mt-sm-5 mt-0 pt-5 " + (btnDisable ? "d-none" : "")
-            }
-          >
+          <div className="btn-bottom-panel mt-sm-5 mt-0 pt-5" >
             <button ref={navigationPrevRef} className="btn px-0 me-5">
               <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
             </button>
