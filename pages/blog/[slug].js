@@ -30,7 +30,6 @@ import {
   RiHeartLine
 } from "react-icons/ri";
 import "swiper/css";
-import { data } from "dom7";
 
 SwiperCore.use([Autoplay, Navigation]);
 

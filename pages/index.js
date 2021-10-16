@@ -73,7 +73,7 @@ export default function Home({ data }) {
         {heroData &&
           <div className="r-container d-none d-sm-flex flex-column">
             <div className="text-panel col-lg-6 col-md-8 col-sm-10 col-12">
-              <h1 className="text-capitalize">
+              <h1 className="text-capitalize text-left">
                 {
                   heroData.title && renderHTML(heroData.title)
                 }

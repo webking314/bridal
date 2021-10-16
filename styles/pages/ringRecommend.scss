@@ -15,6 +15,7 @@
         color: white;
         & > span {
           font-family: FreeSerif;
+          font-style: italic;
           font-weight: 400;
           font-size: 7.6rem;
           line-height: 120%;
@@ -94,6 +95,7 @@
             border-radius: 50%;
             text {
               font-family: FreeSerif;
+              font-style: italic;
               font-size: 1.2rem;
               fill: rgba(1, 33, 92, 0.5);
             }
@@ -136,6 +138,7 @@
       label {
         font-size: 4.8rem;
         font-family: FreeSerif;
+        font-style: italic;
         color: #01215c;
       }
       select {

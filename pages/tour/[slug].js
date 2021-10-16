@@ -261,6 +261,9 @@ export default function TourDetail() {
               })
             }
           </div>
+          <div className="text-center">
+            <button className="btn blue-btn btn-more round-form text-uppercase py-3 px-5">See more packages</button>
+          </div>
         </div>
       </div>
       {/* End more tour section */}

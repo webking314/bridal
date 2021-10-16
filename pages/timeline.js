@@ -170,7 +170,7 @@ export default function TimeLine() {
         const currentPos = viewportArr.sort((a, b) => b.year - a.year).find(n => n.scrollHeight < window.scrollY);
         if (currentPos) {
           const target = document.querySelector(".mobile-time-" + currentPos.year);
-          swiperRef.current.swiper.slideTo(target.id)
+          swiperRef.current.swiper?.slideTo(target.id)
         }
       })
       swiperRef.current.swiper.on('activeIndexChange', (e) => {

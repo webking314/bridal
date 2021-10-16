@@ -1,13 +1,13 @@
-.tour_page {
+.tax-refund_page {
   .hero-section {
-    background: linear-gradient(65.32deg, #01215c 12.44%, rgba(1, 33, 92, 0) 78.71%), url(/img/tour/banner_bg.jpg);
+    background: linear-gradient(0deg, #01215c 0%, rgba(1, 33, 92, 0) 100%), url(/img/taxRefund/banner_bg.jpg);
     background-size: cover;
     background-position: center;
     .r-container {
       padding-top: 20rem;
       padding-bottom: 5rem;
       @media (max-width: 991px) {
-        padding-top: 10rem;
+        padding-top: 15rem;
       }
       p {
         font-size: 2.4rem;
@@ -16,13 +16,13 @@
       .title {
         font-size: 7.2rem;
         font-weight: 400;
-        color: white;
         line-height: 102%;
+        color: white;
         & > span {
           font-family: FreeSerif;
+          font-style: italic;
           font-weight: 400;
           font-size: 7.6rem;
-          font-style: italic;
         }
       }
       .description {
@@ -68,6 +68,10 @@
       font-size: 4.8rem;
       font-weight: 400;
       color: #01215c;
+      span {
+        font-family: FreeSerif;
+        font-style: italic;
+      }
     }
     .guide-text {
       font-size: 24px;
@@ -85,45 +89,119 @@
       }
     }
   }
-  .description-section {
-    .main-panel {
-      .image-panel {
-        position: relative;
-        overflow: hidden;
-        img {
-          width: 100%;
-        }
-        .cost-box {
-          position: absolute;
-          top: 10px;
-          right: 25px;
-          background: #fad3da;
-          * {
-            font-weight: 500;
-            font-size: 1.2rem;
-            line-height: 15px;
-          }
-        }
+  .form-section {
+    .title {
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 150%;
+    }
+    input,
+    textarea {
+      background: #f6f6f6;
+      border: 1px solid rgba(2, 24, 37, 0.1);
+      font-weight: 350;
+      font-size: 16px;
+      line-height: 150%;
+      resize: none;
+      &:focus {
+        box-shadow: none;
+        border-color: #01215c;
       }
-      .text-panel {
-        .title {
-          font-weight: 400;
-          font-size: 48px;
-          line-height: 120%;
-          @media (max-width: 767px) {
-            font-size: 3.4rem;
-          }
-        }
-        p {
-          font-weight: 400;
-          font-size: 18px;
-          line-height: 150%;
-          color: rgba(2, 24, 37, 0.8);
+    }
+    button {
+      width: 100%;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 120%;
+    }
+  }
+  .refund-step-section {
+    background: #f6f6f6;
+    .step-title {
+      .title {
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 110%;
+        span {
+          font-family: FreeSelf;
+          font-style: italic;
         }
       }
     }
-    .btn-read-more {
-      font-size: 1.8rem;
+    .step-panel {
+      .step {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 110%;
+        color: rgba(2, 24, 37, 0.5);
+      }
+      .title {
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 110%;
+      }
+      .description,
+      .answer {
+        font-weight: 350;
+        font-size: 16px;
+        line-height: 150%;
+        color: rgba(2, 24, 37, 0.7);
+      }
+      .question {
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 150%;
+        color: #021825;
+      }
+    }
+  }
+  .booking-section {
+    .booking-panel {
+      .booking-list-panel {
+        border: 1px solid rgba(2, 24, 37, 0.1);
+        .title-panel {
+          .title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            @media (max-width: 767px) {
+              font-size: 2.8rem;
+            }
+          }
+          .status {
+            background: rgba(240, 0, 54, 0.1);
+            font-size: 14px;
+            line-height: 18px;
+            font-weight: 400;
+            color: #a20024;
+            border-radius: 20px;
+          }
+        }
+        .booking-list {
+          font-size: 1.8rem;
+          font-weight: 400;
+        }
+      }
+      .direction-panel {
+        border: 1px solid rgba(2, 24, 37, 0.1);
+        height: 100%;
+        .title-panel {
+          .title {
+            font-size: 3.6rem;
+            font-weight: 400;
+            @media (max-width: 767px) {
+              font-size: 2.8rem;
+            }
+          }
+          .status {
+            color: #01215c;
+            background: rgba(1, 33, 92, 0.05);
+            font-size: 14px;
+            line-height: 18px;
+            font-weight: 400;
+            border-radius: 20px;
+          }
+        }
+      }
     }
   }
   .more-tour-section {
@@ -152,15 +230,13 @@
         left: 0;
         z-index: 1;
       }
-      .row {
+      .r-container {
         position: relative;
         z-index: 2;
         .image-panel {
           overflow: hidden;
           img {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
           }
         }
         .title {
@@ -173,12 +249,6 @@
           font-size: 18px;
           line-height: 150%;
           color: rgba(2, 24, 37, 0.7);
-          display: -webkit-box;
-          word-break: break-all;
-          -webkit-line-clamp: 5;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
         .more-detail {
           font-weight: 500;
@@ -189,41 +259,8 @@
           }
         }
       }
-    }
-    .btn-load {
-      font-size: 1.8rem;
-    }
-  }
-  .banner-section {
-    overflow: hidden;
-    .bg-panel {
-      background: url(/img/tour/banner-image.png);
-      background-size: cover;
-      background-position: center;
-      min-height: 400px;
-      @media (max-width: 575px) {
-        min-height: 280px;
-      }
-    }
-    .text-panel {
-      background: #021825;
-      .title {
-        font-weight: 400;
-        font-size: 3.6rem;
-        line-height: 120%;
-        color: #ffffff;
-        @media (max-width: 575px) {
-          font-size: 2.8rem;
-        }
-      }
-      .description {
-        font-weight: 350;
+      .btn-more {
         font-size: 1.8rem;
-        line-height: 150%;
-        color: rgba(255, 255, 255, 0.7);
-      }
-      .btn {
-        font-size: 1.6rem;
       }
     }
   }
