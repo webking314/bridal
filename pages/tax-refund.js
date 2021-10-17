@@ -118,7 +118,7 @@ export default function TaxRefund() {
             </div>
             <input type="text" className="form-control round-form  py-3 px-4 mt-4" placeholder="Tax Free Form Number (DOC ID: 16 or 20 digits found under barcode on form)" />
             <input type="text" className="form-control round-form  py-3 px-4 mt-4" placeholder="Date of purchase ( DD/MM/YY )" />
-            <textarea class="form-control round-form  py-3 px-4 mt-4" rows="3" placeholder="Please tell us as detailed as possible what the issue is and how it occurred. We will get back to you shortly." />
+            <textarea className="form-control round-form  py-3 px-4 mt-4" rows="3" placeholder="Please tell us as detailed as possible what the issue is and how it occurred. We will get back to you shortly." />
             <button className="btn blue-btn round-form text-uppercase py-3 mt-4">Search</button>
           </div>
         </div>

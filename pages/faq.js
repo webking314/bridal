@@ -164,7 +164,7 @@ export default function Faq() {
         </div>
         {
           faqData.map((data, index) =>
-            <div className="row m-0 mb-5 question-panel" keu={index}>
+            <div className="row m-0 mb-5 question-panel" key={index}>
               <div className="col-md-4">
                 <h3 className="title py-3">{data.title}</h3>
               </div>

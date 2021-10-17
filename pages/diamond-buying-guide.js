@@ -165,7 +165,7 @@ export default function DiamondBuyingGuide() {
               <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
                 {
                   data.description && data.description.map((item, id) =>
-                    <p className="description mb-4">{item}</p>
+                    <p className="description mb-4" key={id}>{item}</p>
                   )
                 }
                 {
