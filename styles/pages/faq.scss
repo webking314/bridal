@@ -79,6 +79,9 @@
     }
   }
   .question-section {
+    a {
+      text-decoration: underline;
+    }
     .search-panel {
       input {
         background: #f6f6f6;

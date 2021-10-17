@@ -63,6 +63,12 @@
         font-style: italic;
       }
     }
+    a {
+      font-weight: 500;
+      &:hover {
+        color: black;
+      }
+    }
     .guide-text {
       font-size: 24px;
       line-height: 150%;
@@ -124,6 +130,15 @@
     }
   }
   .grid-section {
+    a {
+      &.item-title {
+        display: block;
+        &:hover {
+          color: black;
+          text-decoration: underline;
+        }
+      }
+    }
     .title {
       font-family: FreeSerif;
       font-style: italic;

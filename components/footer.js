@@ -51,16 +51,16 @@ export default function Footer() {
       url: [
         { link: "Contact Us", url: "/contact", tags: "", product_type: "" },
         { link: "Reviews & TESTIMONIALS", url: "#", tags: "", product_type: "" },
-        { link: "Faq’s", url: "#", tags: "", product_type: "" },
+        { link: "Faq’s", url: "/faq"},
         { link: "Upgrade Service", url: "#", tags: "", product_type: "" },
-        { link: "Global blue refunds", url: "#", tags: "", product_type: "" },
+        { link: "Global blue refunds", url: "/tax-refund"},
       ],
     },
     {
       title: "Diamond Guides",
       url: [
-        { link: "Engagement ring buying guide", url: "#", tags: "", product_type: "" },
-        { link: "Diamond buying guide", url: "#", tags: "", product_type: "" },
+        { link: "Engagement ring buying guide", url: "/buying-guide"},
+        { link: "Diamond buying guide", url: "/diamond-buying-guide"},
         { link: "WHAt to look in a diamond", url: "#", tags: "", product_type: "" },
         { link: "trends in diamond jewelry", url: "#", tags: "", product_type: "" },
         { link: "Proposal ideas", url: "#", tags: "", product_type: "" },

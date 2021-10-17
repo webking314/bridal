@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import Head from "next/head";
 import Header from "../components/header";
+import renderHTML from "react-render-html";
 import Footer from "../components/footer";
 import Schedule from "../components/schedule";
 import AppointmentModal from "../components/appointmentModal";
@@ -38,40 +40,40 @@ const faqData = [
       {
         question: "I am a tour leader, guide or work at a tour operator. Where can I find more information?",
         answer: [
-          "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at www.royalcoster.com/tours.",
-          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at tours@royalcoster.com.",
+          "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at <a href='http://www.royalcoster.com/tours'>www.royalcoster.com/tours.</a>",
+          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at <a href='mailto:tours@royalcoster.com'>tours@royalcoster.com</a>.",
           "Facebook Twitter LinkedIn"
         ]
       },
       {
         question: "Is there a way to combine my trip to Royal Coster with other activities in Amsterdam?",
         answer: [
-          "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at www.royalcoster.com/tours.",
-          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at tours@royalcoster.com.",
+           "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at <a href='http://www.royalcoster.com/tours'>www.royalcoster.com/tours.</a>",
+          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at <a href='mailto:tours@royalcoster.com'>tours@royalcoster.com</a>.",
           "Facebook Twitter LinkedIn"
         ]
       },
       {
         question: "Which tours, experiences and/or workshops do you offer?",
         answer: [
-          "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at www.royalcoster.com/tours.",
-          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at tours@royalcoster.com.",
+           "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at <a href='http://www.royalcoster.com/tours'>www.royalcoster.com/tours.</a>",
+          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at <a href='mailto:tours@royalcoster.com'>tours@royalcoster.com</a>.",
           "Facebook Twitter LinkedIn"
         ]
       },
       {
         question: "How can i contact you to book a our or describe my product wishes",
         answer: [
-          "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at www.royalcoster.com/tours.",
-          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at tours@royalcoster.com.",
+           "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at <a href='http://www.royalcoster.com/tours'>www.royalcoster.com/tours.</a>",
+          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at <a href='mailto:tours@royalcoster.com'>tours@royalcoster.com</a>.",
           "Facebook Twitter LinkedIn"
         ]
       },
       {
         question: "Do I need an appointment to visit you?",
         answer: [
-          "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at www.royalcoster.com/tours.",
-          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at tours@royalcoster.com.",
+           "We have warm contact with other attractions in Amsterdam, like canal cruise companies, museums and many more. We can arrange tickets to these attractions for you. You can find all these on our tour pages at <a href='http://www.royalcoster.com/tours'>www.royalcoster.com/tours.</a>",
+          "Alternatively you can always contact our travel consultant for a tailored programm or just some advice. Email us for more information at <a href='mailto:tours@royalcoster.com'>tours@royalcoster.com</a>.",
           "Facebook Twitter LinkedIn"
         ]
       },
@@ -147,7 +149,7 @@ export default function Faq() {
           </div>
           <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
             <p className="guide-text mb-4">
-              Our diamond <strong className="text-decoration-underline">consultants</strong> are standing by to help you find that specific diamond piece you're looking for. They take all your wishes into account, including your budget.
+              Our diamond <Link href="#"><a className="text-decoration-underline">consultants</a></Link> are standing by to help you find that specific diamond piece you're looking for. They take all your wishes into account, including your budget.
             </p>
           </div>
         </div>
@@ -190,7 +192,7 @@ export default function Faq() {
                           <div className="accordion-body py-0">
                             {
                               item.answer.map((ans, key) =>
-                                <p className="py-3 mb-0" key={key}>{ans}</p>
+                                <p className="py-3 mb-0" key={key}>{renderHTML(ans)}</p>
                               )
                             }
                           </div>

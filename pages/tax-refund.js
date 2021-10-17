@@ -93,7 +93,7 @@ export default function TaxRefund() {
             <h3 className="title text-capitalize">difficulty in <span>refund?</span></h3>
           </div>
           <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
-            <p className="guide-text mb-4">
+            <p className="guide-text mb0-4">
               For customers from outside the European Union, we offer a tax refund on their purchases. When you make a purchase, our diamond consultants or sales staff give you a detailed explanation on how to claim your tax refund. To claim your tax deduction, please make sure to do the 3 following steps on the right (desktop) or below (mobile).
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function TaxRefund() {
           <div className="step-panel py-5 row">
             {
               steps.map((step, index) =>
-                <div className="col-md-4" key={index}>
+                <div className="col-md-4 mb-md-0 mb-5" key={index}>
                   <h3 className="step text-uppercase mb-4">{step.step}</h3>
                   <h3 className="title blue-text mb-4">{step.title}</h3>
                   <p className="description text-capitalize">{step.description}</p>

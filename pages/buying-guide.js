@@ -123,7 +123,17 @@ export default function BuyingGuide() {
           </div>
           <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
             <p className="guide-text mb-4">
-              Picking out <strong className="text-decoration-underline">engagement rings</strong> is an exciting step of your proposal, and it’s also one that many people find daunting. Yet the perfect ring for your partner is always out there and this guide will help you find it.
+              Picking out 
+              <Link href={{
+                pathname: "/shop",
+                query: {
+                  tags: "engagement",
+                  productType: "rings"
+                }
+              }}>
+                <a className="text-decoration-underline mx-2">engagement rings</a>
+              </Link>
+              is an exciting step of your proposal, and it’s also one that many people find daunting. Yet the perfect ring for your partner is always out there and this guide will help you find it.
             </p>
           </div>
         </div>
@@ -153,7 +163,7 @@ export default function BuyingGuide() {
             shapeData.map((shape, index) =>
               <div className="shape-item col-lg-3 col-md-4 col-sm-6 mb-5" key={index}>
                 <img width="120" height="120" className="mb-4" src={shape.image} alt="shape-image" />
-                <h3 className="item-title pt-2 mb-4">{shape.title}</h3>
+                <Link href="#"><a className="item-title pt-2 mb-4">{shape.title}</a></Link>
                 <p className="item-description text-capitalize mb-4">{shape.description}</p>
               </div>
             )
@@ -245,9 +255,9 @@ export default function BuyingGuide() {
       {/* Start finally section */}
       <div className="finally-section r-container text-center py-5">
         <div className="text-panel mx-auto py-5 my-md-5">
-          <h3 className="title blue-text">And finally...</h3>
-          <p className="description py-5">There’s a lot to consider when buying an engagement ring – but we hope this guide has helped you to arrive at a decision that you’re both happy with.</p>
-          <p className="sub-title mb-0">All that remains is for us to wish you all the best of luck with your proposal!</p>
+          <h3 className="title blue-text">And Finally...</h3>
+          <p className="description py-5 text-capitalize">There’s a lot to consider when buying an engagement ring – but we hope this guide has helped you to arrive at a decision that you’re both happy with.</p>
+          <p className="sub-title mb-0 text-capitalize">All that remains is for us to wish you all the best of luck with your proposal!</p>
         </div>
       </div>
       {/* End finally section */}

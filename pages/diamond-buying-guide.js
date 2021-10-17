@@ -147,7 +147,17 @@ export default function DiamondBuyingGuide() {
           </div>
           <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
             <p className="guide-text mb-4">
-              When looking at <strong className="text-decoration-underline">engagement rings,</strong> to avoid any awkward pauses when you pop the question and to ensure you are buying the right diamond for your future partner our diamond buying guide below will guarantee you have the diamond know how.
+              When looking at
+              <Link href={{
+                pathname: "/shop",
+                query: {
+                  tags: "engagement",
+                  productType: "rings"
+                }
+              }}>
+                <a className="text-decoration-underline ms-2">engagement rings</a>
+              </Link>
+              , to avoid any awkward pauses when you pop the question and to ensure you are buying the right diamond for your future partner our diamond buying guide below will guarantee you have the diamond know how.
             </p>
           </div>
         </div>
@@ -165,12 +175,12 @@ export default function DiamondBuyingGuide() {
               <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
                 {
                   data.description && data.description.map((item, id) =>
-                    <p className="description mb-4" key={id}>{item}</p>
+                    <p className="description mb-4 text-capitalize" key={id}>{item}</p>
                   )
                 }
                 {
                   data.subTitle &&
-                  <p className="subTitle mb-4">{data.subTitle}</p>
+                  <p className="subTitle text-capitalize mb-4">{data.subTitle}</p>
                 }
                 {
                   data.image &&

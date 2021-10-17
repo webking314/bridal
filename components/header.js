@@ -171,9 +171,9 @@ let submenus = [
         title: "Guides",
         menu: [
           { name: "Ring size guide", url: "#", tag: "", product_type: "" },
-          { name: "Diamond buying guide", url: "#", tag: "", product_type: "" },
-          { name: "Engagement ring buying guide", url: "#", tag: "", product_type: "" },
-          { name: "Royal Coster Wartches Guide", url: "#", tag: "", product_type: "" },
+          { name: "Diamond buying guide", url: "/diamond-buying-guide"},
+          { name: "Engagement ring buying guide", url: "/buying-guide"},
+          { name: "Royal Coster Wartches Guide", url: "#"},
         ],
       },
     ],
