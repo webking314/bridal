@@ -53,7 +53,7 @@ export default function EnquiryModal() {
     <div
       className="modal fade"
       id="enquiryModal"
-      tabIndex="-1"
+      tabIndex="-1"s
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
@@ -63,7 +63,7 @@ export default function EnquiryModal() {
       >
         <div className="modal-content px-3 py-4 round">
           <div className="modal-header  py-3">
-            <h3 className="modal-title">Bespoke Jewelry</h3>
+            <h3 className="modal-title">I am looking for bespoke jewelry</h3>
             <button
               type="button"
               className="btn-close"
