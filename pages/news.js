@@ -11,6 +11,7 @@ import WatchItems from "../components/watchItems";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Skeleton from "@mui/material/Skeleton";
 import { RiArrowRightSFill, RiMailFill, RiPhoneFill, RiWhatsappFill, RiDvdFill } from "react-icons/ri";
 
 const descritionData = [
@@ -65,39 +66,29 @@ let localBlog;
 
 SwiperCore.use([Autoplay, Navigation]);
 
-export async function getStaticProps() {
-
-  let blogData = {}
-
-  if (localBlog) {
-    blogData = localBlog
-  } else {
-    const categoryRes = await fetch(categoryURL, {
-      method: "get"
-    });
-
-    const category = await categoryRes.json();
-
-    const blogRes = await fetch(blogURL + category[0].id, {
-      method: "get"
-    })
-
-    blogData = await blogRes.json();
-    localBlog = blogData
-  }
-
-  return {
-    props: {
-      blogData
-    }
-  }
-}
-
 export default function News({ blogData }) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   const [blog, setBlog] = useState(blogData);
 
+  useEffect(() => {
+    if (localBlog) {
+      blog = localBlog;
+    } else {
+      fetch(categoryURL, {
+        method: "get"
+      }).then(res => res.json())
+        .then(category => {
+          fetch(blogURL + category[0].id, {
+            method: "get"
+          }).then(res => res.json())
+            .then(data => {
+              localBlog = data;
+              setBlog(localBlog)
+            })
+        })
+    }
+  }, [])
 
   return (
     <div className="news_page">
@@ -129,36 +120,88 @@ export default function News({ blogData }) {
       {/* End guide section */}
 
       {/* Start Description section */}
-      <div className="description-section r-container py-5 my-md-5 d-flex align-items-center flex-column">
+      <div className="description-section r-container py-5 my-md-5">
         <div className="main-panel row m-0 mb-5 align-items-center">
           <div className="image-panel col-lg-7 p-0 round mb-5 mb-lg-0">
-            <img src={blog[0].acf.featured_image.sizes.large} alt="news-image" />
+            {
+              blog && blog[0] ?
+                <img src={blog[0].acf.featured_image.sizes.large} alt="news-image" />
+                : <Skeleton variant="rect" height={350} width="100%" />
+
+            }
           </div>
-          <div className="col-lg-5 p-0 ps-lg-5 text-panel">
-            <Link passHref={true} href={"/blog/" + blog[0].slug}>
-              <a className="title blue-text">{renderHTML(blog[0].title.rendered)}</a>
-            </Link>
-            <p className="mt-md-5 mt-4 mb-4">{renderHTML(blog[0].acf.content.intro)}</p>
-          </div>
-        </div>
-        <div className="sub-panel row pb-lg-5">
           {
-            blog.map((item, index) => {
-              return (
-                index > 0 &&
-                <div className="col-lg-4 col-md-6 mb-lg-0 mb-5" key={index}>
-                  <div className="hover-scale round mb-4">
-                    <img src={item.acf.featured_image.sizes.large} alt="description-image" />
-                  </div>
-                  <h3 className="mb-4 title blue-text">{renderHTML(item.title.rendered)}</h3>
-                  <Link passHref={true} href={"/blog/" + item.slug}>
-                    <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
-                  </Link>
-                </div>
-              )
-            })
+            blog && blog[0] ?
+              <div className="col-lg-5 p-0 ps-lg-5 text-panel">
+                <Link passHref={true} href={"/blog/" + blog[0].slug}>
+                  <a className="title blue-text">{renderHTML(blog[0].title.rendered)}</a>
+                </Link>
+                <p className="mt-md-5 mt-4 mb-4">{renderHTML(blog[0].acf.content.intro)}</p>
+              </div>
+              : <div className="col-lg-5 p-0 ps-lg-5 ">
+                <Skeleton variant="text" height={40} width="100%" className="mb-3" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+              </div>
           }
         </div>
+        {
+          blog ?
+            <div className="sub-panel row pb-lg-5">
+              {
+                blog.length > 1 ?
+                  blog.map((item, index) => {
+                    return (
+                      index > 0 &&
+                      <div className="col-lg-4 col-md-6 mb-lg-0 mb-5" key={index}>
+                        <div className="hover-scale round mb-4">
+                          <img src={item.acf.featured_image.sizes.large} alt="description-image" />
+                        </div>
+                        <h3 className="mb-4 title blue-text">{renderHTML(item.title.rendered)}</h3>
+                        <Link passHref={true} href={"/blog/" + item.slug}>
+                          <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
+                        </Link>
+                      </div>
+                    )
+                  })
+                  : <h3 className="empty-text text-center">No result</h3>
+              }
+            </div>
+            : <div className="row">
+              <div className="col-lg-4 col-md-6 mb-5">
+                <Skeleton variant="rect" height={250} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+              </div>
+              <div className="col-lg-4 col-md-6 mb-5">
+                <Skeleton variant="rect" height={250} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+              </div>
+              <div className="col-lg-4 col-md-6 mb-5 d-none d-md-block">
+                <Skeleton variant="rect" height={250} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+              </div>
+              <div className="col-lg-4 col-md-6 mb-5 d-none d-md-block">
+                <Skeleton variant="rect" height={250} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+              </div>
+              <div className="col-lg-4 col-md-6 mb-5 d-none d-lg-block">
+                <Skeleton variant="rect" height={250} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+              </div>
+              <div className="col-lg-4 col-md-6 mb-5 d-none d-lg-block">
+                <Skeleton variant="rect" height={250} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+                <Skeleton variant="text" height={30} width="100%" />
+              </div>
+            </div>
+        }
       </div>
       {/* End Description section */}
 

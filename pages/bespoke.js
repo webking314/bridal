@@ -200,7 +200,7 @@ export default function Bespoke() {
           })}
         </Timeline>
         <div className="btn-panel text-center pb-5 mb-5">
-          <button className="btn blue-btn round-form text-uppercase px-5 py-3 mb-5">
+          <button className="btn blue-btn round-form text-uppercase px-5 py-3 mb-5" data-bs-toggle="modal" data-bs-target="#enquiryModal">
             send an enquiry
           </button>
         </div>
