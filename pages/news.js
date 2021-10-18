@@ -59,11 +59,45 @@ const sliderData = [
   },
 ]
 
+const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs?orderby=id&per_page=7&categories=";
+const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories?search=news";
+let localBlog;
+
 SwiperCore.use([Autoplay, Navigation]);
 
-export default function News() {
+export async function getStaticProps() {
+
+  let blogData = {}
+
+  if (localBlog) {
+    blogData = localBlog
+  } else {
+    const categoryRes = await fetch(categoryURL, {
+      method: "get"
+    });
+
+    const category = await categoryRes.json();
+
+    const blogRes = await fetch(blogURL + category[0].id, {
+      method: "get"
+    })
+
+    blogData = await blogRes.json();
+    localBlog = blogData
+  }
+
+  return {
+    props: {
+      blogData
+    }
+  }
+}
+
+export default function News({ blogData }) {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
+  const [blog, setBlog] = useState(blogData);
+
 
   return (
     <div className="news_page">
@@ -97,25 +131,27 @@ export default function News() {
       {/* Start Description section */}
       <div className="description-section r-container py-5 my-md-5 d-flex align-items-center flex-column">
         <div className="main-panel row m-0 mb-5 align-items-center">
-          <div className="image-panel col-lg-7 pe-lg-4 p-0 round mb-5 mb-lg-0">
-            <img src="/img/news/image-1.png" />
+          <div className="image-panel col-lg-7 p-0 round mb-5 mb-lg-0">
+            <img src={blog[0].acf.featured_image.sizes.large} alt="news-image" />
           </div>
-          <div className="col-lg-5 p-0 ps-lg-4 text-panel">
-            <h3 className="title blue-text mb-md-5 mb-4">Precautions Regarding the Coronavirus</h3>
-            <p className="mb-4">COVID-19 has the world in its grip. We are now trying to find our way from an "intelligent lockdown" into the "New Normal". This also applies to Royal Coster Diamonds. You were always used to our 'Royal Service'. But how will we provide this now, at the time of Corona? Don’t worry. Of course, you still receive the service you are used to from us. However, we took a number of measures to protect you and ourselves.
-            </p>
+          <div className="col-lg-5 p-0 ps-lg-5 text-panel">
+            <Link passHref={true} href={"/blog/" + blog[0].slug}>
+              <a className="title blue-text">{renderHTML(blog[0].title.rendered)}</a>
+            </Link>
+            <p className="mt-md-5 mt-4 mb-4">{renderHTML(blog[0].acf.content.intro)}</p>
           </div>
         </div>
         <div className="sub-panel row pb-lg-5">
           {
-            descritionData.map((item, index) => {
+            blog.map((item, index) => {
               return (
+                index > 0 &&
                 <div className="col-lg-4 col-md-6 mb-lg-0 mb-5" key={index}>
                   <div className="hover-scale round mb-4">
-                    <img src={item.image} alt="description-image" />
+                    <img src={item.acf.featured_image.sizes.large} alt="description-image" />
                   </div>
-                  <h3 className="mb-4 title blue-text">{item.title}</h3>
-                  <Link href="#">
+                  <h3 className="mb-4 title blue-text">{renderHTML(item.title.rendered)}</h3>
+                  <Link passHref={true} href={"/blog/" + item.slug}>
                     <a className="more-detail text-uppercase mb-5 d-flex">More Details <RiArrowRightSFill className="ms-2" /></a>
                   </Link>
                 </div>

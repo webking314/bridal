@@ -5,6 +5,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Instagram from "../../components/instagram";
+import renderHTML from "react-render-html";
 
 const educationData = [
   { image: '/img/education/about (1).png', title: "Loose Diamonds" },
@@ -15,7 +16,40 @@ const educationData = [
   { image: '/img/education/about (6).png', title: "Watches" },
 ]
 
-export default function Education() {
+const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs?orderby=id&per_page=6&categories=";
+const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories?search=craftsmanship";
+let localBlog;
+
+export async function getStaticProps() {
+
+  let blogData = {}
+
+  if (localBlog) {
+    blogData = localBlog
+  } else {
+    const categoryRes = await fetch(categoryURL, {
+      method: "get"
+    });
+
+    const category = await categoryRes.json();
+
+    const blogRes = await fetch(blogURL + category[0].id, {
+      method: "get"
+    })
+
+    blogData = await blogRes.json();
+    localBlog = blogData
+  }
+
+  return {
+    props: {
+      blogData
+    }
+  }
+}
+
+export default function Education({blogData}) {
+  const [blog, setBlog] = useState(blogData);
 
   return (
     <div className="education_page">
@@ -52,13 +86,13 @@ export default function Education() {
         <h3 className="py-5 title text-center"><span>Know</span> About</h3>
         <div className="row">
           {
-            educationData.map((item, index) => {
+            blog.map((item, index) => {
               return (
                 <div className="col-md-4 col-sm-6 education-item mb-5" key={index}>
                   <div className="image-panel hover-scale round">
-                    <img src={item.image} alt="education-image" />
+                    <img src={item.acf.featured_image.sizes.large} alt="education-image" />
                   </div>
-                  <h3 className="item-title blue-text my-4">{item.title}</h3>
+                  <h3 className="item-title blue-text my-4">{renderHTML(item.title.rendered)}</h3>
                   <Link href="#">
                     <a className="text-uppercase btn-read-more">Read More</a>
                   </Link>

@@ -93,15 +93,22 @@
       }
     }
     .education-item {
-      .iamge-panel {
+      .image-panel {
         overflow: hidden;
         img {
           width: 100%;
+          height: 300px;
+          object-fit: cover;
         }
       }
       .item-title {
         font-weight: 400;
         font-size: 24px;
+        display: -webkit-box;
+        word-break: break-all;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
       .btn-read-more {
         font-weight: 400;

@@ -478,7 +478,7 @@ function Header(props) {
                 aria-controls="wishListBox"
               >
                 <RiHeartLine />
-                WISHLIST ( {props.wishList ? props.wishList.length : 0} )
+                WISHLIST {props.wishList != 0 && ( "(" + props.wishList.length + ")")}
               </button>
             </div>
           </div>
@@ -877,7 +877,7 @@ function Header(props) {
           ></button>
         </div>
         <div className="offcanvas-body px-4">
-          {props.wishList &&
+          {props.wishList != 0 &&
             props.wishList.map((item, index) => (
               <div
                 className="item-panel d-flex justify-content-between align-items-center"

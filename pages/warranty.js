@@ -117,7 +117,9 @@ export default function Warranty() {
             <ul className="blue-text mt-4 mb-5">
               {
                 faqDeliveryList.items.map((item, index) =>
-                  <li key={index}>{item}</li>
+                  <li key={index}>
+                    <a href={"#question" + index}>{item}</a>
+                  </li>
                 )
               }
             </ul>
@@ -125,7 +127,7 @@ export default function Warranty() {
         </div>
         {
           faqData.map((data, index) =>
-            <div className={"faq-panel py-5 " + (index % 2 == 0 && "bg-grey")} key={index}>
+            <div id={"question" + index} className={"faq-panel py-5 " + (index % 2 == 0 && "bg-grey")} key={index}>
               <div className="r-container">
                 <h3 className="title mt-5 mb-0">{data.title}</h3>
                 <div className="answer-panel mb-5">
