@@ -8,7 +8,7 @@ import NumberFormat from "react-number-format";
 import AppointmentModal from "../components/appointmentModal";
 import renderHTML from "react-render-html";
 import WatchItems from "../components/watchItems";
-import { RiArrowRightSFill, RiMailFill, RiPhoneFill, RiWhatsappFill, RiDvdFill } from "react-icons/ri";
+import { RiMailFill, RiPhoneFill, RiWhatsappFill, RiMessengerFill } from "react-icons/ri";
 
 
 const noteData = [
@@ -80,7 +80,7 @@ export default function ContactUs() {
                   </div>
                 </a>
               </Link>
-              <Link href="#">
+              <Link href="tel:0203055555">
                 <a>
                   <div className="rounded-circle d-flex justify-content-center align-items-center">
                     <RiPhoneFill />
@@ -90,14 +90,14 @@ export default function ContactUs() {
               <Link href="#">
                 <a>
                   <div className="rounded-circle d-flex justify-content-center align-items-center">
-                    <RiDvdFill />
+                    <RiMessengerFill />
                   </div>
                 </a>
               </Link>
               <Link href="#">
                 <a>
                   <div className="rounded-circle d-flex justify-content-center align-items-center">
-                    <RiPhoneFill />
+                    <RiWhatsappFill />
                   </div>
                 </a>
               </Link>

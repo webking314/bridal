@@ -171,9 +171,9 @@ let submenus = [
         title: "Guides",
         menu: [
           { name: "Ring size guide", url: "#", tag: "", product_type: "" },
-          { name: "Diamond buying guide", url: "/diamond-buying-guide"},
-          { name: "Engagement ring buying guide", url: "/buying-guide"},
-          { name: "Royal Coster Wartches Guide", url: "#"},
+          { name: "Diamond buying guide", url: "/diamond-buying-guide" },
+          { name: "Engagement ring buying guide", url: "/buying-guide" },
+          { name: "Royal Coster Wartches Guide", url: "#" },
         ],
       },
     ],
@@ -478,7 +478,7 @@ function Header(props) {
                 aria-controls="wishListBox"
               >
                 <RiHeartLine />
-                WISHLIST {props.wishList != 0 && ( "(" + props.wishList.length + ")")}
+                WISHLIST {props.wishList != 0 && ("(" + props.wishList.length + ")")}
               </button>
             </div>
           </div>
@@ -663,12 +663,14 @@ function Header(props) {
             >
               <RiSearchLine />
             </button>
-            <button
-              className="btn me-2 d-flex align-items-center"
-              type="button"
-            >
-              <RiPhoneFill />
-            </button>
+            <Link href="tel:00310203055555">
+              <a
+                className="btn me-2 d-flex align-items-center"
+                type="button"
+              >
+                <RiPhoneFill />
+              </a>
+            </Link>
             <button
               className="btn me-2 d-flex align-items-center"
               type="button"

@@ -88,7 +88,7 @@ export default function Education({ blogData }) {
                         <img src={item.acf.featured_image.sizes.large} alt="education-image" />
                       </div>
                       <h3 className="item-title blue-text my-4">{renderHTML(item.title.rendered)}</h3>
-                      <Link href="#">
+                      <Link passHref={true} href={"/blog/" + item.slug}>
                         <a className="text-uppercase btn-read-more">Read More</a>
                       </Link>
                     </div>
