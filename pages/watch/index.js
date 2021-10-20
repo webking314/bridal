@@ -198,14 +198,12 @@ export default function Watch() {
           {silderData.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <Link href={"#" + item.vendor} key={index}>
-                  <a className="px-4 py-2 btn-vendor round-form pink-btn d-flex align-items-center">
+                  <a className="px-4 py-2 btn-vendor round-form d-flex align-items-center" href={"#" + item.vendor} key={index}>
                     <img
                       src={"/img/watch/logo/" + item.image}
                       alt="logo-image"
                     />
                   </a>
-                </Link>
               </SwiperSlide>
             );
           })}
