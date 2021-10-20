@@ -86,7 +86,7 @@ export default function WatchDetails({ watchData, loading }) {
             </div>
             {watch.data.length ? (
               <div className="watch-items-panel">
-                <h3 className="title py-3 mb-4">{watch.title}</h3>
+                <h3 className="title py-3 mb-4 text-capitalize">{watch.title + " watches"}</h3>
                 <div className="item-panel row mb-5">
                   {
                     <Swiper
@@ -96,7 +96,7 @@ export default function WatchDetails({ watchData, loading }) {
                       }}
                       slidesPerView={4}
                       spaceBetween={30}
-                      loop={true}
+                      // loop={true}
                       className="mySwiper"
                       breakpoints={{
                         996: {
