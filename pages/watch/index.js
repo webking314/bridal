@@ -24,6 +24,27 @@ const vendors = [
   { vendor: "omega", image: "omega.png" },
 ];
 
+const silderData = [
+  { vendor: "chopard", image: "chopard.png" },
+  { vendor: "tudor", image: "tudor.png" },
+  { vendor: "piaget", image: "piaget.png" },
+  { vendor: "longines", image: "longines.png" },
+  { vendor: "frederique-constant", image: "frederique.png" },
+  { vendor: "tag-heuer", image: "tag_heuer.png" },
+  { vendor: "titoni", image: "titoni.png" },
+  { vendor: "hamilton", image: "hamilton.png" },
+  { vendor: "omega", image: "omega.png" },
+  { vendor: "chopard", image: "chopard.png" },
+  { vendor: "tudor", image: "tudor.png" },
+  { vendor: "piaget", image: "piaget.png" },
+  { vendor: "longines", image: "longines.png" },
+  { vendor: "frederique-constant", image: "frederique.png" },
+  { vendor: "tag-heuer", image: "tag_heuer.png" },
+  { vendor: "titoni", image: "titoni.png" },
+  { vendor: "hamilton", image: "hamilton.png" },
+  { vendor: "omega", image: "omega.png" },
+];
+
 const basicData = [
   {
     title: "Montblanc Diamond Watches",
@@ -40,85 +61,6 @@ const basicData = [
     btnText: "SHOW FREDERIQUE CONSTANT WATCHES",
     coverImage: "watch-cover-2.png",
     itemTitle: "Frederique Constant Diamond Watches",
-  },
-];
-
-const watchDatas = [
-  {
-    title: "Montblanc Diamond Watches",
-    description:
-      "Superior craftsmanship in a range from grand complications to refined three-hand watches. These are the Montblanc Luxury Watches.",
-    btnText: "Show Montblanc watches",
-    coverImage: "watch-cover-1.png",
-    itemTitle: "Montblanc Watches",
-    items: [
-      {
-        url: "#",
-        image: "watch-item-1.png",
-        title: "MONTBLANC HERITAGE",
-        id: "#112533",
-        cost: "2500",
-      },
-      {
-        url: "#",
-        image: "watch-item-2.png",
-        title: "MONTBLANC HERITAGE",
-        id: "#112533",
-        cost: "2500",
-      },
-      {
-        url: "#",
-        image: "watch-item-3.png",
-        title: "MONTBLANC HERITAGE",
-        id: "#112533",
-        cost: "2500",
-      },
-      {
-        url: "#",
-        image: "watch-item-4.png",
-        title: "MONTBLANC HERITAGE",
-        id: "#112533",
-        cost: "2500",
-      },
-    ],
-  },
-  {
-    title: "Frederique Constant Diamond Watches",
-    description:
-      "Design, Innovation, Passion and Quality. Those are the core values of the brand Frederique Constant.",
-    btnText: "SHOW FREDERIQUE CONSTANT WATCHES",
-    coverImage: "watch-cover-2.png",
-    itemTitle: "Frederique Constant Diamond Watches",
-    items: [
-      {
-        url: "#",
-        image: "watch-item-5.png",
-        title: "MONTBLANC HERITAGE",
-        id: "#112533",
-        cost: "2500",
-      },
-      {
-        url: "#",
-        image: "watch-item-6.png",
-        title: "MONTBLANC HERITAGE",
-        id: "#112533",
-        cost: "2500",
-      },
-      {
-        url: "#",
-        image: "watch-item-7.png",
-        title: "MONTBLANC HERITAGE",
-        id: "#112533",
-        cost: "2500",
-      },
-      {
-        url: "#",
-        image: "watch-item-8.png",
-        title: "MONTBLANC HERITAGE",
-        id: "#112533",
-        cost: "2500",
-      },
-    ],
   },
 ];
 
@@ -148,7 +90,7 @@ export default function Watch() {
         .then((data) => {
           watchData.push({
             ...basicData[dataLength % 2],
-            id: vendors[dataLength].vendor,
+            title: vendors[dataLength].vendor,
             data: data.data,
           });
           setWatchData([...watchData]);
@@ -157,13 +99,8 @@ export default function Watch() {
         });
     } else {
       setLoading();
-      console.log(123);
     }
   }, [dataLength]);
-
-  useEffect(() => {
-    console.log(watchData);
-  }, [watchData]);
 
   return (
     <div className="watch_page">
@@ -258,7 +195,7 @@ export default function Watch() {
             });
           }}
         >
-          {vendors.map((item, index) => {
+          {silderData.map((item, index) => {
             return (
               <SwiperSlide key={index}>
                 <Link href={"#" + item.vendor} key={index}>

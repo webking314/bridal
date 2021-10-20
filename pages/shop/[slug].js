@@ -27,7 +27,7 @@ import {
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { Skeleton } from "@material-ui/lab";
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { SnackbarProvider, useSnackbar } from "notistack";
 
 SwiperCore.use([Autoplay, Navigation]);
 
@@ -91,9 +91,8 @@ const productID = "SKU 10872957";
 const productDescription =
   "This beautiful tapered engagement ring design is channel-set with eight round shaped diamonds. A setting designed to draw the eye to the center diamond or gemstone of your choice. Pair it with the matching wedding band for a contoured look.";
 
-const getProductURL = 'https://royalcoster.nl/api/getProduct.php';
-const graphqlURL = 'https://royalcoster.nl/api/graphql.php';
-
+const getProductURL = "https://royalcoster.nl/api/getProduct.php";
+const graphqlURL = "https://royalcoster.nl/api/graphql.php";
 
 function ProductRing(props) {
   const [size, setSize] = useState(0);
@@ -118,8 +117,8 @@ function ProductRing(props) {
 
   useEffect(() => {
     props.wishList &&
-      localStorage.setItem('wishList', JSON.stringify(props.wishList))
-  }, [props.wishList])
+      localStorage.setItem("wishList", JSON.stringify(props.wishList));
+  }, [props.wishList]);
 
   const addCart = (e) => {
     e.preventDefault();
@@ -127,44 +126,69 @@ function ProductRing(props) {
     let currentSize = size ? size : sizeList[0];
     let formData = new FormData();
     const graphql = `{productVariant(id: "gid://shopify/ProductVariant/${optionValue.variantId}") {id title storefrontId}}`;
-    formData.append('graphql', btoa(graphql));
+    formData.append("graphql", btoa(graphql));
     fetch(graphqlURL, {
-      method: 'post',
-      body: formData
-    }).then((res) => res.json())
+      method: "post",
+      body: formData,
+    })
+      .then((res) => res.json())
       .then((data) => {
-        let cartItem = { shopifyid: productData.id, size: currentSize, maxCount: productData.available, description: productData.body_html, title: productData.title, price: productData.variants[0].price, variant: { ...optionValue, storefrontId: data.data.productVariant.storefrontId }, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, product_type: "Rings" };
+        let cartItem = {
+          shopifyid: productData.id,
+          size: currentSize,
+          maxCount: productData.available,
+          description: productData.body_html,
+          title: productData.title,
+          price: productData.variants[0].price,
+          variant: {
+            ...optionValue,
+            storefrontId: data.data.productVariant.storefrontId,
+          },
+          image: productData.image.src.replace(".jpg", "_100x.jpg"),
+          amount: itemAmount,
+          product_type: "Rings",
+        };
         let selectedAmount = itemAmount;
 
         if (localStorage.cart) {
           let cartData = JSON.parse(localStorage.cart).cartData;
-          cartData.map(product => {
+          cartData.map((product) => {
             if (product.shopifyid == productData.id) {
-              cartAmount += product.amount
+              cartAmount += product.amount;
             }
-          })
+          });
 
-          let setItem = cartData.find((item, index) => item.shopifyid == cartItem.shopifyid);
+          let setItem = cartData.find(
+            (item, index) => item.shopifyid == cartItem.shopifyid
+          );
           let available = productData.available - cartAmount;
-          
+
           if (!available) {
-            const variant = "warning"
-          enqueueSnackbar("Stock is not enough.", { variant })
+            const variant = "warning";
+            enqueueSnackbar("Stock is not enough.", { variant });
             return;
           }
 
           if (selectedAmount > available) {
-            setItemAmount(available)
+            setItemAmount(available);
             selectedAmount = available;
           }
 
           if (setItem) {
-            const variantItem = cartData.find(item => item.variant.variantId == cartItem.variant.variantId)
+            const variantItem = cartData.find(
+              (item) => item.variant.variantId == cartItem.variant.variantId
+            );
             if (variantItem) {
               variantItem.amount += selectedAmount;
-              localStorage.setItem("cart", JSON.stringify({ cartData: cartData }));
+              localStorage.setItem(
+                "cart",
+                JSON.stringify({ cartData: cartData })
+              );
             } else {
-              localStorage.setItem("cart", JSON.stringify({cartData: [...cartData, cartItem]}))
+              localStorage.setItem(
+                "cart",
+                JSON.stringify({ cartData: [...cartData, cartItem] })
+              );
             }
           } else {
             localStorage.setItem(
@@ -176,7 +200,7 @@ function ProductRing(props) {
                     ...cartItem,
                     amount: selectedAmount,
                   },
-                ]
+                ],
               })
             );
           }
@@ -187,7 +211,7 @@ function ProductRing(props) {
 
           if (selectedAmount > productData.available) {
             selectedAmount = productData.available;
-            setItemAmount(productData.available)
+            setItemAmount(productData.available);
           }
 
           localStorage.setItem(
@@ -198,12 +222,12 @@ function ProductRing(props) {
                   ...cartItem,
                   amount: selectedAmount,
                 },
-              ]
+              ],
             })
           );
         }
         router.push("/cart");
-      })
+      });
   };
 
   const selectFavor = () => {
@@ -215,47 +239,60 @@ function ProductRing(props) {
       );
       if (removeProduct) {
         localProducts.splice(localProducts.indexOf(removeProduct), 1);
-        props.setWishList(localProducts)
+        props.setWishList(localProducts);
       }
     } else {
-      setFavorItem("favor")
-      let productItem = { shopifyid: productData.id, title: productData.title, price: productData.variants[0].price, variantID: productData.variants[0].id, image: productData.image.src.replace('.jpg', '_100x.jpg'), amount: itemAmount, product_type: "Rings" };
+      setFavorItem("favor");
+      let productItem = {
+        shopifyid: productData.id,
+        title: productData.title,
+        price: productData.variants[0].price,
+        variantID: productData.variants[0].id,
+        image: productData.image.src.replace(".jpg", "_100x.jpg"),
+        amount: itemAmount,
+        product_type: "Rings",
+      };
       if (localStorage.wishList) {
-        props.setWishList([...props.wishList, productItem])
+        props.setWishList([...props.wishList, productItem]);
       } else {
-        localStorage.setItem(
-          "wishList",
-          JSON.stringify([productItem])
-        );
-        props.setWishList([productItem])
+        localStorage.setItem("wishList", JSON.stringify([productItem]));
+        props.setWishList([productItem]);
       }
     }
-  }
+  };
 
   useEffect(() => {
     if (router.query.slug) {
-      let shopifyid = router.query.slug.split('-');
+      let shopifyid = router.query.slug.split("-");
       let formData = new FormData();
-      formData.append('shopifyid', shopifyid[shopifyid.length - 1]);
+      formData.append("shopifyid", shopifyid[shopifyid.length - 1]);
       fetch(getProductURL, {
-        method: 'post',
-        body: formData
-      }).then((res) => res.json())
+        method: "post",
+        body: formData,
+      })
+        .then((res) => res.json())
         .then((data) => {
           setProductData(data);
-          setMainImage(data.image.src.replace('.jpg', '_500x.jpg'));
+          setMainImage(data.image.src.replace(".jpg", "_500x.jpg"));
           setItemPrice(data.variants[0].price);
-          setOptionValue({ variantTitle: data.variants[0].title, variantId: data.variants[0].id })
-          data.tags.split(',').map((item) => {
-            if (item >= 45 && item <= 65)
-              setSizeList([...sizeList, item])
-          })
-          if (localStorage.wishList && JSON.parse(localStorage.wishList).find(item => item.shopifyid == data.id)) {
-            setFavorItem('favor')
+          setOptionValue({
+            variantTitle: data.variants[0].title,
+            variantId: data.variants[0].id,
+          });
+          data.tags.split(",").map((item) => {
+            if (item >= 45 && item <= 65) setSizeList([...sizeList, item]);
+          });
+          if (
+            localStorage.wishList &&
+            JSON.parse(localStorage.wishList).find(
+              (item) => item.shopifyid == data.id
+            )
+          ) {
+            setFavorItem("favor");
           }
-        })
+        });
     }
-  }, [router.query])
+  }, [router.query]);
 
   return (
     <div className="productRing_page" id="productPage">
@@ -289,266 +326,346 @@ function ProductRing(props) {
       {/* End state section */}
 
       {/* Start confirm section */}
-      {
-        productData ? (
-          <div className="confirm-section py-5 mb-5 row r-container">
-            <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
-              <div className="row m-0">
-                <div className="tile-product col-2 p-0 pe-3">
-                  {productData.images.map((item, index) => {
+      {productData ? (
+        <div className="confirm-section py-5 mb-5 row r-container">
+          <div className="show-product col-md-6 col-12 p-0 pt-5 pe-5">
+            <div className="row m-0">
+              <div className="tile-product col-2 p-0 pe-3">
+                {productData.images.length > 0 &&
+                  productData.images.map((item, index) => {
                     return (
                       <button
                         className="btn btn-show-product mb-3 p-0 round-form"
                         key={index}
-                        onClick={() => setMainImage(item.src.replace('.jpg', '_500x.jpg'))}
+                        onClick={() =>
+                          setMainImage(item.src.replace(".jpg", "_500x.jpg"))
+                        }
                       >
-                        <img src={item.src.replace('.jpg', '_50x.jpg')} alt="product-image" />
+                        <img
+                          src={item.src.replace(".jpg", "_50x.jpg")}
+                          alt="product-image"
+                        />
                       </button>
                     );
                   })}
+              </div>
+              <div className="main-product col-10 p-0">
+                <div className="image-panel round mb-4">
+                  <div className="image-box">
+                    {mainImage && <img src={mainImage} alt="main-image" />}
+                  </div>
                 </div>
-                <div className="main-product col-10 p-0">
-                  <div className="image-panel round mb-4">
-                    <div className="image-box">
-                      {
-                        mainImage &&
-                        <img src={mainImage} alt="main-image" />
-                      }
-                    </div>
-                  </div>
-                  <div className="btn-panel d-flex align-items-center justify-content-between">
-                    <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
-                      <RiShareLine className="me-2" />
-                      share
-                    </button>
-                    <button
-                      className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
-                      data-bs-toggle="modal"
-                      data-bs-target="#dropHint"
-                    >
-                      drop a hint
-                    </button>
-                  </div>
+                <div className="btn-panel d-flex align-items-center justify-content-between">
+                  <button className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center">
+                    <RiShareLine className="me-2" />
+                    share
+                  </button>
+                  <button
+                    className="btn px-4 py-2 blue-text btn-share text-uppercase round-form d-flex align-items-center"
+                    data-bs-toggle="modal"
+                    data-bs-target="#dropHint"
+                  >
+                    drop a hint
+                  </button>
                 </div>
               </div>
             </div>
-            <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-5">
-              <div className="title-panel">
-                <h3 className="type pb-4 m-0">{renderHTML(productData.vendor)}</h3>
-                <h3 className="title text-capitalize pb-4 m-0">{renderHTML(productData.title)}</h3>
-                <p className="description pb-4 m-0">{renderHTML(productData.body_html.split('<p>')[0])}</p>
-              </div>
-              <div className="confirm-panel">
-                {
-                  productData.options.map((option, key) => {
-                    return (
-                      <div className="material-setting-panel py-4" key={key}>
-                        <label
-                          htmlFor="selectKarat"
-                          className="d-flex align-items-center pb-4 text-uppercase"
-                        >
-                          {option.name} : {optionValue ? optionValue[0] : option.values[0]}
-                          <RiErrorWarningLine className="ms-2" />
-                        </label>
-                        <div className="material-box d-flex flex-wrap">
-                          {option.values.map((value, index) => {
-                            return (
-                              <button
-                                className={"btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " + (!optionValue && index == 0 ? 'active' : optionValue && optionValue.variantTitle == value ? 'active' : '')}
-                                key={index}
-                                onClick={() => setOptionValue({ variantTitle: value, variantId: productData.variants.find(variant => variant.title == value).id })}
-                              >
-                                {value}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )
-                  })
-                }
-                <div className="selector-panel row m-0 py-4">
-                  {sizeList.length > 0 &&
-                    <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
-                      <div className="d-flex justify-content-between pb-4 align-items-center">
-                        <h3
-                          htmlFor="selectKarat"
-                          className="d-flex align-items-center m-0 text-uppercase"
-                        >
-                          Ring Size
-                          <RiErrorWarningLine className="ms-2" />
-                        </h3>
-                        <button
-                          className="btn text-uppercase btn-find-size py-1"
-                          onClick={() => setSize(0)}
-                        >
-                          find my size
-                        </button>
-                      </div>
-                      <div className="select-box">
-                        <select
-                          className="form-select blue-text ps-4 round-form py-3"
-                          aria-label="Default select example"
-                          value={size}
-                          onChange={(event) => setSize(event.target.value)}
-                        >
-                          {sizeList.map((item, index) => {
-                            return (
-                              <option value={item} key={index}>
-                                {item}
-                              </option>
-                            );
-                          })}
-                        </select>
-                      </div>
-                    </div>
-                  }
-                  <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-lg-3 ps-0">
+          </div>
+          <div className="show-setting col-md-6 col-12 p-0 pt-5 ps-5">
+            <div className="title-panel">
+              <h3 className="type pb-4 m-0">
+                {renderHTML(productData.vendor)}
+              </h3>
+              <h3 className="title text-capitalize pb-4 m-0">
+                {renderHTML(productData.title)}
+              </h3>
+              <p className="description pb-4 m-0">
+                {renderHTML(productData.body_html.split("<p>")[0])}
+              </p>
+            </div>
+            <div className="confirm-panel">
+              {productData.options.length > 0 && productData.options.map((option, key) => {
+                return (
+                  <div className="material-setting-panel py-4" key={key}>
                     <label
                       htmlFor="selectKarat"
                       className="d-flex align-items-center pb-4 text-uppercase"
                     >
-                      Free Inscription
+                      {option.name} :{" "}
+                      {optionValue ? optionValue[0] : option.values[0]}
                       <RiErrorWarningLine className="ms-2" />
                     </label>
-                    <button className="btn btn-add-engraving  d-flex justify-content-between align-items-center text-uppercase round-form p-3">
-                      add engraving
-                      <RiArrowRightSLine />
-                    </button>
+                    <div className="material-box d-flex flex-wrap">
+                      {option.values.lenght > 0 && option.values.map((value, index) => {
+                        return (
+                          <button
+                            className={
+                              "btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " +
+                              (!optionValue && index == 0
+                                ? "active"
+                                : optionValue &&
+                                  optionValue.variantTitle == value
+                                ? "active"
+                                : "")
+                            }
+                            key={index}
+                            onClick={() =>
+                              setOptionValue({
+                                variantTitle: value,
+                                variantId: productData.variants.find(
+                                  (variant) => variant.title == value
+                                ).id,
+                              })
+                            }
+                          >
+                            {value}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
+                );
+              })}
+              <div className="selector-panel row m-0 py-4">
+                {sizeList.length > 0 && (
+                  <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
+                    <div className="d-flex justify-content-between pb-4 align-items-center">
+                      <h3
+                        htmlFor="selectKarat"
+                        className="d-flex align-items-center m-0 text-uppercase"
+                      >
+                        Ring Size
+                        <RiErrorWarningLine className="ms-2" />
+                      </h3>
+                      <button
+                        className="btn text-uppercase btn-find-size py-1"
+                        onClick={() => setSize(0)}
+                      >
+                        find my size
+                      </button>
+                    </div>
+                    <div className="select-box">
+                      <select
+                        className="form-select blue-text ps-4 round-form py-3"
+                        aria-label="Default select example"
+                        value={size}
+                        onChange={(event) => setSize(event.target.value)}
+                      >
+                        {sizeList > 0 && sizeList.map((item, index) => {
+                          return (
+                            <option value={item} key={index}>
+                              {item}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                )}
+                <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-lg-3 ps-0">
+                  <label
+                    htmlFor="selectKarat"
+                    className="d-flex align-items-center pb-4 text-uppercase"
+                  >
+                    Free Inscription
+                    <RiErrorWarningLine className="ms-2" />
+                  </label>
+                  <button className="btn btn-add-engraving  d-flex justify-content-between align-items-center text-uppercase round-form p-3">
+                    add engraving
+                    <RiArrowRightSLine />
+                  </button>
                 </div>
-                <div className="cost-panel d-flex justify-content-between align-items-center py-4">
-                  <div className="price-panel">
-                    <h4 className="text-uppercase">total</h4>
-                    <h3 className="blue-text">
-                      <NumberFormat
-                        value={itemPrice * itemAmount}
-                        displayType="text"
-                        decimalScale={2}
-                        fixedDecimalScale={true}
-                        thousandSeparator={true}
-                        prefix="€ "
-                      />
-                    </h3>
-                  </div>
-                  <div className="amount-panel d-flex align-items-center">
-                    <button
-                      className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-4"
-                      onClick={() =>
-                        itemAmount > 1 && setItemAmount(itemAmount - 1)
-                      }
-                    >
-                      <RiSubtractFill />
-                    </button>
-                    <span className="mx-4">{itemAmount}</span>
-                    <button
-                      className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-4"
-                      onClick={() => itemAmount < productData.available && setItemAmount(itemAmount + 1)}
-                    >
-                      <RiAddFill />
-                    </button>
-                  </div>
+              </div>
+              <div className="cost-panel d-flex justify-content-between align-items-center py-4">
+                <div className="price-panel">
+                  <h4 className="text-uppercase">total</h4>
+                  <h3 className="blue-text">
+                    <NumberFormat
+                      value={itemPrice * itemAmount}
+                      displayType="text"
+                      decimalScale={2}
+                      fixedDecimalScale={true}
+                      thousandSeparator={true}
+                      prefix="€ "
+                    />
+                  </h3>
                 </div>
-                <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
+                <div className="amount-panel d-flex align-items-center">
                   <button
-                    className={
-                      "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
-                      favorItem
-                    }
+                    className="btn btn-decrease round-form blue-text d-flex align-items-center justify-content-center p-4"
                     onClick={() =>
-                      selectFavor()
+                      itemAmount > 1 && setItemAmount(itemAmount - 1)
                     }
                   >
-                    <RiHeartFill />
+                    <RiSubtractFill />
                   </button>
-                  <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
-                    <button
-                      className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4"
-                      onClick={addCart}
-                    >
-                      add to cart
-                    </button>
-                    <p className="m-0">Price excludes VAT</p>
-                  </div>
+                  <span className="mx-4">{itemAmount}</span>
+                  <button
+                    className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-4"
+                    onClick={() =>
+                      itemAmount < productData.available &&
+                      setItemAmount(itemAmount + 1)
+                    }
+                  >
+                    <RiAddFill />
+                  </button>
                 </div>
-                <div className="help-panel d-flex justify-content-between py-4">
-                  <p className="text-uppercase m-0">Need help?</p>
-                  <div className="link-panel d-flex">
-                    <Link passHref={true} href="#">
-                      <a className="text-uppercase me-4 d-flex align-items-center blue-text">
-                        <RiCustomerService2Fill className="me-2" />
-                        contact
-                      </a>
-                    </Link>
+              </div>
+              <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
+                <button
+                  className={
+                    "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
+                    favorItem
+                  }
+                  onClick={() => selectFavor()}
+                >
+                  <RiHeartFill />
+                </button>
+                <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
+                  <button
+                    className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4"
+                    onClick={addCart}
+                  >
+                    add to cart
+                  </button>
+                  <p className="m-0">Price excludes VAT</p>
+                </div>
+              </div>
+              <div className="help-panel d-flex justify-content-between py-4">
+                <p className="text-uppercase m-0">Need help?</p>
+                <div className="link-panel d-flex">
+                  <Link passHref={true} href="#">
+                    <a className="text-uppercase me-4 d-flex align-items-center blue-text">
+                      <RiCustomerService2Fill className="me-2" />
+                      contact
+                    </a>
+                  </Link>
 
-                    <Link passHref={true} href="#">
-                      <a className="text-uppercase d-flex align-items-center blue-text">
-                        <RiChat1Line className="me-2" />
-                        chat
-                      </a>
-                    </Link>
-                  </div>
+                  <Link passHref={true} href="#">
+                    <a className="text-uppercase d-flex align-items-center blue-text">
+                      <RiChat1Line className="me-2" />
+                      chat
+                    </a>
+                  </Link>
                 </div>
-                <div className="schedule-panel d-flex align-items-center justify-content-between flex-wrap py-4">
-                  <p className="m-0 text-uppercase">
-                    Not ready to purchase online?
-                  </p>
-                  <button className="btn btn-schedule text-uppercase blue-text my-3 px-5 py-2" data-bs-toggle="modal"
-                    data-bs-target="#appointment">
-                    Schedule an appointment
-                  </button>
-                </div>
+              </div>
+              <div className="schedule-panel d-flex align-items-center justify-content-between flex-wrap py-4">
+                <p className="m-0 text-uppercase">
+                  Not ready to purchase online?
+                </p>
+                <button
+                  className="btn btn-schedule text-uppercase blue-text my-3 px-5 py-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#appointment"
+                >
+                  Schedule an appointment
+                </button>
               </div>
             </div>
           </div>
-        ) : (
-          <div className="row r-container mb-5">
-            <div className="col-md-6 col-12 p-0 pt-5 pe-5">
-              <div className="row m-0">
-                <div className="tile-product d-sm-block d-none col-2 p-0 pe-3">
-                  <Skeleton variant="rect" width="100%" height={50} animation="wave" />
-                  <Skeleton variant="rect" width="100%" className="mt-4" height={50} animation="wave" />
-                  <Skeleton variant="rect" width="100%" className="mt-4" height={50} animation="wave" />
-                  <Skeleton variant="rect" width="100%" className="mt-4" height={50} animation="wave" />
-                </div>
-                <div className="main-product col-sm-10 col-12 p-0">
-                  <Skeleton variant="rect" width="100%" height={300} animation="wave" />
-                </div>
-                <div className="tile-product d-sm-none d-flex col-12 p-0 pt-4">
-                  <Skeleton variant="rect" width={50} height={50} animation="wave" />
-                  <Skeleton variant="rect" width={50} className="ms-4" height={50} animation="wave" />
-                  <Skeleton variant="rect" width={50} className="ms-4" height={50} animation="wave" />
-                </div>
+        </div>
+      ) : (
+        <div className="row r-container mb-5">
+          <div className="col-md-6 col-12 p-0 pt-5 pe-5">
+            <div className="row m-0">
+              <div className="tile-product d-sm-block d-none col-2 p-0 pe-3">
+                <Skeleton
+                  variant="rect"
+                  width="100%"
+                  height={50}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="rect"
+                  width="100%"
+                  className="mt-4"
+                  height={50}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="rect"
+                  width="100%"
+                  className="mt-4"
+                  height={50}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="rect"
+                  width="100%"
+                  className="mt-4"
+                  height={50}
+                  animation="wave"
+                />
+              </div>
+              <div className="main-product col-sm-10 col-12 p-0">
+                <Skeleton
+                  variant="rect"
+                  width="100%"
+                  height={300}
+                  animation="wave"
+                />
+              </div>
+              <div className="tile-product d-sm-none d-flex col-12 p-0 pt-4">
+                <Skeleton
+                  variant="rect"
+                  width={50}
+                  height={50}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="rect"
+                  width={50}
+                  className="ms-4"
+                  height={50}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="rect"
+                  width={50}
+                  className="ms-4"
+                  height={50}
+                  animation="wave"
+                />
               </div>
             </div>
-            <div className="col-md-6 col-12 p-0 pt-5 ps-5">
-              <Skeleton variant='text' width="100%" height={45} className="mb-4" />
-              <Skeleton variant='text' width="100%" height={45} className="mb-4" />
-              <Skeleton variant="text" height={35} width="100%" />
-              <Skeleton variant="text" height={35} width="100%" />
-              <Skeleton variant="text" height={35} width="100%" />
-              <Skeleton variant="text" height={35} width="100%" />
-            </div>
           </div>
-        )
-      }
+          <div className="col-md-6 col-12 p-0 pt-5 ps-5">
+            <Skeleton
+              variant="text"
+              width="100%"
+              height={45}
+              className="mb-4"
+            />
+            <Skeleton
+              variant="text"
+              width="100%"
+              height={45}
+              className="mb-4"
+            />
+            <Skeleton variant="text" height={35} width="100%" />
+            <Skeleton variant="text" height={35} width="100%" />
+            <Skeleton variant="text" height={35} width="100%" />
+            <Skeleton variant="text" height={35} width="100%" />
+          </div>
+        </div>
+      )}
       {/* End confirm section */}
 
       {/* Start product detail section */}
-      {
-        productData ?
-          <ProductDetail
-            informations={productData.specifications}
-            productID={productData.variants[0].sku}
-            productDescription={productData.body_html}
-          /> :
-          <div className="r-container pt-5">
-            <Skeleton variant="text" width="100%" height={40}></Skeleton>
-            <Skeleton variant="text" width="100%" height={40}></Skeleton>
-            <Skeleton variant="text" width="100%" height={40}></Skeleton>
-            <Skeleton variant="text" width="100%" height={40}></Skeleton>
-          </div>
-      }
+      {productData ? (
+        <ProductDetail
+          informations={productData.specifications}
+          productID={productData.variants[0].sku}
+          productDescription={productData.body_html}
+        />
+      ) : (
+        <div className="r-container pt-5">
+          <Skeleton variant="text" width="100%" height={40}></Skeleton>
+          <Skeleton variant="text" width="100%" height={40}></Skeleton>
+          <Skeleton variant="text" width="100%" height={40}></Skeleton>
+          <Skeleton variant="text" width="100%" height={40}></Skeleton>
+        </div>
+      )}
       {/* End product detail section */}
 
       {/* Start customer section */}
@@ -565,16 +682,16 @@ function ProductRing(props) {
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}
-    </div >
+    </div>
   );
 }
 
-const mapStateToProps = state => ({
-  wishList: state.wishList.value
+const mapStateToProps = (state) => ({
+  wishList: state.wishList.value,
 });
 
 const mapDispatchToProps = {
   setWishList: setWishList,
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductRing)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductRing);

@@ -34,7 +34,7 @@ export default function WatchDetails({ watchData, loading }) {
         watchData.map((watch, index) => (
           <div
             className="watch-detail-section r-container pt-5"
-            id={watch.id}
+            id={watch.title}
             key={index}
           >
             <div className="watch-info-panel row m-0 mb-5">
@@ -50,7 +50,7 @@ export default function WatchDetails({ watchData, loading }) {
                     (index % 2 == 0 ? "pe-md-5" : "ps-md-5 ms-md-5")
                   }
                 >
-                  {watch.title}
+                  {watch.title + " Diamond Watches"}
                 </h3>
                 <p
                   className={
@@ -86,7 +86,7 @@ export default function WatchDetails({ watchData, loading }) {
             </div>
             {watch.data.length ? (
               <div className="watch-items-panel">
-                <h3 className="title py-3 mb-4">{watch.itemTitle}</h3>
+                <h3 className="title py-3 mb-4">{watch.title}</h3>
                 <div className="item-panel row mb-5">
                   {
                     <Swiper
@@ -168,9 +168,9 @@ export default function WatchDetails({ watchData, loading }) {
                               <h4 className="item-title text-capitalize mb-3">
                                 {item.title}
                               </h4>
-                              <p className="item-id text-capitalize mb-4">
+                              {/* <p className="item-id text-capitalize mb-4">
                                 {"#" + item.costerid}
-                              </p>
+                              </p> */}
                               <h3 className="item-cost text-uppercase">
                                 <NumberFormat
                                   value={item.price}
