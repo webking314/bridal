@@ -7,18 +7,23 @@ import Footer from "../../components/footer";
 import Schedule from "../../components/schedule";
 import Collection from "../../components/collection";
 import SelectSearch, { fuzzySearch } from "react-select-search-nextjs";
-import { RiHeartLine, RiFilter3Fill, RiHeartFill, RiArrowRightSLine } from "react-icons/ri";
+import {
+  RiHeartLine,
+  RiFilter3Fill,
+  RiHeartFill,
+  RiArrowRightSLine,
+} from "react-icons/ri";
 import { Skeleton } from "@material-ui/lab";
 import _ from "lodash";
 import NumberFormat from "react-number-format";
 import { connect } from "react-redux";
-import { setWishList } from '../../redux/actions/wishListAction';
-import CheckboxTree from 'react-checkbox-tree';
-import CheckBox from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
+import { setWishList } from "../../redux/actions/wishListAction";
+import CheckboxTree from "react-checkbox-tree";
+import CheckBox from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 
 const options = [
   { name: "ALL", value: "ALL" },
@@ -103,14 +108,22 @@ const productItems = [
 ];
 
 const productURL = "https://royalcoster.nl/api/product/index.php";
-const metarialURL = "https://costercatalog.com/api/index.php?request=getMaterialsGroupedNew";
-const materialColorURL = "https://costercatalog.com/api/index.php?request=generateAttributesColor&sync=1'"
-const cutURL = "https://costercatalog.com/api/index.php?request=generateAttributesCut&tn=products_short&sync=1"
-const mountingURL = "https://costercatalog.com/api/index.php?request=generateAttributesStyle&tn=products_short&sync=1"
-const styleURL = "https://costercatalog.com/api/index.php?request=generateAttributesCollection&tn=products_short&sync=1"
-const brandURL = "https://costercatalog.com/api/index.php?request=getBrandsGrouped&tn=products_short&sync=1"
-const brightnessURL = "https://costercatalog.com/api/index.php?request=generateAttributesClarity&tn=products_short&sync=1";
-const stoneURL = "https://costercatalog.com/api/index.php?request=generateAttributesType&tn=products_short&sync=1"
+const metarialURL =
+  "https://costercatalog.com/api/index.php?request=getMaterialsGroupedNew";
+const materialColorURL =
+  "https://costercatalog.com/api/index.php?request=generateAttributesColor&sync=1'";
+const cutURL =
+  "https://costercatalog.com/api/index.php?request=generateAttributesCut&tn=products_short&sync=1";
+const mountingURL =
+  "https://costercatalog.com/api/index.php?request=generateAttributesStyle&tn=products_short&sync=1";
+const styleURL =
+  "https://costercatalog.com/api/index.php?request=generateAttributesCollection&tn=products_short&sync=1";
+const brandURL =
+  "https://costercatalog.com/api/index.php?request=getBrandsGrouped&tn=products_short&sync=1";
+const brightnessURL =
+  "https://costercatalog.com/api/index.php?request=generateAttributesClarity&tn=products_short&sync=1";
+const stoneURL =
+  "https://costercatalog.com/api/index.php?request=generateAttributesType&tn=products_short&sync=1";
 const CTagURL = "https://royalcoster.nl/api/getTags.php";
 const headers = {
   // "Content-Type": "application/json",
@@ -130,31 +143,46 @@ function getFilterValue(str) {
   if (str.charAt(0) == "-") {
     str = str.replace(/\A-+/, "");
   }
-  return str
+  return str;
 }
 
 const firstFilterItem = [
   {
-    title: "price", filter: [
+    title: "price",
+    filter: [
       { label: "To €500", value: "to-500" },
       { label: "€1000 - €1499", value: "-1000-1499" },
       { label: "€1500 - €2499", value: "-1500-2499" },
       { label: "€2500 - €4999", value: "-2500-4999" },
       { label: "€5000 - €9999", value: "-5000-9999" },
       { label: "More than €10000", value: "more-than-10000" },
-    ]
+    ],
   },
   {
-    title: "collection", filter: [
+    title: "collection",
+    filter: [
       { label: "Empress Collection", value: "empress-collectie" },
       { label: "Rainbow Collection", value: "rainbow-collectie" },
       { label: "Luna Collection", value: "luna-collectie" },
       { label: "Touch of Glam Collection", value: "touch-of-glam" },
       { label: "Wedding Rings Collection", value: "wedding-rings-collectie" },
-      { label: "NIKKIE x Royal Coster Diamonds", value: "nikkie-x-royal-coster-diamonds" },
-    ]
+      {
+        label: "NIKKIE x Royal Coster Diamonds",
+        value: "nikkie-x-royal-coster-diamonds",
+      },
+    ],
   },
-]
+  {
+    title: "carat",
+    filter: [
+      { label: "Below 0.5 Carat" },
+      { label: "0.5 - 1.0 Carat" },
+      { label: "1 - 2 Carat" },
+      { label: "2 - 5 Carat" },
+      { label: "More than 5 Carat" },
+    ],
+  },
+];
 
 const checkTreeIcons = {
   check: <CheckBox />,
@@ -162,14 +190,38 @@ const checkTreeIcons = {
   halfCheck: <CheckBoxOutlinedIcon />,
   expandClose: <AddBoxOutlinedIcon />,
   expandOpen: <IndeterminateCheckBoxOutlinedIcon />,
-  expandAll: '',
-  collapseAll: '',
+  expandAll: "",
+  collapseAll: "",
   parentClose: "",
   parentOpen: "",
-  leaf: ""
-}
+  leaf: "",
+};
 
-let productStore = [], lastProductStatus, cTagData, check0 = [], check1 = [], check2 = [], check3 = [], check4 = [], check5 = [], check6 = [], check7 = [], check8 = [], check9 = [], localProductType, localTag = [], basicStyleData, basicMountingData, basicBrandData, basicStoneData, basicBrightnessData, basicCutData, basicMetarialData, basicMaterialColorData, localResultCounter;
+let productStore = [],
+  lastProductStatus,
+  cTagData,
+  check0 = [],
+  check1 = [],
+  check2 = [],
+  check3 = [],
+  check4 = [],
+  check5 = [],
+  check6 = [],
+  check7 = [],
+  check8 = [],
+  check9 = [],
+  check10 = [],
+  localProductType,
+  localTag = [],
+  basicStyleData,
+  basicMountingData,
+  basicBrandData,
+  basicStoneData,
+  basicBrightnessData,
+  basicCutData,
+  basicMetarialData,
+  basicMaterialColorData,
+  localResultCounter;
 
 function Ring(props) {
   const [result, setResult] = useState(0);
@@ -190,6 +242,7 @@ function Ring(props) {
   const [checked7, setChecked7] = useState(check7);
   const [checked8, setChecked8] = useState(check8);
   const [checked9, setChecked9] = useState(check9);
+  const [checked10, setChecked10] = useState(check10);
   const [expanded, setExpanded] = useState([]);
   const [productType, setProductType] = useState();
   const [tag, setTag] = useState();
@@ -197,7 +250,7 @@ function Ring(props) {
   const [cTags, setCTags] = useState([]);
   const [cTagMiddleStore, setCTagMiddleStore] = useState([]);
   const [loadMoreStatus, setLoadMoreStatus] = useState(false);
-  const [totalCounter, setTotalCounter] = useState(0)
+  const [totalCounter, setTotalCounter] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [filterMounted, setFilterMounted] = useState(false);
   const router = useRouter();
@@ -221,38 +274,39 @@ function Ring(props) {
   const [cutFilter, setCutFilter] = useState();
   const [metarialFilter, setMetarialFilter] = useState();
   const [materialColorFilter, setMaterialColorFilter] = useState();
+  const [caratFilter, setCaratFilter] = useState();
 
   useEffect(() => {
     if (!basicStyleData) {
       // get style filter data
       fetch(styleURL, {
-        method: 'get',
+        method: "get",
       })
         .then((res) => res.json())
         .then((style) => {
-          basicStyleData = style.Collection.split(',');
-          setBasicStyleFilter(basicStyleData)
-        })
+          basicStyleData = style.Collection.split(",");
+          setBasicStyleFilter(basicStyleData);
+        });
 
       // get mounting filter data
       fetch(mountingURL, {
-        method: 'get',
+        method: "get",
       })
         .then((res) => res.json())
         .then((mounting) => {
-          basicMountingData = mounting.Style.split(',');
-          setBasicMountingFilter(basicMountingData)
-        })
+          basicMountingData = mounting.Style.split(",");
+          setBasicMountingFilter(basicMountingData);
+        });
 
       // get brand filter data
       fetch(brandURL, {
-        method: 'get',
+        method: "get",
       })
         .then((res) => res.json())
         .then((brands) => {
-          basicBrandData = brands
-          setBasicBrandFilter(basicBrandData)
-        })
+          basicBrandData = brands;
+          setBasicBrandFilter(basicBrandData);
+        });
 
       // get stone filter data
       fetch(stoneURL, {
@@ -260,9 +314,9 @@ function Ring(props) {
       })
         .then((res) => res.json())
         .then((stones) => {
-          basicStoneData = stones
-          setBasicStoneFilter(basicStoneData)
-        })
+          basicStoneData = stones;
+          setBasicStoneFilter(basicStoneData);
+        });
 
       // get brightness filter data
       fetch(brightnessURL, {
@@ -270,9 +324,9 @@ function Ring(props) {
       })
         .then((res) => res.json())
         .then((brightness) => {
-          basicBrightnessData = brightness
-          setBasicBrightnessFilter(basicBrightnessData)
-        })
+          basicBrightnessData = brightness;
+          setBasicBrightnessFilter(basicBrightnessData);
+        });
 
       // get cut filter data
       fetch(cutURL, {
@@ -280,9 +334,9 @@ function Ring(props) {
       })
         .then((res) => res.json())
         .then((cut) => {
-          basicCutData = cut
-          setBasicCutFilter(basicCutData)
-        })
+          basicCutData = cut;
+          setBasicCutFilter(basicCutData);
+        });
 
       // get metarial filter data
       fetch(metarialURL, {
@@ -291,9 +345,9 @@ function Ring(props) {
         .then((res) => res.json())
         .then((metarial) => {
           metarial = metarial[0].colorDesc;
-          basicMetarialData = metarial.split(',');
-          setBasicMetarialFilter(basicMetarialData)
-        })
+          basicMetarialData = metarial.split(",");
+          setBasicMetarialFilter(basicMetarialData);
+        });
 
       // get materialColor filter data
       fetch(materialColorURL, {
@@ -301,30 +355,30 @@ function Ring(props) {
       })
         .then((res) => res.json())
         .then((materialColor) => {
-          basicMaterialColorData = materialColor
-          setBasicMaterialColorFilter(basicMaterialColorData)
-        })
+          basicMaterialColorData = materialColor;
+          setBasicMaterialColorFilter(basicMaterialColorData);
+        });
     } else {
-      setBasicStyleFilter(basicStyleData)
-      setBasicMountingFilter(basicMountingData)
-      setBasicBrandFilter(basicBrandData)
-      setBasicStoneFilter(basicStoneData)
-      setBasicBrightnessFilter(basicBrightnessData)
-      setBasicCutFilter(basicCutData)
-      setBasicMetarialFilter(basicMetarialData)
-      setBasicMaterialColorFilter(basicMaterialColorData)
-      setResult(localResultCounter)
-      setStyleFilter()
-      setMountingFilter()
-      setBrandFilter()
-      setStoneFilter()
-      setBrightnessFilter()
-      setCutFilter()
-      setMetarialFilter()
-      setMaterialColorFilter()
-      setCTags([])
+      setBasicStyleFilter(basicStyleData);
+      setBasicMountingFilter(basicMountingData);
+      setBasicBrandFilter(basicBrandData);
+      setBasicStoneFilter(basicStoneData);
+      setBasicBrightnessFilter(basicBrightnessData);
+      setBasicCutFilter(basicCutData);
+      setBasicMetarialFilter(basicMetarialData);
+      setBasicMaterialColorFilter(basicMaterialColorData);
+      setResult(localResultCounter);
+      setStyleFilter();
+      setMountingFilter();
+      setBrandFilter();
+      setStoneFilter();
+      setBrightnessFilter();
+      setCutFilter();
+      setMetarialFilter();
+      setMaterialColorFilter();
+      setCTags([]);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (router.query) {
@@ -335,32 +389,33 @@ function Ring(props) {
           setFilterMounted(false);
           setCTagMiddleStore([]);
           setCTagLastAdd(1);
-          setCTags([])
+          setCTags([]);
           setTotalCounter(0);
-          setPriceFilter()
-          setCollectionFilter()
-          setStyleFilter()
-          setMountingFilter()
-          setBrandFilter()
-          setStoneFilter()
-          setBrightnessFilter()
-          setCutFilter()
-          setMetarialFilter()
-          setMaterialColorFilter()
+          setPriceFilter();
+          setCollectionFilter();
+          setStyleFilter();
+          setMountingFilter();
+          setBrandFilter();
+          setStoneFilter();
+          setBrightnessFilter();
+          setCutFilter();
+          setCaratFilter();
+          setMetarialFilter();
+          setMaterialColorFilter();
           if (router.query.productType) {
             setProductType(router.query.productType);
           }
-          setTag(router.query.tags.split(','))
+          setTag(router.query.tags.split(","));
         } else {
           setTag([]);
         }
       } else {
-        if (router.asPath == '/shop') {
+        if (router.asPath == "/shop") {
           setTag([]);
         }
       }
     }
-  }, [router.query])
+  }, [router.query]);
 
   useEffect(() => {
     if (formData) {
@@ -371,7 +426,7 @@ function Ring(props) {
         .then((res) => res.json())
         .then((data) => {
           setLoad(false);
-          if (data.hasNextPage == 'Yes') {
+          if (data.hasNextPage == "Yes") {
             setLastProduct(data.last);
             lastProductStatus = data.last;
           } else {
@@ -389,23 +444,37 @@ function Ring(props) {
 
   useEffect(() => {
     if (cTags.length) {
+      console.log(cTags);
       if (firstFilterItem[0]) {
         let middleArr = [];
         firstFilterItem[0].filter.map((item, index) => {
-          if (cTags.find(ctag => ctag == item.value)) {
-            middleArr.push({ label: item.label, value: item.value })
+          if (cTags.find((ctag) => ctag == item.value)) {
+            middleArr.push({ label: item.label, value: item.value });
           }
-        })
+        });
         setPriceFilter(middleArr);
       }
       if (firstFilterItem[1]) {
         let middleArr = [];
         firstFilterItem[1].filter.map((item, index) => {
-          if (cTags.find(ctag => ctag == item.value)) {
-            middleArr.push({ label: item.label, value: item.value })
+          if (cTags.find((ctag) => ctag == item.value)) {
+            middleArr.push({ label: item.label, value: item.value });
           }
-        })
+        });
         setCollectionFilter(middleArr);
+      }
+      if (firstFilterItem[2]) {
+        let middleArr = [];
+        firstFilterItem[2].filter.map((item, index) => {
+          if (cTags.find((ctag) => ctag == getFilterValue(item.label))) {
+            middleArr.push({
+              label: item.label,
+              value: getFilterValue(item.label),
+            });
+          }
+        });
+        console.log(middleArr);
+        setCaratFilter(middleArr);
       }
     }
   }, [cTags]);
@@ -415,13 +484,13 @@ function Ring(props) {
       if (basicStyleFilter) {
         let middleArr = [];
         basicStyleFilter.map((item, index) => {
-          if (cTags.find(ctag => ctag == getFilterValue(item))) {
-            middleArr.push({ label: item, value: getFilterValue(item) })
+          if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+            middleArr.push({ label: item, value: getFilterValue(item) });
           }
           if (index == basicStyleFilter.length - 1) {
             setStyleFilter(middleArr);
           }
-        })
+        });
       }
     }
   }, [cTags, basicStyleFilter]);
@@ -431,13 +500,13 @@ function Ring(props) {
       if (basicMountingFilter) {
         let middleArr = [];
         basicMountingFilter.map((item, index) => {
-          if (cTags.find(ctag => ctag == getFilterValue(item))) {
-            middleArr.push({ label: item, value: getFilterValue(item) })
+          if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+            middleArr.push({ label: item, value: getFilterValue(item) });
           }
           if (index == basicMountingFilter.length - 1) {
             setMountingFilter(middleArr);
           }
-        })
+        });
       }
     }
   }, [cTags, basicMountingFilter]);
@@ -447,20 +516,24 @@ function Ring(props) {
       if (basicBrandFilter) {
         let brands;
         if (productType) {
-          brands = basicBrandFilter.find(item => item.MainGroup.toLowerCase() == productType)
+          brands = basicBrandFilter.find(
+            (item) => item.MainGroup.toLowerCase() == productType
+          );
         } else {
-          brands = basicBrandFilter.find(item => item.MainGroup.toLowerCase() == 'rings')
+          brands = basicBrandFilter.find(
+            (item) => item.MainGroup.toLowerCase() == "rings"
+          );
         }
-        const basicArr = brands.BrandID.split(',');
+        const basicArr = brands.BrandID.split(",");
         let middleArr = [];
         basicArr.map((item, index) => {
-          if (cTags.find(ctag => ctag == getFilterValue(item))) {
-            middleArr.push({ label: item, value: getFilterValue(item) })
+          if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+            middleArr.push({ label: item, value: getFilterValue(item) });
           }
           if (index == basicArr.length - 1) {
             setBrandFilter(middleArr);
           }
-        })
+        });
       }
     }
   }, [cTags, basicBrandFilter]);
@@ -477,28 +550,38 @@ function Ring(props) {
             const element = basicStoneFilter[key];
             let itemArr = [];
             if (element.length == 1) {
-              if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
-                middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+              if (cTags.find((ctag) => ctag == getFilterValue(element[0]))) {
+                middleArr.push({
+                  label: element[0],
+                  value: getFilterValue(element[0]),
+                });
               }
             } else {
               element.map((item, index) => {
-                if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                  itemArr.push({ label: item, value: getFilterValue(item) })
+                if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+                  itemArr.push({ label: item, value: getFilterValue(item) });
                 }
                 if (index == element.length - 1) {
                   if (itemArr.length) {
                     if (itemArr.length == 1) {
-                      middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                      middleArr.push({
+                        label: itemArr[0].label,
+                        value: itemArr[0].value,
+                      });
                     } else {
-                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                      middleArr.push({
+                        label: key,
+                        value: getFilterValue(key) + 1,
+                        children: itemArr,
+                      });
                     }
                   }
                 }
-              })
+              });
             }
-            stoneArr.push(...middleArr)
+            stoneArr.push(...middleArr);
             if (counter == _.size(basicStoneFilter)) {
-              setStoneFilter(stoneArr)
+              setStoneFilter(stoneArr);
             }
           }
         }
@@ -518,28 +601,38 @@ function Ring(props) {
             counter++;
             let itemArr = [];
             if (element.length == 1) {
-              if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
-                middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+              if (cTags.find((ctag) => ctag == getFilterValue(element[0]))) {
+                middleArr.push({
+                  label: element[0],
+                  value: getFilterValue(element[0]),
+                });
               }
             } else {
               element.map((item, index) => {
-                if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                  itemArr.push({ label: item, value: getFilterValue(item) })
+                if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+                  itemArr.push({ label: item, value: getFilterValue(item) });
                 }
                 if (index == element.length - 1) {
                   if (itemArr.length) {
                     if (itemArr.length == 1) {
-                      middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                      middleArr.push({
+                        label: itemArr[0].label,
+                        value: itemArr[0].value,
+                      });
                     } else {
-                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                      middleArr.push({
+                        label: key,
+                        value: getFilterValue(key) + 1,
+                        children: itemArr,
+                      });
                     }
                   }
                 }
-              })
+              });
             }
-            brightnessArr.push(...middleArr)
+            brightnessArr.push(...middleArr);
             if (counter == _.size(basicBrightnessFilter)) {
-              setBrightnessFilter(brightnessArr)
+              setBrightnessFilter(brightnessArr);
             }
           }
         }
@@ -559,28 +652,38 @@ function Ring(props) {
             counter++;
             let itemArr = [];
             if (element.length == 1) {
-              if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
-                middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+              if (cTags.find((ctag) => ctag == getFilterValue(element[0]))) {
+                middleArr.push({
+                  label: element[0],
+                  value: getFilterValue(element[0]),
+                });
               }
             } else {
               element.map((item, index) => {
-                if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                  itemArr.push({ label: item, value: getFilterValue(item) })
+                if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+                  itemArr.push({ label: item, value: getFilterValue(item) });
                 }
                 if (index == element.length - 1) {
                   if (itemArr.length) {
                     if (itemArr.length == 1) {
-                      middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                      middleArr.push({
+                        label: itemArr[0].label,
+                        value: itemArr[0].value,
+                      });
                     } else {
-                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                      middleArr.push({
+                        label: key,
+                        value: getFilterValue(key) + 1,
+                        children: itemArr,
+                      });
                     }
                   }
                 }
-              })
+              });
             }
-            cutArr.push(...middleArr)
+            cutArr.push(...middleArr);
             if (counter == _.size(basicCutFilter)) {
-              setCutFilter(cutArr)
+              setCutFilter(cutArr);
             }
           }
         }
@@ -593,18 +696,22 @@ function Ring(props) {
       if (basicMetarialFilter) {
         let middleArr = [];
         basicMetarialFilter.map((item, index) => {
-          if (item == '18k Gold') {
-            item = '18k'
-          } else if (item == '14k Gold') {
-            item = '14k'
+          if (item == "18k Gold") {
+            item = "18k";
+          } else if (item == "14k Gold") {
+            item = "14k";
           }
-          if (cTags.find(ctag => ctag == getFilterValue(item))) {
-            middleArr.push({ label: item == '18k' ? '18k Gold' : item == '14k' ? '14k Gold' : item, value: getFilterValue(item) })
+          if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+            middleArr.push({
+              label:
+                item == "18k" ? "18k Gold" : item == "14k" ? "14k Gold" : item,
+              value: getFilterValue(item),
+            });
           }
           if (index == basicMetarialFilter.length - 1) {
             setMetarialFilter(middleArr);
           }
-        })
+        });
       }
     }
   }, [cTags, basicMetarialFilter]);
@@ -621,26 +728,36 @@ function Ring(props) {
             const element = basicMaterialColorFilter[key];
             let itemArr = [];
             if (element.length == 1) {
-              if (cTags.find(ctag => ctag == getFilterValue(element[0]))) {
-                middleArr.push({ label: element[0], value: getFilterValue(element[0]) })
+              if (cTags.find((ctag) => ctag == getFilterValue(element[0]))) {
+                middleArr.push({
+                  label: element[0],
+                  value: getFilterValue(element[0]),
+                });
               }
             } else {
               element.map((item, index) => {
-                if (cTags.find(ctag => ctag == getFilterValue(item))) {
-                  itemArr.push({ label: item, value: getFilterValue(item) })
+                if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+                  itemArr.push({ label: item, value: getFilterValue(item) });
                 }
                 if (index == element.length - 1) {
                   if (itemArr.length) {
                     if (itemArr.length == 1) {
-                      middleArr.push({ label: itemArr[0].label, value: itemArr[0].value })
+                      middleArr.push({
+                        label: itemArr[0].label,
+                        value: itemArr[0].value,
+                      });
                     } else {
-                      middleArr.push({ label: key, value: getFilterValue(key) + 1, children: itemArr });
+                      middleArr.push({
+                        label: key,
+                        value: getFilterValue(key) + 1,
+                        children: itemArr,
+                      });
                     }
                   }
                 }
-              })
+              });
             }
-            materialColorArr.push(...middleArr)
+            materialColorArr.push(...middleArr);
             if (counter == _.size(basicMaterialColorFilter)) {
               setMaterialColorFilter(materialColorArr);
             }
@@ -652,57 +769,73 @@ function Ring(props) {
 
   useEffect(() => {
     props.wishList &&
-      localStorage.setItem('wishList', JSON.stringify(props.wishList))
-  }, [props.wishList])
+      localStorage.setItem("wishList", JSON.stringify(props.wishList));
+  }, [props.wishList]);
 
   useEffect(() => {
     if (productType || router.asPath == "/shop") {
-      let defaultTags = '';
+      let defaultTags = "";
       if (tag && tag.length) {
-        defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
+        defaultTags = (
+          tag.map((item, index) =>
+            index == 0 ? " AND (tag:" + item : " OR tag:" + item
+          ) + ")"
+        ).replaceAll(",", "");
       }
       if (filterMounted) {
         let formData = new FormData();
         if (cTagLastAdd == 1) {
-          formData.append('position', 'first:50');
+          formData.append("position", "first:50");
         } else {
-          formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
+          formData.append(
+            "position",
+            "first:50,after:" + '"' + cTagLastAdd + '"'
+          );
         }
         if (productType) {
-          formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
+          formData.append(
+            "query",
+            "status:active AND product_type:" + productType + defaultTags
+          );
         } else {
-          formData.append('query', 'status:active' + defaultTags);
+          formData.append("query", "status:active" + defaultTags);
         }
         fetch(CTagURL, {
-          method: 'post',
+          method: "post",
           body: formData,
-        }).then((res) => res.json())
+        })
+          .then((res) => res.json())
           .then((data) => {
             let middleArr = [];
             if (data.last) {
-              setTotalCounter(totalCounter + data.productsCount)
+              setTotalCounter(totalCounter + data.productsCount);
               let tags = cTagMiddleStore;
               data.tags.map((tag, index) => {
-                if (!tags.find(item => item == getFilterValue(tag))) {
+                if (!tags.find((item) => item == getFilterValue(tag))) {
                   middleArr.push(getFilterValue(tag));
                 }
                 if (index == data.tags.length - 1) {
-                  setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
-                  cTagData = [...cTagMiddleStore, ...middleArr]
-                  setCTags(cTagData)
-                  if (data.hasNextPage == 'No') {
-                    localResultCounter = totalCounter + data.productsCount
-                    setResult(localResultCounter)
+                  setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
+                  cTagData = [...cTagMiddleStore, ...middleArr];
+                  setCTags(cTagData);
+                  console.log(cTagData);
+                  if (data.hasNextPage == "No") {
+                    localResultCounter = totalCounter + data.productsCount;
+                    setResult(localResultCounter);
                   }
                 }
-              })
-              if (data.hasNextPage == 'Yes') {
-                setCTagLastAdd(data.last)
+              });
+              if (data.hasNextPage == "Yes") {
+                setCTagLastAdd(data.last);
               }
             }
-          })
+          });
       } else {
-        if (JSON.stringify(localTag) == JSON.stringify(tag) && localProductType == productType && cTagData) {
+        if (
+          JSON.stringify(localTag) == JSON.stringify(tag) &&
+          localProductType == productType &&
+          cTagData
+        ) {
           setCTags(cTagData);
         } else {
           localTag = tag;
@@ -710,58 +843,69 @@ function Ring(props) {
           setResult(0);
           let formData = new FormData();
           if (cTagLastAdd == 1) {
-            formData.append('position', 'first:50');
+            formData.append("position", "first:50");
           } else {
-            formData.append('position', 'first:50,after:' + '"' + cTagLastAdd + '"');
+            formData.append(
+              "position",
+              "first:50,after:" + '"' + cTagLastAdd + '"'
+            );
           }
           if (productType) {
-            formData.append('query', 'status:active AND product_type:' + productType + defaultTags);
+            formData.append(
+              "query",
+              "status:active AND product_type:" + productType + defaultTags
+            );
           } else {
             if (defaultTags) {
-              formData.append('query', 'status:active' + defaultTags);
+              formData.append("query", "status:active" + defaultTags);
             } else {
-              formData.append('query', 'status:active');
+              formData.append("query", "status:active");
             }
           }
           fetch(CTagURL, {
-            method: 'post',
+            method: "post",
             body: formData,
-          }).then((res) => res.json())
+          })
+            .then((res) => res.json())
             .then((data) => {
               let middleArr = [];
               if (data.last) {
-                setTotalCounter(totalCounter + data.productsCount)
+                setTotalCounter(totalCounter + data.productsCount);
                 let tags = cTagMiddleStore;
                 data.tags.map((tag, index) => {
-                  if (!tags.find(item => item == getFilterValue(tag))) {
+                  if (!tags.find((item) => item == getFilterValue(tag))) {
                     middleArr.push(getFilterValue(tag));
                   }
                   if (index == data.tags.length - 1) {
-                    setCTagMiddleStore([...cTagMiddleStore, ...middleArr])
-                    if (data.hasNextPage == 'No') {
-                      localResultCounter = totalCounter + data.productsCount
-                      setResult(localResultCounter)
-                      cTagData = [...cTagMiddleStore, ...middleArr]
-                      setCTags(cTagData)
+                    setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
+                    if (data.hasNextPage == "No") {
+                      localResultCounter = totalCounter + data.productsCount;
+                      setResult(localResultCounter);
+                      cTagData = [...cTagMiddleStore, ...middleArr];
+                      setCTags(cTagData);
                     }
                   }
-                })
-                if (data.hasNextPage == 'Yes') {
-                  setCTagLastAdd(data.last)
+                });
+                if (data.hasNextPage == "Yes") {
+                  setCTagLastAdd(data.last);
                 }
               }
-            })
+            });
         }
       }
       setFilterMounted(true);
     }
-  }, [cTagLastAdd, productType, tag])
+  }, [cTagLastAdd, productType, tag]);
 
   useEffect(() => {
     if (tag) {
-      let defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
+      let defaultTags = (
+        tag.map((item, index) =>
+          index == 0 ? " AND (tag:" + item : " OR tag:" + item
+        ) + ")"
+      ).replaceAll(",", "");
       if (checked0.length || mounted) {
-        setLoad(true)
+        setLoad(true);
         check0 = checked0;
         check1 = checked1;
         check2 = checked2;
@@ -772,25 +916,134 @@ function Ring(props) {
         check7 = checked7;
         check8 = checked8;
         check9 = checked9;
+        check10 = checked10;
 
-        let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query2 = checked2.length > 0 ? (checked2.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query3 = checked3.length > 0 ? (checked3.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query4 = checked4.length > 0 ? (checked4.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query5 = checked5.length > 0 ? (checked5.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query6 = checked6.length > 0 ? (checked6.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query7 = checked7.length > 0 ? (checked7.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query8 = checked8.length > 0 ? (checked8.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-        let query9 = checked9.length > 0 ? (checked9.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+        let query0 =
+          checked0.length > 0
+            ? (
+                checked0.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query1 =
+          checked1.length > 0
+            ? (
+                checked1.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query2 =
+          checked2.length > 0
+            ? (
+                checked2.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query3 =
+          checked3.length > 0
+            ? (
+                checked3.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query4 =
+          checked4.length > 0
+            ? (
+                checked4.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query5 =
+          checked5.length > 0
+            ? (
+                checked5.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query6 =
+          checked6.length > 0
+            ? (
+                checked6.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query7 =
+          checked7.length > 0
+            ? (
+                checked7.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query8 =
+          checked8.length > 0
+            ? (
+                checked8.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query9 =
+          checked9.length > 0
+            ? (
+                checked9.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
+        let query10 =
+          checked10.length > 0
+            ? (
+                checked10.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
         let data = new FormData();
 
-        setLoad(true)
+        setLoad(true);
         data.append("position", "first:9");
         if (tag.length) {
-          data.append("query", ("status:active AND product_type:" + productType + defaultTags + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+          data.append(
+            "query",
+            "status:active AND product_type:" +
+              productType +
+              defaultTags +
+              query0 +
+              query1 +
+              query2 +
+              query3 +
+              query4 +
+              query5 +
+              query6 +
+              query7 +
+              query8 +
+              query9 +
+              query10
+          );
         } else {
-          data.append("query", ("status:active" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+          data.append(
+            "query",
+            "status:active" +
+              query0 +
+              query1 +
+              query2 +
+              query3 +
+              query4 +
+              query5 +
+              query6 +
+              query7 +
+              query8 +
+              query9 +
+              query10
+          );
         }
         setFormData(data);
       } else {
@@ -800,22 +1053,37 @@ function Ring(props) {
           if (localStorage.wishList) {
             props.setWishList(JSON.parse(localStorage.wishList));
           }
-        }
-        else {
-          setLoad(true)
+        } else {
+          setLoad(true);
           let data = new FormData();
           data.append("position", "first:9");
           if (tag.length) {
-            data.append("query", ("status:active AND product_type:" + productType + defaultTags))
+            data.append(
+              "query",
+              "status:active AND product_type:" + productType + defaultTags
+            );
           } else {
-            data.append("query", ("status:active"))
+            data.append("query", "status:active");
           }
           setFormData(data);
         }
       }
-      setMounted(true)
+      setMounted(true);
     }
-  }, [checked0, checked1, checked2, checked3, checked4, checked5, checked6, checked7, checked8, checked9, tag])
+  }, [
+    checked0,
+    checked1,
+    checked2,
+    checked3,
+    checked4,
+    checked5,
+    checked6,
+    checked7,
+    checked8,
+    checked9,
+    check10,
+    tag,
+  ]);
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
@@ -826,17 +1094,22 @@ function Ring(props) {
       );
       if (removeProduct) {
         localProducts.splice(localProducts.indexOf(removeProduct), 1);
-        props.setWishList(localProducts)
+        props.setWishList(localProducts);
       }
     } else {
       if (localStorage.wishList) {
-        props.setWishList([...props.wishList, { ...product, amount: 1, product_type: productType }])
+        props.setWishList([
+          ...props.wishList,
+          { ...product, amount: 1, product_type: productType },
+        ]);
       } else {
         localStorage.setItem(
           "wishList",
           JSON.stringify([{ ...product, amount: 1, product_type: productType }])
         );
-        props.setWishList([{ ...product, amount: 1, product_type: productType }])
+        props.setWishList([
+          { ...product, amount: 1, product_type: productType },
+        ]);
       }
     }
   };
@@ -861,22 +1134,134 @@ function Ring(props) {
   const loadMore = () => {
     setLoadMoreStatus(true);
     let formData = new FormData();
-    let defaultTags = (tag.map((item, index) => index == 0 ? (" AND (tag:" + item) : (" OR tag:" + item)) + ")").replaceAll(',', '')
-    let query0 = checked0.length > 0 ? (checked0.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query1 = checked1.length > 0 ? (checked1.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query2 = checked2.length > 0 ? (checked2.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query3 = checked3.length > 0 ? (checked3.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query4 = checked4.length > 0 ? (checked4.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query5 = checked5.length > 0 ? (checked5.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query6 = checked6.length > 0 ? (checked6.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query7 = checked7.length > 0 ? (checked7.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query8 = checked8.length > 0 ? (checked8.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
-    let query9 = checked9.length > 0 ? (checked9.map((filter, index) => index == 0 ? (" AND (tag:" + filter) : (" OR tag:" + filter)) + ")").replaceAll(',', '') : ''
+    let defaultTags = (
+      tag.map((item, index) =>
+        index == 0 ? " AND (tag:" + item : " OR tag:" + item
+      ) + ")"
+    ).replaceAll(",", "");
+    let query0 =
+      checked0.length > 0
+        ? (
+            checked0.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query1 =
+      checked1.length > 0
+        ? (
+            checked1.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query2 =
+      checked2.length > 0
+        ? (
+            checked2.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query3 =
+      checked3.length > 0
+        ? (
+            checked3.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query4 =
+      checked4.length > 0
+        ? (
+            checked4.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query5 =
+      checked5.length > 0
+        ? (
+            checked5.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query6 =
+      checked6.length > 0
+        ? (
+            checked6.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query7 =
+      checked7.length > 0
+        ? (
+            checked7.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query8 =
+      checked8.length > 0
+        ? (
+            checked8.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query9 =
+      checked9.length > 0
+        ? (
+            checked9.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+    let query10 =
+      checked10.length > 0
+        ? (
+            checked10.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
     formData.append("position", `first:9, after:"${lastProduct}"`);
     if (tag.length) {
-      formData.append("query", ("status:active AND product_type:" + productType + defaultTags + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+      formData.append(
+        "query",
+        "status:active AND product_type:" +
+          productType +
+          defaultTags +
+          query0 +
+          query1 +
+          query2 +
+          query3 +
+          query4 +
+          query5 +
+          query6 +
+          query7 +
+          query8 +
+          query9 +
+          query10
+      );
     } else {
-      formData.append("query", ("status:active" + query0 + query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8 + query9))
+      formData.append(
+        "query",
+        "status:active" +
+          query0 +
+          query1 +
+          query2 +
+          query3 +
+          query4 +
+          query5 +
+          query6 +
+          query7 +
+          query8 +
+          query9 +
+          query10
+      );
     }
     fetch(productURL, {
       method: "post",
@@ -884,7 +1269,9 @@ function Ring(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        data.hasNextPage == "Yes" ? setLastProduct(data.last) : setLastProduct(false);
+        data.hasNextPage == "Yes"
+          ? setLastProduct(data.last)
+          : setLastProduct(false);
         setProductData([...productData, ...data.data]);
         setLoadMoreStatus(false);
       });
@@ -911,7 +1298,9 @@ function Ring(props) {
       {/* Start hero section */}
       <div className="hero-section">
         <div className="r-container">
-          <h1 className="title text-white text-capitalize">{productType ? productType : "rings"}</h1>
+          <h1 className="title text-white text-capitalize">
+            {productType ? productType : "rings"}
+          </h1>
         </div>
       </div>
       {/* End Hero section */}
@@ -920,7 +1309,11 @@ function Ring(props) {
       <div className="product-section r-container py-4">
         <div className="top-bar row align-items-center m-0 py-3">
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
-            {tag && <h2 className="text-capitalize">{productType ? tag + " " + productType : "rings"}</h2>}
+            {tag && (
+              <h2 className="text-capitalize">
+                {productType ? tag + " " + productType : "rings"}
+              </h2>
+            )}
             <p className="text-uppercase">{result} results</p>
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
@@ -971,97 +1364,272 @@ function Ring(props) {
             );
           })}
         </div>
-        <div className="main-panel d-flex m-0 py-5 justify-content-end flex-wrap">
-          <div className="col-lg-3 col-md-4 col-sm-5 col-12 d-sm-block d-none p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
-            {
-              priceFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#priceTree"
-                    data-bs-toggle="collapse"
+        <div className="main-panel d-flex justify-content-end m-0 py-5 flex-wrap">
+          {cTags && cTags.length > 0 && (
+            <div className="col-lg-3 col-md-4 col-sm-5 col-12 d-sm-block d-none p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
+              {collectionFilter && collectionFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#collectionTree"
+                      data-bs-toggle="collapse"
+                    >
+                      collection
+                    </button>
+                  </h2>
+                  <div
+                    id="collectionTree"
+                    className="accordion-collapse collapse"
                   >
-                    price
-                  </button>
-                </h2>
-                <div
-                  id="priceTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={priceFilter}
-                      checked={checked0}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked0(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={collectionFilter}
+                        checked={checked1}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked1(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            }
-            {
-              collectionFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#collectionTree"
-                    data-bs-toggle="collapse"
-                  >
-                    collection
-                  </button>
-                </h2>
-                <div
-                  id="collectionTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={collectionFilter}
-                      checked={checked1}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked1(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
+              )}
+              {stoneFilter && stoneFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#stoneTree"
+                      data-bs-toggle="collapse"
+                    >
+                      stone
+                    </button>
+                  </h2>
+                  <div id="stoneTree" className="accordion-collapse collapse">
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={stoneFilter}
+                        checked={checked5}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked5(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            }
-            {
-              styleFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#styleTree"
-                    data-bs-toggle="collapse"
-                  >
-                    style
-                  </button>
-                </h2>
-                <div
-                  id="styleTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={styleFilter}
-                      checked={checked2}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked2(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
+              )}
+              {caratFilter && caratFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#caratTree"
+                      data-bs-toggle="collapse"
+                    >
+                      carat
+                    </button>
+                  </h2>
+                  <div id="caratTree" className="accordion-collapse collapse">
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={caratFilter}
+                        checked={checked1}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked1(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            }
-            {
-              mountingFilter &&
+              )}
+              {materialColorFilter && materialColorFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#materialColorTree"
+                      data-bs-toggle="collapse"
+                    >
+                      color
+                    </button>
+                  </h2>
+                  <div
+                    id="materialColorTree"
+                    className="accordion-collapse collapse"
+                  >
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={materialColorFilter}
+                        checked={checked9}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked9(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {brightnessFilter && brightnessFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#brightnessTree"
+                      data-bs-toggle="collapse"
+                    >
+                      clarity
+                    </button>
+                  </h2>
+                  <div
+                    id="brightnessTree"
+                    className="accordion-collapse collapse"
+                  >
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={brightnessFilter}
+                        checked={checked6}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked6(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {cutFilter && cutFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#cutTree"
+                      data-bs-toggle="collapse"
+                    >
+                      cut
+                    </button>
+                  </h2>
+                  <div id="cutTree" className="accordion-collapse collapse">
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={cutFilter}
+                        checked={checked7}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked7(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {metarialFilter && metarialFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#metarialTree"
+                      data-bs-toggle="collapse"
+                    >
+                      meterial
+                    </button>
+                  </h2>
+                  <div
+                    id="metarialTree"
+                    className="accordion-collapse collapse"
+                  >
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={metarialFilter}
+                        checked={checked8}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked8(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {priceFilter && priceFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#priceTree"
+                      data-bs-toggle="collapse"
+                    >
+                      price
+                    </button>
+                  </h2>
+                  <div id="priceTree" className="accordion-collapse collapse">
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={priceFilter}
+                        checked={checked0}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked0(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {styleFilter && styleFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#styleTree"
+                      data-bs-toggle="collapse"
+                    >
+                      style
+                    </button>
+                  </h2>
+                  <div id="styleTree" className="accordion-collapse collapse">
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={styleFilter}
+                        checked={checked2}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked2(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {brandFilter && brandFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#brandTree"
+                      data-bs-toggle="collapse"
+                    >
+                      brand
+                    </button>
+                  </h2>
+                  <div id="brandTree" className="accordion-collapse collapse">
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={brandFilter}
+                        checked={checked4}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked4(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* {mountingFilter && (
               <div className="accordion-item mb-3">
                 <h2 className="accordion-header">
                   <button
@@ -1072,202 +1640,26 @@ function Ring(props) {
                     mounting
                   </button>
                 </h2>
-                <div
-                  id="mountingTree"
-                  className="accordion-collapse collapse"
-                >
+                <div id="mountingTree" className="accordion-collapse collapse">
                   <div className="accordion-body">
                     <CheckboxTree
                       nodes={mountingFilter}
                       checked={checked3}
                       expanded={expanded}
-                      onCheck={checkValue => setChecked3(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
+                      onCheck={(checkValue) => setChecked3(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
                       icons={checkTreeIcons}
                     />
                   </div>
                 </div>
               </div>
-            }
-            {
-              brandFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#brandTree"
-                    data-bs-toggle="collapse"
-                  >
-                    brand
-                  </button>
-                </h2>
-                <div
-                  id="brandTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={brandFilter}
-                      checked={checked4}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked4(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              stoneFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#stoneTree"
-                    data-bs-toggle="collapse"
-                  >
-                    stone
-                  </button>
-                </h2>
-                <div
-                  id="stoneTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={stoneFilter}
-                      checked={checked5}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked5(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              brightnessFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#brightnessTree"
-                    data-bs-toggle="collapse"
-                  >
-                    brightness
-                  </button>
-                </h2>
-                <div
-                  id="brightnessTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={brightnessFilter}
-                      checked={checked6}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked6(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              cutFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#cutTree"
-                    data-bs-toggle="collapse"
-                  >
-                    cut
-                  </button>
-                </h2>
-                <div
-                  id="cutTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={cutFilter}
-                      checked={checked7}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked7(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              metarialFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#metarialTree"
-                    data-bs-toggle="collapse"
-                  >
-                    metarial
-                  </button>
-                </h2>
-                <div
-                  id="metarialTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={metarialFilter}
-                      checked={checked8}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked8(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              materialColorFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#materialColorTree"
-                    data-bs-toggle="collapse"
-                  >
-                    materialColor
-                  </button>
-                </h2>
-                <div
-                  id="materialColorTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={materialColorFilter}
-                      checked={checked9}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked9(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-          </div>
+            )} */}
+            </div>
+          )}
           {/* {false ? ( */}
           {!load && productData && productData.length > 0 ? (
             <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 product-panel m-0">
-              <div className='row m-0'>
+              <div className="row m-0">
                 {productData.map((item, index) => {
                   return (
                     <div
@@ -1279,9 +1671,11 @@ function Ring(props) {
                         href={{
                           pathname: "/shop/[slug]",
                           query: {
-                            slug: getFilterValue(item.title) + "-" + item.shopifyid,
+                            slug:
+                              getFilterValue(item.title) + "-" + item.shopifyid,
                           },
-                        }}>
+                        }}
+                      >
                         <a>
                           <div className="product-image hover-scale d-flex justify-content-center align-items-center round">
                             <img src={item.image} alt="product-image" />
@@ -1290,11 +1684,9 @@ function Ring(props) {
                             {item.title}
                           </h3>
                           <p className="pb-4 text-uppercase m-0">
-                            {productType &&
-                              <span className="me-2">
-                                {productType}
-                              </span>
-                            }
+                            {productType && (
+                              <span className="me-2">{productType}</span>
+                            )}
                           </p>
                           {+item.Fullprice > +item.price ? (
                             <div className="d-flex price-panel">
@@ -1338,12 +1730,13 @@ function Ring(props) {
                       <button
                         className={
                           "btn favor-icon " +
-                          `${props.wishList &&
+                          `${
+                            props.wishList &&
                             props.wishList.find(
                               (product) => product.shopifyid == item.shopifyid
                             )
-                            ? "favor"
-                            : ""
+                              ? "favor"
+                              : ""
                           }`
                         }
                         onClick={(e) => setFavor(e, item)}
@@ -1355,72 +1748,70 @@ function Ring(props) {
                   );
                 })}
               </div>
-              {
-                loadMoreStatus && (
-                  <div className="mt-4 row m-0">
-                    <div className="col-lg-4 col-md-6 col-12">
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        width="100%"
-                        height={300}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="text"
-                        width={100}
-                        height={20}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="text"
-                        width="100%"
-                        height={40}
-                      />
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        width="100%"
-                        height={300}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="text"
-                        width={100}
-                        height={20}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="text"
-                        width="100%"
-                        height={40}
-                      />
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12 d-lg-block d-none">
-                      <Skeleton
-                        animation="wave"
-                        variant="rect"
-                        width="100%"
-                        height={300}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="text"
-                        width={100}
-                        height={20}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        variant="text"
-                        width="100%"
-                        height={40}
-                      />
-                    </div>
+              {loadMoreStatus && (
+                <div className="mt-4 row m-0">
+                  <div className="col-lg-4 col-md-6 col-12">
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      width="100%"
+                      height={300}
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="text"
+                      width={100}
+                      height={20}
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="text"
+                      width="100%"
+                      height={40}
+                    />
                   </div>
-                )
-              }
+                  <div className="col-lg-4 col-md-6 col-12">
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      width="100%"
+                      height={300}
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="text"
+                      width={100}
+                      height={20}
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="text"
+                      width="100%"
+                      height={40}
+                    />
+                  </div>
+                  <div className="col-lg-4 col-md-6 col-12 d-lg-block d-none">
+                    <Skeleton
+                      animation="wave"
+                      variant="rect"
+                      width="100%"
+                      height={300}
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="text"
+                      width={100}
+                      height={20}
+                    />
+                    <Skeleton
+                      animation="wave"
+                      variant="text"
+                      width="100%"
+                      height={40}
+                    />
+                  </div>
+                </div>
+              )}
               {lastProduct && (
                 <button
                   className="btn load-more-btn text-uppercase py-3 px-5 mt-3 round-form"
@@ -1430,8 +1821,10 @@ function Ring(props) {
                 </button>
               )}
             </div>
-          ) : !load ? <h3 className="none-text text-center col-12 p-0">No product</h3>
-            : <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row m-0">
+          ) : !load ? (
+            <h3 className="none-text text-center flex-fill p-0">No product</h3>
+          ) : (
+            <div className="col-lg-9 col-md-8 col-sm-7 col-12 p-0 row m-0">
               <div className="col-lg-4 col-md-6 col-12">
                 <Skeleton
                   animation="wave"
@@ -1493,7 +1886,7 @@ function Ring(props) {
                 />
               </div>
             </div>
-          }
+          )}
         </div>
       </div>
       {/* End product section */}
@@ -1537,10 +1930,7 @@ function Ring(props) {
                   shape
                 </button>
               </h2>
-              <div
-                id="shape"
-                className="accordion-collapse collapse"
-              >
+              <div id="shape" className="accordion-collapse collapse">
                 <div className="accordion-body row">
                   {filterItems.map((item, index) => {
                     return (
@@ -1551,9 +1941,14 @@ function Ring(props) {
                           onClick={(event) => filterHandle(event, index)}
                         >
                           <div className="image-panel text-center">
-                            <img src={"/img/ring/" + item.img} alt="filter-image" />
+                            <img
+                              src={"/img/ring/" + item.img}
+                              alt="filter-image"
+                            />
                           </div>
-                          <p className="blue-text text-uppercase">{item.text}</p>
+                          <p className="blue-text text-uppercase">
+                            {item.text}
+                          </p>
                         </button>
                       </div>
                     );
@@ -1561,125 +1956,35 @@ function Ring(props) {
                 </div>
               </div>
             </div>
-            {firstFilterItem.map((item, index) => {
-              return (
-                <div className="accordion-item mb-3" key={index}>
-                  <h2 className="accordion-header">
-                    <button
-                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                      data-bs-target={"#filter-" + index}
-                      data-bs-toggle="collapse"
-                    >
-                      {item.title}
-                    </button>
-                  </h2>
-                  <div
-                    id={"filter-" + index}
-                    className="accordion-collapse collapse"
-                  >
-                    <div className="accordion-body">
-                      <CheckboxTree
-                        nodes={item.filter}
-                        checked={index == 0 ? checked0 : checked1}
-                        expanded={expanded}
-                        onCheck={checkValue => index == 0 ? setChecked0(checkValue) : setChecked1(checkValue)}
-                        onExpand={expandValue => setExpanded(expandValue)}
-                        icons={checkTreeIcons}
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-            {
-              styleFilter &&
+            {collectionFilter && collectionFilter.length > 0 && (
               <div className="accordion-item mb-3">
                 <h2 className="accordion-header">
                   <button
                     className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#styleTree"
+                    data-bs-target="#collectionTree"
                     data-bs-toggle="collapse"
                   >
-                    style
+                    collection
                   </button>
                 </h2>
                 <div
-                  id="styleTree"
+                  id="collectionTree"
                   className="accordion-collapse collapse"
                 >
                   <div className="accordion-body">
                     <CheckboxTree
-                      nodes={styleFilter}
-                      checked={checked2}
+                      nodes={collectionFilter}
+                      checked={checked1}
                       expanded={expanded}
-                      onCheck={checkValue => setChecked2(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
+                      onCheck={(checkValue) => setChecked1(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
                       icons={checkTreeIcons}
                     />
                   </div>
                 </div>
               </div>
-            }
-            {
-              mountingFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#mountingTree"
-                    data-bs-toggle="collapse"
-                  >
-                    mounting
-                  </button>
-                </h2>
-                <div
-                  id="mountingTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={mountingFilter}
-                      checked={checked3}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked3(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              brandFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#brandTree"
-                    data-bs-toggle="collapse"
-                  >
-                    brand
-                  </button>
-                </h2>
-                <div
-                  id="brandTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={mountingFilter}
-                      checked={checked4}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked4(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              stoneFilter &&
+            )}
+            {stoneFilter && stoneFilter.length > 0 && (
               <div className="accordion-item mb-3">
                 <h2 className="accordion-header">
                   <button
@@ -1690,112 +1995,46 @@ function Ring(props) {
                     stone
                   </button>
                 </h2>
-                <div
-                  id="stoneTree"
-                  className="accordion-collapse collapse"
-                >
+                <div id="stoneTree" className="accordion-collapse collapse">
                   <div className="accordion-body">
                     <CheckboxTree
-                      nodes={mountingFilter}
+                      nodes={stoneFilter}
                       checked={checked5}
                       expanded={expanded}
-                      onCheck={checkValue => setChecked5(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
+                      onCheck={(checkValue) => setChecked5(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
                       icons={checkTreeIcons}
                     />
                   </div>
                 </div>
               </div>
-            }
-            {
-              brightnessFilter &&
+            )}
+            {caratFilter && caratFilter.length > 0 && (
               <div className="accordion-item mb-3">
                 <h2 className="accordion-header">
                   <button
                     className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#brightnessTree"
+                    data-bs-target="#caratTree"
                     data-bs-toggle="collapse"
                   >
-                    brightness
+                    carat
                   </button>
                 </h2>
-                <div
-                  id="brightnessTree"
-                  className="accordion-collapse collapse"
-                >
+                <div id="caratTree" className="accordion-collapse collapse">
                   <div className="accordion-body">
                     <CheckboxTree
-                      nodes={brightnessFilter}
-                      checked={checked6}
+                      nodes={caratFilter}
+                      checked={checked1}
                       expanded={expanded}
-                      onCheck={checkValue => setChecked6(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
+                      onCheck={(checkValue) => setChecked1(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
                       icons={checkTreeIcons}
                     />
                   </div>
                 </div>
               </div>
-            }
-            {
-              cutFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#cutTree"
-                    data-bs-toggle="collapse"
-                  >
-                    cut
-                  </button>
-                </h2>
-                <div
-                  id="cutTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={cutFilter}
-                      checked={checked7}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked7(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              metarialFilter &&
-              <div className="accordion-item mb-3">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                    data-bs-target="#metarialTree"
-                    data-bs-toggle="collapse"
-                  >
-                    metarial
-                  </button>
-                </h2>
-                <div
-                  id="metarialTree"
-                  className="accordion-collapse collapse"
-                >
-                  <div className="accordion-body">
-                    <CheckboxTree
-                      nodes={metarialFilter}
-                      checked={checked8}
-                      expanded={expanded}
-                      onCheck={checkValue => setChecked8(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
-                      icons={checkTreeIcons}
-                    />
-                  </div>
-                </div>
-              </div>
-            }
-            {
-              materialColorFilter &&
+            )}
+            {materialColorFilter && materialColorFilter.length > 0 && (
               <div className="accordion-item mb-3">
                 <h2 className="accordion-header">
                   <button
@@ -1803,7 +2042,7 @@ function Ring(props) {
                     data-bs-target="#materialColorTree"
                     data-bs-toggle="collapse"
                   >
-                    materialColor
+                    color
                   </button>
                 </h2>
                 <div
@@ -1815,14 +2054,167 @@ function Ring(props) {
                       nodes={materialColorFilter}
                       checked={checked9}
                       expanded={expanded}
-                      onCheck={checkValue => setChecked9(checkValue)}
-                      onExpand={expandValue => setExpanded(expandValue)}
+                      onCheck={(checkValue) => setChecked9(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
                       icons={checkTreeIcons}
                     />
                   </div>
                 </div>
               </div>
-            }
+            )}
+            {brightnessFilter && brightnessFilter.length > 0 && (
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#brightnessTree"
+                    data-bs-toggle="collapse"
+                  >
+                    clarity
+                  </button>
+                </h2>
+                <div
+                  id="brightnessTree"
+                  className="accordion-collapse collapse"
+                >
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={brightnessFilter}
+                      checked={checked6}
+                      expanded={expanded}
+                      onCheck={(checkValue) => setChecked6(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            {cutFilter && cutFilter.length > 0 && (
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#cutTree"
+                    data-bs-toggle="collapse"
+                  >
+                    cut
+                  </button>
+                </h2>
+                <div id="cutTree" className="accordion-collapse collapse">
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={cutFilter}
+                      checked={checked7}
+                      expanded={expanded}
+                      onCheck={(checkValue) => setChecked7(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            {metarialFilter && metarialFilter.length > 0 && (
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#metarialTree"
+                    data-bs-toggle="collapse"
+                  >
+                    meterial
+                  </button>
+                </h2>
+                <div id="metarialTree" className="accordion-collapse collapse">
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={metarialFilter}
+                      checked={checked8}
+                      expanded={expanded}
+                      onCheck={(checkValue) => setChecked8(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            {priceFilter && priceFilter.length > 0 && (
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#priceTree"
+                    data-bs-toggle="collapse"
+                  >
+                    price
+                  </button>
+                </h2>
+                <div id="priceTree" className="accordion-collapse collapse">
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={priceFilter}
+                      checked={checked0}
+                      expanded={expanded}
+                      onCheck={(checkValue) => setChecked0(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            {styleFilter && styleFilter.length > 0 && (
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#styleTree"
+                    data-bs-toggle="collapse"
+                  >
+                    style
+                  </button>
+                </h2>
+                <div id="styleTree" className="accordion-collapse collapse">
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={styleFilter}
+                      checked={checked2}
+                      expanded={expanded}
+                      onCheck={(checkValue) => setChecked2(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            {brandFilter && brandFilter.length > 0 && (
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#brandTree"
+                    data-bs-toggle="collapse"
+                  >
+                    brand
+                  </button>
+                </h2>
+                <div id="brandTree" className="accordion-collapse collapse">
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={brandFilter}
+                      checked={checked4}
+                      expanded={expanded}
+                      onCheck={(checkValue) => setChecked4(checkValue)}
+                      onExpand={(expandValue) => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -1830,16 +2222,16 @@ function Ring(props) {
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}
-    </div >
+    </div>
   );
 }
 
-const mapStateToProps = state => ({
-  wishList: state.wishList.value
+const mapStateToProps = (state) => ({
+  wishList: state.wishList.value,
 });
 
 const mapDispatchToProps = {
   setWishList: setWishList,
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ring)
+export default connect(mapStateToProps, mapDispatchToProps)(Ring);
