@@ -313,11 +313,23 @@ function ProductRing(props) {
           <Link passHref={true} href="/">
             <a className="mx-2">HOME</a>
           </Link>
-          /
-          <Link passHref={true} href="/shop">
-            <a className="mx-2">RINGS</a>
-          </Link>
-          /
+          {productData && (
+            <>
+              /
+              <Link
+                passHref={true}
+                href={{
+                  pathname: "/shop",
+                  query: {
+                    productType: productData.product_type.toLowerCase(),
+                  },
+                }}
+              >
+                <a className="mx-2 text-uppercase">{productData.product_type}</a>
+              </Link>
+              /
+            </>
+          )}
           <span className="title ms-2 text-uppercase blue-text">
             {productData && productData.title}
           </span>
@@ -384,48 +396,50 @@ function ProductRing(props) {
               </p>
             </div>
             <div className="confirm-panel">
-              {productData.options.length > 0 && productData.options.map((option, key) => {
-                return (
-                  <div className="material-setting-panel py-4" key={key}>
-                    <label
-                      htmlFor="selectKarat"
-                      className="d-flex align-items-center pb-4 text-uppercase"
-                    >
-                      {option.name} :{" "}
-                      {optionValue ? optionValue[0] : option.values[0]}
-                      <RiErrorWarningLine className="ms-2" />
-                    </label>
-                    <div className="material-box d-flex flex-wrap">
-                      {option.values.lenght > 0 && option.values.map((value, index) => {
-                        return (
-                          <button
-                            className={
-                              "btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " +
-                              (!optionValue && index == 0
-                                ? "active"
-                                : optionValue &&
-                                  optionValue.variantTitle == value
-                                ? "active"
-                                : "")
-                            }
-                            key={index}
-                            onClick={() =>
-                              setOptionValue({
-                                variantTitle: value,
-                                variantId: productData.variants.find(
-                                  (variant) => variant.title == value
-                                ).id,
-                              })
-                            }
-                          >
-                            {value}
-                          </button>
-                        );
-                      })}
+              {productData.options.length > 0 &&
+                productData.options.map((option, key) => {
+                  return (
+                    <div className="material-setting-panel py-4" key={key}>
+                      <label
+                        htmlFor="selectKarat"
+                        className="d-flex align-items-center pb-4 text-uppercase"
+                      >
+                        {option.name} :{" "}
+                        {optionValue ? optionValue[0] : option.values[0]}
+                        <RiErrorWarningLine className="ms-2" />
+                      </label>
+                      <div className="material-box d-flex flex-wrap">
+                        {option.values.lenght > 0 &&
+                          option.values.map((value, index) => {
+                            return (
+                              <button
+                                className={
+                                  "btn btn-material px-4 py-2 round-form mt-3 text-uppercase me-3 " +
+                                  (!optionValue && index == 0
+                                    ? "active"
+                                    : optionValue &&
+                                      optionValue.variantTitle == value
+                                    ? "active"
+                                    : "")
+                                }
+                                key={index}
+                                onClick={() =>
+                                  setOptionValue({
+                                    variantTitle: value,
+                                    variantId: productData.variants.find(
+                                      (variant) => variant.title == value
+                                    ).id,
+                                  })
+                                }
+                              >
+                                {value}
+                              </button>
+                            );
+                          })}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
               <div className="selector-panel row m-0 py-4">
                 {sizeList.length > 0 && (
                   <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
@@ -451,13 +465,14 @@ function ProductRing(props) {
                         value={size}
                         onChange={(event) => setSize(event.target.value)}
                       >
-                        {sizeList > 0 && sizeList.map((item, index) => {
-                          return (
-                            <option value={item} key={index}>
-                              {item}
-                            </option>
-                          );
-                        })}
+                        {sizeList > 0 &&
+                          sizeList.map((item, index) => {
+                            return (
+                              <option value={item} key={index}>
+                                {item}
+                              </option>
+                            );
+                          })}
                       </select>
                     </div>
                   </div>

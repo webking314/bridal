@@ -196,7 +196,8 @@ export default function Blog() {
       setLoading(true);
       let postArr = [];
       let url;
-      if (filterCategory) {
+      if (filterCategory && filterCategory.length) {
+        console.log(123, filterCategory);
         url = blogURL + "?orderby=id&per_page=11&exclude=" + excludID + "&categories=" + filterCategory + filterKey
       } else {
         url = blogURL + "?orderby=id&per_page=11&exclude=" + excludID + filterKey

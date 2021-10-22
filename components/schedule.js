@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Schedule({ normalMode }) {
   return (
-    <div className={"schedule " + (normalMode ? "normal-mode" : "")}>
+    <div id="newsLetter" className={"schedule " + (normalMode ? "normal-mode" : "")}>
       <div className="r-container">
         <div className="row m-0">
           <div
@@ -39,11 +39,12 @@ export default function Schedule({ normalMode }) {
                   <Link href="/contact#direction">
                     <a className="direction-btn pink-outline-btn btn round-form d-flex align-items-center justify-content-sm-center px-5 py-3">
                       <RiCompassDiscoverLine className="me-3" />
-                      <span className="text-uppercase">Get Direction</span>
+                      <span className="text-uppercase">Get Directions</span>
                     </a>
                   </Link>
                 </div>
-                <button
+                <Link href="/tour">
+                <a
                   className={
                     "btn book-btn round-form pink-btn d-flex align-items-center justify-content-between px-5 py-3 " +
                     (normalMode ? "mb-sm-0 mb-5" : "mt-sm-0 mt-5")
@@ -60,7 +61,8 @@ export default function Schedule({ normalMode }) {
                     alt="rightArrow"
                     className="pink-arrow"
                   />
-                </button>
+                </a>
+                </Link>
               </div>
             </div>
           </div>

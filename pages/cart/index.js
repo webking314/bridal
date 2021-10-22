@@ -196,7 +196,7 @@ function MyCart(props) {
                               <button
                                 className="btn btn-increase round-form blue-text d-flex align-items-center justify-content-center p-2"
                                 onClick={() => {
-                                  if (items[index].amunt < item.maxCount) {
+                                  if (items[index].amount < item.maxCount) {
                                     items[index].amount = item.amount + 1;
                                   }
                                   setItems([...items]);
@@ -254,7 +254,7 @@ function MyCart(props) {
               );
             })
           ) : (
-            <h3 className="none-text m-0 py-5 text-center text-capitalize">
+            <h3 className="none-text m-0 py-5 text-center">
               Cart is empty
             </h3>
           )}

@@ -405,7 +405,11 @@ function Ring(props) {
           if (router.query.productType) {
             setProductType(router.query.productType);
           }
-          setTag(router.query.tags.split(","));
+          if (router.query.tags) {
+            setTag(router.query.tags.split(","));
+          } else {
+            setTag([]);
+          }
         } else {
           setTag([]);
         }
@@ -1027,21 +1031,40 @@ function Ring(props) {
               query10
           );
         } else {
-          data.append(
-            "query",
-            "status:active" +
-              query0 +
-              query1 +
-              query2 +
-              query3 +
-              query4 +
-              query5 +
-              query6 +
-              query7 +
-              query8 +
-              query9 +
-              query10
-          );
+          if (productType) {
+            data.append(
+              "query",
+              "status:active AND product_type:" +
+                productType +
+                query0 +
+                query1 +
+                query2 +
+                query3 +
+                query4 +
+                query5 +
+                query6 +
+                query7 +
+                query8 +
+                query9 +
+                query10
+            );
+          } else {
+            data.append(
+              "query",
+              "status:active" +
+                query0 +
+                query1 +
+                query2 +
+                query3 +
+                query4 +
+                query5 +
+                query6 +
+                query7 +
+                query8 +
+                query9 +
+                query10
+            );
+          }
         }
         setFormData(data);
       } else {
@@ -1061,7 +1084,14 @@ function Ring(props) {
               "status:active AND product_type:" + productType + defaultTags
             );
           } else {
-            data.append("query", "status:active");
+            if (productType) {
+              data.append(
+                "query",
+                "status:active AND product_type:" + productType
+              );
+            } else {
+              data.append("query", "status:active");
+            }
           }
           setFormData(data);
         }
@@ -1245,21 +1275,40 @@ function Ring(props) {
           query10
       );
     } else {
-      formData.append(
-        "query",
-        "status:active" +
-          query0 +
-          query1 +
-          query2 +
-          query3 +
-          query4 +
-          query5 +
-          query6 +
-          query7 +
-          query8 +
-          query9 +
-          query10
-      );
+      if (productType) {
+        formData.append(
+          "query",
+          "status:active AND product_type:" +
+            productType +
+            query0 +
+            query1 +
+            query2 +
+            query3 +
+            query4 +
+            query5 +
+            query6 +
+            query7 +
+            query8 +
+            query9 +
+            query10
+        );
+      } else {
+        formData.append(
+          "query",
+          "status:active" +
+            query0 +
+            query1 +
+            query2 +
+            query3 +
+            query4 +
+            query5 +
+            query6 +
+            query7 +
+            query8 +
+            query9 +
+            query10
+        );
+      }
     }
     fetch(productURL, {
       method: "post",

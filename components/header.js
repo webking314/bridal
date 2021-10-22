@@ -6,7 +6,7 @@ import DropHintModal from "./dropHintModal";
 import { connect } from "react-redux";
 import Link from "next/link";
 import AppointmentModal from "./appointmentModal";
-import { setWishList } from '../redux/actions/wishListAction';
+import { setWishList } from "../redux/actions/wishListAction";
 import {
   RiCustomerService2Fill,
   RiMapPin2Line,
@@ -24,156 +24,248 @@ import {
   RiPhoneFill,
 } from "react-icons/ri";
 let submenus = [
-  {
-    title: "ENGAGEMENT",
-    url: "/shop",
-    imagePanel: {
-      image: "mega_img-1.png",
-      title: "Ring Shopping Guide",
-      url: "#",
-    },
-    megaMenu: [
-      {
-        title: "Create a Ring",
-        menu: [
-          {
-            name: "Start with Setting",
-            img: "mega_logo (1).png",
-            url: "/customRing/chooseSetting",
-          },
-          {
-            name: "Start with a Diamond",
-            img: "mega_logo (2).png",
-            url: "/customRing/chooseDiamond",
-          },
-          {
-            name: "Ring Recommender",
-            img: "mega_logo (3).png",
-            url: "/ringRecommend",
-          },
-          {
-            name: "Design your own Engagement Ring",
-            img: "mega_logo (4).png",
-            url: "#",
-          },
-        ],
-      },
-      {
-        title: "Shop by Style",
-        menu: [
-          { name: "Halo", img: "mega_logo (5).png", url: "#", tag: "", product_type: "" },
-          { name: "Solitaire", img: "mega_logo (6).png", url: "#", tag: "", product_type: "" },
-          { name: "Slidestone", img: "mega_logo (7).png", url: "#", tag: "", product_type: "" },
-          { name: "Threestone", img: "mega_logo (8).png", url: "#", tag: "", product_type: "" },
-          { name: "Vintage", img: "mega_logo (9).png", url: "#", tag: "", product_type: "" },
-        ],
-      },
-      {
-        title: "Shop Popular Shapes",
-        menu: [
-          { name: "Round", img: "mega_logo (10).png", url: "#", tag: "", product_type: "" },
-          { name: "Cushion", img: "mega_logo (11).png", url: "#", tag: "", product_type: "" },
-          { name: "Princess", img: "mega_logo (12).png", url: "#", tag: "", product_type: "" },
-          { name: "Oval", img: "mega_logo (13).png", url: "#", tag: "", product_type: "" },
-          { name: "Emerald", img: "mega_logo (14).png", url: "#", tag: "", product_type: "" },
-        ],
-      },
-      {
-        title: "Quick Links",
-        menu: [
-          { name: "1 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
-          { name: "1.5 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
-          { name: "2 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
-          { name: "3 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
-        ],
-      },
-    ],
-  },
+  // {
+  //   title: "ENGAGEMENT",
+  //   url: "/shop",
+  //   imagePanel: {
+  //     image: "mega_img-1.png",
+  //     title: "Ring Shopping Guide",
+  //     url: "#",
+  //   },
+  //   megaMenu: [
+  //     {
+  //       title: "Create a Ring",
+  //       menu: [
+  //         {
+  //           name: "Start with Setting",
+  //           img: "mega_logo (1).png",
+  //           url: "/customRing/chooseSetting",
+  //         },
+  //         {
+  //           name: "Start with a Diamond",
+  //           img: "mega_logo (2).png",
+  //           url: "/customRing/chooseDiamond",
+  //         },
+  //         {
+  //           name: "Ring Recommender",
+  //           img: "mega_logo (3).png",
+  //           url: "/ringRecommend",
+  //         },
+  //         {
+  //           name: "Design your own Engagement Ring",
+  //           img: "mega_logo (4).png",
+  //           url: "#",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       title: "Shop by Style",
+  //       menu: [
+  //         { name: "Halo", img: "mega_logo (5).png", url: "#", tag: "", product_type: "" },
+  //         { name: "Solitaire", img: "mega_logo (6).png", url: "#", tag: "", product_type: "" },
+  //         { name: "Slidestone", img: "mega_logo (7).png", url: "#", tag: "", product_type: "" },
+  //         { name: "Threestone", img: "mega_logo (8).png", url: "#", tag: "", product_type: "" },
+  //         { name: "Vintage", img: "mega_logo (9).png", url: "#", tag: "", product_type: "" },
+  //       ],
+  //     },
+  //     {
+  //       title: "Shop Popular Shapes",
+  //       menu: [
+  //         { name: "Round", img: "mega_logo (10).png", url: "#", tag: "", product_type: "" },
+  //         { name: "Cushion", img: "mega_logo (11).png", url: "#", tag: "", product_type: "" },
+  //         { name: "Princess", img: "mega_logo (12).png", url: "#", tag: "", product_type: "" },
+  //         { name: "Oval", img: "mega_logo (13).png", url: "#", tag: "", product_type: "" },
+  //         { name: "Emerald", img: "mega_logo (14).png", url: "#", tag: "", product_type: "" },
+  //       ],
+  //     },
+  //     {
+  //       title: "Quick Links",
+  //       menu: [
+  //         { name: "1 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
+  //         { name: "1.5 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
+  //         { name: "2 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
+  //         { name: "3 Carat Engagement Rings", url: "#", tag: "", product_type: "" },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     title: "JEWELRY",
     url: "",
     imagePanel: {
       image: "mega_img-2.png",
-      title: "Jewelry Shopping Guide",
-      url: "#",
+      title: "Jewelry trends for 2022",
+      url: "/blog/jewelry-trends-for-2022",
     },
     megaMenu: [
       {
         title: "Rings",
         menu: [
-          { name: "Diamond rings", url: "/shop", tag: "diamond", product_type: "rings" },
-          { name: "Anniversary rings", url: "/shop", tag: "anniversary", product_type: "rings" },
-          { name: "Engagement rings", url: "/shop", tag: "engagement", product_type: "rings" },
-          { name: "Gemstone rings", url: "/shop", tag: "gemstone", product_type: "rings" },
+          {
+            name: "Diamond rings",
+            url: "/shop",
+            tag: "diamond",
+            product_type: "rings",
+          },
+          {
+            name: "Engagement rings",
+            url: "/shop",
+            tag: "engagement",
+            product_type: "rings",
+          },
+          {
+            name: "Royal 201 rings",
+            url: "/shop",
+            tag: "201",
+            product_type: "rings",
+          },
+          {
+            name: "Gemstone rings",
+            url: "/shop",
+            tag: "precious,colour,stones",
+            product_type: "rings",
+          },
         ],
       },
       {
         title: "Earrings",
         menu: [
-          { name: "Diamond studs", url: "/shop", tag: "diamond", product_type: "studs" },
-          { name: "Diamond earrings", url: "/shop", tag: "diamond", product_type: "earrings" },
-          { name: "Gemstone earrings", url: "/shop", tag: "gemstone", product_type: "earrings" },
+          {
+            name: "Diamond earrings",
+            url: "/shop",
+            tag: "diamond",
+            product_type: "earrings",
+          },
+          {
+            name: "Diamond studs",
+            url: "/shop",
+            tag: "diamond",
+            product_type: "studs",
+          },
+          {
+            name: "Gemstone earrings",
+            url: "/shop",
+            tag: "precious,color,stones",
+            product_type: "earrings",
+          },
         ],
       },
       {
         title: "Bracelets",
         menu: [
-          { name: "Tennis bracelets", url: "/shop", tag: "tennis", product_type: "bracelets" },
-          { name: "Diamond bracelets", url: "/shop", tag: "diamond", product_type: "bracelets" },
+          {
+            name: "Diamond bracelets",
+            url: "/shop",
+            tag: "diamond",
+            product_type: "bracelets",
+          },
+          {
+            name: "Tennis bracelets",
+            url: "/shop",
+            tag: "tennis",
+            product_type: "bracelets",
+          },
         ],
       },
       {
         title: "Necklaces",
         menu: [
-          { name: "Diamond pendants", url: "/shop", tag: "diamond", product_type: "pendants" },
-          { name: "Diamond necklace", url: "/shop", tag: "diamond", product_type: "necklace" },
-          { name: "Gemstone necklaces", url: "/shop", tag: "gemstone", product_type: "necklace" },
-        ],
-      },
-      {
-        title: "Gifts",
-        menu: [
-          { name: "Birth gifts", url: "/shop", tag: "birth", product_type: "gifts" },
-          { name: "Gifts under euro 500", url: "/shop", tag: "to-500", product_type: "gifts" },
-          { name: "Gifts under euro 1000", url: "/shop", tag: "to-500,1000-1499", product_type: "gifts" },
+          {
+            name: "Diamond necklace",
+            url: "/shop",
+            tag: "diamond",
+            product_type: "necklace",
+          },
+          {
+            name: "Diamond pendants",
+            url: "/shop",
+            tag: "diamond",
+            product_type: "pendants",
+          },
+          {
+            name: "Gemstone necklaces",
+            url: "/shop",
+            tag: "precious,color,stones",
+            product_type: "necklace",
+          },
         ],
       },
     ],
   },
-  { title: "COLLECTIONS", url: "/collection", },
+  { title: "COLLECTIONS", url: "/collection" },
   { title: "BESPOKE", url: "/bespoke" },
   { title: "WATCHES", url: "/watch", tag: "", product_type: "" },
   {
     title: "EDUCATION",
     url: "",
-    imagePanel: { image: "mega_img-3.png", title: "Timeline", url: "#", tag: "", product_type: "" },
+    imagePanel: {
+      image: "mega_img-3.png",
+      title: "Timeline",
+      url: "#",
+      tag: "",
+      product_type: "",
+    },
     megaMenu: [
       {
         title: "The diamond Experts",
         menu: [
-          { name: "about the C4's", url: "#", tag: "", product_type: "" },
-          { name: "about colored diamonds & gemstone", url: "#", tag: "", product_type: "" },
-          { name: "about the price diamonds", url: "#", tag: "", product_type: "" },
-          { name: "about the sustainability", url: "#", tag: "", product_type: "" },
-          { name: "about watches", url: "#", tag: "", product_type: "" },
+          {
+            name: "A brief history of diamonds",
+            url: "/blog/brief-history-of-diamond",
+          },
+          {
+            name: "about the C4's",
+            url: "/blog/the-4-cs-of-diamond-valuation",
+          },
+          {
+            name: "about colored diamonds & gemstone",
+            url: "/blog/fancy-colored-diamonds",
+          },
+          {
+            name: "about the sustainability diamonds",
+            url: "/blog/how-we-guarantee-our-diamonds-are-untainted",
+          },
+          {
+            name: "About buying diamonds on a budget",
+            url: "/blog/how-to-buy-a-diamond-on-a-budget",
+          },
+          {
+            name: "Most popular engagement rings",
+            url: "/blog/most-popular-engagement-rings",
+          },
         ],
       },
       {
         title: "The history of Royal Coster",
         menu: [
-          { name: "Our Royal customers through time", url: "#", tag: "", product_type: "" },
-          { name: "A timeline of brilliance", url: "#", tag: "", product_type: "" },
-          { name: "Amsterdam City of Diamonds", url: "#", tag: "", product_type: "" },
-          { name: "The kog I Noor & other legendary diamonds", url: "#", tag: "", product_type: "" },
+          {
+            name: "Our Royal Legacy",
+            url: "/inside-coster/our-royal-legacy",
+          },
+          {
+            name: "The Koh I Noor",
+            url: "/blog/the-koh-i-noor-more-than-only-our-heritage",
+          },
+          {
+            name: "The story of Sisi",
+            url: "/inside-coster/the-story-of-sisi",
+          },
+          {
+            name: "The story of Rama",
+            url: "/inside-coster/how-we-created-queen-julianas-diamond-watch/",
+          },
         ],
       },
       {
         title: "Guides",
         menu: [
-          { name: "Ring size guide", url: "#", tag: "", product_type: "" },
-          { name: "Diamond buying guide", url: "/diamond-buying-guide" },
-          { name: "Engagement ring buying guide", url: "/buying-guide" },
-          { name: "Royal Coster Wartches Guide", url: "#" },
+          {
+            name: "The ultimate wedding ring guide",
+            url: "/blog/the-ultimate-guide-on-how-to-choose-your-wedding-rings",
+          },
+          { name: "What to look for when buying diamonds", url: "/blog/who-can-i-really-trust" },
+          { name: "Buying an engagement ring ", url: "/blog/buying-a-diamond-solitaire-engagement-ring" },
+          { name: "romantic ways to propose", url: "/blog/5-most-romantic-ways-to-propose" },
         ],
       },
     ],
@@ -268,9 +360,9 @@ function Header(props) {
     );
     if (removeProduct) {
       localProducts.splice(localProducts.indexOf(removeProduct), 1);
-      props.setWishList(localProducts)
+      props.setWishList(localProducts);
     }
-  }
+  };
   return (
     <div id="header" className={page}>
       <div className="desktop-header">
@@ -308,14 +400,20 @@ function Header(props) {
                                     return (
                                       <Link
                                         passHref={true}
-                                        href={item.tag ? {
-                                          pathname: item.url,
-                                          query: {
-                                            tags: item.tag,
-                                            productType: item.product_type
-                                          },
-                                        } : item.url}
-                                        key={id}>
+                                        href={
+                                          item.tag
+                                            ? {
+                                                pathname: item.url,
+                                                query: {
+                                                  tags: item.tag,
+                                                  productType:
+                                                    item.product_type,
+                                                },
+                                              }
+                                            : item.url
+                                        }
+                                        key={id}
+                                      >
                                         <a>
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
@@ -348,7 +446,10 @@ function Header(props) {
                                 <h3 className="my-3">
                                   {submenu.imagePanel.title}
                                 </h3>
-                                <Link passHref={true} href={submenu.imagePanel.url}>
+                                <Link
+                                  passHref={true}
+                                  href={submenu.imagePanel.url}
+                                >
                                   <a>
                                     <p className="link-item">Learn More</p>
                                   </a>
@@ -429,22 +530,14 @@ function Header(props) {
           <div className="r-container d-flex justify-content-between">
             <div className="d-flex left-menu align-items-center">
               <nav>
-                <Link passHref={true} href="#">
-                  <a className="d-flex align-items-center">
+                <Link passHref={true} href="/contact#direction">
+                  <a className="d-flex align-items-center text-uppercase">
                     <RiMapPin2Line />
-                    FIND A STORE
+                    Get directions
                   </a>
                 </Link>
               </nav>
-              <nav className="mx-5">
-                <Link passHref={true} href="#">
-                  <a className="d-flex align-items-center">
-                    <RiServiceLine />
-                    SERVICES
-                  </a>
-                </Link>
-              </nav>
-              <nav>
+              <nav className="ms-5">
                 <Link passHref={true} href="/contact">
                   <a className="d-flex align-items-center">
                     <RiCustomerService2Fill />
@@ -455,7 +548,7 @@ function Header(props) {
             </div>
             <div className="d-flex right-menu align-items-center">
               <nav>
-                <Link passHref={true} href="#">
+                <Link passHref={true} href="#newsLetter">
                   <a className="d-flex align-items-center">
                     <RiUser3Line />
                     NEWSLETTER
@@ -478,7 +571,8 @@ function Header(props) {
                 aria-controls="wishListBox"
               >
                 <RiHeartLine />
-                WISHLIST {props.wishList != 0 && ("(" + props.wishList.length + ")")}
+                WISHLIST{" "}
+                {props.wishList != 0 && "(" + props.wishList.length + ")"}
               </button>
             </div>
           </div>
@@ -548,14 +642,20 @@ function Header(props) {
                                     return (
                                       <Link
                                         passHref={true}
-                                        href={item.tag ? {
-                                          pathname: item.url,
-                                          query: {
-                                            tags: item.tag,
-                                            productType: item.product_type
-                                          },
-                                        } : item.url}
-                                        key={id}>
+                                        href={
+                                          item.tag
+                                            ? {
+                                                pathname: item.url,
+                                                query: {
+                                                  tags: item.tag,
+                                                  productType:
+                                                    item.product_type,
+                                                },
+                                              }
+                                            : item.url
+                                        }
+                                        key={id}
+                                      >
                                         <a>
                                           {item.img ? (
                                             <div className="link-item mt-4 d-flex align-items-center">
@@ -588,7 +688,10 @@ function Header(props) {
                                 <h3 className="my-3">
                                   {submenu.imagePanel.title}
                                 </h3>
-                                <Link passHref={true} href={submenu.imagePanel.url}>
+                                <Link
+                                  passHref={true}
+                                  href={submenu.imagePanel.url}
+                                >
                                   <a>
                                     <p className="mb-0 link-item">Learn More</p>
                                   </a>
@@ -664,10 +767,7 @@ function Header(props) {
               <RiSearchLine />
             </button>
             <Link href="tel:00310203055555">
-              <a
-                className="btn me-2 d-flex align-items-center"
-                type="button"
-              >
+              <a className="btn me-2 d-flex align-items-center" type="button">
                 <RiPhoneFill />
               </a>
             </Link>
@@ -742,14 +842,19 @@ function Header(props) {
                               return (
                                 <Link
                                   passHref={true}
-                                  href={item.tag ? {
-                                    pathname: item.url,
-                                    query: {
-                                      tags: item.tag,
-                                      productType: item.product_type
-                                    },
-                                  } : item.url}
-                                  key={id}>
+                                  href={
+                                    item.tag
+                                      ? {
+                                          pathname: item.url,
+                                          query: {
+                                            tags: item.tag,
+                                            productType: item.product_type,
+                                          },
+                                        }
+                                      : item.url
+                                  }
+                                  key={id}
+                                >
                                   <a>
                                     {item.img ? (
                                       <div className="link-item my-5 d-flex align-items-center">
@@ -795,8 +900,13 @@ function Header(props) {
               );
             } else {
               return (
-                <Link passHref={true} href={submenu.url} data-bs-dismiss="offcanvas" key={index}>
-                  <a className="submenu py-4" >{submenu.title}</a>
+                <Link
+                  passHref={true}
+                  href={submenu.url}
+                  data-bs-dismiss="offcanvas"
+                  key={index}
+                >
+                  <a className="submenu py-4">{submenu.title}</a>
                 </Link>
               );
             }
@@ -892,9 +1002,7 @@ function Header(props) {
                   <div className="item-title">
                     <h3>{item.title}</h3>
                     <p>
-                      {item.product_type &&
-                        <span>{item.product_type} </span>
-                      }
+                      {item.product_type && <span>{item.product_type} </span>}
                     </p>
                   </div>
                 </div>
@@ -903,7 +1011,7 @@ function Header(props) {
                   <button
                     className="btn btn-remove d-flex align-items-center text-uppercase"
                     onClick={() => {
-                      removeItem(item)
+                      removeItem(item);
                     }}
                   >
                     Remove <RiCloseFill className="ms-2" />
@@ -922,13 +1030,12 @@ function Header(props) {
   );
 }
 
-
-const mapStateToProps = state => ({
-  wishList: state.wishList.value
+const mapStateToProps = (state) => ({
+  wishList: state.wishList.value,
 });
 
 const mapDispatchToProps = {
   setWishList: setWishList,
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

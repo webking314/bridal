@@ -73,7 +73,7 @@ const ReadingProgress = ({ target }) => {
   );
 };
 
-const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
+const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/inside-coster";
 const authorURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/users";
 const tagsURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tags";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
@@ -247,6 +247,7 @@ function Brief(props) {
             })
               .then((res) => res.json())
               .then((author) => {
+                console.log(author);
                 setAuthorData({
                   name: author.name,
                   avatar: author.avatar["48"],
@@ -286,9 +287,9 @@ function Brief(props) {
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link passHref={true} href="/blog">
-            <a className="mx-2">BLOG</a>
-          </Link>
+          <span className="title ms-2 text-uppercase blue-text">
+            Inside coster
+          </span>
           /
           <span className="title ms-2 text-uppercase blue-text">
             {router.query && router.query.slug}
