@@ -175,11 +175,11 @@ const firstFilterItem = [
   {
     title: "carat",
     filter: [
-      { label: "Below 0.5 Carat" },
-      { label: "0.5 - 1.0 Carat" },
-      { label: "1 - 2 Carat" },
-      { label: "2 - 5 Carat" },
-      { label: "More than 5 Carat" },
+      { label: "Below 0.5 Carat", value: "below-0.5-carat" },
+      { label: "0.5 - 1.0 Carat", value: "0.5-1.0-carat" },
+      { label: "1 - 2 Carat", value: "1-2-carat" },
+      { label: "2 - 5 Carat", value: "2-5-carat" },
+      { label: "More than 5 Carat", value: "more-than-5-carat" },
     ],
   },
 ];
@@ -469,11 +469,10 @@ function Ring(props) {
           if (cTags.find((ctag) => ctag == getFilterValue(item.label))) {
             middleArr.push({
               label: item.label,
-              value: getFilterValue(item.label),
+              value: item.value,
             });
           }
         });
-        console.log(middleArr);
         setCaratFilter(middleArr);
       }
     }
@@ -818,7 +817,6 @@ function Ring(props) {
                   setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
                   cTagData = [...cTagMiddleStore, ...middleArr];
                   setCTags(cTagData);
-                  console.log(cTagData);
                   if (data.hasNextPage == "No") {
                     localResultCounter = totalCounter + data.productsCount;
                     setResult(localResultCounter);
