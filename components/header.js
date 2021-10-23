@@ -7,12 +7,14 @@ import { connect } from "react-redux";
 import Link from "next/link";
 import AppointmentModal from "./appointmentModal";
 import { setWishList } from "../redux/actions/wishListAction";
+import Badge from "@mui/material/Badge";
 import {
   RiCustomerService2Fill,
   RiMapPin2Line,
   RiServiceLine,
   RiSearchLine,
   RiShoppingCartLine,
+  RiShoppingBag2Line,
   RiUser3Line,
   RiMailSendLine,
   RiHeartLine,
@@ -263,9 +265,18 @@ let submenus = [
             name: "The ultimate wedding ring guide",
             url: "/blog/the-ultimate-guide-on-how-to-choose-your-wedding-rings",
           },
-          { name: "What to look for when buying diamonds", url: "/blog/who-can-i-really-trust" },
-          { name: "Buying an engagement ring ", url: "/blog/buying-a-diamond-solitaire-engagement-ring" },
-          { name: "romantic ways to propose", url: "/blog/5-most-romantic-ways-to-propose" },
+          {
+            name: "What to look for when buying diamonds",
+            url: "/blog/who-can-i-really-trust",
+          },
+          {
+            name: "Buying an engagement ring ",
+            url: "/blog/buying-a-diamond-solitaire-engagement-ring",
+          },
+          {
+            name: "romantic ways to propose",
+            url: "/blog/5-most-romantic-ways-to-propose",
+          },
         ],
       },
     ],
@@ -279,6 +290,7 @@ function Header(props) {
   const [selected, setSelected] = useState("LU");
   const router = useRouter();
   const [items, setItems] = useState();
+  const [localCart, setLocalCart] = useState();
   useEffect(() => {
     const mobileTopbarHeight =
       document.querySelector(".mobile__top-bar").clientHeight;
@@ -303,6 +315,7 @@ function Header(props) {
           mobileSubBar.classList.remove("visible");
       }
     });
+    setLocalCart(localStorage.cart);
   }, []);
   useEffect(() => {
     if (typeof document !== undefined) {
@@ -511,19 +524,14 @@ function Header(props) {
             <Link passHref={true} href="/why-royal-coster">
               <a>WHY ROYAL COSTER ?</a>
             </Link>
-            <ReactFlagsSelect
-              showSelectedLabel={false}
-              showSecondarySelectedLabel={false}
-              showOptionLabel={false}
-              showSecondaryOptionLabel={false}
-              selectedSize={14}
-              optionsSize={14}
-              fullWidth={false}
-              selected={selected}
-              onSelect={(code) => setSelected(code)}
-              placeholder=" "
-              className="flag-select pb-0"
-            />
+
+            <button
+              className="btn right-menu p-0 text-uppercase"
+              data-bs-toggle="modal"
+              data-bs-target="#appointment"
+            >
+              Schedule consultation
+            </button>
           </div>
         </div>
         <div className="row m-0 middle-bar px-5 py-3">
@@ -550,36 +558,39 @@ function Header(props) {
               <nav>
                 <Link passHref={true} href="#newsLetter">
                   <a className="d-flex align-items-center">
-                    <RiUser3Line />
+                    <RiMailSendLine />
                     NEWSLETTER
                   </a>
                 </Link>
               </nav>
-              <nav className="mx-5">
+              <nav className="ms-5">
                 <Link passHref={true} href="#">
                   <a className="d-flex align-items-center">
-                    <RiMailSendLine />
+                    <RiUser3Line />
                     MY ACCOUNT
                   </a>
                 </Link>
               </nav>
-              <button
-                className="btn pe-0 d-flex align-items-center"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#wishListBox"
-                aria-controls="wishListBox"
-              >
-                <RiHeartLine />
-                WISHLIST{" "}
-                {props.wishList != 0 && "(" + props.wishList.length + ")"}
-              </button>
             </div>
           </div>
         </div>
         <div className="row m-0 logo-bar px-5 py-5 align-items-center">
-          <div className="r-container d-flex align-items-center">
-            <div className="col-4 px-0"></div>
+          <div className="r-container d-flex align-items-center p-0">
+            <div className="col-4 px-0">
+              <ReactFlagsSelect
+                showSelectedLabel={false}
+                showSecondarySelectedLabel={false}
+                showOptionLabel={false}
+                showSecondaryOptionLabel={false}
+                selectedSize={14}
+                optionsSize={14}
+                fullWidth={false}
+                selected={selected}
+                onSelect={(code) => setSelected(code)}
+                placeholder=" "
+                className="flag-select pb-0"
+              />
+            </div>
             <div className="col-4 px-0 text-center">
               <Link passHref={true} href="/">
                 <a>
@@ -605,9 +616,35 @@ function Header(props) {
               >
                 <RiSearchLine className="font-icon" />
               </button>
+              <button
+                className="btn me-4"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#wishListBox"
+                aria-controls="wishListBox"
+              >
+                {props.wishList.length > 0 ? (
+                  <Badge badgeContent={props.wishList.length} color="primary">
+                    <RiHeartLine className="font-icon" />
+                  </Badge>
+                ) : (
+                  <RiHeartLine className="font-icon" />
+                )}
+              </button>
               <Link passHref={true} href="/cart">
-                <a className="btn me-4">
-                  <RiShoppingCartLine className="font-icon" />
+                <a className="btn">
+                  {localCart && JSON.parse(localCart).cartData.length > 0 ? (
+                    <Badge
+                      badgeContent={
+                        JSON.parse(localStorage.cart).cartData.length
+                      }
+                      color="primary"
+                    >
+                      <RiShoppingBag2Line className="font-icon" />
+                    </Badge>
+                  ) : (
+                    <RiShoppingBag2Line className="font-icon" />
+                  )}
                 </a>
               </Link>
             </div>
@@ -615,7 +652,7 @@ function Header(props) {
         </div>
         <div className="row m-0 px-5 sub-bar">
           <div className="r-container mega-menu d-flex justify-content-md-between justify-content-start align-items-center">
-            <div className="d-flex p-0 left-menu flex-1 flex-wrap py-2 ">
+            <div className="d-flex justify-content-center p-0 left-menu flex-1 flex-wrap py-2 ">
               {submenus.map((submenu, index) => {
                 if (submenu.megaMenu) {
                   return (
@@ -714,13 +751,6 @@ function Header(props) {
                   );
               })}
             </div>
-            <button
-              className="btn right-menu btn-consultation text-uppercase px-5 py-4"
-              data-bs-toggle="modal"
-              data-bs-target="#appointment"
-            >
-              Schedule consultation
-            </button>
           </div>
         </div>
       </div>

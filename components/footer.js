@@ -29,11 +29,26 @@ export default function Footer() {
     {
       title: "Shop Online",
       url: [
-        { link: "Engagement Rings", url: "/shop", tags: "engagement", product_type: "rings" },
-        { link: "Wedding & Anniversaries", url: "#", tags: "", product_type: "" },
+        {
+          link: "Engagement Rings",
+          url: "/shop",
+          tags: "engagement",
+          product_type: "rings",
+        },
+        {
+          link: "Wedding & Anniversaries",
+          url: "#",
+          tags: "",
+          product_type: "",
+        },
         { link: "Empress Collection", url: "#", tags: "", product_type: "" },
         { link: "Bespoke Jewelry", url: "#", tags: "", product_type: "" },
-        { link: "Consult with an expert", url: "#", tags: "", product_type: "" },
+        {
+          link: "Consult with an expert",
+          url: "#",
+          tags: "",
+          product_type: "",
+        },
       ],
     },
     {
@@ -50,19 +65,34 @@ export default function Footer() {
       title: "Customer Services",
       url: [
         { link: "Contact Us", url: "/contact", tags: "", product_type: "" },
-        { link: "Reviews & TESTIMONIALS", url: "#", tags: "", product_type: "" },
-        { link: "Faq’s", url: "/faq"},
+        {
+          link: "Reviews & TESTIMONIALS",
+          url: "#",
+          tags: "",
+          product_type: "",
+        },
+        { link: "Faq’s", url: "/faq" },
         { link: "Upgrade Service", url: "#", tags: "", product_type: "" },
-        { link: "Global blue refunds", url: "/tax-refund"},
+        { link: "Global blue refunds", url: "/tax-refund" },
       ],
     },
     {
       title: "Diamond Guides",
       url: [
-        { link: "Engagement ring buying guide", url: "/buying-guide"},
-        { link: "Diamond buying guide", url: "/diamond-buying-guide"},
-        { link: "WHAt to look in a diamond", url: "#", tags: "", product_type: "" },
-        { link: "trends in diamond jewelry", url: "#", tags: "", product_type: "" },
+        { link: "Engagement ring buying guide", url: "/buying-guide" },
+        { link: "Diamond buying guide", url: "/diamond-buying-guide" },
+        {
+          link: "WHAt to look in a diamond",
+          url: "#",
+          tags: "",
+          product_type: "",
+        },
+        {
+          link: "trends in diamond jewelry",
+          url: "#",
+          tags: "",
+          product_type: "",
+        },
         { link: "Proposal ideas", url: "#", tags: "", product_type: "" },
         { link: "What the royal bought", url: "#", tags: "", product_type: "" },
       ],
@@ -70,45 +100,68 @@ export default function Footer() {
   ];
   return (
     <div className="footer" id="footer">
-      <div className="main-footer r-container d-md-block d-none">
-        <div className="footer-top row p-0 m-0 py-5">
-          <div className="col-lg-6 col-12 py-lg-5 pb-lg-5 pb-0 px-0 social-links d-flex justify-content-lg-start justify-content-center">
-            <Link passHref={true} href="#">
-              <a className="me-4">
-                <div>
-                  <RiFacebookCircleFill />
-                </div>
-              </a>
-            </Link>
-            <Link passHref={true} href="#">
-              <a className="me-4">
-                <div>
-                  <RiInstagramFill />
-                </div>
-              </a>
-            </Link>
-            <Link passHref={true} href="#">
-              <a className="me-4">
-                <div>
-                  <RiLinkedinFill />
-                </div>
-              </a>
-            </Link>
-            <Link passHref={true} href="#">
-              <a className="me-4">
-                <div>
-                  <RiPinterestFill />
-                </div>
-              </a>
-            </Link>
-            <Link passHref={true} href="#">
-              <a className="me-4">
-                <div>
-                  <RiYoutubeFill />
-                </div>
-              </a>
-            </Link>
+      {/* <div className="mail-list-panel">
+        <div className="r-container row py-5 my-5">
+          <div className="col-md-6">
+            <h3 className="title text-uppercase mb-4">
+              Join{" "}
+              <span>
+                Our <br />
+                mailing
+              </span>{" "}
+              list
+            </h3>
+            <p className="description mb-5">
+              Sign up for diamond, inspiration, and <br />
+              special Products, tours and news. We <br />
+              won't spam your inbox.
+            </p>
+            <div className="px-0 social-links d-flex justify-content-lg-start justify-content-center">
+              <Link passHref={true} href="#">
+                <a className="me-4">
+                  <div>
+                    <RiFacebookCircleFill />
+                  </div>
+                </a>
+              </Link>
+              <Link passHref={true} href="#">
+                <a className="me-4">
+                  <div>
+                    <RiInstagramFill />
+                  </div>
+                </a>
+              </Link>
+              <Link passHref={true} href="#">
+                <a className="me-4">
+                  <div>
+                    <RiLinkedinFill />
+                  </div>
+                </a>
+              </Link>
+              <Link passHref={true} href="#">
+                <a className="me-4">
+                  <div>
+                    <RiPinterestFill />
+                  </div>
+                </a>
+              </Link>
+              <Link passHref={true} href="#">
+                <a className="me-4">
+                  <div>
+                    <RiYoutubeFill />
+                  </div>
+                </a>
+              </Link>
+            </div>
           </div>
+          <div className="col-md-6 pt-md-0 pt-5 d-flex">
+
+          </div>
+        </div>
+      </div> */}
+      <div className="main-footer r-container d-md-block d-none">
+        {/* <div className="footer-top row p-0 m-0 py-5">
+          
           <div className="col-lg-6 col-12 py-lg-5 py-0 px-0 text-lg-end payment-links text-center">
             {paymentLogo.map((item, index) => {
               return (
@@ -125,7 +178,7 @@ export default function Footer() {
               );
             })}
           </div>
-        </div>
+        </div> */}
         <div className="footer-middle row p-0 m-0 pt-5">
           {midFooterList.map((items, index) => {
             return (
@@ -136,14 +189,21 @@ export default function Footer() {
                 <h3 className="mb-5">{items.title}</h3>
                 {items.url.map((item, key) => {
                   return (
-                    <Link passHref={true} href={item.tags ? {
-                      pathname: item.url,
-                      query: {
-                        tags: item.tags,
-                        productType: item.product_type
-                      },
-                    } : item.url}
-                      key={key}>
+                    <Link
+                      passHref={true}
+                      href={
+                        item.tags
+                          ? {
+                              pathname: item.url,
+                              query: {
+                                tags: item.tags,
+                                productType: item.product_type,
+                              },
+                            }
+                          : item.url
+                      }
+                      key={key}
+                    >
                       <a className="row m-0 mb-3 text-uppercase">{item.link}</a>
                     </Link>
                   );
@@ -282,24 +342,40 @@ export default function Footer() {
           })}
         </div>
       </div>
-      <div className="footer-bottom py-3">
-        <div className="r-container row m-auto p-0">
-          <div className="col-md-6 col-12 text-md-start text-center px-0 text-uppercase">
+      <div className="footer-bottom r-container py-3">
+        <div className="row m-auto align-items-center p-0">
+          <div className="col-md-5 text-md-start text-center px-0 text-uppercase">
+            <div className="mb-3 text-decoration-underline">
+              <Link passHref={true} href="#">
+                <a className="text-uppercase">Privacy Policy</a>
+              </Link>
+              <Link passHref={true} href="#">
+                <a className="text-uppercase ms-5">Cookies</a>
+              </Link>
+              <Link passHref={true} href="#">
+                <a className="text-uppercase ms-5">Terms</a>
+              </Link>
+            </div>
             © 2020 Royal Coster Diamonds - All rights reserved
           </div>
-          <div className="col-md-6 d-md-block d-none px-0 mt-md-0 mt-3 text-md-end text-center">
-            <Link passHref={true} href="#">
-              <a className="text-uppercase">Privacy Policy</a>
-            </Link>
-            <Link passHref={true} href="#">
-              <a className="text-uppercase ms-5">Cookies</a>
-            </Link>
-            <Link passHref={true} href="#">
-              <a className="text-uppercase ms-5">Terms</a>
-            </Link>
+          <div className="col-md-7 d-md-block d-none px-0 mt-md-0 mt-3 text-md-end text-center">
+            {paymentLogo.map((item, index) => {
+              return (
+                <Link passHref={true} key={index} href={item.url}>
+                  <a className={index == 0 ? "ms-0" : "ms-4"}>
+                    <img
+                      src={"/img/common/" + item.img}
+                      alt="payment-getway"
+                      width="38"
+                      className="my-4"
+                    />
+                  </a>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
