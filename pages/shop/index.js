@@ -439,9 +439,6 @@ function Ring(props) {
           }
           setProductData(data.data);
           productStore = data.data;
-          if (localStorage.wishList) {
-            props.setWishList(JSON.parse(localStorage.wishList));
-          }
         });
     }
   }, [formData]);

@@ -10,13 +10,14 @@ import renderHTML from "react-render-html";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { creatCheckout } from "../../redux/actions/checkOutAction";
+import { setCartData } from "../../redux/actions/cartDataAction";
 import {
   RiSubtractFill,
   RiAddFill,
   RiCustomerService2Fill,
   RiChat1Line,
   RiCloseFill,
-  RiArrowRightSFill
+  RiArrowRightSFill,
 } from "react-icons/ri";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { remove } from "lodash";
@@ -44,7 +45,6 @@ const cartItems = [
 
 let subTotalPrice = 0;
 
-
 function MyCart(props) {
   const [items, setItems] = useState();
   const [subTotal, setSubTotal] = useState(0);
@@ -67,7 +67,7 @@ function MyCart(props) {
 
     // props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
     //   console.log(res)
-      router.push('/checkout/information')
+    router.push("/checkout/information");
     // })
   };
 
@@ -84,9 +84,12 @@ function MyCart(props) {
         if (index == 0) subTotalPrice = 0;
         subTotalPrice += item.price * item.amount;
         setSubTotal(subTotalPrice);
-        setTotal(subTotalPrice - vat)
+        setTotal(subTotalPrice - vat);
       });
-      localStorage.setItem("cart", JSON.stringify({ cartData: items, vat: vat, subTotal: subTotal }))
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ cartData: items, vat: vat, subTotal: subTotal })
+      );
     }
   }, [items, subTotal]);
 
@@ -122,10 +125,7 @@ function MyCart(props) {
           {items ? (
             items.map((item, index) => {
               return (
-                <div
-                  className="cart-info py-5 d-flex flex-column"
-                  key={index}
-                >
+                <div className="cart-info py-5 d-flex flex-column" key={index}>
                   <div className="d-flex align-item-center">
                     <div className="image-panel me-4">
                       <img
@@ -167,15 +167,14 @@ function MyCart(props) {
                       <div className="info_text-panel row m-0 mb-lg-5">
                         <div className="col-lg-6 col-12 text-panel">
                           <h3 className="blue-text title m-0 text-capitalize">
-                            {item.title}<small> ({item.variant.variantTitle})</small>
+                            {item.title}
+                            <small> ({item.variant.variantTitle})</small>
                           </h3>
                           <p className="cart-style m-0 py-4 text-capitalize">
-                            <span className="me-3">
-                              {item.product_type}
-                            </span>
+                            <span className="me-3">{item.product_type}</span>
                           </p>
                           <p className="cart-description m-0 text-capitalize">
-                            {renderHTML(item.description.split('<p>')[0])}
+                            {renderHTML(item.description.split("<p>")[0])}
                           </p>
                         </div>
                         <div className="col-lg-6 col-12 cost-panel p-0 d-flex justify-content-between flex-sm-row flex-column ps-lg-5 ps-0 pt-lg-0 pt-md-5 pt-3">
@@ -227,6 +226,7 @@ function MyCart(props) {
                           onClick={() => {
                             items.splice(index, 1);
                             setItems([...items]);
+                            props.setCartData([...items]);
                           }}
                         >
                           Remove <RiCloseFill className="ms-2" />
@@ -254,9 +254,7 @@ function MyCart(props) {
               );
             })
           ) : (
-            <h3 className="none-text m-0 py-5 text-center">
-              Cart is empty
-            </h3>
+            <h3 className="none-text m-0 py-5 text-center">Cart is empty</h3>
           )}
         </div>
       </div>
@@ -348,16 +346,16 @@ function MyCart(props) {
       {/* Start Footer */}
       <Footer />
       {/* End Footer */}
-    </div >
+    </div>
   );
 }
 
-const mapStateToProps = state => ({
-  checkOut: state.checkOut
+const mapStateToProps = (state) => ({
+  cartData: state.cartData.value,
 });
 
 const mapDispatchToProps = {
-  creatCheckout: creatCheckout
-}
+  setCartData: setCartData,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyCart)
+export default connect(mapStateToProps, mapDispatchToProps)(MyCart);

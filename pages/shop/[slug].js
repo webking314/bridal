@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import NumberFormat from "react-number-format";
 import renderHTML from "react-render-html";
 import { setWishList } from "../../redux/actions/wishListAction";
+import { setCartData } from "../../redux/actions/cartDataAction";
 import { connect } from "react-redux";
 import "swiper/css";
 import {
@@ -184,11 +185,13 @@ function ProductRing(props) {
                 "cart",
                 JSON.stringify({ cartData: cartData })
               );
+              props.setWishList(cartData);
             } else {
               localStorage.setItem(
                 "cart",
                 JSON.stringify({ cartData: [...cartData, cartItem] })
               );
+              props.setWishList([...cartData, cartItem])
             }
           } else {
             localStorage.setItem(
@@ -703,10 +706,12 @@ function ProductRing(props) {
 
 const mapStateToProps = (state) => ({
   wishList: state.wishList.value,
+  cartData: state.cartData.value,
 });
 
 const mapDispatchToProps = {
   setWishList: setWishList,
+  setCartData: setCartData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductRing);

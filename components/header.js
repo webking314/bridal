@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import Link from "next/link";
 import AppointmentModal from "./appointmentModal";
 import { setWishList } from "../redux/actions/wishListAction";
+import { setCartData } from "../redux/actions/cartDataAction";
 import Badge from "@mui/material/Badge";
 import {
   RiCustomerService2Fill,
@@ -203,9 +204,7 @@ let submenus = [
     imagePanel: {
       image: "mega_img-3.png",
       title: "Timeline",
-      url: "#",
-      tag: "",
-      product_type: "",
+      url: "/timeline",
     },
     megaMenu: [
       {
@@ -213,7 +212,7 @@ let submenus = [
         menu: [
           {
             name: "A brief history of diamonds",
-            url: "/blog/brief-history-of-diamond",
+            url: "/blog/a-brief-history-of-diamond",
           },
           {
             name: "about the C4's",
@@ -316,7 +315,14 @@ function Header(props) {
       }
     });
     setLocalCart(localStorage.cart);
+    if (localStorage.wishList) {
+      props.setWishList(JSON.parse(localStorage.wishList));
+    }
+    if (localStorage.cart) {
+      props.setCartData(JSON.parse(localStorage.cart).cartData);
+    }
   }, []);
+
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
@@ -502,12 +508,24 @@ function Header(props) {
               data-bs-target="#wishListBox"
               aria-controls="wishListBox"
             >
-              <RiHeartLine />
+              {props.wishList.length > 0 ? (
+                <Badge badgeContent={props.wishList.length} color="primary">
+                  <RiHeartLine className="font-icon" />
+                </Badge>
+              ) : (
+                <RiHeartLine className="font-icon" />
+              )}
             </button>
 
             <Link passHref={true} href="/cart">
               <a className="btn cart-link d-flex me-4">
-                <RiShoppingCartLine className="font-icon" />
+                {props.cartData.length > 0 > 0 ? (
+                  <Badge badgeContent={props.cartData.length} color="primary">
+                    <RiShoppingBag2Line className="font-icon" />
+                  </Badge>
+                ) : (
+                  <RiShoppingBag2Line className="font-icon" />
+                )}
               </a>
             </Link>
             <button
@@ -633,13 +651,8 @@ function Header(props) {
               </button>
               <Link passHref={true} href="/cart">
                 <a className="btn">
-                  {localCart && JSON.parse(localCart).cartData.length > 0 ? (
-                    <Badge
-                      badgeContent={
-                        JSON.parse(localStorage.cart).cartData.length
-                      }
-                      color="primary"
-                    >
+                  {props.cartData.length > 0 > 0 ? (
+                    <Badge badgeContent={props.cartData.length} color="primary">
                       <RiShoppingBag2Line className="font-icon" />
                     </Badge>
                   ) : (
@@ -808,12 +821,24 @@ function Header(props) {
               data-bs-target="#wishListBox"
               aria-controls="wishListBox"
             >
-              <RiHeartLine />
+              {props.wishList.length > 0 ? (
+                <Badge badgeContent={props.wishList.length} color="primary">
+                  <RiHeartLine className="font-icon" />
+                </Badge>
+              ) : (
+                <RiHeartLine className="font-icon" />
+              )}
             </button>
 
             <Link passHref={true} href="/cart">
               <a className="btn d-flex me-4">
-                <RiShoppingCartLine className="font-icon" />
+                {props.cartData.length > 0 > 0 ? (
+                  <Badge badgeContent={props.cartData.length} color="primary">
+                    <RiShoppingBag2Line className="font-icon" />
+                  </Badge>
+                ) : (
+                  <RiShoppingBag2Line className="font-icon" />
+                )}
               </a>
             </Link>
             <button
@@ -1062,10 +1087,12 @@ function Header(props) {
 
 const mapStateToProps = (state) => ({
   wishList: state.wishList.value,
+  cartData: state.cartData.value,
 });
 
 const mapDispatchToProps = {
   setWishList: setWishList,
+  setCartData: setCartData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
