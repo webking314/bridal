@@ -45,18 +45,6 @@ export default function ProductDetail({
             >
               Information
             </button>
-            <button
-              className="nav-link text-uppercase px-0"
-              id="nav-setDiamond-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#nav-setDiamond"
-              type="button"
-              role="tab"
-              aria-controls="nav-setDiamond"
-              aria-selected="false"
-            >
-              Can be set with
-            </button>
           </div>
         </nav>
         <div className="tab-content" id="nav-tabContent">
@@ -134,14 +122,6 @@ export default function ProductDetail({
                 );
               })} */}
             </div>
-          </div>
-          <div
-            className="tab-pane fade"
-            id="nav-setDiamond"
-            role="tabpanel"
-            aria-labelledby="nav-setDiamond-tab"
-          >
-            <h3 className="title-panel py-5 text-uppercase m-0">Can be set with</h3>
           </div>
         </div>
       </div>

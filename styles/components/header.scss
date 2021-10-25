@@ -34,7 +34,16 @@ $flagSelectColor: white;
     * {
       color: white;
     }
-    a {
+    .logo-bar {
+      .flag-select {
+        #rfs-btn {
+          &:after {
+            border-top-color: white;
+          }
+        }
+      } 
+    }
+      a {
       &:hover {
         color: white;
         * {
@@ -176,6 +185,13 @@ $flagSelectColor: white;
       width: 190px;
       height: auto;
     }
+    .flag-select {
+      #rfs-btn {
+        &:after {
+          border-top-color: rgb(0, 0, 0);
+        }
+      }
+    } 
   }
   .mega-menu {
     .right-menu {

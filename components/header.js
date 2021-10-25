@@ -919,12 +919,12 @@ function Header(props) {
                                           alt="mega-logo"
                                           className="me-3"
                                         />
-                                        <span className="text-uppercase">
+                                        <span>
                                           {item.name}
                                         </span>
                                       </div>
                                     ) : (
-                                      <div className="link-item my-5 text-uppercase">
+                                      <div className="link-item my-5">
                                         {item.name}
                                       </div>
                                     )}
