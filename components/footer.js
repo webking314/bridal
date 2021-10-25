@@ -37,17 +37,13 @@ export default function Footer() {
         },
         {
           link: "Wedding & Anniversaries",
-          url: "#",
-          tags: "",
-          product_type: "",
+          url: "/collection/anniversary",
         },
-        { link: "Empress Collection", url: "#", tags: "", product_type: "" },
-        { link: "Bespoke Jewelry", url: "#", tags: "", product_type: "" },
+        { link: "Empress Collection", url: "/collection/empress-collectie" },
+        { link: "Bespoke Jewelry", url: "/bespoke" },
         {
           link: "Consult with an expert",
-          url: "#",
-          tags: "",
-          product_type: "",
+          url: "/contact ",
         },
       ],
     },
@@ -65,14 +61,11 @@ export default function Footer() {
       title: "Customer Services",
       url: [
         { link: "Contact Us", url: "/contact", tags: "", product_type: "" },
-        {
-          link: "Reviews & TESTIMONIALS",
-          url: "#",
-          tags: "",
-          product_type: "",
-        },
         { link: "Faq’s", url: "/faq" },
-        { link: "Upgrade Service", url: "#", tags: "", product_type: "" },
+        {
+          link: "Upgrade Service",
+          url: "/blog/engagement-ring-wedding-ring-growing-brilliant",
+        },
         { link: "Global blue refunds", url: "/tax-refund" },
       ],
     },
@@ -83,18 +76,21 @@ export default function Footer() {
         { link: "Diamond buying guide", url: "/diamond-buying-guide" },
         {
           link: "WHAt to look in a diamond",
-          url: "#",
-          tags: "",
-          product_type: "",
+          url: "/blog/diamond-knowledge",
         },
         {
-          link: "trends in diamond jewelry",
-          url: "#",
-          tags: "",
-          product_type: "",
+          link: "Trends in diamond jewelry",
+          url: "/blog/jewelry-trends-for-2022",
         },
-        { link: "Proposal ideas", url: "#", tags: "", product_type: "" },
-        { link: "What the royal bought", url: "#", tags: "", product_type: "" },
+        { link: "Proposal ideas", url: "/blog/proposal-ideas" },
+        {
+          link: "Our Royal Legacy",
+          url: "/inside-coster/our-royal-legacy",
+        },
+        {
+          link: "Crftsmanship Knowledge",
+          url: "/blog/crftsmanship-knowledge ",
+        },
       ],
     },
   ];
@@ -221,7 +217,7 @@ export default function Footer() {
             201.
           </p>
         </div>
-        <div className="mobile-social-link d-flex justify-content-center pb-5">
+        {/* <div className="mobile-social-link d-flex justify-content-center pb-5">
           <Link passHref={true} href="#">
             <a>
               <div className="social-link me-4">
@@ -257,7 +253,7 @@ export default function Footer() {
               </div>
             </a>
           </Link>
-        </div>
+        </div> */}
         <div className="accordion" id="links-panel">
           {midFooterList.map((item, index) => {
             return (
