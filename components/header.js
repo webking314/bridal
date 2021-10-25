@@ -174,10 +174,10 @@ let submenus = [
         title: "Necklaces",
         menu: [
           {
-            name: "Diamond necklace",
+            name: "Diamond necklaces",
             url: "/shop",
             tag: "diamond",
-            product_type: "necklace",
+            product_type: "necklaces",
           },
           {
             name: "Diamond pendants",
@@ -189,7 +189,7 @@ let submenus = [
             name: "Gemstone necklaces",
             url: "/shop",
             tag: "precious,color,stones",
-            product_type: "necklace",
+            product_type: "necklaces",
           },
         ],
       },

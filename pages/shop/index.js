@@ -524,7 +524,7 @@ function Ring(props) {
             (item) => item.MainGroup.toLowerCase() == "rings"
           );
         }
-        const basicArr = brands.BrandID.split(",");
+        const basicArr = brands ? brands.BrandID.split(",") : [];
         let middleArr = [];
         basicArr.map((item, index) => {
           if (cTags.find((ctag) => ctag == getFilterValue(item))) {
