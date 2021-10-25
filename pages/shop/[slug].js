@@ -191,7 +191,7 @@ function ProductRing(props) {
                 "cart",
                 JSON.stringify({ cartData: [...cartData, cartItem] })
               );
-              props.setWishList([...cartData, cartItem])
+              props.setWishList([...cartData, cartItem]);
             }
           } else {
             localStorage.setItem(
@@ -328,7 +328,9 @@ function ProductRing(props) {
                   },
                 }}
               >
-                <a className="mx-2 text-uppercase">{productData.product_type}</a>
+                <a className="mx-2 text-uppercase">
+                  {productData.product_type}
+                </a>
               </Link>
               /
             </>
@@ -407,12 +409,12 @@ function ProductRing(props) {
                         htmlFor="selectKarat"
                         className="d-flex align-items-center pb-4 text-uppercase"
                       >
-                        {option.name} :{" "}
+                        {option.name} :
                         {optionValue ? optionValue[0] : option.values[0]}
                         <RiErrorWarningLine className="ms-2" />
                       </label>
                       <div className="material-box d-flex flex-wrap">
-                        {option.values.lenght > 0 &&
+                        {option.values.length > 0 &&
                           option.values.map((value, index) => {
                             return (
                               <button
@@ -443,8 +445,8 @@ function ProductRing(props) {
                     </div>
                   );
                 })}
-              <div className="selector-panel row m-0 py-4">
-                {sizeList.length > 0 && (
+              {sizeList.length > 0 && (
+                <div className="selector-panel row m-0 py-4">
                   <div className="select-karat col-lg-6 col-md-12 col-sm-6 col-12 p-0 pe-lg-3 pe-md-0 pe-sm-3 pe-0">
                     <div className="d-flex justify-content-between pb-4 align-items-center">
                       <h3
@@ -479,8 +481,7 @@ function ProductRing(props) {
                       </select>
                     </div>
                   </div>
-                )}
-                <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-lg-3 ps-0">
+                  {/* <div className="select-size col-lg-6 col-md-12 col-sm-6 col-12 p-0 ps-lg-3 ps-md-0 ps-lg-3 ps-0">
                   <label
                     htmlFor="selectKarat"
                     className="d-flex align-items-center pb-4 text-uppercase"
@@ -492,8 +493,10 @@ function ProductRing(props) {
                     add engraving
                     <RiArrowRightSLine />
                   </button>
+                </div> */}
                 </div>
-              </div>
+              )}
+
               <div className="cost-panel d-flex justify-content-between align-items-center py-4">
                 <div className="price-panel">
                   <h4 className="text-uppercase">total</h4>
@@ -546,7 +549,7 @@ function ProductRing(props) {
                   >
                     add to cart
                   </button>
-                  <p className="m-0">Price excludes VAT</p>
+                  <p className="m-0">Price includes VAT</p>
                 </div>
               </div>
               <div className="help-panel d-flex justify-content-between py-4">

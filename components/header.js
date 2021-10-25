@@ -212,18 +212,18 @@ let submenus = [
         menu: [
           {
             name: "A brief history of diamonds",
-            url: "/blog/a-brief-history-of-diamond",
+            url: "/inside-coster/brief-history-of-diamonds",
           },
           {
-            name: "about the C4's",
+            name: "About the C4's",
             url: "/blog/the-4-cs-of-diamond-valuation",
           },
           {
-            name: "about colored diamonds & gemstone",
+            name: "About colored diamonds & gemstone",
             url: "/blog/fancy-colored-diamonds",
           },
           {
-            name: "about the sustainability diamonds",
+            name: "About the sustainability diamonds",
             url: "/blog/how-we-guarantee-our-diamonds-are-untainted",
           },
           {
@@ -273,7 +273,7 @@ let submenus = [
             url: "/blog/buying-a-diamond-solitaire-engagement-ring",
           },
           {
-            name: "romantic ways to propose",
+            name: "Romantic ways to propose",
             url: "/blog/5-most-romantic-ways-to-propose",
           },
         ],
@@ -380,6 +380,7 @@ function Header(props) {
     if (removeProduct) {
       localProducts.splice(localProducts.indexOf(removeProduct), 1);
       props.setWishList(localProducts);
+      localStorage.setItem('wishList', localProducts)
     }
   };
   return (
@@ -559,7 +560,7 @@ function Header(props) {
                 <Link passHref={true} href="/contact#direction">
                   <a className="d-flex align-items-center text-uppercase">
                     <RiMapPin2Line />
-                    Get directions
+                    Get direction
                   </a>
                 </Link>
               </nav>
