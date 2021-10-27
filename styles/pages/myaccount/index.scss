@@ -1,0 +1,43 @@
+.my-account_page {
+	#header {
+		border-bottom: 1px solid rgba(2, 24, 37, 0.05);
+	}
+	.main-panel {
+		.welcome-panel {
+			background: url(/img/myaccount/welcome_bg.png);
+			.title {
+				font-weight: 400;
+				color: #01215c;
+				font-size: 36px;
+				span {
+					font-family: FreeSerif;
+					font-style: italic;
+				}
+			}
+			.description {
+				font-weight: 350;
+				font-size: 14px;
+				line-height: 150%;
+				color: rgba(2, 24, 37, 0.8);
+			}
+		}
+		.tab-panel {
+			.select-btn, .btn-logout {
+				font-weight: 400;
+				font-size: 18px;
+				line-height: 18px;
+				color: rgba(2, 24, 37, 0.7);
+				background: #f6f6f6;
+				border-radius: 6px;
+				&.active {
+					background: rgba(2, 24, 37, 1);
+					color: white;
+				}
+			}
+			.btn-logout {
+				background: transparent;
+				border: 2px solid rgba(2, 24, 37, 0.1);
+			}
+		}
+	}
+}

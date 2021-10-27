@@ -8,6 +8,7 @@ import Link from "next/link";
 import AppointmentModal from "./appointmentModal";
 import { setWishList } from "../redux/actions/wishListAction";
 import { setCartData } from "../redux/actions/cartDataAction";
+import { setLoginData } from "../redux/actions/loginDataAction";
 import Badge from "@mui/material/Badge";
 import {
   RiCustomerService2Fill,
@@ -290,6 +291,7 @@ function Header(props) {
   const router = useRouter();
   const [items, setItems] = useState();
   const [localCart, setLocalCart] = useState();
+
   useEffect(() => {
     const mobileTopbarHeight =
       document.querySelector(".mobile__top-bar").clientHeight;
@@ -320,6 +322,9 @@ function Header(props) {
     }
     if (localStorage.cart) {
       props.setCartData(JSON.parse(localStorage.cart).cartData);
+    }
+    if (localStorage.loginData) {
+      props.setLoginData(JSON.parse(localStorage.loginData));
     }
   }, []);
 
@@ -380,7 +385,7 @@ function Header(props) {
     if (removeProduct) {
       localProducts.splice(localProducts.indexOf(removeProduct), 1);
       props.setWishList(localProducts);
-      localStorage.setItem('wishList', localProducts)
+      localStorage.setItem("wishList", JSON.stringify(localProducts));
     }
   };
   return (
@@ -583,7 +588,10 @@ function Header(props) {
                 </Link>
               </nav>
               <nav className="ms-5">
-                <Link passHref={true} href="#">
+                <Link
+                  passHref={true}
+                  href={props.loginData ? "/myaccount" : "/myaccount/login"}
+                >
                   <a className="d-flex align-items-center">
                     <RiUser3Line />
                     MY ACCOUNT
@@ -770,7 +778,10 @@ function Header(props) {
       </div>
       <div className="mobile-header dr-none">
         <div className="mobile__top-bar d-flex justify-content-between align-items-center px-5 py-4 text-white">
-          <Link passHref={true} href="/">
+          <Link
+            passHref={true}
+            href={props.loginData ? "/myaccount" : "/myaccount/login"}
+          >
             <a className="d-flex align-items-center">
               <RiUser3Line className="me-3" />
               MY ACCOUNT
@@ -919,9 +930,7 @@ function Header(props) {
                                           alt="mega-logo"
                                           className="me-3"
                                         />
-                                        <span>
-                                          {item.name}
-                                        </span>
+                                        <span>{item.name}</span>
                                       </div>
                                     ) : (
                                       <div className="link-item my-5">
@@ -1089,11 +1098,13 @@ function Header(props) {
 const mapStateToProps = (state) => ({
   wishList: state.wishList.value,
   cartData: state.cartData.value,
+  loginData: state.loginData.value,
 });
 
 const mapDispatchToProps = {
   setWishList: setWishList,
   setCartData: setCartData,
+  setLoginData: setLoginData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

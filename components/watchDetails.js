@@ -67,7 +67,7 @@ export default function WatchDetails({ watchData, loading }) {
                   }
                 >
                   <button className="btn btn-show-watch text-uppercase round-form py-3 px-5 blue-btn">
-                    {watch.btnText}
+                    {`Show ${watch.title} watches`}
                   </button>
                 </div>
               </div>

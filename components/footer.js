@@ -95,7 +95,7 @@ export default function Footer() {
     },
   ];
   return (
-    <div className="footer" id="footer">
+    <div className="footer pt-5" id="footer">
       {/* <div className="mail-list-panel">
         <div className="r-container row py-5 my-5">
           <div className="col-md-6">

@@ -107,6 +107,7 @@ const productItems = [
   },
 ];
 
+const getProductURL = "https://royalcoster.nl/api/getProduct.php";
 const productURL = "https://royalcoster.nl/api/product/index.php";
 const metarialURL =
   "https://costercatalog.com/api/index.php?request=getMaterialsGroupedNew";
@@ -1113,6 +1114,7 @@ function Ring(props) {
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
     if (target.classList.contains("favor")) {
+      target.classList.remove('favor')
       let localProducts = props.wishList;
       let removeProduct = localProducts.find(
         (item) => item.shopifyid == product.shopifyid
@@ -1122,20 +1124,32 @@ function Ring(props) {
         props.setWishList(localProducts);
       }
     } else {
-      if (localStorage.wishList) {
-        props.setWishList([
-          ...props.wishList,
-          { ...product, amount: 1, product_type: productType },
-        ]);
-      } else {
-        localStorage.setItem(
-          "wishList",
-          JSON.stringify([{ ...product, amount: 1, product_type: productType }])
-        );
-        props.setWishList([
-          { ...product, amount: 1, product_type: productType },
-        ]);
-      }
+      target.classList.add('favor');
+      let formData = new FormData();
+      formData.append("shopifyid", product.shopifyid);
+      fetch(getProductURL, {
+        method: "post",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (localStorage.wishList) {
+            props.setWishList([
+              ...props.wishList,
+              { ...product, amount: 1, product_type: productType, description: data.body_html },
+            ]);
+          } else {
+            localStorage.setItem(
+              "wishList",
+              JSON.stringify([
+                { ...product, amount: 1, product_type: productType, description: data.body_html },
+              ])
+            );
+            props.setWishList([
+              { ...product, amount: 1, product_type: productType, description: data.body_html },
+            ]);
+          }
+        });
     }
   };
 

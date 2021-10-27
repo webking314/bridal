@@ -254,6 +254,7 @@ function ProductRing(props) {
         image: productData.image.src.replace(".jpg", "_100x.jpg"),
         amount: itemAmount,
         product_type: "Rings",
+        descripion: productData.body_html
       };
       if (localStorage.wishList) {
         props.setWishList([...props.wishList, productItem]);

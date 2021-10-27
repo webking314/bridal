@@ -19,7 +19,8 @@ import "../styles/globals.scss";
 
 import "../styles/components/header.scss";
 import "../styles/components/collection.scss";
-import "../styles/components/schedule.scss";
+import "../styles/components/mailList.scss";
+import "../styles/components/visit.scss";
 import "../styles/components/footer.scss";
 import "../styles/components/needHelp.scss";
 import "../styles/components/range.scss";
@@ -64,6 +65,14 @@ import "../styles/pages/about.scss";
 import "../styles/pages/thank-you.scss";
 import "../styles/pages/internships.scss";
 import "../styles/pages/responsibility.scss";
+import "../styles/pages/myaccount/index.scss"
+import "../styles/pages/myaccount/login.scss"
+import "../styles/pages/myaccount/wishList.scss"
+import "../styles/pages/myaccount/details.scss"
+import "../styles/pages/myaccount/address.scss"
+import "../styles/pages/myaccount/needHelp.scss"
+import "../styles/pages/myaccount/purchases.scss"
+import "../styles/pages/myaccount/dashboard.scss"
 import "../styles/pages/why-royal-coster.scss";
 import "../styles/pages/watch/index.scss";
 import "../styles/pages/watch/brand.scss";
