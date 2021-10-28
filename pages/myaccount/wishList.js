@@ -20,7 +20,7 @@ function WishList(props) {
 
   return (
     <div className="wishList-panel">
-      <h3 className="title pb-4 mb-3">
+      <h3 className="title">
         My wishlist <span>({props.wishList ? props.wishList.length : 0})</span>
       </h3>
       <div className="list-panel">

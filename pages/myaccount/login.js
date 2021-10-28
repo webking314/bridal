@@ -12,14 +12,14 @@ export default function Login() {
       </Head>
       <Header />
       <div className="main-panel d-flex align-items-center justify-content-center">
-        <div className="main-box round p-5">
-          <h3 className="title text-capitalize pt-3 mb-4">Welcome back</h3>
-          <p className="description text-capitalize mb-0 pb-4">
+        <div className="main-box round">
+          <h3 className="title text-capitalize">Welcome back</h3>
+          <p className="description text-capitalize">
             Enter your email address and password to log in.
           </p>
-          <input type="text" className="form-control p-3 mt-4 mb-3" />
-          <input type="text" className="form-control p-3 mb-4" />
-          <button className="btn btn-login d-flex justify-content-between align-items-center p-3 mb-4">
+          <input type="text" className="form-control" placeholder="EMAIL"/>
+          <input type="password" className="form-control" placeholder="PASSWORD" />
+          <button className="btn btn-login blue-btn d-flex justify-content-between align-items-center">
             LOG IN
             <RiArrowRightLine />
           </button>
@@ -38,7 +38,7 @@ export default function Login() {
               Forgot Password
             </button>
           </div>
-          <button className="btn btn-create-account d-flex justify-content-between align-items-center mt-4 p-3">
+          <button className="btn btn-create-account d-flex justify-content-between align-items-center">
             CREATE A NEW ACCOUNT
             <RiArrowRightLine />
           </button>

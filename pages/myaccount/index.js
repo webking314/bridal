@@ -46,7 +46,7 @@ export default function MyAccount() {
               aria-orientation="vertical"
             >
               <button
-                className="select-btn btn dashboard-tab d-flex align-items-center py-3 px-4 active mb-4"
+                className="select-btn btn dashboard-tab d-flex align-items-center active mb-4"
                 id="dashboard-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#dashboard"
@@ -59,7 +59,7 @@ export default function MyAccount() {
                 Dashboard
               </button>
               <button
-                className="select-btn btn wishList-tab d-flex align-items-center py-3 px-4 mb-4"
+                className="select-btn btn wishList-tab d-flex align-items-center mb-4"
                 id="wishList-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#wishList"
@@ -72,7 +72,7 @@ export default function MyAccount() {
                 My WishList
               </button>
               <button
-                className="select-btn btn purchases-tab d-flex align-items-center py-3 px-4 mb-4"
+                className="select-btn btn purchases-tab d-flex align-items-center mb-4"
                 id="purchases-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#purchases"
@@ -85,7 +85,7 @@ export default function MyAccount() {
                 My Purchases
               </button>
               <button
-                className="select-btn btn d-flex details-tab align-items-center py-3 px-4 mb-4"
+                className="select-btn btn d-flex details-tab align-items-center mb-4"
                 id="details-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#details"
@@ -98,7 +98,7 @@ export default function MyAccount() {
                 My Details
               </button>
               <button
-                className="select-btn btn address-tab d-flex align-items-center py-3 px-4 mb-4"
+                className="select-btn btn address-tab d-flex align-items-center mb-4"
                 id="address-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#address"
@@ -111,7 +111,7 @@ export default function MyAccount() {
                 My Address
               </button>
               <button
-                className="select-btn btn needHelp-tab d-flex align-items-center py-3 px-4"
+                className="select-btn btn needHelp-tab d-flex align-items-center"
                 id="needHelp-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#needHelp"
@@ -123,7 +123,7 @@ export default function MyAccount() {
                 <RiCustomerServiceFill className="me-3" />
                 Need help?
               </button>
-              <button className="btn d-flex align-items-center py-3 px-4  mt-5 btn-logout">
+              <button className="btn d-flex align-items-center mt-5 btn-logout">
                 <RiLogoutCircleRLine className="me-3" />
                 Logout
               </button>

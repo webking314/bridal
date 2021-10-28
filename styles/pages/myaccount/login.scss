@@ -7,6 +7,7 @@
 		position: relative;
 		flex: 1;
 		.main-box {
+			padding: 30px;
 			position: relative;
 			z-index: 10;
 			max-width: 630px;
@@ -21,22 +22,32 @@
 				font-size: 36px;
 				line-height: 46px;
 				color: #01215c;
+				margin-bottom: 8px;
 			}
 			.description {
 				font-size: 13px;
 				line-height: 17px;
 				color: rgba(2, 24, 37, 0.7);
 				border-bottom: 1px solid rgba(2, 24, 37, 0.1);
+				padding-bottom: 17px;
+				margin-bottom: 30px;
 			}
 			.form-control {
 				font-size: 13px;
+				padding: 16px 24px;
 				color: #01215c;
 				border: 1px solid rgba(1, 33, 92, 0.1);
 				border-radius: 9px;
+				margin-bottom: 16px;
 				&:focus {
 					border: 1px solid #01215c;
 					box-shadow: none;
 				}
+			}
+			.btn-login {
+				margin-top: 32px;
+				margin-bottom: 20px;
+				padding: 16px 24px;
 			}
 			.btn-login,
 			.btn-create-account {
@@ -47,7 +58,12 @@
 				background: #01215c;
 				width: 100%;
 			}
+			.login-help-panel {
+				padding-bottom: 30px;
+				margin-bottom: 30px;
+			}
 			.btn-create-account {
+				padding: 16px 24px;
 				background: #021825;
 			}
 			#rememberme {
@@ -75,7 +91,8 @@
 				border-bottom: 1px solid rgba(2, 24, 37, 0.1);
 			}
 		}
-		.blur-pink-panel, .blur-blue-panel {
+		.blur-pink-panel,
+		.blur-blue-panel {
 			position: absolute;
 			top: 20%;
 			left: calc(50% - 80px);

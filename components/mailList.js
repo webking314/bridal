@@ -72,11 +72,6 @@ export default function MailList() {
           />
           <button className="btn round-form px-5 py-3 blue-btn d-flex justify-content-between align-items-center m-0 ">
             <span>SUBSCRIBE</span>
-            <img
-              src="/img/common/rightArrow_blue.png"
-              alt="rightArrow"
-              className="blue-arrow"
-            />
             <RiArrowRightLine />
           </button>
         </div>

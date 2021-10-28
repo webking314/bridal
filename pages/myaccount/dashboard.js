@@ -16,7 +16,7 @@ const handleCheckOut = (target) => {
 export default function Dashboard() {
   return (
     <div className="dashboard-panel row m-0">
-      <h3 className="title pb-4 p-0 mb-3">Dashboard</h3>
+      <h3 className="title px-0">Dashboard</h3>
       <div className="personal-data-box col-sm-6 p-0 pe-sm-3 py-sm-3 pt-3">
         <button
           className="btn checkout-btn d-flex flex-column p-4 mb-4"
