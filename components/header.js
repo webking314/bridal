@@ -343,25 +343,115 @@ function Header(props) {
         router.pathname.indexOf("/", 1) == -1
           ? router.pathname
           : router.pathname.slice(0, router.pathname.indexOf("/", 1));
-      let allSubItems = document.querySelectorAll(".sub-item");
-      let tags = submenus.find((post, index) => {
-        if (post.url.includes(tagetStr)) return true;
-        else {
-          if (post.megaMenu) {
-            if (
-              post.megaMenu.find((sublink, id) => {
+      let tags;
+      if (tagetStr == "/blog" || tagetStr == "/shop") {
+        const tag = router.query.tags;
+        const productType = router.query.productType;
+        const slug = router.query.slug;
+        if (tag) {
+          tags = submenus.find((post, index) => {
+            if (post.url.includes(tagetStr) && post.tag == tag) return true;
+            else {
+              if (post.megaMenu) {
                 if (
-                  sublink.menu.find((url, key) => url.url.includes(tagetStr))
-                ) {
+                  post.megaMenu.find((sublink, id) => {
+                    if (
+                      sublink.menu.find((url, key) => {
+                        if (url.url.includes(tagetStr) && url.tag == tag)
+                          return true;
+                      })
+                    ) {
+                      return true;
+                    }
+                  })
+                )
                   return true;
-                }
-              })
-            )
+                else false;
+              } else return false;
+            }
+          });
+        } else if (productType) {
+          tags = submenus.find((post, index) => {
+            if (post.url.includes(tagetStr) && post.product_type == productType)
               return true;
-            else false;
-          } else return false;
+            else {
+              if (post.megaMenu) {
+                if (
+                  post.megaMenu.find((sublink, id) => {
+                    if (
+                      sublink.menu.find((url, key) => {
+                        if (
+                          url.url.includes(tagetStr) &&
+                          url.product_type == productType
+                        )
+                          return true;
+                      })
+                    ) {
+                      return true;
+                    }
+                  })
+                )
+                  return true;
+                else false;
+              } else return false;
+            }
+          });
+        } else if (slug) {
+          tags = submenus.find((post, index) => {
+            if (post.url.includes(tagetStr) && post.url.includes(slug))
+              return true;
+            else {
+              if (post.megaMenu) {
+                if (
+                  post.megaMenu.find((sublink, id) => {
+                    if (
+                      sublink.menu.find((url, key) => {
+                        if (
+                          url.url.includes(tagetStr) &&
+                          url.url.includes(slug)
+                        )
+                          return true;
+                      })
+                    ) {
+                      return true;
+                    }
+                  })
+                )
+                  return true;
+                else false;
+              } else return false;
+            }
+          });
+        } else {
+          if (tagetStr == "/blog") {
+            tags = {
+              title: "blog",
+            };
+          }
         }
-      });
+      } else {
+        tags = submenus.find((post, index) => {
+          if (post.url.includes(tagetStr)) return true;
+          else {
+            if (post.megaMenu) {
+              if (
+                post.megaMenu.find((sublink, id) => {
+                  if (
+                    sublink.menu.find((url, key) => {
+                      if (url.url.includes(tagetStr)) return true;
+                    })
+                  ) {
+                    return true;
+                  }
+                })
+              )
+                return true;
+              else false;
+            } else return false;
+          }
+        });
+      }
+      let allSubItems = document.querySelectorAll(".sub-item");
 
       allSubItems.forEach((element) => {
         if (tagetStr != "/")
