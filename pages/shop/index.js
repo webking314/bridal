@@ -28,6 +28,7 @@ import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/Indeterminate
 const options = [
   { name: "ALL", value: "ALL" },
   { name: "POPULAR", value: "POPULAR" },
+  { name: "PRICE", value: "PRICE" },
 ];
 
 const filterItems = [
@@ -107,8 +108,9 @@ const productItems = [
   },
 ];
 
-const getProductURL = "https://royalcoster.nl/api/getProduct.php";
-const productURL = "https://royalcoster.nl/api/product/index.php";
+
+const getProductURL = process.env.NEXT_PUBLIC_GET_PRODUCT_URL;
+const productURL = process.env.NEXT_PUBLIC_PRODUCT_URL;
 const metarialURL =
   "https://costercatalog.com/api/index.php?request=getMaterialsGroupedNew";
 const materialColorURL =
@@ -125,7 +127,9 @@ const brightnessURL =
   "https://costercatalog.com/api/index.php?request=generateAttributesClarity&tn=products_short&sync=1";
 const stoneURL =
   "https://costercatalog.com/api/index.php?request=generateAttributesType&tn=products_short&sync=1";
-const CTagURL = "https://royalcoster.nl/api/getTags.php";
+const settingURL =
+  "https://costercatalog.com/api/index.php?request=generateAttributesSettings";
+const CTagURL = process.env.NEXT_PUBLIC_CTAG_URL;
 const headers = {
   // "Content-Type": "application/json",
 };
@@ -212,6 +216,7 @@ let productStore = [],
   check8 = [],
   check9 = [],
   check10 = [],
+  check11 = [],
   localProductType,
   localTag = [],
   basicStyleData,
@@ -220,6 +225,7 @@ let productStore = [],
   basicStoneData,
   basicBrightnessData,
   basicCutData,
+  basicSettingData,
   basicMetarialData,
   basicMaterialColorData,
   localResultCounter;
@@ -244,6 +250,7 @@ function Ring(props) {
   const [checked8, setChecked8] = useState(check8);
   const [checked9, setChecked9] = useState(check9);
   const [checked10, setChecked10] = useState(check10);
+  const [checked11, setChecked11] = useState(check11);
   const [expanded, setExpanded] = useState([]);
   const [productType, setProductType] = useState();
   const [tag, setTag] = useState();
@@ -264,6 +271,7 @@ function Ring(props) {
   const [basicCutFilter, setBasicCutFilter] = useState();
   const [basicMetarialFilter, setBasicMetarialFilter] = useState();
   const [basicMaterialColorFilter, setBasicMaterialColorFilter] = useState();
+  const [basicSettingFilter, setBasicSettingFilter] = useState();
 
   const [priceFilter, setPriceFilter] = useState();
   const [collectionFilter, setCollectionFilter] = useState();
@@ -276,8 +284,10 @@ function Ring(props) {
   const [metarialFilter, setMetarialFilter] = useState();
   const [materialColorFilter, setMaterialColorFilter] = useState();
   const [caratFilter, setCaratFilter] = useState();
+  const [settingFilter, setSettingFilter] = useState();
 
   useEffect(() => {
+
     if (!basicStyleData) {
       // get style filter data
       fetch(styleURL, {
@@ -359,6 +369,16 @@ function Ring(props) {
           basicMaterialColorData = materialColor;
           setBasicMaterialColorFilter(basicMaterialColorData);
         });
+
+      // get setting filter data
+      fetch(settingURL, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((setting) => {
+          basicSettingData = setting.Setting.split(",");
+          setBasicSettingFilter(basicSettingData);
+        });
     } else {
       setBasicStyleFilter(basicStyleData);
       setBasicMountingFilter(basicMountingData);
@@ -366,6 +386,7 @@ function Ring(props) {
       setBasicStoneFilter(basicStoneData);
       setBasicBrightnessFilter(basicBrightnessData);
       setBasicCutFilter(basicCutData);
+      setBasicSettingFilter(basicSettingData);
       setBasicMetarialFilter(basicMetarialData);
       setBasicMaterialColorFilter(basicMaterialColorData);
       setResult(localResultCounter);
@@ -375,6 +396,7 @@ function Ring(props) {
       setStoneFilter();
       setBrightnessFilter();
       setCutFilter();
+      setSettingFilter();
       setMetarialFilter();
       setMaterialColorFilter();
       setCTags([]);
@@ -898,6 +920,22 @@ function Ring(props) {
   }, [cTagLastAdd, productType, tag]);
 
   useEffect(() => {
+    if (cTags.length) {
+      if (basicSettingFilter) {
+        let middleArr = [];
+        basicSettingFilter.map((item, index) => {
+          if (cTags.find((ctag) => ctag == getFilterValue(item))) {
+            middleArr.push({ label: item, value: getFilterValue(item) });
+          }
+          if (index == basicSettingFilter.length - 1) {
+            setSettingFilter(middleArr);
+          }
+        });
+      }
+    }
+  }, [cTags, basicSettingFilter]);
+
+  useEffect(() => {
     if (tag) {
       let defaultTags = (
         tag.map((item, index) =>
@@ -917,6 +955,7 @@ function Ring(props) {
         check8 = checked8;
         check9 = checked9;
         check10 = checked10;
+        check11 = checked11;
 
         let query0 =
           checked0.length > 0
@@ -1006,6 +1045,14 @@ function Ring(props) {
                 ) + ")"
               ).replaceAll(",", "")
             : "";
+        let query11 =
+          checked11.length > 0
+            ? (
+                checked11.map((filter, index) =>
+                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+                ) + ")"
+              ).replaceAll(",", "")
+            : "";
         let data = new FormData();
 
         setLoad(true);
@@ -1026,7 +1073,8 @@ function Ring(props) {
               query7 +
               query8 +
               query9 +
-              query10
+              query10 +
+              query11
           );
         } else {
           if (productType) {
@@ -1044,7 +1092,8 @@ function Ring(props) {
                 query7 +
                 query8 +
                 query9 +
-                query10
+                query10 +
+                query11
             );
           } else {
             data.append(
@@ -1060,7 +1109,8 @@ function Ring(props) {
                 query7 +
                 query8 +
                 query9 +
-                query10
+                query10 +
+                query11
             );
           }
         }
@@ -1107,14 +1157,15 @@ function Ring(props) {
     checked7,
     checked8,
     checked9,
-    check10,
+    checked10,
+    checked11,
     tag,
   ]);
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
     if (target.classList.contains("favor")) {
-      target.classList.remove('favor')
+      target.classList.remove("favor");
       let localProducts = props.wishList;
       let removeProduct = localProducts.find(
         (item) => item.shopifyid == product.shopifyid
@@ -1124,7 +1175,7 @@ function Ring(props) {
         props.setWishList(localProducts);
       }
     } else {
-      target.classList.add('favor');
+      target.classList.add("favor");
       let formData = new FormData();
       formData.append("shopifyid", product.shopifyid);
       fetch(getProductURL, {
@@ -1136,17 +1187,32 @@ function Ring(props) {
           if (localStorage.wishList) {
             props.setWishList([
               ...props.wishList,
-              { ...product, amount: 1, product_type: productType, description: data.body_html },
+              {
+                ...product,
+                amount: 1,
+                product_type: productType,
+                description: data.body_html,
+              },
             ]);
           } else {
             localStorage.setItem(
               "wishList",
               JSON.stringify([
-                { ...product, amount: 1, product_type: productType, description: data.body_html },
+                {
+                  ...product,
+                  amount: 1,
+                  product_type: productType,
+                  description: data.body_html,
+                },
               ])
             );
             props.setWishList([
-              { ...product, amount: 1, product_type: productType, description: data.body_html },
+              {
+                ...product,
+                amount: 1,
+                product_type: productType,
+                description: data.body_html,
+              },
             ]);
           }
         });
@@ -1369,7 +1435,7 @@ function Ring(props) {
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
             {tag && (
               <h2 className="text-capitalize">
-                {productType ? tag + " " + productType : "rings"}
+                {productType ? tag[0] + " " + productType : "rings"}
               </h2>
             )}
             <p className="text-uppercase">{result} results</p>
@@ -1406,7 +1472,7 @@ function Ring(props) {
             </div>
           </div>
         </div>
-        <div className="top-filter-bar d-sm-flex d-none justify-content-between align-items-center flex-wrap py-4">
+        {/* <div className="top-filter-bar d-sm-flex d-none justify-content-between align-items-center flex-wrap py-4">
           {filterItems.map((item, index) => {
             return (
               <button
@@ -1421,7 +1487,7 @@ function Ring(props) {
               </button>
             );
           })}
-        </div>
+        </div> */}
         <div className="main-panel d-flex justify-content-end m-0 py-5 flex-wrap">
           {cTags && cTags.length > 0 && (
             <div className="col-lg-3 col-md-4 col-sm-5 col-12 d-sm-block d-none p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
@@ -1592,7 +1658,7 @@ function Ring(props) {
                       data-bs-target="#metarialTree"
                       data-bs-toggle="collapse"
                     >
-                      meterial
+                      material
                     </button>
                   </h2>
                   <div
@@ -1680,6 +1746,31 @@ function Ring(props) {
                         checked={checked4}
                         expanded={expanded}
                         onCheck={(checkValue) => setChecked4(checkValue)}
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {settingFilter && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#settingTree"
+                      data-bs-toggle="collapse"
+                    >
+                      setting
+                    </button>
+                  </h2>
+                  <div id="settingTree" className="accordion-collapse collapse">
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={settingFilter}
+                        checked={checked11}
+                        expanded={expanded}
+                        onCheck={(checkValue) => setChecked11(checkValue)}
                         onExpand={(expandValue) => setExpanded(expandValue)}
                         icons={checkTreeIcons}
                       />

@@ -77,7 +77,7 @@ const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/inside-coster";
 const authorURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/users";
 const tagsURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tags";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
-const productURL = "https://royalcoster.nl/api/product/index.php";
+const productURL = process.env.NEXT_PUBLIC_PRODUCT_URL;
 const headers = {
   "Content-Type": "application/json",
 };

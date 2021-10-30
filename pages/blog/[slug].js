@@ -77,7 +77,7 @@ const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
 const authorURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/users";
 const tagsURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tags";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
-const productURL = "https://royalcoster.nl/api/product/index.php";
+const productURL = process.env.NEXT_PUBLIC_PRODUCT_URL;
 const headers = {
   "Content-Type": "application/json",
 };
@@ -340,7 +340,7 @@ function Brief(props) {
                     <Skeleton variant="text" animation="wave" />
                   )}
                 </h3>
-                <p className="reporter-description text-capitalize">
+                <p className="reporter-description">
                   {authorData ? (
                     renderHTML(authorData.description)
                   ) : (

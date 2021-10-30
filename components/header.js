@@ -8,7 +8,6 @@ import Link from "next/link";
 import AppointmentModal from "./appointmentModal";
 import { setWishList } from "../redux/actions/wishListAction";
 import { setCartData } from "../redux/actions/cartDataAction";
-import { setLoginData } from "../redux/actions/loginDataAction";
 import Badge from "@mui/material/Badge";
 import {
   RiCustomerService2Fill,
@@ -291,6 +290,7 @@ function Header(props) {
   const router = useRouter();
   const [items, setItems] = useState();
   const [localCart, setLocalCart] = useState();
+  const [accessToken, setAccessToken] = useState();
 
   useEffect(() => {
     const mobileTopbarHeight =
@@ -323,8 +323,8 @@ function Header(props) {
     if (localStorage.cart) {
       props.setCartData(JSON.parse(localStorage.cart).cartData);
     }
-    if (localStorage.loginData) {
-      props.setLoginData(JSON.parse(localStorage.loginData));
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
     }
   }, []);
 
@@ -633,14 +633,14 @@ function Header(props) {
             </button>
           </div>
         </div>
-        <div className="row m-0 px-5 py-3 top-bar">
+        <div className="row m-0 px-5 top-bar">
           <div className="r-container d-flex justify-content-between align-items-center">
             <Link passHref={true} href="/why-royal-coster">
               <a>WHY ROYAL COSTER ?</a>
             </Link>
 
             <button
-              className="btn right-menu p-0 text-uppercase"
+              className="btn right-menu btn-appointment py-3 px-4 text-uppercase"
               data-bs-toggle="modal"
               data-bs-target="#appointment"
             >
@@ -655,7 +655,7 @@ function Header(props) {
                 <Link passHref={true} href="/contact#direction">
                   <a className="d-flex align-items-center text-uppercase">
                     <RiMapPin2Line />
-                    Get direction
+                    Get directions
                   </a>
                 </Link>
               </nav>
@@ -680,11 +680,11 @@ function Header(props) {
               <nav className="ms-5">
                 <Link
                   passHref={true}
-                  href={props.loginData ? "/myaccount" : "/myaccount/login"}
+                  href={accessToken ? "/myaccount" : "/myaccount/login"}
                 >
                   <a className="d-flex align-items-center">
                     <RiUser3Line />
-                    MY ACCOUNT
+                    {accessToken ? "MY ACCOUNT" : "LOGIN / REGISTER"}
                   </a>
                 </Link>
               </nav>
@@ -694,7 +694,7 @@ function Header(props) {
         <div className="row m-0 logo-bar px-5 py-5 align-items-center">
           <div className="r-container d-flex align-items-center p-0">
             <div className="col-4 px-0">
-              <ReactFlagsSelect
+              {/* <ReactFlagsSelect
                 showSelectedLabel={false}
                 showSecondarySelectedLabel={false}
                 showOptionLabel={false}
@@ -706,7 +706,7 @@ function Header(props) {
                 onSelect={(code) => setSelected(code)}
                 placeholder=" "
                 className="flag-select pb-0"
-              />
+              /> */}
             </div>
             <div className="col-4 px-0 text-center">
               <Link passHref={true} href="/">
@@ -870,14 +870,14 @@ function Header(props) {
         <div className="mobile__top-bar d-flex justify-content-between align-items-center px-5 py-4 text-white">
           <Link
             passHref={true}
-            href={props.loginData ? "/myaccount" : "/myaccount/login"}
+            href={accessToken ? "/myaccount" : "/myaccount/login"}
           >
             <a className="d-flex align-items-center">
               <RiUser3Line className="me-3" />
-              MY ACCOUNT
+              {accessToken ? "MY ACCOUNT" : "LOGIN / REGISTER"}
             </a>
           </Link>
-          <ReactFlagsSelect
+          {/* <ReactFlagsSelect
             showSelectedLabel={false}
             showSecondarySelectedLabel={false}
             showOptionLabel={false}
@@ -889,7 +889,7 @@ function Header(props) {
             onSelect={(code) => setSelected(code)}
             placeholder=" "
             className="flag-select pb-0"
-          />
+          /> */}
         </div>
         <div className="mobile__sub-bar d-flex justify-content-between align-items-center px-5 py-4">
           <Link passHref={true} href="/">
@@ -1188,13 +1188,11 @@ function Header(props) {
 const mapStateToProps = (state) => ({
   wishList: state.wishList.value,
   cartData: state.cartData.value,
-  loginData: state.loginData.value,
 });
 
 const mapDispatchToProps = {
   setWishList: setWishList,
   setCartData: setCartData,
-  setLoginData: setLoginData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

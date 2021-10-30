@@ -64,7 +64,7 @@ const basicData = [
   },
 ];
 
-const productURL = "https://royalcoster.nl/api/product/index.php";
+const productURL = process.env.NEXT_PUBLIC_PRODUCT_URL;
 
 export default function Watch() {
   const navigationPrevRef = React.useRef(null);
@@ -198,12 +198,13 @@ export default function Watch() {
           {silderData.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                  <a className="px-4 py-2 btn-vendor round-form d-flex align-items-center" href={"#" + item.vendor} key={index}>
-                    <img
-                      src={"/img/watch/logo/" + item.image}
-                      alt="logo-image"
-                    />
-                  </a>
+                <a
+                  className="px-4 py-2 btn-vendor round-form d-flex align-items-center"
+                  href={"#" + item.vendor}
+                  key={index}
+                >
+                  <img src={"/img/watch/logo/" + item.image} alt="logo-image" />
+                </a>
               </SwiperSlide>
             );
           })}

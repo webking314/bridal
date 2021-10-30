@@ -92,8 +92,8 @@ const productID = "SKU 10872957";
 const productDescription =
   "This beautiful tapered engagement ring design is channel-set with eight round shaped diamonds. A setting designed to draw the eye to the center diamond or gemstone of your choice. Pair it with the matching wedding band for a contoured look.";
 
-const getProductURL = "https://royalcoster.nl/api/getProduct.php";
-const graphqlURL = "https://royalcoster.nl/api/graphql.php";
+const getProductURL = process.env.NEXT_PUBLIC_GET_PRODUCT_URL;
+const graphqlURL = process.env.NEXT_PUBLIC_GRAPHQL_URL;
 
 function ProductRing(props) {
   const [size, setSize] = useState(0);

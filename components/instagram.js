@@ -400,9 +400,11 @@ export default function Instagram() {
                 </div>
               </div>
             </div> */}
-            <button className="btn round-form mt-5 px-5 py-3 follow-btn blue-outline-btn">
+            <Link href="https://www.instagram.com/costerdiamondsofficial/">
+            <a target="_blank" className="btn round-form mt-5 px-5 py-3 follow-btn blue-outline-btn">
               Follow @Costerdiamondsofficial
-            </button>
+            </a>
+            </Link>
           </div>
         </div>
       }

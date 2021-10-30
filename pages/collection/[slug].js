@@ -63,8 +63,8 @@ const products = [
   },
 ]
 
-const detailURL = "https://royalcoster.nl/api/getCollectionDetails.php";
-const productURL = "https://royalcoster.nl/api/product/index.php";
+const detailURL = process.env.NEXT_PUBLIC_COLLECTION_DETAIL_URL;
+const productURL = process.env.NEXT_PUBLIC_PRODUCT_URL;
 
 // export async function getStaticPaths() {
 //   const paths = { param: 1 };

@@ -52,6 +52,12 @@ $flagSelectColor: white;
       }
     }
     .desktop-header {
+      .btn-appointment {
+        &:hover {
+          background: #fad3da !important;
+          color: #01215c !important;
+        }
+      }
       .middle-bar {
         button {
           &:hover {

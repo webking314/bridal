@@ -7,21 +7,24 @@ import { RiArrowRightLine } from "react-icons/ri";
 import { Spinner } from "react-bootstrap";
 import { SnackbarProvider, useSnackbar } from "notistack";
 
-const LOGIN_API =
-  "https://costercatalog.com/api/index.php?request=loginCustomer";
+const REGISTER_API =
+  "https://costercatalog.com/api/index.php?request=registerNewCustomer";
 
-export default function Login() {
+export default function Register() {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const login = (e) => {
+  const createNewAccount = (e) => {
     e.preventDefault();
-    const loginData = document.forms.loginForm;
-    const formData = new FormData(loginData);
     setLoading(true);
-
-    fetch(LOGIN_API, {
+    const registerData = document.forms.registerForm;
+    let formData = new FormData(registerData);
+    formData.append(
+      "displayName",
+      registerData.firstName.value + " " + registerData.lastName.value
+    );
+    fetch(REGISTER_API, {
       method: "post",
       body: formData,
     })
@@ -31,12 +34,8 @@ export default function Login() {
         const variant = "error";
         if (data.status == "error") {
           enqueueSnackbar(data.error, { variant });
-        } else if (data.status == "ok") {
-          router.push("/myaccount");
-          localStorage.setItem(
-            "access_token",
-            data.user.user.stsTokenManager.accessToken
-          );
+        } else if (data.satus == "ok") {
+          router.push("/myaccount/login");
         }
       });
   };
@@ -44,18 +43,38 @@ export default function Login() {
   return (
     <div className="login_page d-flex flex-column">
       <Head>
-        <title>My Account Login | Royal Coster</title>
+        <title>My Account Register | Royal Coster</title>
       </Head>
       <Header />
       <div className="main-panel d-flex align-items-center justify-content-center">
         <div className="main-box round">
-          <h3 className="title text-capitalize">Welcome back</h3>
+          <h3 className="title text-capitalize mb-0">Register</h3>
           <p className="description text-capitalize">
-            Enter your email address and password to log in.
+            {/* Enter your email address and password to log in. */}
           </p>
-          <form name="loginForm" onSubmit={login}>
+          <form name="registerForm" onSubmit={createNewAccount}>
+            <div className="row">
+              <div className="col-6">
+                <input
+                  type="text"
+                  name="firstName"
+                  className="form-control"
+                  placeholder="FirstName"
+                  required
+                />
+              </div>
+              <div className="col-6">
+                <input
+                  type="text"
+                  name="lastName"
+                  className="form-control"
+                  placeholder="LastName"
+                  required
+                />
+              </div>
+            </div>
             <input
-              type="text"
+              type="email"
               name="email"
               className="form-control"
               placeholder="EMAIL"
@@ -65,15 +84,15 @@ export default function Login() {
               type="password"
               name="password"
               className="form-control"
-              minLength="8"
               placeholder="PASSWORD"
+              minLength="8"
               required
             />
             <button
               className="btn btn-login blue-btn d-flex justify-content-between align-items-center"
               disabled={loading}
             >
-              LOG IN
+              CREATE A NEW ACCOUNT
               {loading ? (
                 <Spinner
                   as="span"
@@ -86,24 +105,10 @@ export default function Login() {
               )}
             </button>
           </form>
-          <div className="login-help-panel d-flex justify-content-between align-items-center pb-4">
-            <div className="form-check d-flex align-items-center p-0">
-              <input
-                type="checkbox"
-                className="form-check-input m-0 me-3"
-                id="rememberme"
-              />
-              <label className="form-check-label" htmlFor="rememberme">
-                Remember Me
-              </label>
-            </div>
-            <button className="btn btn-forgot-password text-decoration-underline">
-              Forgot Password
-            </button>
-          </div>
-          <Link href="/myaccount/register">
+          <div className="login-help-panel d-flex justify-content-between align-items-center pb-4"></div>
+          <Link href="/myaccount/login">
             <a className="btn btn-create-account d-flex justify-content-between align-items-center">
-              CREATE A NEW ACCOUNT
+              LOG IN
               <RiArrowRightLine />
             </a>
           </Link>

@@ -217,10 +217,7 @@ function MyCart(props) {
                           </h3>
                         </div>
                       </div>
-                      <div className="link-panel  d-md-flex d-none justify-content-between">
-                        <button className="btn btn-detail d-flex align-items-center text-uppercase">
-                          more details <RiArrowRightSFill />
-                        </button>
+                      <div className="link-panel  d-md-flex d-none justify-content-end">
                         <button
                           className="btn btn-remove d-flex align-items-center text-uppercase"
                           onClick={() => {

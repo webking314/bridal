@@ -22,35 +22,35 @@ export default function MailList() {
             Products, tours and news. We won't spam your inbox.
           </p>
           <div className="px-0 social-links d-flex justify-content-lg-start justify-content-center col-lg-9 mt-5">
-            <Link passHref={true} href="#">
+            <Link passHref={true} href="https://www.facebook.com/RoyalCosterDiamonds">
               <a className="me-4">
                 <div>
                   <RiFacebookCircleFill />
                 </div>
               </a>
             </Link>
-            <Link passHref={true} href="#">
+            <Link passHref={true} href="https://www.instagram.com/costerdiamondsofficial/">
               <a className="me-4">
                 <div>
                   <RiInstagramFill />
                 </div>
               </a>
             </Link>
-            <Link passHref={true} href="#">
+            <Link passHref={true} href="https://nl.linkedin.com/company/royalcosterdiamonds">
               <a className="me-4">
                 <div>
                   <RiLinkedinFill />
                 </div>
               </a>
             </Link>
-            <Link passHref={true} href="#">
+            <Link passHref={true} href="https://nl.pinterest.com/costerdiamonds/">
               <a className="me-4">
                 <div>
                   <RiPinterestFill />
                 </div>
               </a>
             </Link>
-            <Link passHref={true} href="#">
+            <Link passHref={true} href="https://www.youtube.com/c/CosterDiamondsAmsterdam">
               <a className="me-4">
                 <div>
                   <RiYoutubeFill />

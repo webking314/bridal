@@ -9,9 +9,9 @@ import { CountryDropdown } from "react-country-region-selector";
 import MyCartList from "../../components/myCartList";
 import { connect } from "react-redux";
 import { creatCheckout } from "../../redux/actions/checkOutAction";
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { SnackbarProvider, useSnackbar } from "notistack";
 
-const payURL = "https://royalcoster.nl/api/safepay.php";
+const payURL = process.env.NEXT_PUBLIC_PAY_URL;
 
 function Payment(props) {
   const [storage, setStorage] = useState();
@@ -27,16 +27,27 @@ function Payment(props) {
   const [phoneNumber, setPhoneNumber] = useState();
   const [errorPhone, setErrorPhone] = useState();
   const [billingMode, setBillingMode] = useState("same");
-  const [paymentMethod, setPaymentMethod] = useState('MASTERCARD');
+  const [paymentMethod, setPaymentMethod] = useState([
+    "VISA",
+    "MASTERCARD",
+    "AMEX",
+  ]);
   const { enqueueSnackbar } = useSnackbar();
 
+  useEffect(() => {
+    console.log(paymentMethod);
+  }, [paymentMethod]);
+
   const payNow = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let lineItems = [];
 
     JSON.parse(localStorage.cart).cartData.map((cart, index) => {
-      lineItems.push({ variantID: cart.variant.variantId, quantity: cart.amount })
-    })
+      lineItems.push({
+        variantID: cart.variant.variantId,
+        quantity: cart.amount,
+      });
+    });
 
     if (!saveData) {
       e.preventDefault();
@@ -81,7 +92,7 @@ function Payment(props) {
                   },
                 })
               );
-              setBillingMode('');
+              setBillingMode("");
             }
           }
         }
@@ -90,38 +101,38 @@ function Payment(props) {
 
     let postData = {
       order_data: lineItems,
-      discount_code: localStorage.discountCode ? localStorage.discountCode : '',
+      discount_code: localStorage.discountCode ? localStorage.discountCode : "",
       shipping: JSON.parse(localStorage.shipping),
       billing: JSON.parse(localStorage.billing),
       customer_info: {
         email: localStorage.customerInfo,
-        ...(JSON.parse(localStorage.billing).contact),
-        address: JSON.parse(localStorage.billing).address
+        ...JSON.parse(localStorage.billing).contact,
+        address: JSON.parse(localStorage.billing).address,
       },
       payment_method: paymentMethod,
-      remember_me: saveData
-    }
+      remember_me: saveData,
+    };
 
     fetch(payURL, {
-      method: 'post',
-      body: JSON.stringify(postData)
-    }).then(res => res.json())
-      .then(data => {
+      method: "post",
+      body: JSON.stringify(postData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
         if (data.body.RedirectUrl) {
           router.push(data.body.RedirectUrl);
-          localStorage.setItem('token', data.body.Token)
+          localStorage.setItem("token", data.body.Token);
         } else {
-          let variant = "warning"
-          enqueueSnackbar("Something went wrong.", { variant })
+          let variant = "warning";
+          enqueueSnackbar("Something went wrong.", { variant });
         }
-        console.log(data)
-      })
-
+        console.log(data);
+      });
   };
 
   useEffect(() => {
     setStorage(localStorage);
-    let personInfo
+    let personInfo;
     let address;
     if (localStorage.billing) {
       address = JSON.parse(localStorage.billing).address;
@@ -246,7 +257,7 @@ function Payment(props) {
                         type="radio"
                         name="flexRadioDefault"
                         id="paymentMethod-1"
-                        onChange={() => setPaymentMethod('IDEAL')}
+                        onChange={() => setPaymentMethod("IDEAL")}
                       />
                       <img src="/img/myCart/payment-1.png" className="ms-3" />
                     </label>
@@ -262,7 +273,9 @@ function Payment(props) {
                           type="radio"
                           name="flexRadioDefault"
                           id="paymentMethod-2"
-                          onChange={() => setPaymentMethod('MASTERCARD')}
+                          onChange={() =>
+                            setPaymentMethod(["VISA", "MASTERCARD", "AMEX"])
+                          }
                           defaultChecked
                         />
                         <img src="/img/myCart/payment-2.png" className="ms-3" />
@@ -282,7 +295,7 @@ function Payment(props) {
                         type="radio"
                         name="flexRadioDefault"
                         id="paymentMethod-3"
-                        onChange={() => setPaymentMethod('PAYPAL')}
+                        onChange={() => setPaymentMethod("PAYPAL")}
                       />
                       <img src="/img/myCart/payment-5.png" className="ms-3" />
                     </label>
@@ -297,7 +310,7 @@ function Payment(props) {
                         type="radio"
                         name="flexRadioDefault"
                         id="paymentMethod-4"
-                        onChange={() => setPaymentMethod('BANCONTACT')}
+                        onChange={() => setPaymentMethod("BANCONTACT")}
                       />
                       <img src="/img/myCart/payment-6.png" className="ms-3" />
                     </label>
@@ -493,12 +506,12 @@ function Payment(props) {
   }
 }
 
-const mapStateToProps = state => ({
-  checkOut: state.checkOut
+const mapStateToProps = (state) => ({
+  checkOut: state.checkOut,
 });
 
 const mapDispatchToProps = {
-  creatCheckout: creatCheckout
-}
+  creatCheckout: creatCheckout,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Payment)
+export default connect(mapStateToProps, mapDispatchToProps)(Payment);

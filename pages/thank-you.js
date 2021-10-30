@@ -7,7 +7,7 @@ import ReactFlagsSelect from "react-flags-select";
 import router, { useRouter } from "next/router";
 import Skeleton from "@mui/material/Skeleton";
 
-const orderDetailURL = "https://royalcoster.nl/api/getOrderDetails.php";
+const orderDetailURL = process.env.NEXT_PUBLIC_ORDER_DETAIL_URL;
 
 export default function ThankYou() {
   const [selected, setSelected] = useState("LU");

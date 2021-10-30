@@ -19,8 +19,16 @@ import NeedHelp from "./needHelp";
 import WishList from "./wishList";
 import MailList from "../../components/mailList";
 import Footer from "../../components/footer";
+import { useRouter } from "next/router";
+import { connect } from "react-redux";
 
-export default function MyAccount() {
+function MyAccount(props) {
+  const router = useRouter();
+
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    router.push("/");
+  };
   return (
     <div className="my-account_page d-flex flex-column">
       <Head>
@@ -123,7 +131,10 @@ export default function MyAccount() {
                 <RiCustomerServiceFill className="me-3" />
                 Need help?
               </button>
-              <button className="btn d-flex align-items-center mt-5 btn-logout">
+              <button
+                className="btn d-flex align-items-center mt-5 btn-logout"
+                onClick={logout}
+              >
                 <RiLogoutCircleRLine className="me-3" />
                 Logout
               </button>
@@ -189,3 +200,9 @@ export default function MyAccount() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  Api2: state.Api2.value,
+});
+
+export default connect(mapStateToProps)(MyAccount);
