@@ -263,7 +263,7 @@ function MyCart(props) {
             <div className="title-panel d-flex justify-content-between align-items-center flex-sm-row flex-column py-5">
               <h3 className="text-uppercase m-0 mb-sm-0 mb-5">Need Help?</h3>
               <div className="link-panel d-flex">
-                <Link passHref={true} href="#">
+                <Link passHref={true} href="/contact">
                   <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                     <RiCustomerService2Fill className="me-2" />
                     contact

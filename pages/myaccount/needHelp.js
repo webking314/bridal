@@ -15,7 +15,7 @@ export default function NeedHelp() {
             <div className="top-panel d-flex justify-content-between">
               <p className="text-uppercase m-0">Need help?</p>
               <div className="link-panel d-flex">
-                <Link passHref={true} href="#">
+                <Link passHref={true} href="/contact">
                   <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                     <RiCustomerService2Fill className="me-2" />
                     contact
@@ -33,7 +33,11 @@ export default function NeedHelp() {
               <p className="text-uppercase m-0">
                 Not ready to purchase online?
               </p>
-              <button className="btn pink-btn btn-online text-uppercase">
+              <button
+                className="btn pink-btn btn-online text-uppercase"
+                data-bs-toggle="modal"
+                data-bs-target="#appointment"
+              >
                 Schedule an appointment
               </button>
             </div>

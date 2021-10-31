@@ -108,7 +108,6 @@ const productItems = [
   },
 ];
 
-
 const getProductURL = process.env.NEXT_PUBLIC_GET_PRODUCT_URL;
 const productURL = process.env.NEXT_PUBLIC_PRODUCT_URL;
 const metarialURL =
@@ -287,7 +286,6 @@ function Ring(props) {
   const [settingFilter, setSettingFilter] = useState();
 
   useEffect(() => {
-
     if (!basicStyleData) {
       // get style filter data
       fetch(styleURL, {
@@ -798,9 +796,25 @@ function Ring(props) {
   useEffect(() => {
     if (productType || router.asPath == "/shop") {
       let defaultTags = "";
-      if (tag && tag.length) {
+      let tagArr = [
+        ...checked1,
+        ...checked2,
+        ...checked3,
+        ...checked4,
+        ...checked5,
+        ...checked6,
+        ...checked7,
+        ...checked8,
+        ...checked9,
+        ...checked10,
+        ...checked11,
+      ];
+      if (tag) {
+        tagArr.push(...tag);
+      }
+      if (tagArr.length) {
         defaultTags = (
-          tag.map((item, index) =>
+          tagArr.map((item, index) =>
             index == 0 ? " AND (tag:" + item : " OR tag:" + item
           ) + ")"
         ).replaceAll(",", "");
@@ -808,6 +822,7 @@ function Ring(props) {
       if (filterMounted) {
         let formData = new FormData();
         if (cTagLastAdd == 1) {
+          console.log("NEW");
           formData.append("position", "first:50");
         } else {
           formData.append(
@@ -917,7 +932,23 @@ function Ring(props) {
       }
       setFilterMounted(true);
     }
-  }, [cTagLastAdd, productType, tag]);
+  }, [
+    cTagLastAdd,
+    productType,
+    tag,
+    checked0,
+    checked1,
+    checked2,
+    checked3,
+    checked4,
+    checked5,
+    checked6,
+    checked7,
+    checked8,
+    checked9,
+    checked10,
+    checked11,
+  ]);
 
   useEffect(() => {
     if (cTags.length) {
@@ -936,6 +967,8 @@ function Ring(props) {
   }, [cTags, basicSettingFilter]);
 
   useEffect(() => {
+    setCTagLastAdd(1);
+    setCTagMiddleStore([]);
     if (tag) {
       let defaultTags = (
         tag.map((item, index) =>

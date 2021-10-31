@@ -556,7 +556,7 @@ function ProductRing(props) {
               <div className="help-panel d-flex justify-content-between py-4">
                 <p className="text-uppercase m-0">Need help?</p>
                 <div className="link-panel d-flex">
-                  <Link passHref={true} href="#">
+                  <Link passHref={true} href="/contact">
                     <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                       <RiCustomerService2Fill className="me-2" />
                       contact

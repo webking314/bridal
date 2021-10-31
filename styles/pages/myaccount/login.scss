@@ -5,11 +5,12 @@
 	height: 100vh;
 	.main-panel {
 		position: relative;
+		overflow-x: hidden;
 		flex: 1;
 		.main-box {
 			padding: 30px;
 			position: relative;
-			z-index: 10;
+			z-index: 5;
 			max-width: 630px;
 			width: 100%;
 			background: #ffffff;

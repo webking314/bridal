@@ -6,7 +6,7 @@
 		padding: 16px 24px;
 	}
 	.main-panel {
-		.welcome-panel {
+	.welcome-panel {
 			background: url(/img/myaccount/welcome_bg.png);
 			.title {
 				font-weight: 400;
@@ -25,7 +25,8 @@
 			}
 		}
 		.tab-panel {
-			.select-btn, .btn-logout {
+			.select-btn,
+			.btn-logout {
 				padding: 16px 24px;
 				border-radius: 9px;
 				font-weight: 400;

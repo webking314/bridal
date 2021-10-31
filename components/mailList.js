@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function MailList() {
   return (
-    <div className="mail-list-panel py-5">
+    <div className="mail-list-panel py-5" id="newsLetter">
       <div className="r-container row py-md-5">
         <div className="left-panel text-panel col-lg-6 px-lg-0 px-md-5 px-4">
           <h3 className="title text-capitalize col-lg-9">

@@ -28,10 +28,17 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
+        console.log(data);
         const variant = "error";
         if (data.status == "error") {
           enqueueSnackbar(data.error, { variant });
         } else if (data.status == "ok") {
+          const loginUser = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.user.user.email,
+          };
+          localStorage.setItem("login_user", JSON.stringify(loginUser));
           router.push("/myaccount");
           localStorage.setItem(
             "access_token",
@@ -97,9 +104,11 @@ export default function Login() {
                 Remember Me
               </label>
             </div>
-            <button className="btn btn-forgot-password text-decoration-underline">
-              Forgot Password
-            </button>
+            <Link href="/myaccount/resetPassword">
+              <a className="btn btn-forgot-password text-decoration-underline">
+                Forgot Password
+              </a>
+            </Link>
           </div>
           <Link href="/myaccount/register">
             <a className="btn btn-create-account d-flex justify-content-between align-items-center">

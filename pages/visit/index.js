@@ -163,7 +163,7 @@ export default function Tour() {
             <Link
               passHref={true}
               href={{
-                pathname: "/tour/[slug]",
+                pathname: "/visit/[slug]",
                 query: {
                   slug: mainTour.slug,
                 },
@@ -195,7 +195,7 @@ export default function Tour() {
                       <Link
                         passHref={true}
                         href={{
-                          pathname: "/tour/[slug]",
+                          pathname: "/visit/[slug]",
                           query: {
                             slug: tour.slug,
                           },

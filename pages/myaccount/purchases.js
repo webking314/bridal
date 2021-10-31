@@ -1,6 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 
+const orderURL =
+  "https://costercatalog.com/api/index.php?request=getCustomerOrders";
+
 export default function Purchases() {
+  useEffect(() => {
+    const email = JSON.parse(localStorage.login_user).email;
+    const formData = new FormData();
+    formData.append("email", email);
+    fetch(orderURL, {
+      method: "post",
+      body: formData,
+    }).then((res) => res.json())
+    .then(data => {
+      console.log(data)
+    });
+  }, []);
+
   return (
     <div className="purchases_panel">
       <h3 className="title">
@@ -25,13 +41,22 @@ export default function Purchases() {
           <div className="order-panel col-md-9 p-0">
             <div className="product-panel d-flex flex-wrap">
               <div className="image-panel hover-scale me-3 mb-md-0 mb-3">
-                <img src="/img/product/product_earring-2.png" alt="product-img" />
+                <img
+                  src="/img/product/product_earring-2.png"
+                  alt="product-img"
+                />
               </div>
               <div className="image-panel hover-scale me-3 mb-md-0 mb-3">
-                <img src="/img/product/product_earring-2.png" alt="product-img" />
+                <img
+                  src="/img/product/product_earring-2.png"
+                  alt="product-img"
+                />
               </div>
               <div className="image-panel hover-scale me-3 mb-md-0 mb-3">
-                <img src="/img/product/product_earring-2.png" alt="product-img" />
+                <img
+                  src="/img/product/product_earring-2.png"
+                  alt="product-img"
+                />
               </div>
             </div>
             <div className="btn-panel d-flex align-items-center">
