@@ -227,7 +227,8 @@ let productStore = [],
   basicSettingData,
   basicMetarialData,
   basicMaterialColorData,
-  localResultCounter;
+  localResultCounter,
+  localChecking = false;
 
 function Ring(props) {
   const [result, setResult] = useState(0);
@@ -254,6 +255,7 @@ function Ring(props) {
   const [productType, setProductType] = useState();
   const [tag, setTag] = useState();
   const [cTagLastAdd, setCTagLastAdd] = useState(1);
+  const [checking, setChecking] = useState(localChecking);
   const [cTags, setCTags] = useState([]);
   const [cTagMiddleStore, setCTagMiddleStore] = useState([]);
   const [loadMoreStatus, setLoadMoreStatus] = useState(false);
@@ -795,34 +797,44 @@ function Ring(props) {
 
   useEffect(() => {
     if (productType || router.asPath == "/shop") {
+      if (checking != localChecking) {
+        setCTagLastAdd(1);
+      }
       let defaultTags = "";
       let tagArr = [
-        ...checked1,
-        ...checked2,
-        ...checked3,
-        ...checked4,
-        ...checked5,
-        ...checked6,
-        ...checked7,
-        ...checked8,
-        ...checked9,
-        ...checked10,
-        ...checked11,
+        checked1,
+        checked2,
+        checked3,
+        checked4,
+        checked5,
+        checked6,
+        checked7,
+        checked8,
+        checked9,
+        checked10,
+        checked11,
       ];
       if (tag) {
-        tagArr.push(...tag);
+        tagArr.push(tag);
       }
       if (tagArr.length) {
-        defaultTags = (
-          tagArr.map((item, index) =>
-            index == 0 ? " AND (tag:" + item : " OR tag:" + item
-          ) + ")"
-        ).replaceAll(",", "");
+        defaultTags = tagArr
+          .map((arr, index) =>
+            arr.length > 0
+              ? " AND (" +
+                arr.map((item, id) =>
+                  id == 0 ? "tag:" + item : " OR tag:" + item
+                ) +
+                ")"
+              : ""
+          )
+          .join("")
+          .replaceAll(",", "");
+        console.log(defaultTags);
       }
       if (filterMounted) {
         let formData = new FormData();
         if (cTagLastAdd == 1) {
-          console.log("NEW");
           formData.append("position", "first:50");
         } else {
           formData.append(
@@ -833,10 +845,10 @@ function Ring(props) {
         if (productType) {
           formData.append(
             "query",
-            "status:active AND product_type:" + productType + defaultTags
+            "status:active AND tag:active AND product_type:" + productType + defaultTags
           );
         } else {
-          formData.append("query", "status:active" + defaultTags);
+          formData.append("query", "status:active AND tag:active" + defaultTags);
         }
         fetch(CTagURL, {
           method: "post",
@@ -846,18 +858,25 @@ function Ring(props) {
           .then((data) => {
             let middleArr = [];
             if (data.last) {
-              setTotalCounter(totalCounter + data.productsCount);
-              let tags = cTagMiddleStore;
+              let tags = [];
+              let total = totalCounter;
+              let cTagStore = cTagMiddleStore;
+              if (checking != localChecking) {
+                total = 0;
+                cTagStore = [];
+                localChecking = checking;
+              }
+              setTotalCounter(total + data.productsCount);
               data.tags.map((tag, index) => {
                 if (!tags.find((item) => item == getFilterValue(tag))) {
                   middleArr.push(getFilterValue(tag));
                 }
                 if (index == data.tags.length - 1) {
-                  setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
-                  cTagData = [...cTagMiddleStore, ...middleArr];
+                  cTagData = [...cTagStore, ...middleArr];
+                  setCTagMiddleStore(cTagData);
                   setCTags(cTagData);
                   if (data.hasNextPage == "No") {
-                    localResultCounter = totalCounter + data.productsCount;
+                    localResultCounter = total + data.productsCount;
                     setResult(localResultCounter);
                   }
                 }
@@ -890,13 +909,13 @@ function Ring(props) {
           if (productType) {
             formData.append(
               "query",
-              "status:active AND product_type:" + productType + defaultTags
+              "status:active AND tag:active AND product_type:" + productType + defaultTags
             );
           } else {
             if (defaultTags) {
-              formData.append("query", "status:active" + defaultTags);
+              formData.append("query", "status:active AND tag:active" + defaultTags);
             } else {
-              formData.append("query", "status:active");
+              formData.append("query", "status:active AND tag:active");
             }
           }
           fetch(CTagURL, {
@@ -932,23 +951,7 @@ function Ring(props) {
       }
       setFilterMounted(true);
     }
-  }, [
-    cTagLastAdd,
-    productType,
-    tag,
-    checked0,
-    checked1,
-    checked2,
-    checked3,
-    checked4,
-    checked5,
-    checked6,
-    checked7,
-    checked8,
-    checked9,
-    checked10,
-    checked11,
-  ]);
+  }, [cTagLastAdd, productType, checking, tag]);
 
   useEffect(() => {
     if (cTags.length) {
@@ -967,8 +970,7 @@ function Ring(props) {
   }, [cTags, basicSettingFilter]);
 
   useEffect(() => {
-    setCTagLastAdd(1);
-    setCTagMiddleStore([]);
+    setChecking(!checking);
     if (tag) {
       let defaultTags = (
         tag.map((item, index) =>
@@ -1093,7 +1095,7 @@ function Ring(props) {
         if (tag.length) {
           data.append(
             "query",
-            "status:active AND product_type:" +
+            "status:active AND tag:active AND product_type:" +
               productType +
               defaultTags +
               query0 +
@@ -1113,7 +1115,7 @@ function Ring(props) {
           if (productType) {
             data.append(
               "query",
-              "status:active AND product_type:" +
+              "status:active AND tag:active AND product_type:" +
                 productType +
                 query0 +
                 query1 +
@@ -1131,7 +1133,7 @@ function Ring(props) {
           } else {
             data.append(
               "query",
-              "status:active" +
+              "status:active AND tag:active" +
                 query0 +
                 query1 +
                 query2 +
@@ -1162,16 +1164,16 @@ function Ring(props) {
           if (tag.length) {
             data.append(
               "query",
-              "status:active AND product_type:" + productType + defaultTags
+              "status:active AND tag:active AND product_type:" + productType + defaultTags
             );
           } else {
             if (productType) {
               data.append(
                 "query",
-                "status:active AND product_type:" + productType
+                "status:active AND tag:active AND product_type:" + productType
               );
             } else {
-              data.append("query", "status:active");
+              data.append("query", "status:active AND tag:active");
             }
           }
           setFormData(data);
@@ -1369,7 +1371,7 @@ function Ring(props) {
     if (tag.length) {
       formData.append(
         "query",
-        "status:active AND product_type:" +
+        "status:active AND tag:active AND product_type:" +
           productType +
           defaultTags +
           query0 +
@@ -1388,7 +1390,7 @@ function Ring(props) {
       if (productType) {
         formData.append(
           "query",
-          "status:active AND product_type:" +
+          "status:active AND tag:active AND product_type:" +
             productType +
             query0 +
             query1 +
@@ -1405,7 +1407,7 @@ function Ring(props) {
       } else {
         formData.append(
           "query",
-          "status:active" +
+          "status:active AND tag:active" +
             query0 +
             query1 +
             query2 +
