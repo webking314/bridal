@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import Link from "next/link";
 import Head from "next/head";
 import Header from "../../components/header";
@@ -6,14 +7,15 @@ import Footer from "../../components/footer";
 import Script from "next/script";
 import Schedule from "../../components/schedule";
 import "react-date-range/dist/styles.css";
-import router, { useRouter } from "next/router";
+import Skeleton from "@mui/material/Skeleton";
+import { useRouter } from "next/router";
 import "react-date-range/dist/theme/default.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import renderHTML from "react-render-html";
 import { DateRange } from "react-date-range";
 import NumberFormat from "react-number-format";
 import AppointmentModal from "../../components/appointmentModal";
-import renderHTML from "react-render-html";
 import WatchItems from "../../components/watchItems";
 import SwiperCore, { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -31,56 +33,21 @@ SwiperCore.use([Autoplay, Navigation]);
 
 const tourURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tours";
 
-const descritionData = [
-  {
-    title: "Amsterdam Diamonds",
-    image: "/img/tour/image-2.png",
-    dscription:
-      "Find out why Amsterdam became the City of Diamonds. And why Royals from all over the world chose Royal Coster Diamonds for their precious jewelry.",
-  },
-  {
-    title: "The Craft Up Close",
-    image: "/img/tour/image-3.png",
-    dscription:
-      "Get the chance to sit behind a diamond polishing table where famous diamonds have been polished. Also, capture this unique moment on camera.",
-  },
-  {
-    title: "A Sparkling Memory",
-    image: "/img/tour/image-4.png",
-    dscription:
-      "You will not only be bringing your newly gained knowledge home. You also receive a goodie bag with a sparkling surprise at the end of the tour.",
-  },
-];
-const banners = [
-  { url: "#", image: "/img/tour/detail-image-1.png" },
-  { url: "#", image: "/img/tour/detail-image-2.png" },
-  { url: "#", image: "/img/tour/detail-image-3.png" },
-  { url: "#", image: "/img/tour/detail-image-4.png" },
-];
-const toursData = [
-  {
-    title: "Free Guided Diamond Factory Tour",
-    description:
-      "Our guided diamond factory tour is completely free of charge. We give free guided tours in more than 35 languages. Get your ticket today and discover the magical world of diamonds!",
-    image: "/img/tour/tour-6.png",
-  },
-  {
-    title: "Breakfast at Coster",
-    description:
-      "This year, Royal Coster Diamonds celebrates its 180th anniversary. But there is an extra reason for a party",
-    image: "/img/tour/tour-7.png",
-  },
-  {
-    title: "This is Sparkling Holland",
-    description:
-      "Come in for a Royal Experience at Royal Coster Diamonds and combine it with 'This is Holland'. Discover all the beautiful things the Dutch are so famous for.",
-    image: "/img/tour/tour-5.png",
-  },
-];
+let localSticky = 1,
+  tourPackageData;
 
 export default function TourDetail() {
   const [cost, setCost] = useState(23);
+  const [perPage, setPerPage] = useState(3);
+  const [tourData, setTourData] = useState();
+  const [mounted, setMounted] = useState(false);
   const [preDate, setPreDate] = useState(new Date());
+  const [showLoadMore, setShowLoadMore] = useState(true);
+  const [windowWidth, setWindowWidth] = useState();
+  const [loading, setLoading] = useState(true);
+  const [tourPackage, setTourPackage] = useState([]);
+  const [sticky, setSticky] = useState(localSticky);
+  const videoRef = useRef();
   const router = useRouter();
   const [bookDate, setBookDate] = useState([
     {
@@ -90,14 +57,63 @@ export default function TourDetail() {
     },
   ]);
 
-  useState(() => {
-    fetch(tourURL + "?slug=" + router.query.slug, {
-      method: "get"
-    }).then(res => res.json())
-    .then(data => {
-      console.log(data)
-    })
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+  }, []);
+
+  useEffect(() => {
+    if (router.query.slug) {
+      fetch(tourURL + "?slug=" + router.query.slug, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setTourData(data[0]);
+        });
+    }
   }, [router.query]);
+
+  const getTourData = () => {
+    localSticky = sticky;
+    setLoading(true);
+    fetch(
+      tourURL +
+        "?order=asc&orderby=id" +
+        "&per_page=" +
+        perPage +
+        "&page=" +
+        sticky,
+      {
+        method: "get",
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setShowLoadMore(data.length >= 3);
+        setLoading(false);
+        if (data.length) {
+          console.log(data);
+          tourPackageData = [...tourPackage, ...data];
+          setTourPackage(tourPackageData);
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (sticky) {
+      if (mounted) {
+        getTourData();
+      } else {
+        if (tourPackageData) {
+          setTours(tourPackageData);
+          setLoadding(false);
+        } else {
+          getTourData();
+        }
+        setMounted(true);
+      }
+    }
+  }, [sticky]);
 
   return (
     <div className="tour-detail_page">
@@ -106,116 +122,209 @@ export default function TourDetail() {
       </Head>
       <Header />
       {/* Start hero section */}
-      <div className="hero-section">
-        <div className="r-container">
-          <p className="text-capitalize col-lg-4 col-md-6 col-sm-8 mb-3">
-            Experience diamonds like
-            <br />
-            the Royals do
-          </p>
-          <h1 className="title text-white col-lg-4 col-md-6 col-sm-8 text-capitalize mb-5">
-            A <span>Royal</span> Experience
-          </h1>
-          <button className="btn btn-play d-flex align-items-center justify-content-center">
-            <RiPlayFill />
-          </button>
+      {tourData ? (
+        <div className="hero-section">
+          <div className="bg-panel">
+            {windowWidth && windowWidth >= 576 ? (
+              <img src={tourData.acf.landing.image.url} alt="bg-image" />
+            ) : (
+              <img src={tourData.acf.landing.image_mobile.url} alt="bg-image" />
+            )}
+          </div>
+          <div className="r-container">
+            <p className="text-capitalize col-lg-4 col-md-6 col-sm-8 mb-3">
+              {renderHTML(tourData.acf.landing.subtitle)}
+            </p>
+            <h1 className="title text-white col-lg-4 col-md-6 col-sm-8 text-capitalize mb-5">
+              {renderHTML(tourData.acf.landing.title)}
+            </h1>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Skeleton variant="rect" animation="wave" width="100%" height={500} />
+      )}
 
       {/* Start guide section */}
-      <div className="guide-section py-5">
-        <div className="row r-container py-5">
-          <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
-            <h3 className="title text-capitalize">
-              Royal <span>Treatment</span> for Our <span>Guests</span>
-            </h3>
-          </div>
-          <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
-            <p className="guide-text mb-5">
-              Diamonds can be bought at any jeweler around the world. So why is
-              Royal Coster Diamonds the most renowned diamond supplier for Royal
-              families around the world for 180 years? We believe the reason for
-              this is a combination of unparalleled craftsmanship and trust.
-            </p>
-            <p className="guide-text mb-5">
-              Today this Royal experience is within your reach. Visit our four
-              monumental 19th century villa's and see how we create beauty that
-              lasts for centuries. We give private guided tours during which
-              your guide vividly tells you about the history of these precious
-              stones and how Amsterdam became the City of Diamonds. You dive
-              into our rich legacy that is filled with Royal Stories. Your guide
-              explains how diamonds are formed and polished, while you see our
-              polishers and goldsmiths up close. You can take a picture of
-              yourself behind a real diamond polishing table and you learn how
-              to analyze a diamond and why some diamonds sparkle more than
-              others. At the end of the tour, you receive a nice goody bag you
-              can use to value your or your family’s diamonds and diamond
-              jewelry.
-            </p>
-            <p className="description-cost mb-0">
-              Duration approx. 20 - 60 minutes | €12,50 per person
-            </p>
+      {tourData ? (
+        <div className="guide-section py-5">
+          <div className="row r-container py-5">
+            <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
+              <h3 className="title text-capitalize">
+                {renderHTML(tourData.acf.form.title)}
+              </h3>
+            </div>
+            <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
+              <p className="guide-text m-0">
+                {renderHTML(tourData.acf.form.content)}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="guide-section py-5">
+          <div className="row r-container py-5">
+            <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={50}
+              />
+            </div>
+            <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       {/* End guide section */}
 
       {/* Start banner section */}
       <div className="banner-section mb-5">
-        <div className="cover-image-panel r-container round">
-          <img
-            src="/img/tour/detail_banner.png"
-            className="cover-image"
-            alt="cover-image"
-          />
-          <button className="btn btn-play d-flex">
-            <RiPlayCircleFill />
-          </button>
-        </div>
-        <div className="r-container slider-panel mt-4">
-          <Swiper
-            slidesPerView={4}
-            spaceBetween={10}
-            loop={true}
-            className="mySwiper"
-            breakpoints={{
-              1024: {
-                slidesPerView: 4,
-              },
-              768: {
-                slidesPerView: 3,
-              },
-              590: {
-                slidesPerView: 2,
-              },
-              480: {
-                slidesPerView: 1,
-              },
-              1: {
-                slidesPerView: 1,
-              },
-            }}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-          >
-            {banners.map((item, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <Link href={item.url}>
-                    <a>
-                      <div className="image-panel hover-scale round">
-                        <img src={item.image} alt="banner-imaeg" />
-                      </div>
-                    </a>
-                  </Link>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </div>
+        {tourData ? (
+          <div className="cover-image-panel r-container round">
+            {tourData.acf.media.video && (
+              <video
+                loop="loop"
+                muted
+                defaultmuted="defaultmuted"
+                playsInline
+                onContextMenu={() => false}
+                preload="auto"
+                className="bg_video"
+                ref={videoRef}
+              >
+                <source
+                  src={tourData.acf.media.video.file.url}
+                  type="video/mp4"
+                />
+              </video>
+            )}
+            <button
+              className="btn btn-play d-flex"
+              onClick={() => {
+                videoRef.current.paused
+                  ? videoRef.current.play()
+                  : videoRef.current.pause();
+              }}
+            >
+              <RiPlayCircleFill />
+            </button>
+          </div>
+        ) : (
+          <div className="cover-image-panel r-container round">
+            <Skeleton
+              variant="rect"
+              animation="wave"
+              width="100%"
+              height={350}
+            />
+          </div>
+        )}
+        {tourData ? (
+          <div className="r-container slider-panel mt-4">
+            <Swiper
+              slidesPerView={4}
+              spaceBetween={10}
+              loop={true}
+              className="mySwiper"
+              breakpoints={{
+                1024: {
+                  slidesPerView: 4,
+                },
+                768: {
+                  slidesPerView: 3,
+                },
+                590: {
+                  slidesPerView: 2,
+                },
+                480: {
+                  slidesPerView: 1,
+                },
+                1: {
+                  slidesPerView: 1,
+                },
+              }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+            >
+              {tourData.acf.media.gallery.map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="image-panel hover-scale round">
+                      <img src={item.sizes.medium} alt="banner-imaeg" />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        ) : (
+          <div className="r-container slider-panel row mt-4">
+            <div className="col-lg-4 col-md-6 px-3 mb-5">
+              <div className="image-panel hover-scale round mb-4">
+                <Skeleton
+                  variant="rect"
+                  animation="wave"
+                  width="100%"
+                  height={200}
+                />
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-6 px-3 mb-5 d-md-block d-none">
+              <div className="image-panel hover-scale round mb-4">
+                <Skeleton
+                  variant="rect"
+                  animation="wave"
+                  width="100%"
+                  height={200}
+                />
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-6 px-3 mb-5 d-lg-block d-none">
+              <div className="image-panel hover-scale round mb-4">
+                <Skeleton
+                  variant="rect"
+                  animation="wave"
+                  width="100%"
+                  height={200}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       {/* End banner section */}
 
@@ -224,30 +333,91 @@ export default function TourDetail() {
         <div className="col-md-6 pe-lg-5">
           <div className="overview-panel pe-lg-5 mb-5">
             <h3 className="title blue-text">Overview</h3>
-            <p className="description dark-text">
-              Experience diamonds like the Royals did during our Royal
-              Experience. See diamond polishers and goldsmiths at work while
-              your personal guide explains the origin of diamonds and shows you
-              why we are the number 1 choice for high quality diamonds and
-              diamond jewelry.
-            </p>
+            {tourData ? (
+              <p className="description dark-text">
+                {renderHTML(tourData.acf.overview.content)}
+              </p>
+            ) : (
+              <>
+                <Skeleton
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+                <Skeleton
+                  className="mt-3"
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+                <Skeleton
+                  className="mt-3"
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+                <Skeleton
+                  className="mt-3"
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+              </>
+            )}
           </div>
           <div className="highlight-panel pe-lg-5">
             <h3 className="title text-uppercase mb-4">Highlights</h3>
-            <ul className="description">
-              <li className="mb-4">Personal Guided Tour</li>
-              <li className="mb-4">
-                Learn about the diamond history of Amsterdam
-              </li>
-              <li className="mb-4">
-                See famous diamond artefacts like the Koh-I-Noor
-              </li>
-              <li className="mb-4">Explanation about the 4 C's of diamonds</li>
-              <li className="mb-4">
-                See real loose diamonds in all shapes and sizes
-              </li>
-              <li className="mb-4">See the Royal 201 Patented Collection</li>
-            </ul>
+            {tourData ? (
+              <ul className="description">
+                {tourData.acf.highlights.highlights.map((item, index) => (
+                  <li className="mb-4" key={index}>
+                    {renderHTML(item.highlight)}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <>
+                <Skeleton
+                  className="mt-3"
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+                <Skeleton
+                  className="mt-3"
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+                <Skeleton
+                  className="mt-3"
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+                <Skeleton
+                  className="mt-3"
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+                <Skeleton
+                  className="mt-3"
+                  variant="text"
+                  animation="wave"
+                  width="100%"
+                  height={30}
+                />
+              </>
+            )}
           </div>
         </div>
         <div className="col-md-6 book-date-panel mt-md-0 mt-5">
@@ -256,11 +426,7 @@ export default function TourDetail() {
               <h3 className="title blue-text">Book Online</h3>
               <div className="status px-4 py-2">Real-time availability</div>
             </div>
-
-            {/* <Script
-              src="https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple"
-              strategy="lazyOnload"
-            /> */}
+            {/* <Script src="https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple" /> */}
 
             {/* <DateRange
               editableDateInputs={true}
@@ -333,35 +499,188 @@ export default function TourDetail() {
           </h3>
         </div>
         <div className="tours-panel">
-          <div className="row r-container">
-            {toursData.map((tour, index) => {
-              return (
-                <div
-                  className="col-lg-4 col-md-6 tour-item px-3 mb-md-5"
-                  key={index}
-                >
-                  <div className="image-panel hover-scale round mb-4">
-                    <img
-                      src={tour.image}
-                      className="tour-image"
-                      alt="tour-image"
+          <div className="r-container">
+            <div className="row">
+              {tourPackage.length > 0 &&
+                tourPackage.map((tour, index) => {
+                  return (
+                    <div
+                      className="col-lg-4 col-md-6 tour-item px-3 mb-5"
+                      key={index}
+                    >
+                      <div className="image-panel hover-scale round mb-4">
+                        <img
+                          src={
+                            window.innerWidth > 575
+                              ? tour.acf.landing.image.url
+                              : tour.acf.landing.image_mobile.url
+                          }
+                          className="tour-image"
+                          alt="tour-image"
+                        />
+                      </div>
+                      <h3 className="title mb-4 blue-text">
+                        {renderHTML(tour.title.rendered)}
+                      </h3>
+                      <p className="description mb-5">
+                        {renderHTML(tour.acf.overview.content)}
+                      </p>
+                      <Link
+                        passHref={true}
+                        href={{
+                          pathname: "/visit/[slug]",
+                          query: {
+                            slug: tour.slug,
+                          },
+                        }}
+                      >
+                        <a className="more-detail text-uppercase mb-5 d-flex">
+                          More Details <RiArrowRightSFill className="ms-2" />
+                        </a>
+                      </Link>
+                    </div>
+                  );
+                })}
+              {loading && (
+                <>
+                  <div className="col-lg-4 col-md-6 px-3 mb-5">
+                    <div className="image-panel hover-scale round mb-4">
+                      <Skeleton
+                        variant="rect"
+                        animation="wave"
+                        width="100%"
+                        height={200}
+                      />
+                    </div>
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={50}
+                    />
+                    <Skeleton
+                      className="mt-3"
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width={100}
+                      height={30}
                     />
                   </div>
-                  <h3 className="title mb-4 blue-text">{tour.title}</h3>
-                  <p className="description mb-5">{tour.description}</p>
-                  <Link href="#">
-                    <a className="more-detail text-uppercase mb-5 d-flex">
-                      More Details <RiArrowRightSFill className="ms-2" />
-                    </a>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-          <div className="text-center">
-            <button className="btn blue-btn btn-more round-form text-uppercase py-3 px-5">
-              See more packages
-            </button>
+                  <div className="col-lg-4 col-md-6 px-3 mb-5 d-md-block d-none">
+                    <div className="image-panel hover-scale round mb-4">
+                      <Skeleton
+                        variant="rect"
+                        animation="wave"
+                        width="100%"
+                        height={200}
+                      />
+                    </div>
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={50}
+                    />
+                    <Skeleton
+                      className="mt-3"
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width={100}
+                      height={30}
+                    />
+                  </div>
+                  <div className="col-lg-4 col-md-6 px-3 mb-5 d-lg-block d-none">
+                    <div className="image-panel hover-scale round mb-4">
+                      <Skeleton
+                        variant="rect"
+                        animation="wave"
+                        width="100%"
+                        height={200}
+                      />
+                    </div>
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={50}
+                    />
+                    <Skeleton
+                      className="mt-3"
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width="100%"
+                      height={30}
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      width={100}
+                      height={30}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+            {!loading && showLoadMore && (
+              <div className="text-center">
+                <button
+                  className="btn btn-more text-uppercase blue-btn round-form px-5 py-3"
+                  onClick={() => {
+                    setSticky(sticky + 1);
+                  }}
+                >
+                  Show More Packages
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

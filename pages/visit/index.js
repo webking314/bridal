@@ -46,7 +46,6 @@ export default function Tour() {
         if (data.length) {
           tourData = [...tours, ...data];
           setTours(tourData);
-          console.log(tourData)
         }
       })
   }

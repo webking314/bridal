@@ -320,12 +320,14 @@ export default function Blog() {
   useEffect(() => {
     if (loadMoreStatus) {
       localSticky = sticky;
+      console.log(filterCategory)
       let url =
         blogURL +
         "?orderby=id&per_page=11&exclude=" +
         excludID +
-        "&categories=" +
-        filterCategory.join() +
+        (filterCategory && filterCategory.length > 0
+          ? "&categories=" + filterCategory.join()
+          : "") +
         filterKey +
         "&page=" +
         sticky;
@@ -333,7 +335,6 @@ export default function Blog() {
 
       fetch(url, {
         method: "get",
-        headers,
       })
         .then((res) => res.json())
         .then((data) => {
