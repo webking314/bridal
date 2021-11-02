@@ -65,7 +65,7 @@ const contactMethods = [
 ];
 
 const toggleDatePicker = (e) => {
-  console.log("toggle!")
+  console.log("toggle!");
   e.target.closest("#timeDate").classList.toggle("visible");
 };
 
@@ -90,6 +90,7 @@ export default function AppointmentModal() {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
   const [filteredCountries, setFilteredCountries] = useState([]);
@@ -137,22 +138,18 @@ export default function AppointmentModal() {
   };
 
   useEffect(() => {
-    setDisDate(dateFormat(preDate, "dddd  d,  mmmm  yyyy"));
+    if (preDate) {
+      console.log(preDate);
+      setDisDate(dateFormat(preDate, "dddd  d,  mmmm  yyyy"));
+      if (mounted) {
+        document.querySelector("#timeDate").classList.remove("visible");
+      }
+      setMounted(true);
+    }
   }, [preDate]);
 
-  useEffect(() => {
-    if (typeof document !== undefined) {
-      document.addEventListener("click", (e) => {
-        if (e.target.closest(".react-calendar__month-view__days__day") && e.target.closest("#timeDate")) {
-          if (e.target.closest("#timeDate").classList.contains("visible"))
-            e.target.closest("#timeDate").classList.remove("visible");
-        }
-      });
-    }
-  }, []);
-
   const handleTime = (e) => {
-    setTime(e.target.innerText)
+    setTime(e.target.innerText);
     document.querySelectorAll(".time-item").forEach((item) => {
       if (item.classList.contains("active")) item.classList.remove("active");
     });
@@ -168,7 +165,7 @@ export default function AppointmentModal() {
   const checkingLocation = (e) => {
     e.preventDefault();
     setStep2(false);
-    setLocation(e.target.innerText)
+    setLocation(e.target.innerText);
     document.querySelector("#location-tab").classList.remove("active");
     document.querySelector("#service-tab").classList.add("active");
     document.querySelector("#location").classList.remove("show", "active");
@@ -183,11 +180,11 @@ export default function AppointmentModal() {
     if (!e.target.closest(".option-item").classList.contains("active"))
       e.target.closest(".option-item").classList.toggle("active");
     if (step3) setStep3(false);
-    if (!service.find(item => item == value)) {
+    if (!service.find((item) => item == value)) {
       setService([...service, value]);
     } else {
-      service.splice(service.indexOf(value), 1)
-      setService([...service])
+      service.splice(service.indexOf(value), 1);
+      setService([...service]);
     }
     document.querySelector("#service").classList.remove("show", "active");
     document.querySelector("#timeDate").classList.add("show", "active");
@@ -196,12 +193,12 @@ export default function AppointmentModal() {
   };
 
   const sendRequest = () => {
-    router.push('/thank-you-contact')
-  }
+    router.push("/thank-you-contact");
+  };
 
   useEffect(() => {
-    setContactInfo(contactMethods[contactMethod])
-  }, [contactMethod])
+    setContactInfo(contactMethods[contactMethod]);
+  }, [contactMethod]);
 
   return (
     <div
@@ -300,7 +297,8 @@ export default function AppointmentModal() {
                     Select Showroom
                   </h3>
                   <p className="description">
-                    Would you like to visit our monumental villas in Amsterdam or schedule an online appointment?
+                    Would you like to visit our monumental villas in Amsterdam
+                    or schedule an online appointment?
                   </p>
                   <button
                     className="btn btn-unavailable pink-btn text-start px-5 mt-5 py-3 text-sm-start text-center round-form"
@@ -329,9 +327,7 @@ export default function AppointmentModal() {
                     {options.map((item, index) => {
                       return (
                         <div
-                          className={
-                            "p-0 " + (index % 2 ? "" : "pe-sm-3")
-                          }
+                          className={"p-0 " + (index % 2 ? "" : "pe-sm-3")}
                           key={index}
                         >
                           <nav
@@ -367,6 +363,7 @@ export default function AppointmentModal() {
                         onChange={(val) => {
                           setPreDate(val);
                         }}
+                        minDate={new Date()}
                         value={preDate}
                       />
                     </div>
@@ -508,10 +505,7 @@ export default function AppointmentModal() {
                         <div className="invalid-feedback">{errorPhone}</div>
                       </div>
                     </label>
-                    <label
-                      htmlFor="moreInformation"
-                      className="p-0 mt-5"
-                    >
+                    <label htmlFor="moreInformation" className="p-0 mt-5">
                       More Information*
                       <textarea
                         id="moreInformation"
@@ -539,7 +533,10 @@ export default function AppointmentModal() {
                         </label>
                       </div>
                     </div>
-                    <button className="btn col-12 pink-btn py-3 btn-request round-form" onClick={sendRequest}>
+                    <button
+                      className="btn col-12 pink-btn py-3 btn-request round-form"
+                      onClick={sendRequest}
+                    >
                       SEND APPOINTMENT REQUEST
                     </button>
                   </form>

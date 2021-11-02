@@ -94,6 +94,7 @@ export default function ConfirmRing() {
   const [itemPrice, setItemPrice] = useState(645);
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [mainImage, setMainImage] = useState(products[0]);
+  const [accessToken, setAccessToken] = useState();
   const router = useRouter();
 
   const showProduct = (product) => {
@@ -103,6 +104,9 @@ export default function ConfirmRing() {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
+    }
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
     }
   }, []);
 
@@ -450,17 +454,19 @@ export default function ConfirmRing() {
               </div>
             </div>
             <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
-              <button
-                className={
-                  "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
-                  favorItem
-                }
-                onClick={() =>
-                  favorItem ? setFavorItem() : setFavorItem("favor")
-                }
-              >
-                <RiHeartFill />
-              </button>
+              {accessToken && (
+                <button
+                  className={
+                    "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
+                    favorItem
+                  }
+                  onClick={() =>
+                    favorItem ? setFavorItem() : setFavorItem("favor")
+                  }
+                >
+                  <RiHeartFill />
+                </button>
+              )}
               <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
                 <Link passHref={true} href="#">
                   <a className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4">

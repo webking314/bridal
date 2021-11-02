@@ -170,6 +170,7 @@ export default function ChooseSetting() {
   const [selectValue, setSelectValue] = useState("POPULAR");
   const [value, setValue] = useState({ min: 5, max: 25 });
   const [selectRingType, setSelectRingType] = useState([]);
+  const [accessToken, setAccessToken] = useState();
   const [selectKarat, setSelectKarat] = useState([]);
   const router = useRouter();
   const setFavor = (event) => {
@@ -179,6 +180,9 @@ export default function ChooseSetting() {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
+    }
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
     }
   }, []);
 
@@ -476,10 +480,10 @@ export default function ChooseSetting() {
                     <button className="btn platinium me-3"></button>
                     <button className="btn rose-gold me-3"></button>
                   </div>
-                  <button className="favor-icon btn" onClick={setFavor}>
+                 {accessToken && <button className="favor-icon btn" onClick={setFavor}>
                     <RiHeartLine className="unfavor" />
                     <RiHeartFill className="favor" />
-                  </button>
+                  </button>}
                 </div>
               );
             else

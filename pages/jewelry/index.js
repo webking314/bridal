@@ -137,9 +137,17 @@ export default function Jewelry() {
   const [selectValue1, setSelectValue1] = useState("JEWELRY");
   const [selectValue2, setSelectValue2] = useState("PRICE");
   const [selectValue3, setSelectValue3] = useState("PEARL");
+  const [accessToken, setAccessToken] = useState();
   const [selectValue4, setSelectValue4] = useState("BIRTHSTONE");
   const [selectValue5, setSelectValue5] = useState("METAL");
   const [selectValue6, setSelectValue6] = useState("STONES");
+
+  useEffect(() => {
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
+    }
+  }, []);
+
   const setFavor = (event) => {
     event.target.closest(".favor-icon").classList.toggle("favor");
   };
@@ -257,7 +265,7 @@ export default function Jewelry() {
             if (item.url)
               return (
                 <div className="product-item" key={index}>
-                  <Link passHref={true}  href={item.url}>
+                  <Link passHref={true} href={item.url}>
                     <a>
                       <div className="product-image d-flex justify-content-center align-items-center round">
                         <img
@@ -280,10 +288,12 @@ export default function Jewelry() {
                       <h4 className="blue-text">{item.cost}</h4>
                     </a>
                   </Link>
-                  <div className="favor-icon " onClick={setFavor}>
-                    <RiHeartLine className="unfavor" />
-                    <RiHeartFill className="favor" />
-                  </div>
+                  {accessToken && (
+                    <div className="favor-icon " onClick={setFavor}>
+                      <RiHeartLine className="unfavor" />
+                      <RiHeartFill className="favor" />
+                    </div>
+                  )}
                 </div>
               );
             else

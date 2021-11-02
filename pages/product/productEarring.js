@@ -138,6 +138,7 @@ export default function ProductEarring() {
   const navigationNextRef = React.useRef(null);
   const [size, setSize] = useState(0);
   const [favorItem, setFavorItem] = useState();
+  const [accessToken, setAccessToken] = useState();
   const [itemAmount, setItemAmount] = useState(1);
   const [itemPrice, setItemPrice] = useState();
   const [mainImage, setMainImage] = useState(products.images[0]);
@@ -190,6 +191,9 @@ export default function ProductEarring() {
       require("bootstrap/dist/js/bootstrap");
       setItemPrice(products.price);
     }
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
+    }
   }, []);
 
   return (
@@ -208,11 +212,11 @@ export default function ProductEarring() {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link passHref={true}  href="/">
+          <Link passHref={true} href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link passHref={true}  href="/shop">
+          <Link passHref={true} href="/shop">
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /
@@ -326,17 +330,19 @@ export default function ProductEarring() {
               </div>
             </div>
             <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-5">
-              <button
-                className={
-                  "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
-                  favorItem
-                }
-                onClick={() =>
-                  favorItem ? setFavorItem() : setFavorItem("favor")
-                }
-              >
-                <RiHeartFill />
-              </button>
+              {accessToken && (
+                <button
+                  className={
+                    "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
+                    favorItem
+                  }
+                  onClick={() =>
+                    favorItem ? setFavorItem() : setFavorItem("favor")
+                  }
+                >
+                  <RiHeartFill />
+                </button>
+              )}
               <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
                 <button
                   className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4"
@@ -350,14 +356,14 @@ export default function ProductEarring() {
             <div className="help-panel d-flex justify-content-between py-4">
               <p className="text-uppercase m-0">Need help?</p>
               <div className="link-panel d-flex">
-                <Link passHref={true}  href="/contact">
+                <Link passHref={true} href="/contact">
                   <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                     <RiCustomerService2Fill className="me-2" />
                     contact
                   </a>
                 </Link>
 
-                <Link passHref={true}  href="#">
+                <Link passHref={true} href="#">
                   <a className="text-uppercase d-flex align-items-center blue-text">
                     <RiChat1Line className="me-2" />
                     chat
@@ -449,7 +455,7 @@ export default function ProductEarring() {
             return (
               <SwiperSlide key={index}>
                 <div className="mb-5 p-0 product-item" key={index}>
-                  <Link passHref={true}  href={item.url}>
+                  <Link passHref={true} href={item.url}>
                     <a>
                       <div className="product-image d-flex justify-content-center align-items-center round">
                         <img
@@ -478,10 +484,12 @@ export default function ProductEarring() {
                     <button className="btn platinium me-3"></button>
                     <button className="btn rose-gold me-3"></button>
                   </div>
-                  <button className="favor-icon btn" onClick={setFavor}>
-                    <RiHeartLine className="unfavor" />
-                    <RiHeartFill className="favor" />
-                  </button>
+                  {accessToken && (
+                    <button className="favor-icon btn" onClick={setFavor}>
+                      <RiHeartLine className="unfavor" />
+                      <RiHeartFill className="favor" />
+                    </button>
+                  )}
                 </div>
               </SwiperSlide>
             );

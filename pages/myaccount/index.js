@@ -24,6 +24,7 @@ import { connect } from "react-redux";
 
 function MyAccount(props) {
   const router = useRouter();
+  const [accessToken, setAccessToken] = useState();
   const [localData, setLocalData] = useState();
 
   const logout = () => {
@@ -34,7 +35,10 @@ function MyAccount(props) {
 
   useEffect(() => {
     setLocalData(localStorage);
-  });
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
+    }
+  },[]);
 
   if (localData) {
     if (localData.access_token) {
@@ -75,19 +79,21 @@ function MyAccount(props) {
                     <RiDashboardFill className="me-3" />
                     Dashboard
                   </button>
-                  <button
-                    className="select-btn btn wishList-tab d-flex align-items-center mb-4"
-                    id="wishList-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#wishList"
-                    type="button"
-                    role="tab"
-                    aria-controls="wishList"
-                    aria-selected="false"
-                  >
-                    <RiHeartFill className="me-3" />
-                    My WishList
-                  </button>
+                  {accessToken && (
+                    <button
+                      className="select-btn btn wishList-tab d-flex align-items-center mb-4"
+                      id="wishList-tab"
+                      data-bs-toggle="pill"
+                      data-bs-target="#wishList"
+                      type="button"
+                      role="tab"
+                      aria-controls="wishList"
+                      aria-selected="false"
+                    >
+                      <RiHeartFill className="me-3" />
+                      My WishList
+                    </button>
+                  )}
                   <button
                     className="select-btn btn purchases-tab d-flex align-items-center mb-4"
                     id="purchases-tab"

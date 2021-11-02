@@ -283,6 +283,7 @@ function Ring(props) {
   const [brightnessFilter, setBrightnessFilter] = useState();
   const [cutFilter, setCutFilter] = useState();
   const [metarialFilter, setMetarialFilter] = useState();
+  const [accessToken, setAccessToken] = useState();
   const [materialColorFilter, setMaterialColorFilter] = useState();
   const [caratFilter, setCaratFilter] = useState();
   const [settingFilter, setSettingFilter] = useState();
@@ -400,6 +401,9 @@ function Ring(props) {
       setMetarialFilter();
       setMaterialColorFilter();
       setCTags([]);
+    }
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
     }
   }, []);
 
@@ -542,11 +546,13 @@ function Ring(props) {
           brands = basicBrandFilter.find(
             (item) => item.MainGroup.toLowerCase() == productType
           );
-        } else {
-          brands = basicBrandFilter.find(
-            (item) => item.MainGroup.toLowerCase() == "rings"
-          );
         }
+        brands
+          ? (brands = brands)
+          : (brands = basicBrandFilter.find(
+              (item) => item.MainGroup.toLowerCase() == "all products"
+            ));
+
         const basicArr = brands ? brands.BrandID.split(",") : [];
         let middleArr = [];
         basicArr.map((item, index) => {
@@ -845,10 +851,15 @@ function Ring(props) {
         if (productType) {
           formData.append(
             "query",
-            "status:active AND tag:active AND product_type:" + productType + defaultTags
+            "status:active AND tag:active AND product_type:" +
+              productType +
+              defaultTags
           );
         } else {
-          formData.append("query", "status:active AND tag:active" + defaultTags);
+          formData.append(
+            "query",
+            "status:active AND tag:active" + defaultTags
+          );
         }
         fetch(CTagURL, {
           method: "post",
@@ -909,11 +920,16 @@ function Ring(props) {
           if (productType) {
             formData.append(
               "query",
-              "status:active AND tag:active AND product_type:" + productType + defaultTags
+              "status:active AND tag:active AND product_type:" +
+                productType +
+                defaultTags
             );
           } else {
             if (defaultTags) {
-              formData.append("query", "status:active AND tag:active" + defaultTags);
+              formData.append(
+                "query",
+                "status:active AND tag:active" + defaultTags
+              );
             } else {
               formData.append("query", "status:active AND tag:active");
             }
@@ -952,6 +968,10 @@ function Ring(props) {
       setFilterMounted(true);
     }
   }, [cTagLastAdd, productType, checking, tag]);
+
+useEffect(() => {
+  console.log(totalCounter)
+}, [totalCounter])
 
   useEffect(() => {
     if (cTags.length) {
@@ -1164,7 +1184,9 @@ function Ring(props) {
           if (tag.length) {
             data.append(
               "query",
-              "status:active AND tag:active AND product_type:" + productType + defaultTags
+              "status:active AND tag:active AND product_type:" +
+                productType +
+                defaultTags
             );
           } else {
             if (productType) {
@@ -1470,7 +1492,11 @@ function Ring(props) {
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-3">
             {tag && (
               <h2 className="text-capitalize">
-                {productType ? tag[0] + " " + productType : "rings"}
+                {productType
+                  ? tag.length > 0
+                    ? tag[0] + " "
+                    : "" + productType
+                  : "rings"}
               </h2>
             )}
             <p className="text-uppercase">{result} results</p>
@@ -1788,7 +1814,7 @@ function Ring(props) {
                   </div>
                 </div>
               )}
-              {settingFilter && (
+              {settingFilter && settingFilter.length > 0 && (
                 <div className="accordion-item mb-3">
                   <h2 className="accordion-header">
                     <button
@@ -1911,7 +1937,7 @@ function Ring(props) {
                           )}
                         </a>
                       </Link>
-                      <button
+                    {accessToken &&  <button
                         className={
                           "btn favor-icon " +
                           `${
@@ -1927,7 +1953,7 @@ function Ring(props) {
                       >
                         <RiHeartLine className="unfavor" />
                         <RiHeartFill className="favor" />
-                      </button>
+                      </button>}
                     </div>
                   );
                 })}

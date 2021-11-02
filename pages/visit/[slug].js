@@ -47,6 +47,7 @@ export default function TourDetail() {
   const [loading, setLoading] = useState(true);
   const [tourPackage, setTourPackage] = useState([]);
   const [sticky, setSticky] = useState(localSticky);
+  const [playBtnShow, setPlayBtnShow] = useState(true);
   const videoRef = useRef();
   const router = useRouter();
   const [bookDate, setBookDate] = useState([
@@ -92,7 +93,6 @@ export default function TourDetail() {
         setShowLoadMore(data.length >= 3);
         setLoading(false);
         if (data.length) {
-          console.log(data);
           tourPackageData = [...tourPackage, ...data];
           setTourPackage(tourPackageData);
         }
@@ -105,8 +105,8 @@ export default function TourDetail() {
         getTourData();
       } else {
         if (tourPackageData) {
-          setTours(tourPackageData);
-          setLoadding(false);
+          setTourPackage(tourPackageData);
+          setLoading(false);
         } else {
           getTourData();
         }
@@ -132,12 +132,14 @@ export default function TourDetail() {
             )}
           </div>
           <div className="r-container">
-            <p className="text-capitalize col-lg-4 col-md-6 col-sm-8 mb-3">
-              {renderHTML(tourData.acf.landing.subtitle)}
-            </p>
-            <h1 className="title text-white col-lg-4 col-md-6 col-sm-8 text-capitalize mb-5">
-              {renderHTML(tourData.acf.landing.title)}
-            </h1>
+            <div className="col-lg-5 col-md-7 col-sm-8">
+              <p className="text-capitalize mb-3">
+                {renderHTML(tourData.acf.landing.subtitle)}
+              </p>
+              <h1 className="title text-white text-capitalize mb-5">
+                {renderHTML(tourData.acf.landing.title)}
+              </h1>
+            </div>
           </div>
         </div>
       ) : (
@@ -212,33 +214,40 @@ export default function TourDetail() {
       <div className="banner-section mb-5">
         {tourData ? (
           <div className="cover-image-panel r-container round">
-            {tourData.acf.media.video && (
-              <video
-                loop="loop"
-                muted
-                defaultmuted="defaultmuted"
-                playsInline
-                onContextMenu={() => false}
-                preload="auto"
-                className="bg_video"
-                ref={videoRef}
-              >
-                <source
-                  src={tourData.acf.media.video.file.url}
-                  type="video/mp4"
-                />
-              </video>
-            )}
-            <button
-              className="btn btn-play d-flex"
-              onClick={() => {
-                videoRef.current.paused
-                  ? videoRef.current.play()
-                  : videoRef.current.pause();
-              }}
-            >
-              <RiPlayCircleFill />
-            </button>
+            <div className="banner-panel">
+              {tourData.acf.media.video && (
+                <video
+                  loop="loop"
+                  muted
+                  defaultmuted="defaultmuted"
+                  playsInline
+                  onContextMenu={() => false}
+                  preload="auto"
+                  className="bg_video"
+                  ref={videoRef}
+                  controls={playBtnShow ? false : true}
+                >
+                  <source
+                    src={tourData.acf.media.video.file.url}
+                    type="video/mp4"
+                  />
+                </video>
+              )}
+              {playBtnShow && (
+                <button
+                  className="btn btn-play d-flex"
+                  onClick={() => {
+                    if (videoRef.current.paused) {
+                      setPlayBtnShow(false);
+                      videoRef.current.play();
+                      videoRef.current.controls = true;
+                    }
+                  }}
+                >
+                  <RiPlayCircleFill />
+                </button>
+              )}
+            </div>
           </div>
         ) : (
           <div className="cover-image-panel r-container round">

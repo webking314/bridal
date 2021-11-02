@@ -54,7 +54,7 @@ export default function Footer() {
         { link: "Why Royal Coster", url: "/why-royal-coster" },
         { link: "Corporate Responsibility", url: "/responsibility" },
         { link: "Press", url: "/news" },
-        { link: "Jobs & internships", url: "/internships" },
+        { link: "Jobs & internships", url: "/careers" },
       ],
     },
     {

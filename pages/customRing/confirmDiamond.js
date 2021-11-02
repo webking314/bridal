@@ -87,6 +87,7 @@ export default function ConformDiamond() {
   const [favorItem, setFavorItem] = useState();
   const [mainImage, setMainImage] = useState(products[0]);
   const [color, setColor] = useState("white");
+  const [accessToken, setAccessToken] = useState();
   const router = useRouter();
 
   const showProduct = (product) => {
@@ -96,6 +97,9 @@ export default function ConformDiamond() {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
+    }
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
     }
   }, []);
 
@@ -115,15 +119,15 @@ export default function ConformDiamond() {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link passHref={true}  href="/">
+          <Link passHref={true} href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link passHref={true}  href="/shop">
+          <Link passHref={true} href="/shop">
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /
-          <Link passHref={true}  href="#">
+          <Link passHref={true} href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -139,7 +143,7 @@ export default function ConformDiamond() {
             <HiOutlineArrowLeft />
           </button>
           ...
-          <Link passHref={true}  href="#">
+          <Link passHref={true} href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -313,7 +317,10 @@ export default function ConformDiamond() {
               <div className="btn-panel d-flex justify-content-between">
                 {carats.map((item, index) => {
                   return (
-                    <button className="btn py-md-4 py-sm-3 py-2 px-md-5 px-4 me-3" key={index}>
+                    <button
+                      className="btn py-md-4 py-sm-3 py-2 px-md-5 px-4 me-3"
+                      key={index}
+                    >
                       <p className="m-0 pb-2">{item.carat}</p>
                       <span>{item.time.toFixed(2) + "*"}</span>
                     </button>
@@ -322,19 +329,21 @@ export default function ConformDiamond() {
               </div>
             </div>
             <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
-              <button
-                className={
-                  "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
-                  favorItem
-                }
-                onClick={() =>
-                  favorItem ? setFavorItem() : setFavorItem("favor")
-                }
-              >
-                <RiHeartFill />
-              </button>
+              {accessToken && (
+                <button
+                  className={
+                    "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
+                    favorItem
+                  }
+                  onClick={() =>
+                    favorItem ? setFavorItem() : setFavorItem("favor")
+                  }
+                >
+                  <RiHeartFill />
+                </button>
+              )}
               <div className="setting-btn-panel text-end">
-                <Link passHref={true}  href="/customRing/chooseDiamond">
+                <Link passHref={true} href="/customRing/chooseDiamond">
                   <a className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4">
                     select this diamond
                   </a>
@@ -347,14 +356,14 @@ export default function ConformDiamond() {
             <div className="help-panel d-flex justify-content-between py-4">
               <p className="text-uppercase m-0">Need help?</p>
               <div className="link-panel d-flex">
-                <Link passHref={true}  href="/contact">
+                <Link passHref={true} href="/contact">
                   <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                     <RiCustomerService2Fill className="me-2" />
                     contact
                   </a>
                 </Link>
 
-                <Link passHref={true}  href="#">
+                <Link passHref={true} href="#">
                   <a className="text-uppercase d-flex align-items-center blue-text">
                     <RiChat1Line className="me-2" />
                     chat

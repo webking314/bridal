@@ -43,6 +43,7 @@ export default function ConformSetting() {
   const [mainImage, setMainImage] = useState(products[0]);
   const [color, setColor] = useState("white");
   const [favorItem, setFavorItem] = useState();
+  const [accessToken, setAccessToken] = useState();
   const router = useRouter();
 
   const showProduct = (product) => {
@@ -52,6 +53,9 @@ export default function ConformSetting() {
   useEffect(() => {
     if (typeof document !== undefined) {
       require("bootstrap/dist/js/bootstrap");
+    }
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
     }
   }, []);
 
@@ -70,15 +74,15 @@ export default function ConformSetting() {
           >
             <HiOutlineArrowLeft />
           </button>
-          <Link passHref={true}  href="/">
+          <Link passHref={true} href="/">
             <a className="mx-2">HOME</a>
           </Link>
           /
-          <Link passHref={true}  href="/shop">
+          <Link passHref={true} href="/shop">
             <a className="mx-2">ENGAGEMENT RINGS</a>
           </Link>
           /
-          <Link passHref={true}  href="#">
+          <Link passHref={true} href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -94,7 +98,7 @@ export default function ConformSetting() {
             <HiOutlineArrowLeft />
           </button>
           ...
-          <Link passHref={true}  href="#">
+          <Link passHref={true} href="#">
             <a className="mx-2">MAKE A RING</a>
           </Link>
           /
@@ -266,19 +270,21 @@ export default function ConformSetting() {
               </div>
             </div>
             <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
-              <button
-                className={
-                  "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
-                  favorItem
-                }
-                onClick={() =>
-                  favorItem ? setFavorItem() : setFavorItem("favor")
-                }
-              >
-                <RiHeartFill />
-              </button>
+              {accessToken && (
+                <button
+                  className={
+                    "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
+                    favorItem
+                  }
+                  onClick={() =>
+                    favorItem ? setFavorItem() : setFavorItem("favor")
+                  }
+                >
+                  <RiHeartFill />
+                </button>
+              )}
               <div className="setting-btn-panel text-end">
-                <Link passHref={true}  href="/customRing/chooseSetting">
+                <Link passHref={true} href="/customRing/chooseSetting">
                   <a className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4">
                     select this setting
                   </a>
@@ -291,14 +297,14 @@ export default function ConformSetting() {
             <div className="help-panel d-flex justify-content-between py-4">
               <p className="text-uppercase m-0">Need help?</p>
               <div className="link-panel d-flex">
-                <Link passHref={true}  href="/contact">
+                <Link passHref={true} href="/contact">
                   <a className="text-uppercase me-4 d-flex align-items-center blue-text">
                     <RiCustomerService2Fill className="me-2" />
                     contact
                   </a>
                 </Link>
 
-                <Link passHref={true}  href="#">
+                <Link passHref={true} href="#">
                   <a className="text-uppercase d-flex align-items-center blue-text">
                     <RiChat1Line className="me-2" />
                     chat

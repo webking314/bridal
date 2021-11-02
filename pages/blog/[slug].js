@@ -74,6 +74,8 @@ const ReadingProgress = ({ target }) => {
 };
 
 const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
+const insideURL =
+  "https://royalcoster.nl/wordpress/wp-json/wp/v2/inside-coster";
 const authorURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/users";
 const tagsURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tags";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
@@ -136,6 +138,7 @@ function Brief(props) {
   const [facebookLink, setFacebookLink] = useState();
   const [linkdinLink, setLinkdinLink] = useState();
   const [twitterLink, setTwitterLink] = useState();
+  const [accessToken, setAccessToken] = useState();
   const [products, setProducts] = useState();
   const [metaTitle, setMetaTitle] = useState("Brief");
   const [metaDescription, setMetaDescription] = useState("");
@@ -171,6 +174,19 @@ function Brief(props) {
     }
   };
 
+  const insideArr = [
+    "brief-history-of-diamonds",
+    "our-royal-legacy",
+    "the-story-of-sisi",
+    "how-we-created-queen-julianas-diamond-watch",
+  ];
+
+  useEffect(() => {
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
+    }
+  }, []);
+
   useEffect(() => {
     if (content) {
       const text = document.querySelector(".article-panel").innerText;
@@ -190,9 +206,12 @@ function Brief(props) {
       );
       setTwitterLink("https://twitter.com/share?url=" + currentURL);
 
-      console.log(router.query.slug);
+      let url = blogURL + "?slug=" + router.query.slug;
+      if (insideArr.find((item) => item == router.query.slug)) {
+        url = insideURL + "?slug=" + router.query.slug;
+      }
       // Get blog data by slug
-      fetch(blogURL + "?slug=" + router.query.slug, {
+      fetch(url, {
         method: "get",
         headers,
       })
@@ -553,23 +572,25 @@ function Brief(props) {
                         />
                       </p>
                     </div>
-                    <button
-                      className={
-                        "btn favor-icon " +
-                        `${
-                          props.wishList &&
-                          props.wishList.find(
-                            (product) => product.shopifyid == item.shopifyid
-                          )
-                            ? "favor"
-                            : ""
-                        }`
-                      }
-                      onClick={(e) => setFavor(e, item)}
-                    >
-                      <RiHeartLine className="unfavor" />
-                      <RiHeartFill className="favor" />
-                    </button>
+                    {accessToken && (
+                      <button
+                        className={
+                          "btn favor-icon " +
+                          `${
+                            props.wishList &&
+                            props.wishList.find(
+                              (product) => product.shopifyid == item.shopifyid
+                            )
+                              ? "favor"
+                              : ""
+                          }`
+                        }
+                        onClick={(e) => setFavor(e, item)}
+                      >
+                        <RiHeartLine className="unfavor" />
+                        <RiHeartFill className="favor" />
+                      </button>
+                    )}
 
                     <div className="btn-panel">
                       {/* <button className="btn btn-cart pink-btn px-md-5 px-3 py-3 me-3 round-form">

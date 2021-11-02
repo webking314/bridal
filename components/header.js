@@ -212,7 +212,7 @@ let submenus = [
         menu: [
           {
             name: "A brief history of diamonds",
-            url: "/inside-coster/brief-history-of-diamonds",
+            url: "/blog/brief-history-of-diamonds",
           },
           {
             name: "About the C4's",
@@ -241,7 +241,7 @@ let submenus = [
         menu: [
           {
             name: "Our Royal Legacy",
-            url: "/inside-coster/our-royal-legacy",
+            url: "/blog/our-royal-legacy",
           },
           {
             name: "The Koh I Noor",
@@ -249,11 +249,11 @@ let submenus = [
           },
           {
             name: "The story of Sisi",
-            url: "/inside-coster/the-story-of-sisi",
+            url: "/blog/the-story-of-sisi",
           },
           {
             name: "The story of Rama",
-            url: "/inside-coster/how-we-created-queen-julianas-diamond-watch/",
+            url: "/blog/how-we-created-queen-julianas-diamond-watch",
           },
         ],
       },
@@ -596,23 +596,23 @@ function Header(props) {
             >
               <RiSearchLine />
             </button>
-
-            <button
-              className="btn me-4 d-flex align-items-center"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#wishListBox"
-              aria-controls="wishListBox"
-            >
-              {props.wishList.length > 0 ? (
-                <Badge badgeContent={props.wishList.length} color="primary">
+            {accessToken && (
+              <button
+                className="btn me-4 d-flex align-items-center"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#wishListBox"
+                aria-controls="wishListBox"
+              >
+                {props.wishList.length > 0 ? (
+                  <Badge badgeContent={props.wishList.length} color="primary">
+                    <RiHeartLine className="font-icon" />
+                  </Badge>
+                ) : (
                   <RiHeartLine className="font-icon" />
-                </Badge>
-              ) : (
-                <RiHeartLine className="font-icon" />
-              )}
-            </button>
-
+                )}
+              </button>
+            )}
             <Link passHref={true} href="/cart">
               <a className="btn cart-link d-flex me-4">
                 {props.cartData.length > 0 > 0 ? (
@@ -733,21 +733,23 @@ function Header(props) {
               >
                 <RiSearchLine className="font-icon" />
               </button>
-              <button
-                className="btn me-4"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#wishListBox"
-                aria-controls="wishListBox"
-              >
-                {props.wishList.length > 0 ? (
-                  <Badge badgeContent={props.wishList.length} color="primary">
+              {accessToken && (
+                <button
+                  className="btn me-4"
+                  type="button"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#wishListBox"
+                  aria-controls="wishListBox"
+                >
+                  {props.wishList.length > 0 ? (
+                    <Badge badgeContent={props.wishList.length} color="primary">
+                      <RiHeartLine className="font-icon" />
+                    </Badge>
+                  ) : (
                     <RiHeartLine className="font-icon" />
-                  </Badge>
-                ) : (
-                  <RiHeartLine className="font-icon" />
-                )}
-              </button>
+                  )}
+                </button>
+              )}
               <Link passHref={true} href="/cart">
                 <a className="btn">
                   {props.cartData.length > 0 > 0 ? (
@@ -916,22 +918,23 @@ function Header(props) {
                 <RiPhoneFill />
               </a>
             </Link>
-            <button
-              className="btn me-2 d-flex align-items-center"
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#wishListBox"
-              aria-controls="wishListBox"
-            >
-              {props.wishList.length > 0 ? (
-                <Badge badgeContent={props.wishList.length} color="primary">
+            {accessToken && (
+              <button
+                className="btn me-2 d-flex align-items-center"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#wishListBox"
+                aria-controls="wishListBox"
+              >
+                {props.wishList.length > 0 ? (
+                  <Badge badgeContent={props.wishList.length} color="primary">
+                    <RiHeartLine className="font-icon" />
+                  </Badge>
+                ) : (
                   <RiHeartLine className="font-icon" />
-                </Badge>
-              ) : (
-                <RiHeartLine className="font-icon" />
-              )}
-            </button>
-
+                )}
+              </button>
+            )}
             <Link passHref={true} href="/cart">
               <a className="btn d-flex me-4">
                 {props.cartData.length > 0 > 0 ? (

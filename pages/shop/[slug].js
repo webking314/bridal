@@ -74,24 +74,6 @@ const customerSlider = [
       "This 2 carat Royal 201 diamond ring is a must for everyone 😍 Tag the person who you think should have this ring!⁠",
   },
 ];
-
-const informations = [
-  { name: "Shape", value: "ROUND" },
-  { name: "sYMMETRY", value: "vERY gOOD" },
-  { name: "CARAT", value: "1.00" },
-  { name: "fLUORESCENCE", value: "nONE" },
-  { name: "COLOR", value: "H" },
-  { name: "l/w( (MM)", value: "6.31X6.36" },
-  { name: "CLARITY", value: "SI1" },
-  { name: "l/w rATIO", value: "1.01" },
-  { name: "CUT", value: "EXCELLENT" },
-  { name: "cERTIFICATE", value: "igi" },
-  { name: "POLISH", value: "EXCELLET" },
-];
-const productID = "SKU 10872957";
-const productDescription =
-  "This beautiful tapered engagement ring design is channel-set with eight round shaped diamonds. A setting designed to draw the eye to the center diamond or gemstone of your choice. Pair it with the matching wedding band for a contoured look.";
-
 const getProductURL = process.env.NEXT_PUBLIC_GET_PRODUCT_URL;
 const graphqlURL = process.env.NEXT_PUBLIC_GRAPHQL_URL;
 
@@ -102,6 +84,7 @@ function ProductRing(props) {
   const [itemPrice, setItemPrice] = useState();
   const [mainImage, setMainImage] = useState();
   const router = useRouter();
+  const [accessToken, setAccessToken] = useState();
   const [productData, setProductData] = useState();
   const [optionValue, setOptionValue] = useState();
   const [sizeList, setSizeList] = useState([]);
@@ -113,6 +96,9 @@ function ProductRing(props) {
       if (localStorage.wishList) {
         props.setWishList(JSON.parse(localStorage.wishList));
       }
+    }
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
     }
   }, []);
 
@@ -254,7 +240,7 @@ function ProductRing(props) {
         image: productData.image.src.replace(".jpg", "_100x.jpg"),
         amount: itemAmount,
         product_type: "Rings",
-        descripion: productData.body_html
+        descripion: productData.body_html,
       };
       if (localStorage.wishList) {
         props.setWishList([...props.wishList, productItem]);
@@ -437,8 +423,10 @@ function ProductRing(props) {
                                     ).id,
                                   })
                                 }
-                              >
-                                {value}
+                              >{
+                                console.log(value)
+                              }
+                                {value == "Default Title" ? productData.title : value}
                               </button>
                             );
                           })}
@@ -534,15 +522,17 @@ function ProductRing(props) {
                 </div>
               </div>
               <div className="confirm-box d-flex flex-wrap justify-content-between align-items-start m-0 py-4">
-                <button
-                  className={
-                    "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
-                    favorItem
-                  }
-                  onClick={() => selectFavor()}
-                >
-                  <RiHeartFill />
-                </button>
+                {accessToken && (
+                  <button
+                    className={
+                      "btn favor-btn round-form d-flex align-items-center justify-content-center p-4 me-3 " +
+                      favorItem
+                    }
+                    onClick={() => selectFavor()}
+                  >
+                    <RiHeartFill />
+                  </button>
+                )}
                 <div className="setting-btn-panel d-flex flex-column flex-1 text-end">
                   <button
                     className="btn blue-btn text-uppercase round-form px-5 py-3 mb-4"

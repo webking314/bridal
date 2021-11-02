@@ -9,6 +9,7 @@
       height: 100%;
       width: 100%;
       img {
+        object-fit: cover;
         width: 100%;
         height: 100%;
       }
@@ -140,36 +141,42 @@
   }
   .banner-section {
     position: relative;
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: "";
-      height: 250px;
-      width: 100%;
-      background: #f7f3ec;
-      z-index: 1;
-    }
     .cover-image-panel {
-      position: relative;
-      z-index: 2;
-      overflow: hidden;
-      img,
-      video {
-        width: 100%;
+      .MuiSkeleton-rect {
+        position: relative;
+        z-index: 2;
       }
-      .btn-play {
-        font-size: 80px;
+      &::after {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #c4c4c4;
-        &:hover {
-          color: #b6b6b6;
+        top: 0;
+        left: 0;
+        content: "";
+        height: 250px;
+        width: 100%;
+        background: #f7f3ec;
+        z-index: 1;
+      }
+      .banner-panel {
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+        img,
+        video {
+          width: 100%;
         }
-        @media (max-width: 575px) {
-          font-size: 50px;
+        .btn-play {
+          font-size: 80px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #c4c4c4;
+          &:hover {
+            color: #b6b6b6;
+          }
+          @media (max-width: 575px) {
+            font-size: 50px;
+          }
         }
       }
     }
@@ -181,7 +188,8 @@
         img {
           height: 180px;
           width: 100%;
-          object-fit: top;
+          object-fit: cover;
+          object-position: 0 20%;
         }
       }
     }

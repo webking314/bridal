@@ -34,7 +34,15 @@ import "swiper/css";
 SwiperCore.use([Autoplay, Navigation]);
 
 const ReadingProgress = ({ target }) => {
+  const [accessToken, setAccessToken] = useState();
   const [readingProgress, setReadingProgress] = useState(0);
+
+  useEffect(() => {
+    if (localStorage.access_token) {
+      setAccessToken(localStorage.access_token);
+    }
+  }, []);
+
   useEffect(() => {
     const header = document.querySelector("#header");
     const aboutSection = document.querySelector(".about-section");
@@ -63,7 +71,7 @@ const ReadingProgress = ({ target }) => {
 
     window.addEventListener("scroll", scrollListener);
     return () => window.removeEventListener("scroll", scrollListener);
-  });
+  }, []);
 
   return (
     <div
@@ -554,24 +562,25 @@ function Brief(props) {
                         />
                       </p>
                     </div>
-                    <button
-                      className={
-                        "btn favor-icon " +
-                        `${
-                          props.wishList &&
-                          props.wishList.find(
-                            (product) => product.shopifyid == item.shopifyid
-                          )
-                            ? "favor"
-                            : ""
-                        }`
-                      }
-                      onClick={(e) => setFavor(e, item)}
-                    >
-                      <RiHeartLine className="unfavor" />
-                      <RiHeartFill className="favor" />
-                    </button>
-
+                    {accessToken && (
+                      <button
+                        className={
+                          "btn favor-icon " +
+                          `${
+                            props.wishList &&
+                            props.wishList.find(
+                              (product) => product.shopifyid == item.shopifyid
+                            )
+                              ? "favor"
+                              : ""
+                          }`
+                        }
+                        onClick={(e) => setFavor(e, item)}
+                      >
+                        <RiHeartLine className="unfavor" />
+                        <RiHeartFill className="favor" />
+                      </button>
+                    )}
                     <div className="btn-panel">
                       {/* <button className="btn btn-cart pink-btn px-md-5 px-3 py-3 me-3 round-form">
                       ADD TO CART
