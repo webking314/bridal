@@ -38,7 +38,7 @@ function MyAccount(props) {
     if (localStorage.access_token) {
       setAccessToken(localStorage.access_token);
     }
-  },[]);
+  }, []);
 
   if (localData) {
     if (localData.access_token) {

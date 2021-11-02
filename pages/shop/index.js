@@ -969,9 +969,9 @@ function Ring(props) {
     }
   }, [cTagLastAdd, productType, checking, tag]);
 
-useEffect(() => {
-  console.log(totalCounter)
-}, [totalCounter])
+  useEffect(() => {
+    console.log(totalCounter);
+  }, [totalCounter]);
 
   useEffect(() => {
     if (cTags.length) {
@@ -1494,12 +1494,12 @@ useEffect(() => {
               <h2 className="text-capitalize">
                 {productType
                   ? tag.length > 0
-                    ? tag[0] + " "
+                    ? tag[0] + " " + productType
                     : "" + productType
                   : "rings"}
               </h2>
             )}
-            <p className="text-uppercase">{result} results</p>
+            {result && <p className="text-uppercase">{result} results</p>}
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
             <button
@@ -1937,23 +1937,25 @@ useEffect(() => {
                           )}
                         </a>
                       </Link>
-                    {accessToken &&  <button
-                        className={
-                          "btn favor-icon " +
-                          `${
-                            props.wishList &&
-                            props.wishList.find(
-                              (product) => product.shopifyid == item.shopifyid
-                            )
-                              ? "favor"
-                              : ""
-                          }`
-                        }
-                        onClick={(e) => setFavor(e, item)}
-                      >
-                        <RiHeartLine className="unfavor" />
-                        <RiHeartFill className="favor" />
-                      </button>}
+                      {accessToken && (
+                        <button
+                          className={
+                            "btn favor-icon " +
+                            `${
+                              props.wishList &&
+                              props.wishList.find(
+                                (product) => product.shopifyid == item.shopifyid
+                              )
+                                ? "favor"
+                                : ""
+                            }`
+                          }
+                          onClick={(e) => setFavor(e, item)}
+                        >
+                          <RiHeartLine className="unfavor" />
+                          <RiHeartFill className="favor" />
+                        </button>
+                      )}
                     </div>
                   );
                 })}

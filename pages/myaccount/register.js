@@ -30,11 +30,14 @@ export default function Register() {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         setLoading(false);
-        const variant = "error";
+        let variant = "error";
         if (data.status == "error") {
           enqueueSnackbar(data.error, { variant });
-        } else if (data.satus == "ok") {
+        } else if (data.status == "ok") {
+          variant = "success"
+          enqueueSnackbar("Verification email sent.", { variant });
           router.push("/myaccount/login");
         }
       });
@@ -80,14 +83,14 @@ export default function Register() {
               placeholder="EMAIL"
               required
             />
-            <input
+            {/* <input
               type="password"
               name="password"
               className="form-control"
               placeholder="PASSWORD"
               minLength="8"
               required
-            />
+            /> */}
             <button
               className="btn btn-login blue-btn d-flex justify-content-between align-items-center"
               disabled={loading}

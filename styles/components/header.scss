@@ -52,12 +52,6 @@ $flagSelectColor: white;
       }
     }
     .desktop-header {
-      .btn-appointment {
-        &:hover {
-          background: #fad3da !important;
-          color: #01215c !important;
-        }
-      }
       .middle-bar {
         button {
           &:hover {
@@ -171,6 +165,13 @@ $flagSelectColor: white;
   }
 
   .desktop-header {
+    .btn-appointment {
+      border-radius: 0 !important;
+      &:hover {
+        background: #fad3da !important;
+        color: #01215c !important;
+      }
+    }
     & > .row:not(.top-bar) {
       background: transparent;
       border-bottom: $headerBorderColor;
@@ -468,6 +469,7 @@ $flagSelectColor: white;
     .btn-consultation {
       margin-right: -30px;
       font-weight: 500;
+      border-radius: 0 !important;
       &:hover {
         border-radius: 0;
         background: #01215c;

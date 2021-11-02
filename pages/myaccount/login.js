@@ -37,6 +37,7 @@ export default function Login() {
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.user.user.email,
+            uid: data.user.user.uid
           };
           localStorage.setItem("login_user", JSON.stringify(loginUser));
           router.push("/myaccount");

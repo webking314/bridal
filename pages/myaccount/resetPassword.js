@@ -7,6 +7,9 @@ import { RiArrowRightLine } from "react-icons/ri";
 import { Spinner } from "react-bootstrap";
 import { SnackbarProvider, useSnackbar } from "notistack";
 
+const resetPasswordURL =
+  "https://costercatalog.com/api/index.php?request=resetPasswordRoyalcoster";
+
 export default function ResetPassword() {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
@@ -14,9 +17,22 @@ export default function ResetPassword() {
 
   const resetPassword = (e) => {
     e.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     const resetPasswordData = document.forms.resetPasswordForm;
     let formData = new FormData(resetPasswordData);
+
+    fetch(resetPasswordURL, {
+      method: "post",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        const variant = "success";
+        if (data && data.status == "ok") {
+          enqueueSnackbar("Reset email sent.", { variant });
+        }
+      });
   };
 
   return (
