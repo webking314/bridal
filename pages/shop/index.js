@@ -1499,7 +1499,7 @@ function Ring(props) {
                   : "rings"}
               </h2>
             )}
-            {result && <p className="text-uppercase">{result} results</p>}
+            {result > 0 && <p className="text-uppercase">{result} results</p>}
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
             <button
