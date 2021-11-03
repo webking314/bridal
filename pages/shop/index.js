@@ -422,6 +422,17 @@ function Ring(props) {
           setCollectionFilter();
           setStyleFilter();
           setMountingFilter();
+          setChecked1([]);
+          setChecked2([]);
+          setChecked3([]);
+          setChecked4([]);
+          setChecked5([]);
+          setChecked6([]);
+          setChecked7([]);
+          setChecked8([]);
+          setChecked9([]);
+          setChecked10([]);
+          setChecked11([]);
           setBrandFilter();
           setStoneFilter();
           setBrightnessFilter();
@@ -1171,35 +1182,35 @@ function Ring(props) {
         }
         setFormData(data);
       } else {
-        if (productStore.length) {
-          setProductData(productStore);
-          setLastProduct(lastProductStatus);
-          if (localStorage.wishList) {
-            props.setWishList(JSON.parse(localStorage.wishList));
-          }
+        // if (productStore.length) {
+        //   // setProductData(productStore);
+        //   // setLastProduct(lastProductStatus);
+        //   if (localStorage.wishList) {
+        //     props.setWishList(JSON.parse(localStorage.wishList));
+        //   }
+        // } else {
+        setLoad(true);
+        let data = new FormData();
+        data.append("position", "first:9");
+        if (tag.length) {
+          data.append(
+            "query",
+            "status:active AND tag:active AND product_type:" +
+              productType +
+              defaultTags
+          );
         } else {
-          setLoad(true);
-          let data = new FormData();
-          data.append("position", "first:9");
-          if (tag.length) {
+          if (productType) {
             data.append(
               "query",
-              "status:active AND tag:active AND product_type:" +
-                productType +
-                defaultTags
+              "status:active AND tag:active AND product_type:" + productType
             );
           } else {
-            if (productType) {
-              data.append(
-                "query",
-                "status:active AND tag:active AND product_type:" + productType
-              );
-            } else {
-              data.append("query", "status:active AND tag:active");
-            }
+            data.append("query", "status:active AND tag:active");
           }
-          setFormData(data);
         }
+        setFormData(data);
+        // }
       }
       setMounted(true);
     }

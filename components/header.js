@@ -587,7 +587,7 @@ function Header(props) {
                   );
               })}
             </div>
-            <button
+            {/* <button
               className="btn me-4 d-flex align-items-center"
               type="button"
               data-bs-toggle="offcanvas"
@@ -595,7 +595,7 @@ function Header(props) {
               aria-controls="searchBox"
             >
               <RiSearchLine />
-            </button>
+            </button> */}
             {accessToken && (
               <button
                 className="btn me-4 d-flex align-items-center"
@@ -724,7 +724,7 @@ function Header(props) {
               </Link>
             </div>
             <div className="col-4 px-0 text-end">
-              <button
+              {/* <button
                 className="btn me-4"
                 type="button"
                 data-bs-toggle="offcanvas"
@@ -732,7 +732,7 @@ function Header(props) {
                 aria-controls="searchBox"
               >
                 <RiSearchLine className="font-icon" />
-              </button>
+              </button> */}
               {accessToken && (
                 <button
                   className="btn me-4"
@@ -904,7 +904,7 @@ function Header(props) {
             </a>
           </Link>
           <div className="links-panel d-flex align-items-center">
-            <button
+            {/* <button
               className="btn me-2 d-flex align-items-center"
               type="button"
               data-bs-toggle="offcanvas"
@@ -912,7 +912,7 @@ function Header(props) {
               aria-controls="searchBox"
             >
               <RiSearchLine />
-            </button>
+            </button> */}
             <Link href="tel:00310203055555">
               <a className="btn me-2 d-flex align-items-center" type="button">
                 <RiPhoneFill />
