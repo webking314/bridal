@@ -74,6 +74,7 @@ export default function AppointmentModal() {
   const [language, setLanguage] = useState();
   const [safeMode, setSafeMode] = useState();
   const [country, setCountry] = useState("NP");
+  const [visit, setVisit] = useState(false);
   const [errorPhone, setErrorPhone] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
   const [countryNumberPrefix, setCountryNumberPrefix] = useState();
@@ -192,8 +193,9 @@ export default function AppointmentModal() {
     document.querySelector("#timeDate-tab").classList.add("active");
   };
 
-  const sendRequest = () => {
-    router.push("/thank-you-contact");
+  const sendRequest = (e) => {
+    e.preventDefault();
+      router.push("/thank-you-contact");      
   };
 
   useEffect(() => {
@@ -302,13 +304,19 @@ export default function AppointmentModal() {
                   </p>
                   <button
                     className="btn btn-unavailable pink-btn text-start px-5 mt-5 py-3 text-sm-start text-center round-form"
-                    onClick={checkingLocation}
+                    onClick={(e) => {
+                      checkingLocation(e);
+                      setVisit(true);
+                    }}
                   >
                     Visit us in Amsterdam
                   </button>
                   <button
                     className="btn btn-consultation d-flex py-3 blue-btn round-form px-5 mt-4 justify-content-between align-items-center"
-                    onClick={checkingLocation}
+                    onClick={(e) => {
+                      checkingLocation(e);
+                      setVisit(false);
+                    }}
                   >
                     <span>Schedule an online diamond consult</span>
                     <RiArrowRightLine />
@@ -399,33 +407,32 @@ export default function AppointmentModal() {
                   <h3 className="title m-0 mb-4 text-sm-start text-center mt-sm-0 mt-5">
                     Your Contact Details
                   </h3>
-                  <form className="form-panel row m-0">
-                    <label
-                      htmlFor="contactMethod"
-                      className="col-sm-6 p-0 pe-sm-3 mt-5"
-                    >
-                      Method of Contact*
-                      <select
-                        className="form-select blue-text ps-4 mt-3 round-form py-3"
-                        aria-label="Default select example"
-                        id="contactMethod"
-                        value={contactMethod}
-                        onChange={(event) =>
-                          setContactMethod(event.target.value)
-                        }
-                      >
-                        {contactMethods.map((item, index) => {
-                          return (
-                            <option value={index} key={index}>
-                              {item.title}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </label>
+                  <form className="form-panel row" onSubmit={sendRequest}>
+                    {!visit && (
+                      <label htmlFor="contactMethod" className="col-sm-6 mt-5">
+                        Method of Contact*
+                        <select
+                          className="form-select blue-text ps-4 mt-3 round-form py-3"
+                          aria-label="Default select example"
+                          id="contactMethod"
+                          value={contactMethod}
+                          onChange={(event) =>
+                            setContactMethod(event.target.value)
+                          }
+                        >
+                          {contactMethods.map((item, index) => {
+                            return (
+                              <option value={index} key={index}>
+                                {item.title}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </label>
+                    )}
                     <label
                       htmlFor="preferredLanguage"
-                      className="col-sm-6 p-0 ps-sm-3 mt-5"
+                      className="col-sm-6 mt-5"
                     >
                       Preferred Language*
                       <input
@@ -438,10 +445,7 @@ export default function AppointmentModal() {
                         onChange={(e) => setLanguage(e.target.value)}
                       />
                     </label>
-                    <label
-                      htmlFor="firstName"
-                      className="col-sm-6 p-0 pe-sm-3 mt-5"
-                    >
+                    <label htmlFor="firstName" className="col-sm-6 mt-5">
                       First Name*
                       <input
                         type="text"
@@ -453,10 +457,7 @@ export default function AppointmentModal() {
                         required
                       />
                     </label>
-                    <label
-                      htmlFor="lastName"
-                      className="col-sm-6 p-0 ps-sm-3 mt-5"
-                    >
+                    <label htmlFor="lastName" className="col-sm-6 mt-5">
                       Last Name*
                       <input
                         type="text"
@@ -468,10 +469,7 @@ export default function AppointmentModal() {
                         required
                       />
                     </label>
-                    <label
-                      htmlFor="email"
-                      className="col-sm-6 p-0 pe-sm-3 mt-5"
-                    >
+                    <label htmlFor="email" className="col-sm-6 mt-5">
                       Email*
                       <input
                         type="email"
@@ -483,10 +481,7 @@ export default function AppointmentModal() {
                         required
                       />
                     </label>
-                    <label
-                      htmlFor="phoneNumber"
-                      className="col-sm-6 p-0 ps-sm-3 mt-5"
-                    >
+                    <label htmlFor="phoneNumber" className="col-sm-6 mt-5">
                       Telephone*
                       <div className="d-flex m-0 mt-3 telephone-form">
                         {/* <CountrySelect
@@ -505,7 +500,7 @@ export default function AppointmentModal() {
                         <div className="invalid-feedback">{errorPhone}</div>
                       </div>
                     </label>
-                    <label htmlFor="moreInformation" className="p-0 mt-5">
+                    <label htmlFor="moreInformation" className="mt-5">
                       More Information*
                       <textarea
                         id="moreInformation"
@@ -515,7 +510,7 @@ export default function AppointmentModal() {
                         style={{ resize: "none" }}
                       />
                     </label>
-                    <div className="col-12 p-0 py-5 safe-panel form-check">
+                    <div className="col-12 py-5 safe-panel form-check">
                       <h3 className="m-0 mb-3">Safeguarding Your Privacy</h3>
                       <div className="d-flex">
                         <input
@@ -533,12 +528,11 @@ export default function AppointmentModal() {
                         </label>
                       </div>
                     </div>
-                    <button
-                      className="btn col-12 pink-btn py-3 btn-request round-form"
-                      onClick={sendRequest}
-                    >
-                      SEND APPOINTMENT REQUEST
-                    </button>
+                    <div className="btn-panel">
+                      <button className="btn col-12 pink-btn py-3 btn-request round-form">
+                        SEND APPOINTMENT REQUEST
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
