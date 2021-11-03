@@ -1936,7 +1936,7 @@ function Ring(props) {
                             <div className="price-panel">
                               <h4 className="blue-text me-3">
                                 <NumberFormat
-                                  value={item.Fullprice}
+                                  value={item.price}
                                   displayType="text"
                                   decimalScale={2}
                                   fixedDecimalScale={true}

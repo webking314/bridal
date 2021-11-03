@@ -32,6 +32,8 @@ var dateFormat = require("dateformat");
 SwiperCore.use([Autoplay, Navigation]);
 
 const tourURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tours";
+const calendarScript =
+  "https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple";
 
 let localSticky = 1,
   tourPackageData;
@@ -60,6 +62,10 @@ export default function TourDetail() {
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
+    // const script = document.createElement("script");
+    // script.src = "https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple";
+    // script.async = true;
+    // document.querySelector('.book-date').appendChild(script);
   }, []);
 
   useEffect(() => {
@@ -453,14 +459,18 @@ export default function TourDetail() {
 
       {/* Start address section */}
       <div className="booking-section r-container my-5 pb-5">
-        <div className="ticket-panel round d-flex align-items-center justify-content-between py-2 ps-md-5 ps-4 pe-2 flex-md-row flex-column">
-          <p className="mb-md-0 mb-4 text-center">
-            Duration approx. 20 - 60 minutes | €12,50 per person
-          </p>
-          <button className="btn btn-ticket blue-btn px-5 py-2 text-uppercase round-form">
-            Get your Tickets
-          </button>
-        </div>
+        {tourData && (
+          <div className="ticket-panel round d-flex align-items-center justify-content-between py-2 ps-md-5 ps-4 pe-2 flex-md-row flex-column">
+            <p className="mb-md-0 mb-4 text-center">
+              Duration approx. 20 - 60 minutes | €12,50 per person
+            </p>
+            <Link href={tourData.acf.form.ticket_button.url}>
+              <a className="btn btn-ticket blue-btn px-5 py-2 text-uppercase round-form">
+                Get your Tickets
+              </a>
+            </Link>
+          </div>
+        )}
         <div className="booking-panel round row mt-5">
           <div className="col-md-6">
             <div className="booking-list-panel py-4 px-md-5 px-4 round">
