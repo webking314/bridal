@@ -17,6 +17,7 @@
 	.list-panel {
 		.item-panel {
 			.title-panel {
+				flex: 1;
 				.item-image {
 					border: 1px solid rgba(2, 24, 37, 0.1);
 					border-radius: 15px;
@@ -30,7 +31,7 @@
 					}
 				}
 				.item-title {
-					h3 {
+					.title {
 						font-size: 24px;
 						font-weight: 400;
 						color: #01215c;

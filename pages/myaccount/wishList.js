@@ -3,7 +3,25 @@ import { setWishList } from "../../redux/actions/wishListAction";
 import { connect } from "react-redux";
 import { RiCloseFill } from "react-icons/ri";
 import NumberFormat from "react-number-format";
+import Link from "next/link";
 import renderHTML from "react-render-html";
+
+function getFilterValue(str) {
+  str = str.toLowerCase();
+  var toReplace = ['"', "'", "\\", "(", ")", "[", "]"];
+  // For the old browsers
+  for (var i = 0; i < toReplace.length; ++i) {
+    str = str.replace(toReplace[i], "");
+  }
+  str = str.replace(/\W+/g, "-");
+  if (str.charAt(str.length - 1) == "-") {
+    str = str.replace(/-+\z/, "");
+  }
+  if (str.charAt(0) == "-") {
+    str = str.replace(/\A-+/, "");
+  }
+  return str;
+}
 
 function WishList(props) {
   const removeItem = (product) => {
@@ -35,7 +53,17 @@ function WishList(props) {
                   <img src={item.image} alt="item.image" />
                 </div>
                 <div className="item-title">
-                  <h3>{item.title}</h3>
+                  <Link
+                    passHref={true}
+                    href={{
+                      pathname: "/shop/[slug]",
+                      query: {
+                        slug: getFilterValue(item.title) + "-" + item.shopifyid,
+                      },
+                    }}
+                  >
+                    <a className="title">{item.title}</a>
+                  </Link>
                   <p className="description">
                     {renderHTML(item.description.split("<")[0])}
                   </p>

@@ -188,6 +188,16 @@ const firstFilterItem = [
   },
 ];
 
+const backgrounndArr = [
+  "engagement-rings",
+  "201-rings",
+  "precious-rings",
+  "diamond-studs",
+  "precious-earrings",
+  "tennis-bracelets",
+  "diamond-pendants",
+];
+
 const checkTreeIcons = {
   check: <CheckBox />,
   uncheck: <CheckBoxOutlineBlankIcon />,
@@ -262,6 +272,7 @@ function Ring(props) {
   const [totalCounter, setTotalCounter] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [filterMounted, setFilterMounted] = useState(false);
+  const [bgImage, setBgImage] = useState();
   const router = useRouter();
 
   const [basicStyleFilter, setBasicStyleFilter] = useState();
@@ -442,6 +453,27 @@ function Ring(props) {
           setMaterialColorFilter();
           if (router.query.productType) {
             setProductType(router.query.productType);
+            if (router.query.tags) {
+              if (
+                backgrounndArr.find(
+                  (item) =>
+                    item ==
+                    router.query.tags.split(",")[0] +
+                      "-" +
+                      router.query.productType
+                )
+              ) {
+                setBgImage(
+                  router.query.tags.split(",")[0] +
+                    "-" +
+                    router.query.productType
+                );
+              } else {
+                setBgImage(router.query.productType);
+              }
+            } else {
+              setBgImage(router.query.productType);
+            }
           }
           if (router.query.tags) {
             setTag(router.query.tags.split(","));
@@ -1488,7 +1520,16 @@ function Ring(props) {
       </Head>
       <Header />
       {/* Start hero section */}
-      <div className="hero-section">
+      <div
+        className="hero-section"
+        style={
+          bgImage && {
+            background: "url(/img/ring/hero_bg/" + bgImage + ".jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }
+        }
+      >
         <div className="r-container">
           <h1 className="title text-white text-capitalize">
             {productType ? productType : "rings"}
@@ -2346,7 +2387,7 @@ function Ring(props) {
                     data-bs-target="#metarialTree"
                     data-bs-toggle="collapse"
                   >
-                    meterial
+                    material
                   </button>
                 </h2>
                 <div id="metarialTree" className="accordion-collapse collapse">

@@ -1,4 +1,5 @@
 import React, { Component, useEffect } from "react";
+import NumberFormat from "react-number-format";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ReactFlagsSelect from "react-flags-select";
@@ -26,6 +27,7 @@ import {
   RiCloseFill,
   RiPhoneFill,
 } from "react-icons/ri";
+
 let submenus = [
   // {
   //   title: "ENGAGEMENT",
@@ -283,6 +285,23 @@ let submenus = [
   { title: "TOURS & WORKSHOPS", url: "/visit", tag: "", product_type: "" },
   { title: "BLOG", url: "/blog" },
 ];
+
+function getFilterValue(str) {
+  str = str.toLowerCase();
+  var toReplace = ['"', "'", "\\", "(", ")", "[", "]"];
+  // For the old browsers
+  for (var i = 0; i < toReplace.length; ++i) {
+    str = str.replace(toReplace[i], "");
+  }
+  str = str.replace(/\W+/g, "-");
+  if (str.charAt(str.length - 1) == "-") {
+    str = str.replace(/-+\z/, "");
+  }
+  if (str.charAt(0) == "-") {
+    str = str.replace(/\A-+/, "");
+  }
+  return str;
+}
 
 function Header(props) {
   const { page } = props;
@@ -1150,22 +1169,41 @@ function Header(props) {
           {props.wishList != 0 &&
             props.wishList.map((item, index) => (
               <div
-                className="item-panel d-flex justify-content-between align-items-center"
+                className="item-panel d-flex justify-content-between"
                 key={index}
               >
-                <div className="title-panel d-flex align-items-center">
+                <div className="title-panel d-flex">
                   <div className="item-image hover-scale me-3">
                     <img src={item.image} alt="item.image" />
                   </div>
                   <div className="item-title">
-                    <h3>{item.title}</h3>
-                    <p>
+                    <Link
+                      passHref={true}
+                      href={{
+                        pathname: "/shop/[slug]",
+                        query: {
+                          slug:
+                            getFilterValue(item.title) + "-" + item.shopifyid,
+                        },
+                      }}
+                    >
+                      <a className="title">{item.title}</a>
+                    </Link>
+                    <p className="text-capitalize">
                       {item.product_type && <span>{item.product_type} </span>}
                     </p>
                   </div>
                 </div>
-                <div className="price-panel">
-                  <h3 className="item-price mb-5">{item.price}</h3>
+                <div className="price-panel d-flex flex-column justify-content-between">
+                  <NumberFormat
+                    value={item.price}
+                    displayType="text"
+                    decimalScale={2}
+                    className="item-price"
+                    fixedDecimalScale={true}
+                    thousandSeparator={true}
+                    prefix="$"
+                  />
                   <button
                     className="btn btn-remove d-flex align-items-center text-uppercase"
                     onClick={() => {

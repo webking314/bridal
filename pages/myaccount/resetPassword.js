@@ -31,6 +31,10 @@ export default function ResetPassword() {
         const variant = "success";
         if (data && data.status == "ok") {
           enqueueSnackbar("Reset email sent.", { variant });
+        } else if (data && data.status == "error") {
+          const variant = "error";
+          console.log(data);
+          enqueueSnackbar(data.message.message, { variant });
         }
       });
   };
