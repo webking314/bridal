@@ -458,7 +458,7 @@ export default function TourDetail() {
       {/* End overview section */}
 
       {/* Start address section */}
-      <div className="booking-section r-container my-5 pb-5">
+      {/* <div className="booking-section r-container my-5 pb-5">
         {tourData && (
           <div className="ticket-panel round d-flex align-items-center justify-content-between py-2 ps-md-5 ps-4 pe-2 flex-md-row flex-column">
             <p className="mb-md-0 mb-4 text-center">
@@ -470,7 +470,7 @@ export default function TourDetail() {
               </a>
             </Link>
           </div>
-        )}
+        )} */}
         <div className="booking-panel round row mt-5">
           <div className="col-md-6">
             <div className="booking-list-panel py-4 px-md-5 px-4 round">

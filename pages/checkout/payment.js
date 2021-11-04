@@ -109,7 +109,7 @@ function Payment(props) {
         ...JSON.parse(localStorage.billing).contact,
         address: JSON.parse(localStorage.billing).address,
       },
-      payment_method: paymentMethod,
+      payment_method: paymentMethod.join(','),
       remember_me: saveData,
     };
 
@@ -126,7 +126,6 @@ function Payment(props) {
           let variant = "warning";
           enqueueSnackbar("Something went wrong.", { variant });
         }
-        console.log(data);
       });
   };
 
