@@ -16,6 +16,7 @@
     "@material-ui/core": "^4.12.3",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@mui/icons-material": "^5.0.0",
+    "@mui/lab": "^5.0.0-alpha.53",
     "@mui/material": "^5.0.0",
     "@shopify/shopify-api": "^1.4.1",
     "aos": "^3.0.0-beta.6",

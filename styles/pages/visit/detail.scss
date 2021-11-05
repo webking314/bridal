@@ -205,6 +205,57 @@
       font-size: 18px;
       line-height: 150%;
     }
+    .contact-form {
+      * {
+        font-size: 14px;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input,
+      select,
+      textarea {
+        resize: none;
+        border-radius: 5px;
+        &:focus {
+          border-color: #01215c;
+          box-shadow: none;
+        }
+      }
+      .MuiOutlinedInput-root {
+        border-radius: 5px;
+        .MuiOutlinedInput-notchedOutline {
+          top: 0;
+        }
+        &.Mui-focused {
+          .MuiOutlinedInput-notchedOutline {
+            border-color: #01215c;
+            border-width: 1px;
+          }
+        }
+        &:hover {
+          .MuiOutlinedInput-notchedOutline {
+            border-color: rgba(0, 0, 0, 0.23);
+          }
+        }
+        &:focus {
+          .MuiOutlinedInput-notchedOutline {
+            border-color: #01215c;
+            border-width: 1px;
+          }
+        }
+      }
+      .MuiCalendarPicker-root {
+        * {
+          font-size: 14px;
+        }
+      }
+      .MuiOutlinedInput-input {
+        padding: 10px 15px;
+      }
+    }
     .book-date {
       .react-calendar {
         border: 0;
@@ -296,7 +347,6 @@
           }
         }
       }
-
       border: 1px solid rgba(2, 24, 37, 0.1);
       * {
         font-size: 1.4rem;

@@ -12,6 +12,10 @@ import { useRouter } from "next/router";
 import "react-date-range/dist/theme/default.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import TextField from "@mui/material/TextField";
 import renderHTML from "react-render-html";
 import { DateRange } from "react-date-range";
 import NumberFormat from "react-number-format";
@@ -44,6 +48,7 @@ export default function TourDetail() {
   const [tourData, setTourData] = useState();
   const [mounted, setMounted] = useState(false);
   const [preDate, setPreDate] = useState(new Date());
+  const [guest, setGuest] = useState();
   const [showLoadMore, setShowLoadMore] = useState(true);
   const [windowWidth, setWindowWidth] = useState();
   const [loading, setLoading] = useState(true);
@@ -52,6 +57,10 @@ export default function TourDetail() {
   const [playBtnShow, setPlayBtnShow] = useState(true);
   const videoRef = useRef();
   const router = useRouter();
+  const [value, setValue] = useState(new Date());
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
   const [bookDate, setBookDate] = useState([
     {
       startDate: new Date(),
@@ -436,30 +445,115 @@ export default function TourDetail() {
           </div>
         </div>
         <div className="col-md-6 book-date-panel mt-md-0 mt-5">
-          <div className="book-date round p-4">
+          <form name="contactForm" className="row contact-form">
+            <div className="col-6 mb-4">
+              <input
+                type="text"
+                name="firstName"
+                className="form-control px-4 py-3"
+                placeholder="FirstName"
+              />
+            </div>
+            <div className="col-6 mb-4">
+              <input
+                type="text"
+                name="lastName"
+                className="form-control px-4 py-3"
+                placeholder="LastName"
+              />
+            </div>
+            <div className="col-6 mb-4">
+              <input
+                type="email"
+                name="email"
+                className="form-control px-4 py-3"
+                placeholder="Email"
+              />
+            </div>
+            <div className="col-6 mb-4">
+              <select
+                className="form-select px-4 py-3"
+                aria-label="Preferred language"
+              >
+                <option selected value="dutch">
+                  Dutch
+                </option>
+                <option value="english">English</option>
+              </select>
+            </div>
+            <div className="col-6 mb-4">
+              <input
+                type="number"
+                name="phoneNumber"
+                className="form-control px-4 py-3"
+                placeholder="Tel"
+              />
+            </div>
+            <div className="col-6 mb-4">
+              <input
+                type="number"
+                max="2"
+                name="guest"
+                value={guest}
+                onChange={(e) => {
+                  if (e.target.value <= 2 && e.target.value >= 0) {
+                    setGuest(e.target.value);
+                  }
+                }}
+                className="form-control px-4 py-3"
+                placeholder="Number of guests"
+              />
+            </div>
+            <div className="col-6 mb-4">
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDatePicker
+                  inputFormat="MM/dd/yyyy"
+                  className="px-4 py-3"
+                  value={value}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </div>
+            <div className="col-6 mb-4">
+              <select className="form-select px-4 py-3" aria-label="Time">
+                <option selected value="9">
+                  09 : 00
+                </option>
+                <option value="13">13 : 00</option>
+              </select>
+            </div>
+            <div className="col-12 mb-5">
+              <textarea className="form-control px-4 py-3" rows="4" />
+            </div>
+            <div className="col-12 text-end">
+              <button className="btn blue-btn px-5 py-3 round-form">submit</button>
+            </div>
+          </form>
+          {/* <div className="book-date round p-4">
             <div className="title-panel d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-sm-row flex-column">
               <h3 className="title blue-text">Book Online</h3>
               <div className="status px-4 py-2">Real-time availability</div>
             </div>
-            {/* <Script src="https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple" /> */}
+            <Script src="https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple" />
 
-            {/* <DateRange
+            <DateRange
               editableDateInputs={true}
               onChange={item => setBookDate([item.selection])}
               moveRangeOnFirstSelection={false}
               ranges={bookDate}
-            /> */}
+            />
           </div>
           <button className="btn btn-available mt-4">
             Click a date to browse availability
-          </button>
+          </button> */}
         </div>
       </div>
       {/* End overview section */}
 
       {/* Start address section */}
-      {/* <div className="booking-section r-container my-5 pb-5">
-        {tourData && (
+      <div className="booking-section r-container my-5 pb-5">
+        {/* {tourData && (
           <div className="ticket-panel round d-flex align-items-center justify-content-between py-2 ps-md-5 ps-4 pe-2 flex-md-row flex-column">
             <p className="mb-md-0 mb-4 text-center">
               Duration approx. 20 - 60 minutes | €12,50 per person

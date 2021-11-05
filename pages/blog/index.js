@@ -18,6 +18,7 @@ import Skeleton from "@mui/material/Skeleton";
 const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
 const detailBlogURL = "https://royalcoster.nl/wordpress/wp-json/acf/v3/blogs";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
+const getResultURL = 'https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/226055';
 const headers = {
   // "Content-Type": "application/json",
 };
@@ -27,6 +28,7 @@ let blogData = [];
 let categoryData = [];
 let localSticky = 1;
 let banner;
+let localResult = 0;
 
 export default function Blog() {
   const [categories, setCategories] = useState();
@@ -62,6 +64,18 @@ export default function Blog() {
       setLoading(false);
       setCategories(categoryData);
       setPostItems(blogData);
+    }
+    if (localResult) {
+      setResult(localResult);
+    } else {
+      fetch(getResultURL, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          localResult = +data.content.rendered.split('>')[1].split("Blogs")[0];
+          setResult(localResult);
+        });
     }
   }, []);
 
@@ -193,7 +207,6 @@ export default function Blog() {
         setExcludID(banner.id);
         setBannerData(banner);
       }
-      setResult(postItems.length);
     }
   }, [postItems]);
 
@@ -320,7 +333,7 @@ export default function Blog() {
   useEffect(() => {
     if (loadMoreStatus) {
       localSticky = sticky;
-      console.log(filterCategory)
+      console.log(filterCategory);
       let url =
         blogURL +
         "?orderby=id&per_page=11&exclude=" +
@@ -415,7 +428,7 @@ export default function Blog() {
         <div className="top-bar row align-items-center m-0 p-0 mt-sm-5 pt-5 pb-4">
           <div className="title-panel col-md-6 col-12 p-0 pb-md-0 pb-sm-5">
             <h2>Our Recent Blogs</h2>
-            <p className="text-uppercase">{result} results</p>
+            {result && <p className="text-uppercase">{result} results</p>}
           </div>
           <div className=" col-md-6 col-12 mt-5 mt-md-0 p-0 d-md-flex search-bar justify-content-end align-items-center">
             <input
