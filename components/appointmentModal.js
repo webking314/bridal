@@ -521,10 +521,7 @@ export default function AppointmentModal() {
                           id="safeMode"
                         />
                         <label className="form-check-label" htmlFor="safeMode">
-                          By ticking this box, you accept to receive newsletters
-                          and marketing emails from 77 Diamonds. For further
-                          information, please read our privacy policyand terms
-                          and conditions.
+                          By ticking this box you accept to receive newsletters and marketing emails from Royal Coster Diamonds. For further information please read our privacy policy and terms and conditions.
                         </label>
                       </div>
                     </div>

@@ -37,6 +37,7 @@ export default function Detail({ data }) {
 
   const setUserInfo = (e) => {
     e.preventDefault();
+    const loginUser = JSON.parse(localStorage.login_user);
     const setUserForm = document.forms.setUserForm;
     let formData = new FormData();
     if (setUserForm.email.value == email) {
@@ -51,9 +52,13 @@ export default function Detail({ data }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          setLoading(true);
+          setLoading(false);
           let variant = "success";
           if (data.status == "ok") {
+            loginUser.firstName = setUserForm.firstName.value
+            loginUser.lastName = setUserForm.lastName.value
+            loginUser.email = setUserForm.email.value
+            localStorage.setItem('login_user', JSON.stringify(loginUser))
             enqueueSnackbar("success", { variant });
           }
         });
