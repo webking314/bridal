@@ -192,10 +192,6 @@ const firstFilterItem = [
 
 const productTypeFilterItem = [
   {
-    label: "All",
-    value: "",
-  },
-  {
     label: "Rings",
     value: "rings",
   },
@@ -529,7 +525,6 @@ function Ring(props) {
         if (router.asPath == "/shop") {
           setTag([]);
           setProductTypeFilter(productTypeFilterItem);
-          setCheckedProductType(["rings"]);
         }
       }
     }
@@ -901,8 +896,11 @@ function Ring(props) {
       localStorage.setItem("wishList", JSON.stringify(props.wishList));
   }, [props.wishList]);
 
+  const [counter, setCounter] = useState(1);
+
   useEffect(() => {
     if (productType || router.asPath == "/shop") {
+      setCounter(counter + 1);
       if (checking != localChecking) {
         setCTagLastAdd(1);
       }
@@ -970,9 +968,9 @@ function Ring(props) {
           .then((res) => res.json())
           .then((data) => {
             let middleArr = [];
-            if (data.last) {
+            let total = totalCounter;
+            if (data.hasNextPage == "Yes") {
               let tags = [];
-              let total = totalCounter;
               let cTagStore = cTagMiddleStore;
               if (checking != localChecking) {
                 total = 0;
@@ -988,15 +986,12 @@ function Ring(props) {
                   cTagData = [...cTagStore, ...middleArr];
                   setCTagMiddleStore(cTagData);
                   setCTags(cTagData);
-                  if (data.hasNextPage == "No") {
-                    localResultCounter = total + data.productsCount;
-                    setResult(localResultCounter);
-                  }
                 }
               });
-              if (data.hasNextPage == "Yes") {
-                setCTagLastAdd(data.last);
-              }
+              setCTagLastAdd(data.last);
+            } else {
+              localResultCounter = total;
+              setResult(localResultCounter);
             }
           });
       } else {
@@ -1047,7 +1042,7 @@ function Ring(props) {
             .then((res) => res.json())
             .then((data) => {
               let middleArr = [];
-              if (data.last) {
+              if (data.hasNextPage == "Yes") {
                 setTotalCounter(totalCounter + data.productsCount);
                 let tags = cTagMiddleStore;
                 data.tags.map((tag, index) => {
@@ -1056,17 +1051,14 @@ function Ring(props) {
                   }
                   if (index == data.tags.length - 1) {
                     setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
-                    if (data.hasNextPage == "No") {
-                      localResultCounter = totalCounter + data.productsCount;
-                      setResult(localResultCounter);
-                      cTagData = [...cTagMiddleStore, ...middleArr];
-                      setCTags(cTagData);
-                    }
+                    cTagData = [...cTagMiddleStore, ...middleArr];
+                    setCTags(cTagData);
                   }
                 });
-                if (data.hasNextPage == "Yes") {
-                  setCTagLastAdd(data.last);
-                }
+                setCTagLastAdd(data.last);
+              } else {
+                localResultCounter = totalCounter + data.productsCount;
+                setResult(localResultCounter);
               }
             });
         }
@@ -1708,7 +1700,7 @@ function Ring(props) {
                       data-bs-target="#productType"
                       data-bs-toggle="collapse"
                     >
-                      ProductType
+                      Product Type
                     </button>
                   </h2>
                   <div id="productType" className="accordion-collapse collapse">
