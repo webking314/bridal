@@ -64,7 +64,11 @@ a {
   font-style: normal;
   font-weight: normal;
 }
-
+.MuiCalendarPicker-root {
+  * {
+    font-size: 14px;
+  }
+}
 .r-container {
   width: 100%;
   max-width: 1280px;

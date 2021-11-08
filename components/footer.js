@@ -37,9 +37,9 @@ export default function Footer() {
         },
         {
           link: "Wedding & Anniversaries",
-          url: "/collection/anniversary",
+          url: "/collections/anniversary",
         },
-        { link: "Empress Collection", url: "/collection/empress-collectie" },
+        { link: "Empress Collection", url: "/collections/empress-collectie" },
         { link: "Bespoke Jewelry", url: "/bespoke" },
         {
           link: "Consult with an expert",
@@ -54,13 +54,18 @@ export default function Footer() {
         { link: "Why Royal Coster", url: "/why-royal-coster" },
         { link: "Corporate Responsibility", url: "/responsibility" },
         { link: "Press", url: "/news" },
-        { link: "Jobs & internships", url: "/careers" },
+        {
+          link: "Jobs & internships",
+          url: "/blog",
+          tags: "job opening",
+          product_type: "",
+        },
       ],
     },
     {
       title: "Customer Services",
       url: [
-        { link: "Contact Us", url: "/contact", tags: "", product_type: "" },
+        { link: "Contact Us", url: "/contact" },
         { link: "Faq’s", url: "/faq" },
         {
           link: "Upgrade Service",
@@ -87,10 +92,10 @@ export default function Footer() {
           link: "Our Royal Legacy",
           url: "/inside-coster/our-royal-legacy",
         },
-        {
-          link: "Crftsmanship Knowledge",
-          url: "/blog/crftsmanship-knowledge ",
-        },
+        // {
+        //   link: "Crftsmanship Knowledge",
+        //   url: "/blog/crftsmanship-knowledge ",
+        // },
       ],
     },
   ];

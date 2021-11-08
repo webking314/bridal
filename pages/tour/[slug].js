@@ -130,6 +130,10 @@ export default function TourDetail() {
     }
   }, [sticky]);
 
+  const submitContactInfo = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="tour-detail_page">
       <Head>
@@ -445,7 +449,11 @@ export default function TourDetail() {
           </div>
         </div>
         <div className="col-md-6 book-date-panel mt-md-0 mt-5">
-          <form name="contactForm" className="row contact-form">
+          <form
+            name="contactForm"
+            className="row contact-form"
+            onSubmit={submitContactInfo}
+          >
             <div className="col-6 mb-4">
               <input
                 type="text"
@@ -527,7 +535,9 @@ export default function TourDetail() {
               <textarea className="form-control px-4 py-3" rows="4" />
             </div>
             <div className="col-12 text-end">
-              <button className="btn blue-btn px-5 py-3 round-form">submit</button>
+              <button className="btn blue-btn px-5 py-3 round-form text-uppercase">
+                submit
+              </button>
             </div>
           </form>
           {/* <div className="book-date round p-4">
@@ -641,7 +651,7 @@ export default function TourDetail() {
                       <Link
                         passHref={true}
                         href={{
-                          pathname: "/visit/[slug]",
+                          pathname: "/tour/[slug]",
                           query: {
                             slug: tour.slug,
                           },

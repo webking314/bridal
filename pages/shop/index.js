@@ -110,10 +110,12 @@ const productItems = [
 
 const getProductURL = process.env.NEXT_PUBLIC_GET_PRODUCT_URL;
 const productURL = process.env.NEXT_PUBLIC_PRODUCT_URL;
+const collectionURL =
+  "https://costercatalog.com/api/royalcoster/getCustomCollections.php";
 const metarialURL =
   "https://costercatalog.com/api/index.php?request=getMaterialsGroupedNew";
 const materialColorURL =
-  "https://costercatalog.com/api/index.php?request=generateAttributesColor&sync=1'";
+  "https://costercatalog.com/api/index.php?request=generateAttributesColor&sync=1";
 const cutURL =
   "https://costercatalog.com/api/index.php?request=generateAttributesCut&tn=products_short&sync=1";
 const mountingURL =
@@ -188,6 +190,29 @@ const firstFilterItem = [
   },
 ];
 
+const productTypeFilterItem = [
+  {
+    label: "All",
+    value: "",
+  },
+  {
+    label: "Rings",
+    value: "rings",
+  },
+  {
+    label: "Earrings",
+    value: "earrings",
+  },
+  {
+    label: "Bracelets",
+    value: "bracelets",
+  },
+  {
+    label: "Necklaces",
+    value: "necklaces",
+  },
+];
+
 const backgrounndArr = [
   "engagement-rings",
   "201-rings",
@@ -237,6 +262,7 @@ let productStore = [],
   basicSettingData,
   basicMetarialData,
   basicMaterialColorData,
+  basicCollectionData,
   localResultCounter,
   localChecking = false;
 
@@ -261,6 +287,7 @@ function Ring(props) {
   const [checked9, setChecked9] = useState([]);
   const [checked10, setChecked10] = useState([]);
   const [checked11, setChecked11] = useState([]);
+  const [checkedProductType, setCheckedProductType] = useState([]);
   const [expanded, setExpanded] = useState([]);
   const [productType, setProductType] = useState();
   const [tag, setTag] = useState();
@@ -284,6 +311,7 @@ function Ring(props) {
   const [basicMetarialFilter, setBasicMetarialFilter] = useState();
   const [basicMaterialColorFilter, setBasicMaterialColorFilter] = useState();
   const [basicSettingFilter, setBasicSettingFilter] = useState();
+  const [basicCollectionFilter, setBasicCollectionFilter] = useState();
 
   const [priceFilter, setPriceFilter] = useState();
   const [collectionFilter, setCollectionFilter] = useState();
@@ -298,9 +326,20 @@ function Ring(props) {
   const [materialColorFilter, setMaterialColorFilter] = useState();
   const [caratFilter, setCaratFilter] = useState();
   const [settingFilter, setSettingFilter] = useState();
+  const [productTypeFilter, setProductTypeFilter] = useState();
 
   useEffect(() => {
     if (!basicStyleData) {
+      // get collection filter data
+      fetch(collectionURL, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((collection) => {
+          basicCollectionData = collection.custom_collections;
+          setBasicCollectionFilter(basicCollectionData);
+        });
+
       // get style filter data
       fetch(styleURL, {
         method: "get",
@@ -400,6 +439,7 @@ function Ring(props) {
       setBasicCutFilter(basicCutData);
       setBasicSettingFilter(basicSettingData);
       setBasicMetarialFilter(basicMetarialData);
+      setBasicCollectionFilter(basicCollectionData);
       setBasicMaterialColorFilter(basicMaterialColorData);
       setResult(localResultCounter);
       setStyleFilter();
@@ -444,6 +484,7 @@ function Ring(props) {
           setChecked9([]);
           setChecked10([]);
           setChecked11([]);
+          setCheckedProductType([]);
           setBrandFilter();
           setStoneFilter();
           setBrightnessFilter();
@@ -451,6 +492,7 @@ function Ring(props) {
           setCaratFilter();
           setMetarialFilter();
           setMaterialColorFilter();
+          setProductTypeFilter();
           if (router.query.productType) {
             setProductType(router.query.productType);
             if (router.query.tags) {
@@ -486,6 +528,8 @@ function Ring(props) {
       } else {
         if (router.asPath == "/shop") {
           setTag([]);
+          setProductTypeFilter(productTypeFilterItem);
+          setCheckedProductType(["rings"]);
         }
       }
     }
@@ -525,15 +569,15 @@ function Ring(props) {
         });
         setPriceFilter(middleArr);
       }
-      if (firstFilterItem[1]) {
-        let middleArr = [];
-        firstFilterItem[1].filter.map((item, index) => {
-          if (cTags.find((ctag) => ctag == item.value)) {
-            middleArr.push({ label: item.label, value: item.value });
-          }
-        });
-        setCollectionFilter(middleArr);
-      }
+      // if (firstFilterItem[1]) {
+      //   let middleArr = [];
+      //   firstFilterItem[1].filter.map((item, index) => {
+      //     if (cTags.find((ctag) => ctag == item.value)) {
+      //       middleArr.push({ label: item.label, value: item.value });
+      //     }
+      //   });
+      //   setCollectionFilter(middleArr);
+      // }
       if (firstFilterItem[2]) {
         let middleArr = [];
         firstFilterItem[2].filter.map((item, index) => {
@@ -548,6 +592,19 @@ function Ring(props) {
       }
     }
   }, [cTags]);
+
+  useEffect(() => {
+    let middleArr = [];
+    if (basicCollectionFilter) {
+      basicCollectionFilter.map((item) => {
+        middleArr.push({
+          label: item.title.replaceAll("Collectie", "Collection"),
+          value: item.handle,
+        });
+      });
+      setCollectionFilter(middleArr);
+    }
+  }, [basicCollectionFilter]);
 
   useEffect(() => {
     if (cTags.length) {
@@ -850,6 +907,7 @@ function Ring(props) {
         setCTagLastAdd(1);
       }
       let defaultTags = "";
+      let defaultProduct = "";
       let tagArr = [
         checked1,
         checked2,
@@ -879,7 +937,6 @@ function Ring(props) {
           )
           .join("")
           .replaceAll(",", "");
-        console.log(defaultTags);
       }
       if (filterMounted) {
         let formData = new FormData();
@@ -894,8 +951,10 @@ function Ring(props) {
         if (productType) {
           formData.append(
             "query",
-            "status:active AND tag:active AND product_type:" +
-              productType +
+            "status:active AND tag:active AND " +
+              (productType == "pendants"
+                ? "(product_type:" + productType + " OR product_type:necklaces)"
+                : "product_type:" + productType) +
               defaultTags
           );
         } else {
@@ -963,8 +1022,12 @@ function Ring(props) {
           if (productType) {
             formData.append(
               "query",
-              "status:active AND tag:active AND product_type:" +
-                productType +
+              "status:active AND tag:active AND " +
+                (productType == "pendants"
+                  ? "(product_type:" +
+                    productType +
+                    " OR product_type:necklaces)"
+                  : "product_type:" + productType) +
                 defaultTags
             );
           } else {
@@ -1013,10 +1076,6 @@ function Ring(props) {
   }, [cTagLastAdd, productType, checking, tag]);
 
   useEffect(() => {
-    console.log(totalCounter);
-  }, [totalCounter]);
-
-  useEffect(() => {
     if (cTags.length) {
       if (basicSettingFilter) {
         let middleArr = [];
@@ -1035,11 +1094,22 @@ function Ring(props) {
   useEffect(() => {
     setChecking(!checking);
     if (tag) {
-      let defaultTags = (
-        tag.map((item, index) =>
-          index == 0 ? " AND (tag:" + item : " OR tag:" + item
-        ) + ")"
-      ).replaceAll(",", "");
+      let defaultProductType = checkedProductType.length
+        ? (
+            checkedProductType.map(
+              (item, index) =>
+                item &&
+                (index == 0
+                  ? " AND (product_type:" + item
+                  : " OR product_type:" + item)
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
+
+      let defaultTags = tag
+        .map((item, index) => " AND tag:" + item)
+        .join()
+        .replaceAll(",", "");
       if (checked0.length || mounted) {
         setLoad(true);
         check0 = checked0;
@@ -1158,8 +1228,11 @@ function Ring(props) {
         if (tag.length) {
           data.append(
             "query",
-            "status:active AND tag:active AND product_type:" +
-              productType +
+            "status:active AND tag:active AND " +
+              (productType == "pendants"
+                ? "(product_type:" + productType + " OR product_type:necklaces)"
+                : "product_type:" + productType) +
+              defaultProductType +
               defaultTags +
               query0 +
               query1 +
@@ -1178,8 +1251,13 @@ function Ring(props) {
           if (productType) {
             data.append(
               "query",
-              "status:active AND tag:active AND product_type:" +
-                productType +
+              "status:active AND tag:active AND " +
+                (productType == "pendants"
+                  ? "(product_type:" +
+                    productType +
+                    " OR product_type:necklaces)"
+                  : "product_type:" + productType) +
+                defaultProductType +
                 query0 +
                 query1 +
                 query2 +
@@ -1198,6 +1276,7 @@ function Ring(props) {
               "query",
               "status:active AND tag:active" +
                 query0 +
+                defaultProductType +
                 query1 +
                 query2 +
                 query3 +
@@ -1227,18 +1306,30 @@ function Ring(props) {
         if (tag.length) {
           data.append(
             "query",
-            "status:active AND tag:active AND product_type:" +
-              productType +
-              defaultTags
+            "status:active AND tag:active AND " +
+              (productType == "pendants"
+                ? "(product_type:" + productType + " OR product_type:necklaces)"
+                : "product_type:" + productType) +
+              defaultTags +
+              defaultProductType
           );
         } else {
           if (productType) {
             data.append(
               "query",
-              "status:active AND tag:active AND product_type:" + productType
+              "status:active AND tag:active AND " +
+                (productType == "pendants"
+                  ? "(product_type:" +
+                    productType +
+                    " OR product_type:necklaces)"
+                  : "product_type:" + productType) +
+                defaultProductType
             );
           } else {
-            data.append("query", "status:active AND tag:active");
+            data.append(
+              "query",
+              "status:active AND tag:active" + defaultProductType
+            );
           }
         }
         setFormData(data);
@@ -1259,6 +1350,7 @@ function Ring(props) {
     checked9,
     checked10,
     checked11,
+    checkedProductType,
     tag,
   ]);
 
@@ -1436,8 +1528,10 @@ function Ring(props) {
     if (tag.length) {
       formData.append(
         "query",
-        "status:active AND tag:active AND product_type:" +
-          productType +
+        "status:active AND tag:active AND " +
+          (productType == "pendants"
+            ? "(product_type:" + productType + " OR product_type:necklaces)"
+            : "product_type:" + productType) +
           defaultTags +
           query0 +
           query1 +
@@ -1455,8 +1549,10 @@ function Ring(props) {
       if (productType) {
         formData.append(
           "query",
-          "status:active AND tag:active AND product_type:" +
-            productType +
+          "status:active AND tag:active AND " +
+            (productType == "pendants"
+              ? "(product_type:" + productType + " OR product_type:necklaces)"
+              : "product_type:" + productType) +
             query0 +
             query1 +
             query2 +
@@ -1604,6 +1700,33 @@ function Ring(props) {
         <div className="main-panel d-flex justify-content-end m-0 py-5 flex-wrap">
           {cTags && cTags.length > 0 && (
             <div className="col-lg-3 col-md-4 col-sm-5 col-12 d-sm-block d-none p-0 pe-sm-4 pe-0 mb-sm-0 mb-5 left-filter-bar">
+              {productTypeFilter && productTypeFilter.length > 0 && (
+                <div className="accordion-item mb-3">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                      data-bs-target="#productType"
+                      data-bs-toggle="collapse"
+                    >
+                      ProductType
+                    </button>
+                  </h2>
+                  <div id="productType" className="accordion-collapse collapse">
+                    <div className="accordion-body">
+                      <CheckboxTree
+                        nodes={productTypeFilter}
+                        checked={checkedProductType}
+                        expanded={expanded}
+                        onCheck={(checkValue) =>
+                          setCheckedProductType(checkValue)
+                        }
+                        onExpand={(expandValue) => setExpanded(expandValue)}
+                        icons={checkTreeIcons}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
               {collectionFilter && collectionFilter.length > 0 && (
                 <div className="accordion-item mb-3">
                   <h2 className="accordion-header">
@@ -2220,6 +2343,33 @@ function Ring(props) {
                 </div>
               </div>
             </div>
+            {productTypeFilter && productTypeFilter.length > 0 && (
+              <div className="accordion-item mb-3">
+                <h2 className="accordion-header">
+                  <button
+                    className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
+                    data-bs-target="#productType"
+                    data-bs-toggle="collapse"
+                  >
+                    ProductType
+                  </button>
+                </h2>
+                <div id="productType" className="accordion-collapse collapse">
+                  <div className="accordion-body">
+                    <CheckboxTree
+                      nodes={productTypeFilter}
+                      checked={checkedProductType}
+                      expanded={expanded}
+                      onCheck={(checkValue) =>
+                        setCheckedProductType(checkValue)
+                      }
+                      onExpand={(expandValue) => setExpanded(expandValue)}
+                      icons={checkTreeIcons}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
             {collectionFilter && collectionFilter.length > 0 && (
               <div className="accordion-item mb-3">
                 <h2 className="accordion-header">

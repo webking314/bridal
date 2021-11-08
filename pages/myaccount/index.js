@@ -51,8 +51,9 @@ function MyAccount(props) {
           <div className="main-panel row m-0">
             <div className="r-container">
               <div className="welcome-panel round my-5 p-5">
-                <h3 className="title mb-4">
-                  <span>Hello</span> Robert!
+                <h3 className="title mb-4 text-capitalize">
+                  <span>Hello </span>
+                  {JSON.parse(localData.login_user).firstName}
                 </h3>
                 <p className="description mb-0 text-capitalize">
                   Here you will find your personal details. If <br />

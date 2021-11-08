@@ -73,7 +73,7 @@ export default function News({ blogData }) {
 
   useEffect(() => {
     if (localBlog) {
-      blog = localBlog;
+      setBlog(localBlog)
     } else {
       fetch(categoryURL, {
         method: "get"

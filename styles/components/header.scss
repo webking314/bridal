@@ -167,9 +167,12 @@ $flagSelectColor: white;
   .desktop-header {
     .btn-appointment {
       border-radius: 0 !important;
+      background: #fad3da !important;
+      border: 1px solid #fad3da;
+      color: #01215c !important;
       &:hover {
-        background: #fad3da !important;
-        color: #01215c !important;
+        background: transparent !important;
+        color: #fad3da !important;
       }
     }
     & > .row:not(.top-bar) {

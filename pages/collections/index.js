@@ -141,9 +141,9 @@ export default function Collection() {
                     <Link
                       passHref={true}
                       href={{
-                        pathname: "/collection/[slug]",
+                        pathname: "/collections/[slug]",
                         query: {
-                          slug: collection.slug,
+                          slug: collection.slug.replace('collectie', 'collection'),
                         },
                       }}
                     >

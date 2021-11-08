@@ -3,6 +3,7 @@ import Link from "next/link";
 import Head from "next/head";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import router, { useRouter } from "next/router";
 import Schedule from "../../components/schedule";
 import _ from "lodash";
 import SelectSearch, {
@@ -18,7 +19,8 @@ import Skeleton from "@mui/material/Skeleton";
 const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
 const detailBlogURL = "https://royalcoster.nl/wordpress/wp-json/acf/v3/blogs";
 const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
-const getResultURL = 'https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/226055';
+const getResultURL =
+  "https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/226055";
 const headers = {
   // "Content-Type": "application/json",
 };
@@ -46,6 +48,7 @@ export default function Blog() {
   const [loadMoreStatus, setLoadMoreStatus] = useState(false);
   const [bannerData, setBannerData] = useState(banner);
   const [showLoadMore, setShowLoadMore] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (categoryData.length == 0) {
@@ -73,11 +76,19 @@ export default function Blog() {
       })
         .then((res) => res.json())
         .then((data) => {
-          localResult = +data.content.rendered.split('>')[1].split("Blogs")[0];
+          localResult = +data.content.rendered.split(">")[1].split("Blogs")[0];
           setResult(localResult);
         });
     }
   }, []);
+
+  useEffect(() => {
+    if (router.query) {
+      if(router.query.tags == 'jobs') {
+        setFilterCategory([126]);
+      }
+    }
+  }, [router.query]);
 
   useEffect(() => {
     if (filterCategory.length && mounted) {
@@ -271,8 +282,6 @@ export default function Blog() {
             item.classList.remove("active");
           });
         }
-
-        setFilterCategory([...tabState]);
         tabState.map((key) => {
           document
             .querySelector(".category-tab-" + key)

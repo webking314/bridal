@@ -119,10 +119,8 @@ let submenus = [
             product_type: "rings",
           },
           {
-            name: "Royal 201 rings",
+            name: "All jewelry",
             url: "/shop",
-            tag: "201",
-            product_type: "rings",
           },
           {
             name: "Gemstone rings",
@@ -144,8 +142,8 @@ let submenus = [
           {
             name: "Diamond studs",
             url: "/shop",
-            tag: "diamond",
-            product_type: "studs",
+            tag: "diamond, stud",
+            product_type: "earrings",
           },
           {
             name: "Gemstone earrings",
@@ -197,8 +195,8 @@ let submenus = [
       },
     ],
   },
-  { title: "COLLECTIONS", url: "/collection" },
-  { title: "BESPOKE", url: "/bespoke" },
+  { title: "COLLECTIONS", url: "/collections" },
+  { title: "CUSTOM JEWELRY", url: "/custom-jewelry" },
   { title: "WATCHES", url: "/watch", tag: "", product_type: "" },
   {
     title: "EDUCATION",
@@ -282,7 +280,7 @@ let submenus = [
       },
     ],
   },
-  { title: "TOURS & WORKSHOPS", url: "/visit", tag: "", product_type: "" },
+  { title: "TOURS & WORKSHOPS", url: "/tour", tag: "", product_type: "" },
   { title: "BLOG", url: "/blog" },
 ];
 
