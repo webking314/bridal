@@ -4,123 +4,137 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import "swiper/css";
 
+const mainURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/225800";
+
 let collectionSliders = [
   {
     url: "Rectangle 29.png",
     title: "Empress Collection",
-    slug: "empress-collectie"
+    slug: "empress-collectie",
   },
   {
     url: "Rectangle 30.png",
     title: "Wedding & Anniversary",
-    slug: "rainbow-collectie"
+    slug: "rainbow-collectie",
   },
   {
     url: "Rectangle 31.png",
     title: "Royal Classics",
-    slug: "rainbow-collectie"
+    slug: "rainbow-collectie",
   },
   {
     url: "Rectangle 32.png",
     title: "Fine Jewelry",
-    slug: "rainbow-collectie"
+    slug: "rainbow-collectie",
   },
   {
     url: "Rectangle 33.png",
     title: "Watches",
-    slug: "rainbow-collectie"
+    slug: "rainbow-collectie",
   },
 ];
 SwiperCore.use([Autoplay, Navigation]);
 
 export default function Collection() {
+  const [sliderData, setSliderData] = useState([]);
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
+  useEffect(() => {
+    fetch(mainURL, {
+      method: "get",
+    })
+      .then((res) => res.json())
+      .then((data) => setSliderData(data.acf.collection_slider));
+  }, []);
+
   return (
     <div className="collections pt-5">
-      <div className="r-container">
-        <div className="row m-0 p-0 top-panel align-items-center">
-          <h2 className="col-12 text-start p-0 pb-5 mt-5">Our Collections</h2>
-        </div>
-        <Swiper
-          navigation={{
-            prevEl: navigationPrevRef.current,
-            nextEl: navigationNextRef.current,
-          }}
-          slidesPerView={4}
-          spaceBetween={30}
-          loop={true}
-          className="mySwiper"
-          breakpoints={{
-            996: {
-              slidesPerView: 4,
-            },
-            768: {
-              slidesPerView: 3,
-            },
-            590: {
-              slidesPerView: 2,
-            },
-            480: {
-              slidesPerView: 1,
-            },
-            1: {
-              slidesPerView: 1,
-            },
-          }}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          onSwiper={(swiper) => {
-            // Delay execution for the refs to be defined
-            setTimeout(() => {
-              // Override prevEl & nextEl now that refs are defined
-              swiper.params.navigation.prevEl = navigationPrevRef.current;
-              swiper.params.navigation.nextEl = navigationNextRef.current;
+      {sliderData.length > 0 && (
+        <div className="r-container">
+          <div className="row m-0 p-0 top-panel align-items-center">
+            <h2 className="col-12 text-start p-0 pb-5 mt-5">Our Collections</h2>
+          </div>
+          <Swiper
+            navigation={{
+              prevEl: navigationPrevRef.current,
+              nextEl: navigationNextRef.current,
+            }}
+            slidesPerView={4}
+            spaceBetween={30}
+            loop={true}
+            className="mySwiper"
+            breakpoints={{
+              996: {
+                slidesPerView: 4,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              590: {
+                slidesPerView: 2,
+              },
+              480: {
+                slidesPerView: 1,
+              },
+              1: {
+                slidesPerView: 1,
+              },
+            }}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            onSwiper={(swiper) => {
+              // Delay execution for the refs to be defined
+              setTimeout(() => {
+                // Override prevEl & nextEl now that refs are defined
+                swiper.params.navigation.prevEl = navigationPrevRef.current;
+                swiper.params.navigation.nextEl = navigationNextRef.current;
 
-              // Re-init navigation
-              swiper.navigation.destroy();
-              swiper.navigation.init();
-              swiper.navigation.update();
-            });
-          }}
-        >
-          {collectionSliders.map((item, index) => {
-            return (
-              <SwiperSlide key={index}>
-                <Link
-                  passHref={true}
-                  href={{
-                    pathname: "/collections/[slug]",
-                    query: {
-                      slug: item.slug,
-                    },
-                  }}
-                >
-                  <a>
-                    <img
-                      src={"/img/homepage/" + item.url}
-                      alt="category"
-                      className="round"
-                    />
-                    <p className="mt-3">{item.title}</p>
-                  </a>
-                </Link>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-        <div className="btn-bottom-panel mt-5">
-          <button ref={navigationPrevRef} className="btn px-0 me-5">
-            <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
-          </button>
-          <button ref={navigationNextRef} className="btn px-0">
-            <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
-          </button>
+                // Re-init navigation
+                swiper.navigation.destroy();
+                swiper.navigation.init();
+                swiper.navigation.update();
+              });
+            }}
+          >
+            {sliderData.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <Link
+                    passHref={true}
+                    // href={{
+                    //   pathname: "/collections/[slug]",
+                    //   query: {
+                    //     slug: item.collection_item_url,
+                    //   },
+                    // }}
+                    href={item.collection_item_url}
+                  >
+                    <a>
+                      <img
+                        src={item.collection_item_img?.sizes.medium_large}
+                        alt="category"
+                        className="round"
+                      />
+                      <p className="mt-3">{item.title}</p>
+                    </a>
+                  </Link>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          <div className="btn-bottom-panel mt-5">
+            <button ref={navigationPrevRef} className="btn px-0 me-5">
+              <img src="/img/common/leftArrow_black.png" alt="rightArrow" />
+            </button>
+            <button ref={navigationNextRef} className="btn px-0">
+              <img src="/img/common/rightArrow_black.png" alt="rightArrow" />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -82,7 +82,7 @@ export default function Search() {
         </div>
         <div className="collection-panel">
           <div className="top-panel d-flex align-items-center justify-content-between">
-            <h3 className="title m-0">Categories</h3>
+            <h3 className="title m-0">Collections</h3>
             <button className="btn p-0">View All</button>
           </div>
           <div className="btn-panel d-flex align-items-center flex-wrap">
