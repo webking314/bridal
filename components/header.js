@@ -107,6 +107,10 @@ let submenus = [
         title: "Rings",
         menu: [
           {
+            name: "All jewelry",
+            url: "/shop",
+          },
+          {
             name: "Diamond rings",
             url: "/shop",
             tag: "diamond",
@@ -117,10 +121,6 @@ let submenus = [
             url: "/shop",
             tag: "engagement",
             product_type: "rings",
-          },
-          {
-            name: "All jewelry",
-            url: "/shop",
           },
           {
             name: "Gemstone rings",

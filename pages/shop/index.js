@@ -456,39 +456,39 @@ function Ring(props) {
 
   useEffect(() => {
     if (router.query) {
+      setLoad(false);
+      setLoadMoreStatus(false);
+      setFilterMounted(false);
+      setCTagMiddleStore([]);
+      setCTagLastAdd(1);
+      setCTags([]);
+      setTotalCounter(0);
+      setPriceFilter();
+      setCollectionFilter();
+      setStyleFilter();
+      setMountingFilter();
+      setChecked1([]);
+      setChecked2([]);
+      setChecked3([]);
+      setChecked4([]);
+      setChecked5([]);
+      setChecked6([]);
+      setChecked7([]);
+      setChecked8([]);
+      setChecked9([]);
+      setChecked10([]);
+      setChecked11([]);
+      setCheckedProductType([]);
+      setBrandFilter();
+      setStoneFilter();
+      setBrightnessFilter();
+      setCutFilter();
+      setCaratFilter();
+      setMetarialFilter();
+      setMaterialColorFilter();
+      setProductTypeFilter();
       if (_.size(router.query)) {
         if (router.query.tags || router.query.productType) {
-          setLoad(false);
-          setLoadMoreStatus(false);
-          setFilterMounted(false);
-          setCTagMiddleStore([]);
-          setCTagLastAdd(1);
-          setCTags([]);
-          setTotalCounter(0);
-          setPriceFilter();
-          setCollectionFilter();
-          setStyleFilter();
-          setMountingFilter();
-          setChecked1([]);
-          setChecked2([]);
-          setChecked3([]);
-          setChecked4([]);
-          setChecked5([]);
-          setChecked6([]);
-          setChecked7([]);
-          setChecked8([]);
-          setChecked9([]);
-          setChecked10([]);
-          setChecked11([]);
-          setCheckedProductType([]);
-          setBrandFilter();
-          setStoneFilter();
-          setBrightnessFilter();
-          setCutFilter();
-          setCaratFilter();
-          setMetarialFilter();
-          setMaterialColorFilter();
-          setProductTypeFilter();
           if (router.query.productType) {
             setProductType(router.query.productType);
             if (router.query.tags) {
@@ -524,6 +524,7 @@ function Ring(props) {
       } else {
         if (router.asPath == "/shop") {
           setTag([]);
+          setProductType();
           setProductTypeFilter(productTypeFilterItem);
         }
       }
@@ -896,11 +897,8 @@ function Ring(props) {
       localStorage.setItem("wishList", JSON.stringify(props.wishList));
   }, [props.wishList]);
 
-  const [counter, setCounter] = useState(1);
-
   useEffect(() => {
     if (productType || router.asPath == "/shop") {
-      setCounter(counter + 1);
       if (checking != localChecking) {
         setCTagLastAdd(1);
       }
@@ -968,8 +966,8 @@ function Ring(props) {
           .then((res) => res.json())
           .then((data) => {
             let middleArr = [];
-            let total = totalCounter;
-            if (data.hasNextPage == "Yes") {
+            if (data.last) {
+              let total = totalCounter;
               let tags = [];
               let cTagStore = cTagMiddleStore;
               if (checking != localChecking) {
@@ -986,12 +984,15 @@ function Ring(props) {
                   cTagData = [...cTagStore, ...middleArr];
                   setCTagMiddleStore(cTagData);
                   setCTags(cTagData);
+                  if (data.hasNextPage == "No") {
+                    localResultCounter = total + data.productsCount;
+                    setResult(localResultCounter);
+                  }
                 }
               });
-              setCTagLastAdd(data.last);
-            } else {
-              localResultCounter = total;
-              setResult(localResultCounter);
+              if (data.hasNextPage == "Yes") {
+                setCTagLastAdd(data.last);
+              }
             }
           });
       } else {
@@ -1612,7 +1613,7 @@ function Ring(props) {
         className="hero-section"
         style={
           bgImage && {
-            background: "url(/img/ring/hero_bg/" + bgImage + ".jpg)",
+            backgroundImage: "url(/img/ring/hero_bg/" + bgImage + ".jpg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }
@@ -1620,7 +1621,7 @@ function Ring(props) {
       >
         <div className="r-container">
           <h1 className="title text-white text-capitalize">
-            {productType ? productType : "rings"}
+            {productType ? productType : "Products"}
           </h1>
         </div>
       </div>
@@ -1636,10 +1637,10 @@ function Ring(props) {
                   ? tag.length > 0
                     ? tag[0] + " " + productType
                     : "" + productType
-                  : "rings"}
+                  : "Products"}
               </h2>
             )}
-            {result > 0 && <p className="text-uppercase">{result} results</p>}
+            {/* {result > 0 && <p className="text-uppercase">{result} results</p>} */}
           </div>
           <div className="col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column p-0 pt-3 pt-md-0">
             <button

@@ -116,12 +116,12 @@ export default function Detail({ data }) {
             <input
               type="password"
               className="form-control"
-              placeholder="NEW PASSOWORD"
+              placeholder="NEW PASSWORD"
             />
             <input
               type="password"
               className="form-control"
-              placeholder="CONFRIM NEW PASSOWORD"
+              placeholder="CONFRIM NEW PASSWORD"
             />
           </div>
         </div>

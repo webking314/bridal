@@ -118,7 +118,7 @@ export default function Collection() {
                         alt="category"
                         className="round"
                       />
-                      <p className="mt-3">{item.title}</p>
+                      <p className="mt-3">{item.collection_item_img_title}</p>
                     </a>
                   </Link>
                 </SwiperSlide>
