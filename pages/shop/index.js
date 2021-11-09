@@ -600,7 +600,9 @@ function Ring(props) {
     let middleArr = [];
     if (basicCollectionFilter) {
       basicCollectionFilter.map((item) => {
-        if (!withOutCollections.find((collection) => collection == item.title)) {
+        if (
+          !withOutCollections.find((collection) => collection == item.title)
+        ) {
           middleArr.push({
             label: item.title.replaceAll("Collectie", "Collection"),
             value: item.handle,
@@ -1107,11 +1109,12 @@ function Ring(props) {
             ) + ")"
           ).replaceAll(",", "")
         : "";
-
-      let defaultTags = tag
-        .map((item, index) => " AND tag:" + item)
-        .join()
-        .replaceAll(",", "");
+      let defaultTags = (
+        tag.map((item, index) =>
+          index == 0 ? " AND (tag:" + item : " OR tag:" + item
+        ) + ")"
+      ).replaceAll(",", "");
+      console.log(defaultTags);
       if (checked0.length || mounted) {
         setLoad(true);
         check0 = checked0;

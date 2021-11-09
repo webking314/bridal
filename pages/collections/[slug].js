@@ -113,10 +113,8 @@ export default function CollectionDetail() {
   const [productType, setProductType] = useState("all");
   const [mainData, setMainData] = useState(localMainData);
   const [tag, setTag] = useState();
-  const [afterID, setAfterID] = useState();
   const [sticky, setSticky] = useState(localSticky);
   const [loading, setLoading] = useState(true);
-  const [showLoadMore, setShowLoadMore] = useState(true);
   const [product, setProduct] = useState([]);
   const router = useRouter();
 
@@ -144,11 +142,7 @@ export default function CollectionDetail() {
   const getCollection = () => {
     let formData = new FormData();
     setLoading(true);
-    if (afterID) {
-      formData.append("position", `first:6, after:"${afterID}"`);
-    } else {
-      formData.append("position", "first:6");
-    }
+    formData.append("position", 'first:50')
     if (productType == "all") {
       formData.append("query", "status:active AND tag:" + tag);
     } else {
@@ -164,18 +158,13 @@ export default function CollectionDetail() {
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
-        if (data.hasNextPage == "Yes") {
-          setAfterID(data.last);
-        } else {
-          setShowLoadMore(false);
-        }
-        setProduct([...product, ...data.data]);
+        setProduct([...data.data]);
       });
   };
 
   useEffect(() => {
     if (tag) {
-      setProduct();
+      setProduct()
       getCollection();
     }
   }, [tag, productType]);
@@ -344,16 +333,6 @@ export default function CollectionDetail() {
               <Skeleton variant="text" className="mt-1" height={20} />
               <Skeleton variant="text" height={20} />
             </div>
-          </div>
-        )}
-        {!loading && showLoadMore && (
-          <div className="btn-panel text-center pb-5">
-            <button
-              className="btn blue-btn round-form load-more-btn px-5 py-3 text-uppercase"
-              onClick={getCollection}
-            >
-              Load More
-            </button>
           </div>
         )}
       </div>

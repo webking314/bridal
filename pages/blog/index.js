@@ -282,6 +282,7 @@ export default function Blog() {
             item.classList.remove("active");
           });
         }
+        setFilterCategory([...tabState]);
         tabState.map((key) => {
           document
             .querySelector(".category-tab-" + key)
