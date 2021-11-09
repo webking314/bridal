@@ -209,6 +209,13 @@ const productTypeFilterItem = [
   },
 ];
 
+const withOutCollections = [
+  "Accessories",
+  "external",
+  "Loyalty10",
+  'Moederdag "The Sweetest Thing"',
+];
+
 const backgrounndArr = [
   "engagement-rings",
   "201-rings",
@@ -593,10 +600,12 @@ function Ring(props) {
     let middleArr = [];
     if (basicCollectionFilter) {
       basicCollectionFilter.map((item) => {
-        middleArr.push({
-          label: item.title.replaceAll("Collectie", "Collection"),
-          value: item.handle,
-        });
+        if (!withOutCollections.find((collection) => collection == item.title)) {
+          middleArr.push({
+            label: item.title.replaceAll("Collectie", "Collection"),
+            value: item.handle,
+          });
+        }
       });
       setCollectionFilter(middleArr);
     }
@@ -1605,7 +1614,7 @@ function Ring(props) {
   return (
     <div className="ring_page">
       <Head>
-        <title>Shop | Royal Coster</title>
+        <title>{productType ? productType : "Products"} | Royal Coster</title>
       </Head>
       <Header />
       {/* Start hero section */}

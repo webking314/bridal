@@ -38,6 +38,33 @@ SwiperCore.use([Autoplay, Navigation]);
 const tourURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tours";
 const calendarScript =
   "https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple";
+const form2Date = [
+  "00 : 00",
+  "01 : 00",
+  "02 : 00",
+  "03 : 00",
+  "04 : 00",
+  "05 : 00",
+  "06 : 00",
+  "07 : 00",
+  "08 : 00",
+  "09 : 00",
+  "10 : 00",
+  "11 : 00",
+  "12 : 00",
+  "13 : 00",
+  "14 : 00",
+  "15 : 00",
+  "16 : 00",
+  "17 : 00",
+  "18 : 00",
+  "19 : 00",
+  "20 : 00",
+  "21 : 00",
+  "22 : 00",
+  "23 : 00",
+  "24 : 00",
+];
 
 let localSticky = 1,
   tourPackageData;
@@ -55,9 +82,11 @@ export default function TourDetail() {
   const [tourPackage, setTourPackage] = useState([]);
   const [sticky, setSticky] = useState(localSticky);
   const [playBtnShow, setPlayBtnShow] = useState(true);
+  const [location, setLocation] = useState("royal Coster");
   const videoRef = useRef();
   const router = useRouter();
   const [value, setValue] = useState(new Date());
+  const [showForm, setShowForm] = useState();
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -70,6 +99,10 @@ export default function TourDetail() {
   ]);
 
   useEffect(() => {
+    console.log(location);
+  }, [location]);
+
+  useEffect(() => {
     setWindowWidth(window.innerWidth);
     // const script = document.createElement("script");
     // script.src = "https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple";
@@ -79,6 +112,13 @@ export default function TourDetail() {
 
   useEffect(() => {
     if (router.query.slug) {
+      if (router.query.slug == "the-diamond-masterclass-deluxe") {
+        setShowForm("form-1");
+      } else if (router.query.slug == "exclusive-shopping-experience") {
+        setShowForm("form-2");
+      } else if (router.query.slug == "champagne-diamond-surprise") {
+        setShowForm("form-3");
+      }
       fetch(tourURL + "?slug=" + router.query.slug, {
         method: "get",
       })
@@ -449,97 +489,140 @@ export default function TourDetail() {
           </div>
         </div>
         <div className="col-md-6 book-date-panel mt-md-0 mt-5">
-          <form
-            name="contactForm"
-            className="row contact-form"
-            onSubmit={submitContactInfo}
-          >
-            <div className="col-6 mb-4">
-              <input
-                type="text"
-                name="firstName"
-                className="form-control px-4 py-3"
-                placeholder="FirstName"
-              />
-            </div>
-            <div className="col-6 mb-4">
-              <input
-                type="text"
-                name="lastName"
-                className="form-control px-4 py-3"
-                placeholder="LastName"
-              />
-            </div>
-            <div className="col-6 mb-4">
-              <input
-                type="email"
-                name="email"
-                className="form-control px-4 py-3"
-                placeholder="Email"
-              />
-            </div>
-            <div className="col-6 mb-4">
-              <select
-                className="form-select px-4 py-3"
-                aria-label="Preferred language"
-              >
-                <option selected value="dutch">
-                  Dutch
-                </option>
-                <option value="english">English</option>
-              </select>
-            </div>
-            <div className="col-6 mb-4">
-              <input
-                type="number"
-                name="phoneNumber"
-                className="form-control px-4 py-3"
-                placeholder="Tel"
-              />
-            </div>
-            <div className="col-6 mb-4">
-              <input
-                type="number"
-                max="2"
-                name="guest"
-                value={guest}
-                onChange={(e) => {
-                  if (e.target.value <= 2 && e.target.value >= 0) {
-                    setGuest(e.target.value);
-                  }
-                }}
-                className="form-control px-4 py-3"
-                placeholder="Number of guests"
-              />
-            </div>
-            <div className="col-6 mb-4">
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  inputFormat="MM/dd/yyyy"
-                  className="px-4 py-3"
-                  value={value}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
+          {showForm && (
+            <form
+              name="contactForm"
+              className="row contact-form"
+              onSubmit={submitContactInfo}
+            >
+              <div className="col-6 mb-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  className="form-control px-4 py-3"
+                  placeholder="FirstName"
                 />
-              </LocalizationProvider>
-            </div>
-            <div className="col-6 mb-4">
-              <select className="form-select px-4 py-3" aria-label="Time">
-                <option selected value="9">
-                  09 : 00
-                </option>
-                <option value="13">13 : 00</option>
-              </select>
-            </div>
-            <div className="col-12 mb-5">
-              <textarea className="form-control px-4 py-3" rows="4" />
-            </div>
-            <div className="col-12 text-end">
-              <button className="btn blue-btn px-5 py-3 round-form text-uppercase">
-                submit
-              </button>
-            </div>
-          </form>
+              </div>
+              <div className="col-6 mb-4">
+                <input
+                  type="text"
+                  name="lastName"
+                  className="form-control px-4 py-3"
+                  placeholder="LastName"
+                />
+              </div>
+              <div className="col-6 mb-4">
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control px-4 py-3"
+                  placeholder="Email"
+                />
+              </div>
+              <div className="col-6 mb-4">
+                {showForm == "form-3" ? (
+                  <select
+                    className="form-select px-4 py-3"
+                    aria-label="Location"
+                    onChange={(e) => setLocation(e.target.value)}
+                  >
+                    <option selected value="royal Coster">
+                      Royal Coster
+                    </option>
+                    <option value="at other location">At other location</option>
+                  </select>
+                ) : (
+                  <input
+                    type="number"
+                    name="phoneNumber"
+                    className="form-control px-4 py-3"
+                    placeholder="Tel"
+                  />
+                )}
+              </div>
+              <div className="col-6 mb-4">
+                {showForm == "form-3" && location == "royal Coster" ? (
+                  <input
+                    type="text"
+                    name="language"
+                    className="form-control px-4 py-3"
+                    placeholder="Preferred language"
+                  />
+                ) : (
+                  <select
+                    className="form-select px-4 py-3"
+                    name="language"
+                    aria-label="Preferred language"
+                  >
+                    <option selected value="dutch">
+                      Dutch
+                    </option>
+                    <option value="english">English</option>
+                  </select>
+                )}
+              </div>
+              <div className="col-6 mb-4">
+                <input
+                  type="number"
+                  max="2"
+                  name="guest"
+                  value={guest}
+                  onChange={(e) => {
+                    if (e.target.value <= 2 && e.target.value >= 0) {
+                      setGuest(e.target.value);
+                    }
+                  }}
+                  className="form-control px-4 py-3"
+                  placeholder="Number of guests"
+                />
+              </div>
+              <div className="col-6 mb-4">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DesktopDatePicker
+                    inputFormat="MM/dd/yyyy"
+                    className="px-4 py-3"
+                    value={value}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </div>
+              <div className="col-6 mb-4">
+                <select className="form-select px-4 py-3" aria-label="Time">
+                  {showForm == "form-1" ? (
+                    <>
+                      <option selected value="09 : 00">
+                        09 : 00
+                      </option>
+                      <option value="13 : 00">13 : 00</option>
+                    </>
+                  ) : (
+                    form2Date.map((item, index) => (
+                      <option value={item} key={index}>
+                        {item}
+                      </option>
+                    ))
+                  )}
+                </select>
+              </div>
+              <div className="col-12 mb-5">
+                <textarea
+                  className="form-control px-4 py-3"
+                  rows="4"
+                  placeholder={
+                    showForm == "form-2"
+                      ? "Are you looking for anything in particular? (Any info will help)"
+                      : "More information"
+                  }
+                />
+              </div>
+              <div className="col-12 text-end">
+                <button className="btn blue-btn px-5 py-3 round-form text-uppercase">
+                  submit
+                </button>
+              </div>
+            </form>
+          )}
           {/* <div className="book-date round p-4">
             <div className="title-panel d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-sm-row flex-column">
               <h3 className="title blue-text">Book Online</h3>

@@ -21,11 +21,9 @@ const toursData = [
 ]
 
 const tourURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tours?order=asc&orderby=id";
-let tourData, mainTourData, localSticky = 1;
+let tourData, localSticky = 1;
 
 export default function Tour() {
-  const [cost, setCost] = useState(23);
-  const [mainTour, setMainTour] = useState();
   const [perPage, setPerPage] = useState(6);
   const [loadding, setLoadding] = useState(true);
   const [tours, setTours] = useState([]);
@@ -37,7 +35,7 @@ export default function Tour() {
   const getTourData = () => {
     localSticky = sticky;
     setLoadding(true)
-    fetch(tourURL + "&per_page=" + perPage + "&page=" + sticky + (mainTour ? "&exclude=" + mainTour.id : ''), {
+    fetch(tourURL + "&per_page=" + perPage + "&page=" + sticky, {
       method: 'get'
     }).then(res => res.json()).
       then(data => {
@@ -50,28 +48,9 @@ export default function Tour() {
       })
   }
 
-  // Get main tour's data and set local tour's data
-  const getMainTour = () => {
-    fetch(tourURL + "&per_page=1", {
-      method: 'get'
-    }).then(res => res.json()).
-      then(data => {
-        setMainTour(data[0]);
-        mainTourData = data[0]
-      })
-  }
-
-  // when first mounte, set main tour's data
-  useEffect(() => {
-    !mainTour && !mounted &&
-      mainTourData
-      ? setMainTour(mainTourData)
-      : getMainTour()
-  }, [])
-
   // when first mounted, if there is local tour's data, set tour' data from it. if else, call getTourData() function and set tour's data. when sticky change, call getTourData() function and set tour's data
   useEffect(() => {
-    if (sticky && mainTour) {
+    if (sticky) {
       if (mounted) {
         getTourData();
       } else {
@@ -84,7 +63,7 @@ export default function Tour() {
         setMounted(true);
       }
     }
-  }, [mainTour, sticky])
+  }, [sticky])
 
   return (
     <div className="tour_page">
@@ -103,8 +82,8 @@ export default function Tour() {
       </div>
 
       {/* Start guide section */}
-      <div className="guide-section py-5">
-        <div className="row r-container py-5">
+      <div className="guide-section pt-5">
+        <div className="row r-container pt-5">
           <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
             <h3 className="title text-capitalize">magical world of diamonds</h3>
           </div>
@@ -116,68 +95,10 @@ export default function Tour() {
       </div>
       {/* End guide section */}
 
-      {/* Start Description section */}
-      <div className="description-section r-container py-5 my-5">
-        <div className="main-panel row m-0 mb-5 mb-lg-0">
-          <div className="col-lg-6 p-0 pe-lg-4 mb-5">
-            <div className="image-panel round">
-              {
-                mainTour
-                  ? <img src={window.innerWidth > 575 ? mainTour.acf.landing.image.url : mainTour.acf.landing.image_mobile.url} />
-                  : <Skeleton variant="rect" animation="wave" width="100%" height={300} />
-              }
-              {
-                mainTour && mainTour.acf.general.price > 0 && (
-                  <div className="px-4 py-3 cost-box blue-text round-form">
-                    <NumberFormat
-                      value={mainTour.acf.general.price}
-                      displayType="text"
-                      decimalScale={2}
-                      fixedDecimalScale={true}
-                      thousandSeparator={true}
-                      prefix="$ "
-                    />
-                  </div>
-                )
-              }
-            </div>
-          </div>
-          {
-            mainTour
-              ? <div className="col-lg-6 p-0 ps-lg-4 text-panel">
-                <h3 className="title text-capitalize blue-text mb-5">{mainTour.title.rendered}</h3>
-                <p>{renderHTML(mainTour.acf.overview.content)}</p>
-              </div>
-              : <div className="col-lg-6 p-0 ps-lg-4">
-                <Skeleton variant="text" width="100%" height={50} animation="wave" />
-                <Skeleton className="mt-4" variant="text" width="100%" height={30} animation="wave" />
-                <Skeleton variant="text" width="100%" height={30} animation="wave" />
-                <Skeleton variant="text" width="100%" height={30} animation="wave" />
-              </div>
-          }
-        </div>
-        <div className="text-center">
-          {
-            mainTour &&
-            <Link
-              passHref={true}
-              href={{
-                pathname: "/tour/[slug]",
-                query: {
-                  slug: mainTour.slug,
-                },
-              }}>
-              <a className="btn blue-btn btn-read-more round-form px-5 py-3 text-uppercase mb-lg-5">Read More</a>
-            </Link>
-          }
-        </div>
-      </div>
-      {/* End Description section */}
-
       {/* Start more tour section */}
       <div className="more-tour-section mb-5">
-        <div className="title-panel py-5">
-          <h3 className="title my-lg-5 text-center py-5 blue-text">More <span>Tours</span> & Experiences</h3>
+        <div className="title-panel pb-5">
+          <h3 className="title mb-lg-5 text-center py-5 blue-text">More <span>Tours</span> & Experiences</h3>
         </div>
         <div className="tours-panel">
           <div className="r-container">
