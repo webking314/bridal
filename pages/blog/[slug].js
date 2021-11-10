@@ -168,9 +168,6 @@ function Brief(props) {
   const [twitterLink, setTwitterLink] = useState();
   const [accessToken, setAccessToken] = useState();
   const [products, setProducts] = useState();
-  const [metaTitle, setMetaTitle] = useState(props.data.title?.rendered);
-  const [metaDescription, setMetaDescription] = useState(props.data.acf?.content.intro);
-  const [metaImage, setMetaImage] = useState(props.data.acf?.featured_image.url);
   const target = React.createRef();
   const [tagProps, setTagProps] = useState();
   const router = useRouter();
@@ -201,14 +198,6 @@ function Brief(props) {
       }
     }
   };
-
-  // useEffect(() => {
-  //   if (props.data) {
-  //     setMetaTitle(props.data.title.rendered);
-  //     setMetaDescription(props.data.acf.content.intro);
-  //     setMetaImage(props.data.acf.featured_image.url);
-  //   }
-  // }, [props]);
 
   useEffect(() => {
     if (localStorage.access_token) {
@@ -306,13 +295,48 @@ function Brief(props) {
   return (
     <div className="brief_page">
       <Head>
-        <title>{metaTitle} | Royal Coster</title>
-        {/* Google */}
-        {metaTitle && <meta itemProp="name" content={metaTitle} />}
-        {metaDescription && (
-          <meta itemProp="description" content={metaDescription} />
-        )}
-        {metaImage && <meta itemProp="image" content={metaImage} />}
+        <title>{props.data.title?.rendered} | Royal Coster</title>
+
+        <meta name="description" content={props.data.acf?.content.intro} />
+
+        <meta
+          itemProp="name"
+          content={props.data.title?.rendered + "| Royal Coster"}
+        />
+        <meta itemProp="description" content={props.data.acf?.content.intro} />
+        <meta itemProp="image" content={props.data.acf?.featured_image.url} />
+
+        <meta
+          property="og:url"
+          content={process.env.NEXT_PUBLIC_APP_URL + router.asPath}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content={props.data.title?.rendered + "| Royal Coster"}
+        />
+        <meta
+          property="og:description"
+          content={props.data.acf?.content.intro}
+        />
+        <meta
+          property="og:image"
+          content={props.data.acf?.featured_image.url}
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content={props.data.title?.rendered + "| Royal Coster"}
+        />
+        <meta
+          name="twitter:description"
+          content={props.data.acf?.content.intro}
+        />
+        <meta
+          name="twitter:image"
+          content={props.data.acf?.featured_image.url}
+        />
       </Head>
       {/*Header */}
       <Header />
