@@ -216,7 +216,7 @@ const withOutCollections = [
   'Moederdag "The Sweetest Thing"',
   "Bracelets",
   "In Bloom Collection",
-  "The Blaze Royal 201"
+  "The Blaze Royal 201",
 ];
 
 const backgrounndArr = [
@@ -1009,7 +1009,6 @@ function Ring(props) {
             }
           });
       } else {
-        console.log(9999999)
         if (
           JSON.stringify(localTag) == JSON.stringify(tag) &&
           localProductType == productType &&
@@ -1020,7 +1019,6 @@ function Ring(props) {
           localTag = tag;
           localProductType = productType;
           setResult(0);
-          console.log(12232)
           let formData = new FormData();
           if (cTagLastAdd == 1) {
             formData.append("position", "first:50");
@@ -1113,12 +1111,14 @@ function Ring(props) {
             ) + ")"
           ).replaceAll(",", "")
         : "";
-      let defaultTags = (
-        tag.map((item, index) =>
-          index == 0 ? " AND (tag:" + item : " OR tag:" + item
-        ) + ")"
-      ).replaceAll(",", "");
-      console.log(defaultTags);
+      let defaultTags = "";
+      if (tag.length > 0)
+        defaultTags = (
+          tag.map((item, index) =>
+            index == 0 ? " AND (tag:" + item : " OR tag:" + item
+          ) + ")"
+        ).replaceAll(",", "");
+        
       if (checked0.length || mounted) {
         setLoad(true);
         check0 = checked0;
@@ -1235,12 +1235,14 @@ function Ring(props) {
         setLoad(true);
         data.append("position", "first:9");
         if (tag.length) {
-          if(productType) {
+          if (productType) {
             data.append(
               "query",
               "status:active AND tag:active AND " +
                 (productType == "pendants"
-                  ? "(product_type:" + productType + " OR product_type:necklaces)"
+                  ? "(product_type:" +
+                    productType +
+                    " OR product_type:necklaces)"
                   : "product_type:" + productType) +
                 defaultProductType +
                 defaultTags +
@@ -1334,23 +1336,25 @@ function Ring(props) {
         let data = new FormData();
         data.append("position", "first:9");
         if (tag.length) {
-          if(productType){
-            data.append( 
-             "query",
-             "status:active AND tag:active AND " +
-               (productType == "pendants"
-                 ? "(product_type:" + productType + " OR product_type:necklaces)"
-                 : "product_type:" + productType) +
-               defaultTags +
-               defaultProductType
-           );
+          if (productType) {
+            data.append(
+              "query",
+              "status:active AND tag:active AND " +
+                (productType == "pendants"
+                  ? "(product_type:" +
+                    productType +
+                    " OR product_type:necklaces)"
+                  : "product_type:" + productType) +
+                defaultTags +
+                defaultProductType
+            );
           } else {
-            data.append( 
-             "query",
-             "status:active AND tag:active AND " +
-               defaultTags +
-               defaultProductType
-           );
+            data.append(
+              "query",
+              "status:active AND tag:active AND " +
+                defaultTags +
+                defaultProductType
+            );
           }
         } else {
           if (productType) {
@@ -1565,7 +1569,7 @@ function Ring(props) {
         : "";
     formData.append("position", `first:9, after:"${lastProduct}"`);
     if (tag.length) {
-      if(productType) {
+      if (productType) {
         formData.append(
           "query",
           "status:active AND tag:active AND " +
