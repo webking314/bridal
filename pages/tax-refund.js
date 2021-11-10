@@ -27,6 +27,7 @@ const noteData = [
   "Saturday: 9: 00 AM – 5: 00 PM",
   "Sunday: 9: 00 AM – 5: 00 PM",
 ];
+const siteKey = "6LcvJusZAAAAABVe3KGyV2ai1rWBYLhFDZaZjMut";
 
 const steps = [
   {
@@ -210,7 +211,7 @@ export default function TaxRefund() {
                 />
               </div>
               <ReCAPTCHA
-                sitekey="Your client site key"
+                sitekey={siteKey}
                 className="mt-4 d-flex justify-content-center"
               />
               <button className="btn blue-btn round-form text-uppercase py-3 mt-4">
