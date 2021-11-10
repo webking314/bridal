@@ -135,10 +135,10 @@ const products1 = [
 
 export async function getStaticPaths() {
   const allPosts = await getAllPostsWithSlug();
-  
+
   return {
     paths: allPosts.edges.map(({ node }) => `/blog/${node.slug}`) || [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }
 
@@ -148,7 +148,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 
   return {
     props: {
-      data: data[0],
+      data: data[0] || {},
     },
   };
 }
@@ -168,14 +168,12 @@ function Brief(props) {
   const [twitterLink, setTwitterLink] = useState();
   const [accessToken, setAccessToken] = useState();
   const [products, setProducts] = useState();
-  const [metaTitle, setMetaTitle] = useState(props.data?.title.rendered);
-  const [metaDescription, setMetaDescription] = useState(props.data?.acf.content.intro);
-  const [metaImage, setMetaImage] = useState(props.data?.acf.featured_image.url);
+  const [metaTitle, setMetaTitle] = useState(props.data.title?.rendered);
+  const [metaDescription, setMetaDescription] = useState(props.data.acf?.content.intro);
+  const [metaImage, setMetaImage] = useState(props.data.acf?.featured_image.url);
   const target = React.createRef();
   const [tagProps, setTagProps] = useState();
   const router = useRouter();
-
-console.log(props.data)
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
