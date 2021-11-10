@@ -214,6 +214,9 @@ const withOutCollections = [
   "external",
   "Loyalty10",
   'Moederdag "The Sweetest Thing"',
+  "Bracelets",
+  "In Bloom Collection",
+  "The Blaze Royal 201"
 ];
 
 const backgrounndArr = [

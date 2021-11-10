@@ -40,7 +40,7 @@ export default function Footer() {
           url: "/collections/anniversary",
         },
         { link: "Empress Collection", url: "/collections/empress-collectie" },
-        { link: "Bespoke Jewelry", url: "/bespoke" },
+        { link: "Bespoke Jewelry", url: "/custom-jewelry" },
         {
           link: "Consult with an expert",
           url: "/contact ",
@@ -56,9 +56,7 @@ export default function Footer() {
         { link: "Press", url: "/news" },
         {
           link: "Jobs & internships",
-          url: "/blog",
-          tags: "job opening",
-          product_type: "",
+          url: "/blog?tags=jobs",
         },
       ],
     },

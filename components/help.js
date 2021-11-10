@@ -19,7 +19,7 @@ export default function Help() {
                 Tell us your budget and preferences and we’ll find you the right
                 diamond and setting.
               </p>
-              <Link  passHref={true} href="/bespoke">
+              <Link  passHref={true} href="/custom-jewelry">
                 <a className="design-service pink-btn round-form text-uppercase py-4 px-5">
                   Custom Design Services
                 </a>

@@ -1,5 +1,6 @@
 import { useDebugValue, useEffect, useState } from "react";
 import router, { useRouter } from "next/router";
+import Link from "next/link"
 import {
   getCountries,
   getCountryCallingCode,
@@ -12,7 +13,6 @@ const contactMethods = [
   { title: "Skype" },
   { title: "Phonecall " },
 ];
-
 
 export default function EnquiryModal() {
   const [contactMethod, setContactMethod] = useState(0);
@@ -42,18 +42,19 @@ export default function EnquiryModal() {
   }, []);
 
   const sendRequest = () => {
-    router.push('/thank-you-contact')
-  }
+    router.push("/thank-you-contact");
+  };
 
   useEffect(() => {
-    setContactInfo(contactMethods[contactMethod])
-  }, [contactMethod])
+    setContactInfo(contactMethods[contactMethod]);
+  }, [contactMethod]);
 
   return (
     <div
       className="modal fade"
       id="enquiryModal"
-      tabIndex="-1"s
+      tabIndex="-1"
+      s
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
@@ -87,9 +88,7 @@ export default function EnquiryModal() {
                     aria-label="Default select example"
                     id="contactMethod"
                     value={contactMethod}
-                    onChange={(event) =>
-                      setContactMethod(event.target.value)
-                    }
+                    onChange={(event) => setContactMethod(event.target.value)}
                   >
                     {contactMethods.map((item, index) => {
                       return (
@@ -130,10 +129,7 @@ export default function EnquiryModal() {
                     required
                   />
                 </label>
-                <label
-                  htmlFor="lastName"
-                  className="col-sm-6 p-0 ps-sm-3 mt-5"
-                >
+                <label htmlFor="lastName" className="col-sm-6 p-0 ps-sm-3 mt-5">
                   Last Name*
                   <input
                     type="text"
@@ -145,10 +141,7 @@ export default function EnquiryModal() {
                     required
                   />
                 </label>
-                <label
-                  htmlFor="email"
-                  className="col-sm-6 p-0 pe-sm-3 mt-5"
-                >
+                <label htmlFor="email" className="col-sm-6 p-0 pe-sm-3 mt-5">
                   Email*
                   <input
                     type="email"
@@ -182,10 +175,7 @@ export default function EnquiryModal() {
                     <div className="invalid-feedback">{errorPhone}</div>
                   </div>
                 </label>
-                <label
-                  htmlFor="moreInformation"
-                  className="p-0 mt-5"
-                >
+                <label htmlFor="moreInformation" className="p-0 mt-5">
                   More Information*
                   <textarea
                     id="moreInformation"
@@ -206,16 +196,20 @@ export default function EnquiryModal() {
                       id="safeMode"
                     />
                     <label className="form-check-label" htmlFor="safeMode">
-                      By ticking this box, you accept to receive newsletters
-                      and marketing emails from 77 Diamonds. For further
-                      information, please read our privacy policyand terms
-                      and conditions.
+                      By ticking this box, you accept to receive newsletters and
+                      marketing emails from Royal Coster Diamonds. For further
+                      information, please read our privacy policyand terms and
+                      conditions.
                     </label>
                   </div>
                 </div>
-                <button className="btn col-12 pink-btn py-3 btn-request round-form" onClick={sendRequest}>
-                  SEND REQUEST
-                </button>
+                <Link href="mailto:support@costerdiamonds.com?subject=I'd like to know more about custom jewelry&body=Please enter as much details about your wishes as possible.">
+                  <a
+                    className="btn col-12 pink-btn py-3 btn-request round-form"
+                  >
+                    SEND REQUEST
+                  </a>
+                </Link>
               </form>
             </div>
           </div>

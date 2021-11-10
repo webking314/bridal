@@ -40,21 +40,21 @@ export default function Instagram() {
               <div className="col-md-6 col-12 p-0 d-flex flex-column justify-content-end link-panel">
                 <div className="mx-0 text-md-end text-start">
                   Follow{" "}
-                  <Link passHref={true} href="#">
+                  <Link passHref={true} href="https://www.instagram.com/explore/tags/royalcoster/">
                     <a className="text-primary">#Royalcoster</a>
                   </Link>{" "}
                   @Instagram For
                 </div>
                 <div className="mx-0 text-md-end text-start">
-                  <Link passHref={true} href="#">
+                  <Link passHref={true} href="https://www.instagram.com/explore/tags/diamondstories/">
                     <a className="text-primary">#Diamondstories</a>
                   </Link>
                   ,{" "}
-                  <Link passHref={true} href="#">
+                  <Link passHref={true} href="https://www.instagram.com/explore/tags/inspiration">
                     <a className="text-primary">#Inspiration</a>
                   </Link>{" "}
                   &{" "}
-                  <Link passHref={true} href="#">
+                  <Link passHref={true} href="https://www.instagram.com/explore/tags/amsterdiamonds">
                     <a className="text-primary">#Amsterdiamonds</a>
                   </Link>
                 </div>

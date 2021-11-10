@@ -20,7 +20,7 @@ export default function Visit() {
             more diamonds & jewelry
           </p>
           <div className="btn-panel d-flex justify-content-between flex-wrap mt-3">
-            <Link href="/visit">
+            <Link href="/tour">
               <a className="btn book-btn round-form pink-btn d-flex align-items-center justify-content-between px-5 py-3 mt-4 col-sm-9 col-12">
                 <span className="text-uppercase">Book tours & workshops</span>
                 <RiArrowRightLine />

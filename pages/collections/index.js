@@ -16,23 +16,23 @@ import "swiper/css";
 const collectionSlider = [
   {
     title: "Diamond Rings",
-    url: "#",
+    url: "/shop?tags=diamond&productType=rings",
     image: "/img/collection/slider-1.png"
   },
   {
+    title: "Diamond Earrings",
+    url: "/shop?tags=diamond&productType=earrings",
+    image: "/img/collection/slider-4.png"
+  },
+  {
     title: "Diamond Bracelets",
-    url: "#",
+    url: "/shop?tags=diamond&productType=bracelets",
     image: "/img/collection/slider-2.png"
   },
   {
-    title: "Diamond Neclaces",
-    url: "#",
+    title: "Diamond Necklaces",
+    url: "/shop?tags=diamond&productType=necklaces",
     image: "/img/collection/slider-3.png"
-  },
-  {
-    title: "Diamond Earrings",
-    url: "#",
-    image: "/img/collection/slider-4.png"
   },
 ]
 
@@ -51,13 +51,13 @@ const collectionData = [
     subImage: "/img/collection/sub-item-2.png",
     slug: "empress-collectie"
   },
-  {
-    title: "Diamond Petals Spring Collection",
-    description: "Spring brings along fresh hope, enthusiasm of new beginnings and the promise of renewal as nature bursts to life....",
-    image: "/img/collection/item-3.png",
-    subImage: "/img/collection/sub-item-3.png",
-    slug: "rainbow-collectie"
-  },
+  // {
+  //   title: "Diamond Petals Spring Collection",
+  //   description: "Spring brings along fresh hope, enthusiasm of new beginnings and the promise of renewal as nature bursts to life....",
+  //   image: "/img/collection/item-3.png",
+  //   subImage: "/img/collection/sub-item-3.png",
+  //   slug: "rainbow-collectie"
+  // },
   {
     title: "The Royal 201 Collection",
     description: "More facets, more sparkle, more fire! The regular brilliant cut with 57 facets was introduced in the 1920’s. For many years,...",
@@ -80,12 +80,19 @@ const collectionData = [
     slug: "nikkie-x-royal-coster-diamonds"
   },
   {
-    title: "Watches Collection",
-    description: "This collection of diamond jewelry focuses on the youthful woman. The jewels exude refined luxury and elegance and tell the story of who you are.",
-    image: "/img/collection/item-7.png",
-    subImage: "/img/collection/sub-item-7.png",
-    slug: "rainbow-collectie"
+    title: "Wedding Ring Collection",
+    description: "Sentiment and emotions are central to creativity. Making jewelry is no exception. Royal Coster Diamonds has been known for centuries for creating meaningful jewelry...",
+    image: "/img/collection/item-8.png",
+    subImage: "/img/collection/sub-item-8.jpg",
+    slug: "trouwringen"
   },
+  // {
+  //   title: "Watches Collection",
+  //   description: "This collection of diamond jewelry focuses on the youthful woman. The jewels exude refined luxury and elegance and tell the story of who you are.",
+  //   image: "/img/collection/item-7.png",
+  //   subImage: "/img/collection/sub-item-7.png",
+  //   slug: "rainbow-collectie"
+  // },
 ]
 
 SwiperCore.use([Autoplay, Navigation]);

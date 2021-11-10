@@ -9,6 +9,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import NumberFormat from "react-number-format";
 import Schedule from "../../components/schedule";
+import { getAllPostsWithSlug } from "../../lib/wordpressGraphqlApi";
 import Skeleton from "@mui/material/Skeleton";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { connect } from "react-redux";
@@ -84,6 +85,13 @@ const headers = {
   "Content-Type": "application/json",
 };
 
+const insideArr = [
+  "brief-history-of-diamonds",
+  "our-royal-legacy",
+  "the-story-of-sisi",
+  "how-we-created-queen-julianas-diamond-watch",
+];
+
 function getFilterValue(str) {
   str = str.toLowerCase();
   var toReplace = ['"', "'", "\\", "(", ")", "[", "]"];
@@ -124,6 +132,25 @@ const products1 = [
     cost: "$1.200",
   },
 ];
+
+export async function getStaticPaths() {
+  const allPosts = await getAllPostsWithSlug();
+  return {
+    paths: allPosts.edges.map(({ node }) => `/blog/${node.slug}`) || [],
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params, preview = false, previewData }) {
+  const res = await fetch(blogURL + "?slug=" + params.slug);
+  const data = await res.json();
+
+  return {
+    props: {
+      data: data[0],
+    },
+  };
+}
 
 function Brief(props) {
   const navigationPrevRef = React.useRef(null);
@@ -174,12 +201,13 @@ function Brief(props) {
     }
   };
 
-  const insideArr = [
-    "brief-history-of-diamonds",
-    "our-royal-legacy",
-    "the-story-of-sisi",
-    "how-we-created-queen-julianas-diamond-watch",
-  ];
+  useEffect(() => {
+    if (props.data) {
+      setMetaTitle(props.data.title.rendered);
+      setMetaDescription(props.data.acf.content.intro);
+      setMetaImage(props.data.acf.featured_image.url);
+    }
+  }, [props]);
 
   useEffect(() => {
     if (localStorage.access_token) {
@@ -219,9 +247,6 @@ function Brief(props) {
         .then((data) => {
           if (data.length) {
             data = data[0];
-            setMetaTitle(data.title.rendered);
-            setMetaDescription(data.acf.content.intro);
-            setMetaImage(data.acf.featured_image.url);
             setDateTime(dateFormat(data.date, "mmmm d, yyyy"));
             setTitle(data.title.rendered);
             setContent(data.acf.content.main_content);
@@ -282,9 +307,11 @@ function Brief(props) {
       <Head>
         <title>{metaTitle} | Royal Coster</title>
         {/* Google */}
-        <meta itemProp="name" content={metaTitle} />
-        <meta itemProp="description" content={metaDescription} />
-        <meta itemProp="image" content={metaImage} />
+        {metaTitle && <meta itemProp="name" content={metaTitle} />}
+        {metaDescription && (
+          <meta itemProp="description" content={metaDescription} />
+        )}
+        {metaImage && <meta itemProp="image" content={metaImage} />}
       </Head>
       {/*Header */}
       <Header />
