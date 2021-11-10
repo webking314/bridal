@@ -135,9 +135,10 @@ const products1 = [
 
 export async function getStaticPaths() {
   const allPosts = await getAllPostsWithSlug();
+  
   return {
     paths: allPosts.edges.map(({ node }) => `/blog/${node.slug}`) || [],
-    fallback: true,
+    fallback: 'blocking',
   };
 }
 
@@ -167,12 +168,14 @@ function Brief(props) {
   const [twitterLink, setTwitterLink] = useState();
   const [accessToken, setAccessToken] = useState();
   const [products, setProducts] = useState();
-  const [metaTitle, setMetaTitle] = useState("Brief");
-  const [metaDescription, setMetaDescription] = useState("");
-  const [metaImage, setMetaImage] = useState("");
+  const [metaTitle, setMetaTitle] = useState(props.data?.title.rendered);
+  const [metaDescription, setMetaDescription] = useState(props.data?.acf.content.intro);
+  const [metaImage, setMetaImage] = useState(props.data?.acf.featured_image.url);
   const target = React.createRef();
   const [tagProps, setTagProps] = useState();
   const router = useRouter();
+
+console.log(props.data)
 
   const setFavor = (event, product) => {
     let target = event.target.closest(".favor-icon");
@@ -201,13 +204,13 @@ function Brief(props) {
     }
   };
 
-  useEffect(() => {
-    if (props.data) {
-      setMetaTitle(props.data.title.rendered);
-      setMetaDescription(props.data.acf.content.intro);
-      setMetaImage(props.data.acf.featured_image.url);
-    }
-  }, [props]);
+  // useEffect(() => {
+  //   if (props.data) {
+  //     setMetaTitle(props.data.title.rendered);
+  //     setMetaDescription(props.data.acf.content.intro);
+  //     setMetaImage(props.data.acf.featured_image.url);
+  //   }
+  // }, [props]);
 
   useEffect(() => {
     if (localStorage.access_token) {
