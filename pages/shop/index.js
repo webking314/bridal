@@ -1118,7 +1118,7 @@ function Ring(props) {
             index == 0 ? " AND (tag:" + item : " OR tag:" + item
           ) + ")"
         ).replaceAll(",", "");
-        
+
       if (checked0.length || mounted) {
         setLoad(true);
         check0 = checked0;
@@ -1474,6 +1474,18 @@ function Ring(props) {
   const loadMore = () => {
     setLoadMoreStatus(true);
     let formData = new FormData();
+    let defaultProductType =
+      checkedProductType.length > 0
+        ? (
+            checkedProductType.map(
+              (item, index) =>
+                item &&
+                (index == 0
+                  ? " AND (product_type:" + item
+                  : " OR product_type:" + item)
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
     let defaultTags = (
       tag.map((item, index) =>
         index == 0 ? " AND (tag:" + item : " OR tag:" + item
@@ -1577,6 +1589,7 @@ function Ring(props) {
               ? "(product_type:" + productType + " OR product_type:necklaces)"
               : "product_type:" + productType) +
             defaultTags +
+            defaultProductType +
             query0 +
             query1 +
             query2 +
@@ -1594,6 +1607,7 @@ function Ring(props) {
           "query",
           "status:active AND tag:active AND " +
             defaultTags +
+            defaultProductType +
             query0 +
             query1 +
             query2 +
@@ -1615,6 +1629,7 @@ function Ring(props) {
             (productType == "pendants"
               ? "(product_type:" + productType + " OR product_type:necklaces)"
               : "product_type:" + productType) +
+            defaultProductType +
             query0 +
             query1 +
             query2 +
@@ -1631,6 +1646,7 @@ function Ring(props) {
         formData.append(
           "query",
           "status:active AND tag:active" +
+            defaultProductType +
             query0 +
             query1 +
             query2 +
