@@ -81,8 +81,10 @@
             font-size: 1.8rem;
           }
           .links-panel {
-            font-size: 1.8rem;
-            color: rgba(1, 33, 92, 0.7);
+            .btn {
+              font-size: 1.8rem;
+              color: rgba(1, 33, 92, 0.7);
+            }
           }
           .line {
             height: 2px;

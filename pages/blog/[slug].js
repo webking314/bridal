@@ -199,6 +199,10 @@ function Brief(props) {
     }
   };
 
+  const openShareWindow = (link) => {
+    window.open(link, "MsgWindow", "top=150,left=150,width=900,height=600");
+  };
+
   useEffect(() => {
     if (localStorage.access_token) {
       setAccessToken(localStorage.access_token);
@@ -301,7 +305,7 @@ function Brief(props) {
 
         <meta
           itemProp="name"
-          content={props.data.title?.rendered + "| Royal Coster"}
+          content={props.data.title?.rendered + " | Royal Coster"}
         />
         <meta itemProp="description" content={props.data.acf?.content.intro} />
         <meta itemProp="image" content={props.data.acf?.featured_image.url} />
@@ -313,7 +317,7 @@ function Brief(props) {
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content={props.data.title?.rendered + "| Royal Coster"}
+          content={props.data.title?.rendered + " | Royal Coster"}
         />
         <meta
           property="og:description"
@@ -327,7 +331,7 @@ function Brief(props) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content={props.data.title?.rendered + "| Royal Coster"}
+          content={props.data.title?.rendered + " | Royal Coster"}
         />
         <meta
           name="twitter:description"
@@ -435,36 +439,35 @@ function Brief(props) {
                 <hr className="line" />
                 <div className="links-panel mt-4 d-flex justify-content-between">
                   {facebookLink && (
-                    <Link passHref={true} href={facebookLink}>
-                      <a>
-                        <RiFacebookCircleFill />
-                      </a>
-                    </Link>
+                    <buutton
+                      className="btn"
+                      onClick={() => openShareWindow(facebookLink)}
+                    >
+                      <RiFacebookCircleFill />
+                    </buutton>
                   )}
                   {twitterLink && (
-                    <Link passHref={true} href={twitterLink}>
-                      <a>
-                        <RiTwitterFill />
-                      </a>
-                    </Link>
+                    <buutton
+                      className="btn"
+                      onClick={() => openShareWindow(twitterLink)}
+                    >
+                      <RiTwitterFill />
+                    </buutton>
                   )}
-                  <Link passHref={true} href="#">
-                    <a>
-                      <RiInstagramFill />
-                    </a>
-                  </Link>
+                  <buutton className="btn">
+                    <RiInstagramFill />
+                  </buutton>
                   {linkdinLink && (
-                    <Link passHref={true} href={linkdinLink}>
-                      <a>
-                        <RiLinkedinFill />
-                      </a>
-                    </Link>
+                    <buutton
+                      className="btn"
+                      onClick={() => openShareWindow(linkdinLink)}
+                    >
+                      <RiLinkedinFill />
+                    </buutton>
                   )}
-                  <Link passHref={true} href="#">
-                    <a>
-                      <RiWhatsappFill />
-                    </a>
-                  </Link>
+                  <buutton className="btn">
+                    <RiWhatsappFill />
+                  </buutton>
                 </div>
               </div>
             </div>
@@ -479,46 +482,35 @@ function Brief(props) {
           <div className="link-panel-cover d-md-block d-none">
             <div className="link-panel">
               {facebookLink && (
-                <Link passHref={true} href={facebookLink}>
-                  <a>
-                    <div className="link-item d-flex align-items-center justify-content-center mb-3">
-                      <RiFacebookLine />
-                    </div>
-                  </a>
-                </Link>
+                <button
+                  className="btn link-item d-flex align-items-center justify-content-center mb-3"
+                  onClick={() => openShareWindow(facebookLink)}
+                >
+                  <RiFacebookLine />
+                </button>
               )}
               {twitterLink && (
-                <Link passHref={true} href={twitterLink}>
-                  <a>
-                    <div className="link-item d-flex align-items-center justify-content-center mb-3">
-                      <RiTwitterLine />
-                    </div>
-                  </a>
-                </Link>
+                <button
+                  className="btn link-item d-flex align-items-center justify-content-center mb-3"
+                  onClick={() => openShareWindow(twitterLink)}
+                >
+                  <RiTwitterLine />
+                </button>
               )}
-              <Link passHref={true} href="#">
-                <a>
-                  <div className="link-item d-flex align-items-center justify-content-center mb-3">
-                    <RiInstagramLine />
-                  </div>
-                </a>
-              </Link>
+              <button className="btn link-item d-flex align-items-center justify-content-center mb-3">
+                <RiInstagramLine />
+              </button>
               {linkdinLink && (
-                <Link passHref={true} href={linkdinLink}>
-                  <a>
-                    <div className="link-item d-flex align-items-center justify-content-center mb-3">
-                      <RiLinkedinLine />
-                    </div>
-                  </a>
-                </Link>
+                <button
+                  className="btn link-item d-flex align-items-center justify-content-center mb-3"
+                  onClick={() => openShareWindow(linkdinLink)}
+                >
+                  <RiLinkedinLine />
+                </button>
               )}
-              <Link passHref={true} href="#">
-                <a>
-                  <div className="link-item d-flex align-items-center justify-content-center">
-                    <RiWhatsappLine />
-                  </div>
-                </a>
-              </Link>
+              <button className="btn link-item d-flex align-items-center justify-content-center">
+                <RiWhatsappLine />
+              </button>
             </div>
           </div>
         )}

@@ -912,12 +912,11 @@ function Ring(props) {
   }, [props.wishList]);
 
   useEffect(() => {
-    if (productType || router.asPath == "/shop") {
+    if (router.asPath.includes("/shop")) {
       if (checking != localChecking) {
         setCTagLastAdd(1);
       }
       let defaultTags = "";
-      let defaultProduct = "";
       let tagArr = [
         checked1,
         checked2,
@@ -1010,6 +1009,7 @@ function Ring(props) {
             }
           });
       } else {
+        console.log(9999999)
         if (
           JSON.stringify(localTag) == JSON.stringify(tag) &&
           localProductType == productType &&
@@ -1020,6 +1020,7 @@ function Ring(props) {
           localTag = tag;
           localProductType = productType;
           setResult(0);
+          console.log(12232)
           let formData = new FormData();
           if (cTagLastAdd == 1) {
             formData.append("position", "first:50");
@@ -1234,27 +1235,48 @@ function Ring(props) {
         setLoad(true);
         data.append("position", "first:9");
         if (tag.length) {
-          data.append(
-            "query",
-            "status:active AND tag:active AND " +
-              (productType == "pendants"
-                ? "(product_type:" + productType + " OR product_type:necklaces)"
-                : "product_type:" + productType) +
-              defaultProductType +
-              defaultTags +
-              query0 +
-              query1 +
-              query2 +
-              query3 +
-              query4 +
-              query5 +
-              query6 +
-              query7 +
-              query8 +
-              query9 +
-              query10 +
-              query11
-          );
+          if(productType) {
+            data.append(
+              "query",
+              "status:active AND tag:active AND " +
+                (productType == "pendants"
+                  ? "(product_type:" + productType + " OR product_type:necklaces)"
+                  : "product_type:" + productType) +
+                defaultProductType +
+                defaultTags +
+                query0 +
+                query1 +
+                query2 +
+                query3 +
+                query4 +
+                query5 +
+                query6 +
+                query7 +
+                query8 +
+                query9 +
+                query10 +
+                query11
+            );
+          } else {
+            data.append(
+              "query",
+              "status:active AND tag:active AND " +
+                defaultProductType +
+                defaultTags +
+                query0 +
+                query1 +
+                query2 +
+                query3 +
+                query4 +
+                query5 +
+                query6 +
+                query7 +
+                query8 +
+                query9 +
+                query10 +
+                query11
+            );
+          }
         } else {
           if (productType) {
             data.append(
@@ -1312,15 +1334,24 @@ function Ring(props) {
         let data = new FormData();
         data.append("position", "first:9");
         if (tag.length) {
-          data.append(
-            "query",
-            "status:active AND tag:active AND " +
-              (productType == "pendants"
-                ? "(product_type:" + productType + " OR product_type:necklaces)"
-                : "product_type:" + productType) +
-              defaultTags +
-              defaultProductType
-          );
+          if(productType){
+            data.append( 
+             "query",
+             "status:active AND tag:active AND " +
+               (productType == "pendants"
+                 ? "(product_type:" + productType + " OR product_type:necklaces)"
+                 : "product_type:" + productType) +
+               defaultTags +
+               defaultProductType
+           );
+          } else {
+            data.append( 
+             "query",
+             "status:active AND tag:active AND " +
+               defaultTags +
+               defaultProductType
+           );
+          }
         } else {
           if (productType) {
             data.append(
@@ -1534,25 +1565,44 @@ function Ring(props) {
         : "";
     formData.append("position", `first:9, after:"${lastProduct}"`);
     if (tag.length) {
-      formData.append(
-        "query",
-        "status:active AND tag:active AND " +
-          (productType == "pendants"
-            ? "(product_type:" + productType + " OR product_type:necklaces)"
-            : "product_type:" + productType) +
-          defaultTags +
-          query0 +
-          query1 +
-          query2 +
-          query3 +
-          query4 +
-          query5 +
-          query6 +
-          query7 +
-          query8 +
-          query9 +
-          query10
-      );
+      if(productType) {
+        formData.append(
+          "query",
+          "status:active AND tag:active AND " +
+            (productType == "pendants"
+              ? "(product_type:" + productType + " OR product_type:necklaces)"
+              : "product_type:" + productType) +
+            defaultTags +
+            query0 +
+            query1 +
+            query2 +
+            query3 +
+            query4 +
+            query5 +
+            query6 +
+            query7 +
+            query8 +
+            query9 +
+            query10
+        );
+      } else {
+        formData.append(
+          "query",
+          "status:active AND tag:active AND " +
+            defaultTags +
+            query0 +
+            query1 +
+            query2 +
+            query3 +
+            query4 +
+            query5 +
+            query6 +
+            query7 +
+            query8 +
+            query9 +
+            query10
+        );
+      }
     } else {
       if (productType) {
         formData.append(
