@@ -3,11 +3,6 @@
     position: relative;
     padding-bottom: 10rem;
     z-index: 2;
-    img {
-      width: 100%;
-      object-fit: cover;
-      height: 350px;
-    }
     h2 {
       padding-top: 5rem;
       color: #01215c;
@@ -17,6 +12,11 @@
       z-index: 5;
       p {
         font-size: 2rem;
+      }
+      img {
+        width: 100%;
+        object-fit: cover;
+        height: 350px;
       }
     }
     .btn-bottom-panel {
