@@ -533,7 +533,7 @@ function Ring(props) {
         }
       } else {
         if (router.asPath == "/shop") {
-          setTag([]);
+          setTag(['jewelry']);
           setProductType();
           setProductTypeFilter(productTypeFilterItem);
         }
