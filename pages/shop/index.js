@@ -2385,42 +2385,6 @@ function Ring(props) {
         </div>
         <div className="offcanvas-body r-container pt-2 p-0">
           <div className="r-container row pt-4">
-            <div className="accordion-item mb-3">
-              <h2 className="accordion-header">
-                <button
-                  className="accordion-button blue-text collapsed text-uppercase py-3 ps-4"
-                  data-bs-target="#shape"
-                  data-bs-toggle="collapse"
-                >
-                  shape
-                </button>
-              </h2>
-              <div id="shape" className="accordion-collapse collapse">
-                <div className="accordion-body row">
-                  {filterItems.map((item, index) => {
-                    return (
-                      <div className="col-6 shape-item pb-3" key={index}>
-                        <button
-                          className="btn filter-item round-form mt-3"
-                          key={index}
-                          onClick={(event) => filterHandle(event, index)}
-                        >
-                          <div className="image-panel text-center">
-                            <img
-                              src={"/img/ring/" + item.img}
-                              alt="filter-image"
-                            />
-                          </div>
-                          <p className="blue-text text-uppercase">
-                            {item.text}
-                          </p>
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
             {productTypeFilter && productTypeFilter.length > 0 && (
               <div className="accordion-item mb-3">
                 <h2 className="accordion-header">

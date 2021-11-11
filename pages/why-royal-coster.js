@@ -15,16 +15,16 @@ const answersData = [
     title: "How <span>do</span> we <br/><span>do</span> this?",
     answers: [
       {
-        title: "Access to 80% of the world’s diamonds.",
-        answer: "Sourcing our diamonds directly from those that cut and polish the stones, we’re uniquely placed to offer you the world’s most luxurious stones at a price that’s affordable."
+        title: "Largest stock of loose diamonds in Europe",
+        answer: "With 20.000 loose diamonds in stock, we have the biggest collection in Europe. If you're looking for that one special diamond, we can probably provide you with it!"
       },
       {
-        title: "All jewellery is handmade to order by our master craftsmen.",
-        answer: "We strongly believe that as no two diamonds are alike, neither should the jewellery and we make each piece to order which in turn keeps our costs down and therefore the price you pay."
+        title: "Our diamond jewelry is handmade inhouse",
+        answer: "Our diamond polishers and goldsmiths polish and create the jewelry themselves. In their workshop they create the most fascinating and unique masterpieces."
       },
       {
-        title: "Proudly housed in the heart of Mayfair, London.",
-        answer: "With a showroom, workshop and head office all in central London, we are able to control all aspects of your order process in order to guarantee the best quality diamonds have been picked by our experts in order to produce the finest quality diamond jewellery."
+        title: "Four monumental villas in the heart of Amsterdam",
+        answer: "Discover something in every building! See how our craftsmen work on diamond jewelry and enter the world of diamonds in one of our luxurious showrooms."
       }
     ]
   },
@@ -32,16 +32,16 @@ const answersData = [
     title: "What does <br/><span>this</span> mean?",
     answers: [
       {
-        title: "Affordable luxury at your finger tips",
-        answer: "Our business model ensures that you can guarantee the world’s most luxurious stone at prices that are up to 70% cheaper than the high street where the choice in diamond quality does not always exist."
+        title: "For every taste",
+        answer: "Whatever style you prefer, you are in the right hands with us! From solitaire rings, to tennis bracelets and big statements pieces. We got it all. And if you still can't find that perfect jewel? Our craftsmen can easily create a one-of-a-kind piece for you."
       },
       {
-        title: "You’re in the right hands.",
-        answer: "With a company founder that is a third generation diamond dealer and a combined experience within our workshops of over 100 years we know what it takes to make your unique purchase extra special."
+        title: "The most trusted jeweller",
+        answer: "Since 1840 many customers have trusted the craftsmen of Royal Coster for their jewelry. Among which royals from all over the world, such as Empress Sisi, King Rama V of Thailand and the Viceroy of China. We work with the highest quality diamonds and our diamond polishers are known for their expertise."
       },
       {
-        title: "Thousands of happy customers.",
-        answer: "Don’t just take our word for it, we have made so many dreams come true with our jewellery and you can read online from those that have experienced our products and customer service."
+        title: "Countless satisfied customers",
+        answer: "At Royal Coster we don't only sell diamonds and diamond jewelry, we create stories of happiness and love. We are proud and grateful to be a part of your love journey."
       }
     ]
   },
@@ -49,16 +49,16 @@ const answersData = [
     title: "What do <br/>you <span>get?</span>",
     answers: [
       {
-        title: "Lifetime Guarantee.",
-        answer: "All our items are covered against our lifetime production guarantee that covers any manufacturing problems or issues."
+        title: "Lifetime Guarantee",
+        answer: "All jewels that have been bought with us deserve the best care possible. Is there a problem with your jewel or did it lose its sparkle? You are always welcome to visit us and together we will make sure you’ll leave as a happy customer with a sparkling bright jewel, as it's supposed to!"
       },
       {
-        title: "Free Worldwide Delivery.",
-        answer: "Wherever you are, we will dispatch your item to you free of charge and fully insured by us until the item has reached your address."
+        title: "Worldwide Delivery.",
+        answer: "From Amsterdam to anywhere in the world! We will do anything to make sure that your beloved jewel will end upon your finger, no matter where you are."
       },
       {
-        title: "30 Day Returns Policy.",
-        answer: "Unlike some of our competitors, for 30 days after receiving your item, if you are not satisfied for any reason, we will refund you your money no questions asked."
+        title: "14 Day Returns Policy.",
+        answer: "Are you unsure about your purchase? All our jewels have a 14 day returns policy. This also includes custom made jewelry or jewelry that was personalized."
       },
     ]
   }

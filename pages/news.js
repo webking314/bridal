@@ -206,7 +206,7 @@ export default function News({ blogData }) {
       {/* End Description section */}
 
       {/* Start sponsorship section */}
-      <div className="sponsorship-section">
+      {/*<div className="sponsorship-section">
         <div className="title-panel">
           <div className="r-container py-5 d-flex align-items-center justify-content-between flex-md-row flex-column">
             <h3 className="title  mb-4 py-5 blue-text col-lg-5 col-md-6 text-capitalize">What <span>they</span> <br className="d-none d-md-block" />say</h3>
@@ -283,7 +283,8 @@ export default function News({ blogData }) {
             </Swiper>
           </div>
         </div>
-      </div>
+      </div>*/}
+
       {/* End more tour section */}
 
       {/* Start Schedule section */}

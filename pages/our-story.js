@@ -104,12 +104,9 @@ export default function OurStory() {
       {/* Start video section */}
       <div className="video-section">
         <div className="r-container">
-          <img
-            src="/img/about/video_img.jpg"
-            className="video_img round"
-            alt="video_img"
-          />
-          <RiPlayCircleFill className="btn-play" />
+          <div className="video-panel">
+            <iframe className="responsive-iframe" src="https://www.youtube.com/watch?v=Bi5NxXIEjZg"></iframe>
+          </div>
         </div>
       </div>
       {/* End video section */}

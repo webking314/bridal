@@ -714,17 +714,29 @@ export default function TourDetail() {
                       className="col-lg-4 col-md-6 tour-item px-3 mb-5"
                       key={index}
                     >
-                      <div className="image-panel hover-scale round mb-4">
-                        <img
-                          src={
-                            window.innerWidth > 575
-                              ? tour.acf.landing.image.url
-                              : tour.acf.landing.image_mobile.url
-                          }
-                          className="tour-image"
-                          alt="tour-image"
-                        />
-                      </div>
+                      <Link
+                        passHref={true}
+                        href={{
+                          pathname: "/tour/[slug]",
+                          query: {
+                            slug: tour.slug,
+                          },
+                        }}
+                      >
+                        <a>
+                          <div className="image-panel hover-scale round mb-4">
+                            <img
+                              src={
+                                window.innerWidth > 575
+                                  ? tour.acf.landing.image.url
+                                  : tour.acf.landing.image_mobile.url
+                              }
+                              className="tour-image"
+                              alt="tour-image"
+                            />
+                          </div>
+                        </a>
+                      </Link>
                       <h3 className="title mb-4 blue-text">
                         {renderHTML(tour.title.rendered)}
                       </h3>

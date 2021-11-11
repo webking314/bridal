@@ -27,7 +27,7 @@ export default function Visit() {
               </a>
             </Link>
             <div className="d-flex justify-content-sm-start justify-content-around flex-fill mt-4">
-              <Link href="/contact">
+              <Link href="tel:+310203055555">
                 <a className="contact-btn ms-3 pink-outline-btn btn round-form px-3 py-3">
                   <RiPhoneFill />
                 </a>
