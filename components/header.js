@@ -304,10 +304,10 @@ function getFilterValue(str) {
 function Header(props) {
   const { page } = props;
   const [selected, setSelected] = useState("LU");
-  const router = useRouter();
   const [items, setItems] = useState();
   const [localCart, setLocalCart] = useState();
   const [accessToken, setAccessToken] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     const mobileTopbarHeight =
@@ -484,6 +484,7 @@ function Header(props) {
       });
     }
   }, []);
+
   const removeItem = (product) => {
     let localProducts = props.wishList;
     let removeProduct = localProducts.find(
@@ -495,6 +496,19 @@ function Header(props) {
       localStorage.setItem("wishList", JSON.stringify(localProducts));
     }
   };
+
+  const handleSearch = (e) => {
+    if(e.keyCode == 13) {
+      const keyword = e.target.value;
+      router.push({
+        pathname: '/search',
+        query: {
+          query: keyword
+        }
+      })
+    }
+  }
+
   return (
     <div id="header" className={page}>
       <div className="desktop-header">
@@ -604,7 +618,7 @@ function Header(props) {
                   );
               })}
             </div>
-            {/* <button
+             <button
               className="btn me-4 d-flex align-items-center"
               type="button"
               data-bs-toggle="offcanvas"
@@ -612,7 +626,7 @@ function Header(props) {
               aria-controls="searchBox"
             >
               <RiSearchLine />
-            </button> */}
+            </button> 
             {accessToken && (
               <button
                 className="btn me-4 d-flex align-items-center"
@@ -741,7 +755,7 @@ function Header(props) {
               </Link>
             </div>
             <div className="col-4 px-0 text-end">
-              {/* <button
+               <button
                 className="btn me-4"
                 type="button"
                 data-bs-toggle="offcanvas"
@@ -749,7 +763,7 @@ function Header(props) {
                 aria-controls="searchBox"
               >
                 <RiSearchLine className="font-icon" />
-              </button> */}
+              </button> 
               {accessToken && (
                 <button
                   className="btn me-4"
@@ -921,7 +935,7 @@ function Header(props) {
             </a>
           </Link>
           <div className="links-panel d-flex align-items-center">
-            {/* <button
+             <button
               className="btn me-2 d-flex align-items-center"
               type="button"
               data-bs-toggle="offcanvas"
@@ -929,7 +943,7 @@ function Header(props) {
               aria-controls="searchBox"
             >
               <RiSearchLine />
-            </button> */}
+            </button> 
             <Link href="tel:00310203055555">
               <a className="btn me-2 d-flex align-items-center" type="button">
                 <RiPhoneFill />
@@ -1133,8 +1147,9 @@ function Header(props) {
             className="form-control me-3 p-3"
             id="searchPanel"
             placeholder="Search Royal Coster Diamonds"
+            onKeyUp={handleSearch}
           />
-          <label htmlFor="searchPanel">
+          <label htmlFor="">
             <RiSearchLine />
           </label>
           <button
