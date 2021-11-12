@@ -29,7 +29,7 @@ export default function ProductDetail({
       <div className="pt-5 pb-md-5 text-panel">
         <h3 className="blue-text">SKU {productID}</h3>
         <p className="m-0 pb-5 full-description">
-          {renderHTML(productDescription)}
+          {productDescription && renderHTML(productDescription)}
         </p>
         <nav className="info-panel">
           <div className="nav nav-tabs" id="nav-tab" role="tablist">

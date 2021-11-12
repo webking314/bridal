@@ -384,7 +384,7 @@ function ProductRing(props) {
                 {renderHTML(productData.title)}
               </h3>
               <p className="description pb-4 m-0">
-                {renderHTML(productData.body_html.split("<p>")[0])}
+                {productData.body_html && renderHTML(productData.body_html.split("<p>")[0])}
               </p>
             </div>
             <div className="confirm-panel">
