@@ -28,9 +28,9 @@ function getFilterValue(str) {
 export default function Search() {
   const [page, setPage] = useState(1);
   const [searchData, setSearchData] = useState();
-  const [productResult, setProductResult] = useState([]);
-  const [educationResult, setEducationResult] = useState([]);
-  const [articleResult, setArticleResult] = useState([]);
+  const [productResult, setProductResult] = useState();
+  const [educationResult, setEducationResult] = useState();
+  const [articleResult, setArticleResult] = useState();
   const [showResult, setShowResult] = useState();
   const [selectBtn, setSelectBtn] = useState('product')
   const router = useRouter();
@@ -60,16 +60,21 @@ export default function Search() {
       const productItems = searchData.searchResults.filter(item => item.object_type == 'product');
       const educationItems = searchData.searchResults.filter(item => item.object_type == 'education');
       const articleItems = searchData.searchResults.filter(item => item.object_type == 'article');
-
+      if(productItems.length) {
+        setSelectBtn('product')
+        setShowResult(productItems)
+      } else if (educationItems.length) {
+        setSelectBtn('education');
+        setShowResult(educationItems)
+      } else {
+        setSelectBtn('article')
+        setShowResult(articleItems)
+      }
       setProductResult(productItems);
       setEducationResult(educationItems);
       setArticleResult(articleItems);
     }
   }, [searchData])
-
-  useEffect(() => {
-    setShowResult(productResult);
-  }, [productResult])
 
   return (
     <div className="search_page">
@@ -82,35 +87,44 @@ export default function Search() {
           <h3 className="title">
             Search for <span className="text-capitalize">{searchData && ('" ' + searchData.searchTerms + ' "')}</span>
           </h3>
-          <p className="result">{searchData?.paginateItems} Results</p>
+          {/*<p className="result">{searchData?.paginateItems} Results</p>*/}
         </div>
         <div className="result-panel">
           <div className="btn-panel d-flex justify-content-between align-items-sm-center align-items-end flex-sm-row flex-column">
             <div className="left-panel w-sm-auto w-100 d-flex align-items-center justify-content-sm-start justify-content-between">
-              <button className={"btn select-btn p-0 " + (selectBtn == "product" && "active")} 
+              {productResult && productResult.length > 0 && 
+                <button className={"btn select-btn p-0 " + (selectBtn == "product" && "active")} 
                 onClick={() => {
                   setSelectBtn('product');
                   setShowResult(productResult)}
                 }
-              >
-                Products{productResult.length > 0 && (" (" + productResult.length + ")")}
-              </button>
-              <button className={"btn select-btn p-0 " + (selectBtn == "education" && "active")} 
-                onClick={() => {
-                  setSelectBtn('education');
-                  setShowResult(educationResult);
-                }}
-              >
-                Education{educationResult.length > 0 && (" (" + educationResult.length + ")")}
-              </button>
-              <button className={"btn select-btn p-0 " + (selectBtn == "article" && "active")} 
-                onClick={() => {
-                  setSelectBtn('article');
-                  setShowResult(articleResult);
-                }}
-              >
-                Articles{articleResult.length > 0 && (" (" + articleResult.length + ")")}
-              </button>
+                >
+                  Products
+                  {/* {" (" + productResult.length + ")"}*/}
+                </button>
+              }
+              {educationResult && educationResult.length > 0 &&
+                <button className={"btn select-btn p-0 " + (selectBtn == "education" && "active")} 
+                  onClick={() => {
+                    setSelectBtn('education');
+                    setShowResult(educationResult);
+                  }}
+                >
+                  Education
+                  {/*{" (" + educationResult.length + ")"}*/}
+                </button>
+              }
+              {articleResult && articleResult.length > 0 &&          
+                <button className={"btn select-btn p-0 " + (selectBtn == "article" && "active")} 
+                  onClick={() => {
+                    setSelectBtn('article');
+                    setShowResult(articleResult);
+                  }}
+                >
+                  Articles
+                  {/*{" (" + articleResult.length + ")"}*/}
+                </button>
+              }
             </div>
            {/* <button className="btn p-0 mt-sm-0 mt-4">
               View All{

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useRef } from "react";
 import NumberFormat from "react-number-format";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -301,13 +301,25 @@ function getFilterValue(str) {
   return str;
 }
 
+let localSearchkey = '';
+
 function Header(props) {
+  const searchClose = useRef();
   const { page } = props;
   const [selected, setSelected] = useState("LU");
   const [items, setItems] = useState();
   const [localCart, setLocalCart] = useState();
+  const [searchKey, setSearchKey] = useState(localSearchkey);
   const [accessToken, setAccessToken] = useState();
   const router = useRouter();
+
+  useEffect(() => {
+    if(router.route == '/search') {
+      if(router.query.query) {
+        setSearchKey(router.query.query)
+      } 
+    }
+  }, [router])
 
   useEffect(() => {
     const mobileTopbarHeight =
@@ -499,7 +511,9 @@ function Header(props) {
 
   const handleSearch = (e) => {
     if(e.keyCode == 13) {
-      const keyword = e.target.value;
+      localSearchkey = searchKey;
+      const keyword = searchKey;
+      searchClose.current.click();
       router.push({
         pathname: '/search',
         query: {
@@ -1146,7 +1160,9 @@ function Header(props) {
           <input
             className="form-control me-3 p-3"
             id="searchPanel"
+            value={searchKey}
             placeholder="Search Royal Coster Diamonds"
+            onChange={(e) => setSearchKey(e.target.value)}
             onKeyUp={handleSearch}
           />
           <label htmlFor="">
@@ -1157,6 +1173,7 @@ function Header(props) {
             className="btn-close text-reset"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
+            ref={searchClose}
           ></button>
         </div>
       </div>
