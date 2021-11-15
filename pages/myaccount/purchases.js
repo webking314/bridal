@@ -16,7 +16,7 @@ export default function Purchases() {
   useEffect(() => {
     const email = JSON.parse(localStorage.login_user).email;
     const formData = new FormData();
-    formData.append("email", "cobol1962@gmail.com");
+    formData.append("email", email);
     fetch(orderURL, {
       method: "post",
       body: formData,
