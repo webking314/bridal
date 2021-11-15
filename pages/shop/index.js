@@ -1234,7 +1234,7 @@ function Ring(props) {
 
         setLoad(true);
         data.append("position", "first:9");
-        if (tag.length) {
+        if (tag.length && router.asPath != "/shop") {
           if (productType) {
             data.append(
               "query",
