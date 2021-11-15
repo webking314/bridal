@@ -26,12 +26,12 @@ export default function OrderDetail({ data, setData }) {
           </div>
           <div className="number-panel mb-4">
             <span>Order number:</span>
-            <p className="mb-3">{data.order_number}</p>
+            <p className="mb-3">{data?.order_number}</p>
           </div>
           <div className="place-panel mb-4">
             <span>Order placed on:</span>
             <p className="mb-3">
-              {dateFormat(data.created_at, "mmmm d, yyyy")}
+              {dateFormat(data?.created_at, "mmmm d, yyyy")}
             </p>
           </div>
           <div className="track-panel">
@@ -44,7 +44,7 @@ export default function OrderDetail({ data, setData }) {
           </button>
         </div>
       </div>
-      {data.billing_address && (
+      {data?.billing_address && (
         <div className="other-panel round bordered p-5 mb-4">
           <h3 className="sub-title mb-4">Billing Address</h3>
           <p className="mb-3">{data.billing_address.name}</p>
@@ -56,7 +56,7 @@ export default function OrderDetail({ data, setData }) {
           <p className="mb-0">Telefoonnummer: {data.billing_address.phone}</p>
         </div>
       )}
-      {data.payment_details && (
+      {data?.payment_details && (
         <div className="other-panel round bordered p-5 mb-4">
           <h3 className="sub-title mb-4">Payment Method</h3>
           <p className="m-0">
@@ -66,7 +66,7 @@ export default function OrderDetail({ data, setData }) {
       )}
       <div className="product-panel round bordered p-5 pb-2 mb-5">
         <h3 className="sub-title mb-0">Products</h3>
-        {data.line_items.map((item, index) => (
+        {data?.line_items.map((item, index) => (
           <div className="item-panel row m-0 py-4" key={index}>
             <div className="image-panel round-form hover-scale col-md-4 mb-md-0 mb-3 p-0">
               <img
@@ -115,7 +115,7 @@ export default function OrderDetail({ data, setData }) {
             <span className="mb-3">Subtotal:</span>
             <span>
               <NumberFormat
-                value={data.subtotal_price}
+                value={data?.subtotal_price}
                 displayType="text"
                 decimalScale={2}
                 fixedDecimalScale={true}
@@ -128,7 +128,7 @@ export default function OrderDetail({ data, setData }) {
             <span>Excluding VAT:</span>
             <span>
               <NumberFormat
-                value={data.total_tax}
+                value={data?.total_tax}
                 displayType="text"
                 decimalScale={2}
                 fixedDecimalScale={true}
@@ -142,7 +142,7 @@ export default function OrderDetail({ data, setData }) {
           <span>Total</span>
           <span>
             <NumberFormat
-              value={data.total_price}
+              value={data?.total_price}
               displayType="text"
               decimalScale={2}
               fixedDecimalScale={true}
