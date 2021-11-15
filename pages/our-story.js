@@ -105,7 +105,7 @@ export default function OurStory() {
       <div className="video-section">
         <div className="r-container">
           <div className="video-panel">
-            <iframe className="responsive-iframe" src="https://www.youtube.com/watch?v=Bi5NxXIEjZg"></iframe>
+            <iframe className="responsive-iframe" src="https://www.youtube.com/embed/Bi5NxXIEjZg"></iframe>
           </div>
         </div>
       </div>

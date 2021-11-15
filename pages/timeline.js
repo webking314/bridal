@@ -146,11 +146,9 @@ export default function TimeLine() {
       //   inertia: true,
       //   throwProps: true,
       //   onThrowUpdate: function () {
-      //     console.log(123)
       //     mastheadScrollTrigger.scroll(-this.x);
       //   },
       //   onDrag: function () {
-      //     console.log(this.x)
       //     mastheadScrollTrigger.scroll(-this.x);
       //   }
       // })[0];
@@ -210,7 +208,6 @@ export default function TimeLine() {
       return
     }
     window.scrollTo(0, totalHeight + target.offsetTop)
-    // console.log(window.scrollY,totalHeight + target.offsetTop, totalHeight + nextTarget.offsetTop, nextTarget)
   }
 
   return (

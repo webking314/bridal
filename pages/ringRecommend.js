@@ -65,7 +65,6 @@ export default function RingRecommend() {
   };
 
   const handleComplete = () => {
-    console.log('complete!')
   }
 
   return (

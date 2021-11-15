@@ -98,7 +98,6 @@ export default function TaxRefund() {
   const handleSubmit = (e) => {
     e.preventDefault();
     var recapchaValue = grecaptcha.getResponse();
-    console.log(recapchaValue);
   };
 
   return (

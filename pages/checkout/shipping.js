@@ -176,9 +176,7 @@ function Shipping(props) {
                     />
                     <h3 className="ps-5 m-0 ms-5">Standard</h3>
                   </div>
-                  <Link passHref={true} href="#">
-                    <a className="blue-text text-decoration-underline">Free</a>
-                  </Link>
+                  <p className="blue-text mb-0">Free</p>
                 </label>
               </div>
               <div className="btn-panel pt-5 d-flex flex-sm-row flex-column">

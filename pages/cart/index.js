@@ -66,7 +66,6 @@ function MyCart(props) {
     // })
 
     // props.checkOut.client.checkout.addLineItems(checkoutID, lineItemsToAdd).then((res) => {
-    //   console.log(res)
     router.push("/checkout/information");
     // })
   };

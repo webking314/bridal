@@ -28,7 +28,6 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
-        console.log(data);
         const variant = "error";
         if (data.status == "error") {
           enqueueSnackbar(data.error, { variant });

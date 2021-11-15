@@ -49,7 +49,6 @@ export default function Information() {
       !country |
       !phoneNumber
     ) {
-      console.log(123)
     } else {
       e.preventDefault();
       if (typeof phoneNumber !== "undefined") {
@@ -126,11 +125,13 @@ export default function Information() {
                 <div className="contact-panel">
                   <div className="title-panel d-flex justify-content-between py-4">
                     <h3 className="title m-0">Contact</h3>
-                    <Link passHref={true}  href="#">
-                      <a className="blue-text text-decoration-underline">
-                        Sign In
-                      </a>
-                    </Link>
+                    {!localStore?.access_token &&
+                      <Link passHref={true}  href="/myaccount/login">
+                        <a className="blue-text text-decoration-underline">
+                          Sign In
+                        </a>
+                      </Link> 
+                    }
                   </div>
                   <div className="input-panel pt-3">
                     <input

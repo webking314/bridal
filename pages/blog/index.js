@@ -343,7 +343,6 @@ export default function Blog() {
   useEffect(() => {
     if (loadMoreStatus) {
       localSticky = sticky;
-      console.log(filterCategory);
       let url =
         blogURL +
         "?orderby=id&per_page=11&exclude=" +

@@ -36,7 +36,6 @@ export default function ThankYou() {
     }).then(res => res.json())
       .then(data => {
         if (data) {
-          console.log(data)
           setOrderData(data)
           setCurrencyCode(data.currency);
         }

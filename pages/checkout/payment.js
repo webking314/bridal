@@ -34,10 +34,6 @@ function Payment(props) {
   ]);
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    console.log(paymentMethod);
-  }, [paymentMethod]);
-
   const payNow = (e) => {
     e.preventDefault();
     let lineItems = [];
@@ -487,7 +483,7 @@ function Payment(props) {
                     className="btn round-form px-4 py-3 back-btn text-uppercase"
                     onClick={() => router.push("/checkout/shipping")}
                   >
-                    Back to ship
+                    Back to shipment
                   </button>
                 </div>
               </form>

@@ -31,7 +31,6 @@ function Checkout(props) {
       require("bootstrap/dist/js/bootstrap");
     }
     setCheckoutURL(props.checkOut.checkout.webUrl)
-    console.log(props.checkOut)
   }, []);
 
   return (
