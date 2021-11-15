@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { RiArrowRightLine } from "react-icons/ri";
+import Link from "next/link"
 import { Spinner } from "react-bootstrap";
 import { SnackbarProvider, useSnackbar } from "notistack";
 
@@ -111,9 +112,14 @@ export default function Detail({ data }) {
           </div>
           <div className="edit-password-panel col-md-6">
             <h3 className="sub-title mb-3 text-capitalize">
-              Change name/email
+              Change password
             </h3>
-            <input
+            <Link href="/myaccount/resetPassword">
+              <a className="btn blue-btn btn-reset-password text-uppercase">
+                Reset Password
+              </a>
+            </Link>
+           {/* <input
               type="password"
               className="form-control"
               placeholder="NEW PASSWORD"
@@ -122,15 +128,15 @@ export default function Detail({ data }) {
               type="password"
               className="form-control"
               placeholder="CONFRIM NEW PASSWORD"
-            />
+            />*/}
           </div>
         </div>
         <div className="confirm-panel">
-          <input
+         {/* <input
             type="text"
             className="form-control"
             placeholder="CURRENT PASSWORD"
-          />
+          />*/}
           <button
             className="btn blue-btn btn-apply d-flex justify-content-between align-items-center"
             disabled={loading}

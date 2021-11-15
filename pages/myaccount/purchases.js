@@ -72,12 +72,6 @@ export default function Purchases() {
     }
   }, [lineItemData]);
 
-  useEffect(() => {
-    if (totalData) {
-      console.log(totalData);
-    }
-  }, [totalData]);
-
   return (
     <div className="purchases_panel">
       {!noResult ? (

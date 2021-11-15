@@ -35,14 +35,16 @@ export default function OrderDetail({ data, setData }) {
             </p>
           </div>
           <div className="track-panel">
-            <span className="text-decoration-underline">Track & Trace URL</span>
+          <Link href={data?.order_status_url}>
+            <a className="text-decoration-underline p-0">Track & Trace URL</a>
+          </Link>
           </div>
         </div>
-        <div className="btn-panel">
+       {/* <div className="btn-panel">
           <button className="btn btn-reorder text-uppercase blue-btn round-form px-4 py-3">
             reorder
           </button>
-        </div>
+        </div>*/}
       </div>
       {data?.billing_address && (
         <div className="other-panel round bordered p-5 mb-4">
@@ -124,7 +126,7 @@ export default function OrderDetail({ data, setData }) {
               />
             </span>
           </div>
-          <div className="exclude-vat d-flex justify-content-between align-items-center">
+          {/*<div className="exclude-vat d-flex justify-content-between align-items-center">
             <span>Excluding VAT:</span>
             <span>
               <NumberFormat
@@ -136,7 +138,7 @@ export default function OrderDetail({ data, setData }) {
                 prefix="€ "
               />
             </span>
-          </div>
+          </div>*/}
         </div>
         <div className="total-panel pt-3 d-flex align-items-center justify-content-between">
           <span>Total</span>

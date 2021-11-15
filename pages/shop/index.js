@@ -533,7 +533,7 @@ function Ring(props) {
         }
       } else {
         if (router.asPath == "/shop") {
-          setTag(['jewelry']);
+          setTag(["jewelry"]);
           setProductType();
           setProductTypeFilter(productTypeFilterItem);
         }
@@ -958,14 +958,29 @@ function Ring(props) {
           );
         }
         if (productType) {
-          formData.append(
-            "query",
-            "status:active AND tag:active AND " +
-              (productType == "pendants"
-                ? "(product_type:" + productType + " OR product_type:necklaces)"
-                : "product_type:" + productType) +
-              defaultTags
-          );
+          if (productType == "watches") {
+            formData.append(
+              "query",
+              "status:active AND " +
+                (productType == "pendants"
+                  ? "(product_type:" +
+                    productType +
+                    " OR product_type:necklaces)"
+                  : "product_type:" + productType) +
+                defaultTags
+            );
+          } else {
+            formData.append(
+              "query",
+              "status:active AND tag:active AND " +
+                (productType == "pendants"
+                  ? "(product_type:" +
+                    productType +
+                    " OR product_type:necklaces)"
+                  : "product_type:" + productType) +
+                defaultTags
+            );
+          }
         } else {
           formData.append(
             "query",
@@ -1029,16 +1044,29 @@ function Ring(props) {
             );
           }
           if (productType) {
-            formData.append(
-              "query",
-              "status:active AND tag:active AND " +
-                (productType == "pendants"
-                  ? "(product_type:" +
-                    productType +
-                    " OR product_type:necklaces)"
-                  : "product_type:" + productType) +
-                defaultTags
-            );
+            if (productType == "watches") {
+              formData.append(
+                "query",
+                "status:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultTags
+              );
+            } else {
+              formData.append(
+                "query",
+                "status:active AND tag:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultTags
+              );
+            }
           } else {
             if (defaultTags) {
               formData.append(
@@ -1236,29 +1264,55 @@ function Ring(props) {
         data.append("position", "first:9");
         if (tag.length && router.asPath != "/shop") {
           if (productType) {
-            data.append(
-              "query",
-              "status:active AND tag:active AND " +
-                (productType == "pendants"
-                  ? "(product_type:" +
-                    productType +
-                    " OR product_type:necklaces)"
-                  : "product_type:" + productType) +
-                defaultProductType +
-                defaultTags +
-                query0 +
-                query1 +
-                query2 +
-                query3 +
-                query4 +
-                query5 +
-                query6 +
-                query7 +
-                query8 +
-                query9 +
-                query10 +
-                query11
-            );
+            if (productType == "watches") {
+              data.append(
+                "query",
+                "status:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultProductType +
+                  defaultTags +
+                  query0 +
+                  query1 +
+                  query2 +
+                  query3 +
+                  query4 +
+                  query5 +
+                  query6 +
+                  query7 +
+                  query8 +
+                  query9 +
+                  query10 +
+                  query11
+              );
+            } else {
+              data.append(
+                "query",
+                "status:active AND tag:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultProductType +
+                  defaultTags +
+                  query0 +
+                  query1 +
+                  query2 +
+                  query3 +
+                  query4 +
+                  query5 +
+                  query6 +
+                  query7 +
+                  query8 +
+                  query9 +
+                  query10 +
+                  query11
+              );
+            }
           } else {
             data.append(
               "query",
@@ -1281,28 +1335,53 @@ function Ring(props) {
           }
         } else {
           if (productType) {
-            data.append(
-              "query",
-              "status:active AND tag:active AND " +
-                (productType == "pendants"
-                  ? "(product_type:" +
-                    productType +
-                    " OR product_type:necklaces)"
-                  : "product_type:" + productType) +
-                defaultProductType +
-                query0 +
-                query1 +
-                query2 +
-                query3 +
-                query4 +
-                query5 +
-                query6 +
-                query7 +
-                query8 +
-                query9 +
-                query10 +
-                query11
-            );
+            if (productType == "watches") {
+              data.append(
+                "query",
+                "status:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultProductType +
+                  query0 +
+                  query1 +
+                  query2 +
+                  query3 +
+                  query4 +
+                  query5 +
+                  query6 +
+                  query7 +
+                  query8 +
+                  query9 +
+                  query10 +
+                  query11
+              );
+            } else {
+              data.append(
+                "query",
+                "status:active AND tag:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultProductType +
+                  query0 +
+                  query1 +
+                  query2 +
+                  query3 +
+                  query4 +
+                  query5 +
+                  query6 +
+                  query7 +
+                  query8 +
+                  query9 +
+                  query10 +
+                  query11
+              );
+            }
           } else {
             data.append(
               "query",
@@ -1337,17 +1416,31 @@ function Ring(props) {
         data.append("position", "first:9");
         if (tag.length) {
           if (productType) {
-            data.append(
-              "query",
-              "status:active AND tag:active AND " +
-                (productType == "pendants"
-                  ? "(product_type:" +
-                    productType +
-                    " OR product_type:necklaces)"
-                  : "product_type:" + productType) +
-                defaultTags +
-                defaultProductType
-            );
+            if (productType == "watches") {
+              data.append(
+                "query",
+                "status:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultTags +
+                  defaultProductType
+              );
+            } else {
+              data.append(
+                "query",
+                "status:active AND tag:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultTags +
+                  defaultProductType
+              );
+            }
           } else {
             data.append(
               "query",
@@ -1358,16 +1451,29 @@ function Ring(props) {
           }
         } else {
           if (productType) {
-            data.append(
-              "query",
-              "status:active AND tag:active AND " +
-                (productType == "pendants"
-                  ? "(product_type:" +
-                    productType +
-                    " OR product_type:necklaces)"
-                  : "product_type:" + productType) +
-                defaultProductType
-            );
+            if (productType == "watches") {
+              data.append(
+                "query",
+                "status:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultProductType
+              );
+            } else {
+              data.append(
+                "query",
+                "status:active AND tag:active AND " +
+                  (productType == "pendants"
+                    ? "(product_type:" +
+                      productType +
+                      " OR product_type:necklaces)"
+                    : "product_type:" + productType) +
+                  defaultProductType
+              );
+            }
           } else {
             data.append(
               "query",
@@ -1582,26 +1688,49 @@ function Ring(props) {
     formData.append("position", `first:9, after:"${lastProduct}"`);
     if (tag.length) {
       if (productType) {
-        formData.append(
-          "query",
-          "status:active AND tag:active AND " +
-            (productType == "pendants"
-              ? "(product_type:" + productType + " OR product_type:necklaces)"
-              : "product_type:" + productType) +
-            defaultTags +
-            defaultProductType +
-            query0 +
-            query1 +
-            query2 +
-            query3 +
-            query4 +
-            query5 +
-            query6 +
-            query7 +
-            query8 +
-            query9 +
-            query10
-        );
+        if (productType == "watches") {
+          formData.append(
+            "query",
+            "status:active AND " +
+              (productType == "pendants"
+                ? "(product_type:" + productType + " OR product_type:necklaces)"
+                : "product_type:" + productType) +
+              defaultTags +
+              defaultProductType +
+              query0 +
+              query1 +
+              query2 +
+              query3 +
+              query4 +
+              query5 +
+              query6 +
+              query7 +
+              query8 +
+              query9 +
+              query10
+          );
+        } else {
+          formData.append(
+            "query",
+            "status:active AND tag:active AND " +
+              (productType == "pendants"
+                ? "(product_type:" + productType + " OR product_type:necklaces)"
+                : "product_type:" + productType) +
+              defaultTags +
+              defaultProductType +
+              query0 +
+              query1 +
+              query2 +
+              query3 +
+              query4 +
+              query5 +
+              query6 +
+              query7 +
+              query8 +
+              query9 +
+              query10
+          );
+        }
       } else {
         formData.append(
           "query",
@@ -1623,25 +1752,47 @@ function Ring(props) {
       }
     } else {
       if (productType) {
-        formData.append(
-          "query",
-          "status:active AND tag:active AND " +
-            (productType == "pendants"
-              ? "(product_type:" + productType + " OR product_type:necklaces)"
-              : "product_type:" + productType) +
-            defaultProductType +
-            query0 +
-            query1 +
-            query2 +
-            query3 +
-            query4 +
-            query5 +
-            query6 +
-            query7 +
-            query8 +
-            query9 +
-            query10
-        );
+        if (productType == "watches") {
+          formData.append(
+            "query",
+            "status:active AND " +
+              (productType == "pendants"
+                ? "(product_type:" + productType + " OR product_type:necklaces)"
+                : "product_type:" + productType) +
+              defaultProductType +
+              query0 +
+              query1 +
+              query2 +
+              query3 +
+              query4 +
+              query5 +
+              query6 +
+              query7 +
+              query8 +
+              query9 +
+              query10
+          );
+        } else {
+          formData.append(
+            "query",
+            "status:active AND tag:active AND " +
+              (productType == "pendants"
+                ? "(product_type:" + productType + " OR product_type:necklaces)"
+                : "product_type:" + productType) +
+              defaultProductType +
+              query0 +
+              query1 +
+              query2 +
+              query3 +
+              query4 +
+              query5 +
+              query6 +
+              query7 +
+              query8 +
+              query9 +
+              query10
+          );
+        }
       } else {
         formData.append(
           "query",
