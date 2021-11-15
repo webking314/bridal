@@ -15,20 +15,20 @@ export default function Purchases() {
   const [noResult, setNotResult] = useState(false);
 
   useEffect(() => {
-    const email = JSON.parse(localStorage.login_user).email;
+    const emial = JSON.parse(localStorage.login_user).email;
     const formData = new FormData();
-    formData.append("email", email);
+    formData.append("email", emial);
     fetch(orderURL, {
       method: "post",
       body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.length) {
-          setOrderData(data.orders);
-        } else {
-          setNotResult(true);
-        }
+        // if (data.orders.length) {
+        setOrderData(data.orders);
+        // } else {
+        //   setNotResult(true);
+        // }
       });
   }, []);
 
@@ -72,6 +72,12 @@ export default function Purchases() {
     }
   }, [lineItemData]);
 
+  useEffect(() => {
+    if (totalData) {
+      console.log(totalData);
+    }
+  }, [totalData]);
+
   return (
     <div className="purchases_panel">
       {!noResult ? (
@@ -102,20 +108,23 @@ export default function Purchases() {
                     </div>
                     <div className="order-panel col-md-9 p-0">
                       <div className="product-panel d-flex flex-wrap">
-                        {item.lineItems.map((lineItem, id) => (
-                          <div
-                            className="image-panel hover-scale me-3 mb-3"
-                            key={id}
-                          >
-                            <img
-                              src={lineItem.image.src.replace(
-                                ".jpg",
-                                "_100x.jpg"
-                              )}
-                              alt="product-img"
-                            />
-                          </div>
-                        ))}
+                        {item.lineItems.map(
+                          (lineItem, id) =>
+                            lineItem.image && (
+                              <div
+                                className="image-panel hover-scale me-3 mb-3"
+                                key={id}
+                              >
+                                <img
+                                  src={lineItem.image.src.replace(
+                                    ".jpg",
+                                    "_100x.jpg"
+                                  )}
+                                  alt="product-img"
+                                />
+                              </div>
+                            )
+                        )}
                       </div>
                       <div className="btn-panel d-sm-flex d-block align-items-center">
                         <button
