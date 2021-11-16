@@ -127,9 +127,9 @@ export default function Purchases() {
                         >
                           order details
                         </button>
-                        <button className="btn btn-reorder round-form text-uppercase">
+                        {/*<button className="btn btn-reorder round-form text-uppercase">
                           reorder
-                        </button>
+                        </button>*/}
                       </div>
                     </div>
                   </div>

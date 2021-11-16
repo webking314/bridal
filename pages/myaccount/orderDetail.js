@@ -78,7 +78,7 @@ export default function OrderDetail({ data, setData }) {
               <img
                 src={data.lineItems[index].image.src.replace(
                   ".jpg",
-                  "_100x.jpg"
+                  "_300x.jpg"
                 )}
                 alt="product-image"
               />
