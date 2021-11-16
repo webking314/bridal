@@ -35,12 +35,16 @@ export default function OrderDetail({ data, setData }) {
             </p>
           </div>
           <div className="track-panel">
-          <Link href={data?.order_status_url}>
-            <a className="text-decoration-underline p-0">Track & Trace URL</a>
-          </Link>
+            {data?.order_status_url && (
+              <Link href={data.order_status_url}>
+                <a className="text-decoration-underline p-0">
+                  Track & Trace URL
+                </a>
+              </Link>
+            )}
           </div>
         </div>
-       {/* <div className="btn-panel">
+        {/* <div className="btn-panel">
           <button className="btn btn-reorder text-uppercase blue-btn round-form px-4 py-3">
             reorder
           </button>
@@ -93,8 +97,12 @@ export default function OrderDetail({ data, setData }) {
                     discount
                   </p>
                 )}
-                {item.variant_title && <p className="mb-3">- {item.variant_title}</p>}
-                {item.quantity && <p className="mb-3">- Quantity: {item.quantity}</p>}
+                {item.variant_title && (
+                  <p className="mb-3">- {item.variant_title}</p>
+                )}
+                {item.quantity && (
+                  <p className="mb-3">- Quantity: {item.quantity}</p>
+                )}
               </div>
               <p className="product-price m-0">
                 <NumberFormat
