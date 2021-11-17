@@ -1316,7 +1316,7 @@ function Ring(props) {
           } else {
             data.append(
               "query",
-              "status:active AND tag:active AND " +
+              "status:active AND tag:active " +
                 defaultProductType +
                 defaultTags +
                 query0 +
@@ -1444,7 +1444,7 @@ function Ring(props) {
           } else {
             data.append(
               "query",
-              "status:active AND tag:active AND " +
+              "status:active AND tag:active " +
                 defaultTags +
                 defaultProductType
             );
@@ -1734,7 +1734,7 @@ function Ring(props) {
       } else {
         formData.append(
           "query",
-          "status:active AND tag:active AND " +
+          "status:active AND tag:active " +
             defaultTags +
             defaultProductType +
             query0 +
