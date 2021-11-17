@@ -194,7 +194,9 @@ function ProductRing(props) {
             );
           }
         } else {
-          if (!productData.available) {
+          if (!productData.available) { 
+            const variant = "warning";
+            enqueueSnackbar("Stock is not enough.", { variant });
             return;
           }
 
