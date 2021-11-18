@@ -17,6 +17,8 @@
 /styles/dist/
 /styles/*/dist/
 /components/dist/
+/dist
+.env
 
 # production
 /build
