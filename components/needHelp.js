@@ -17,32 +17,32 @@ export default function NeedHelp() {
           <p>Please contact our diamond specialists:</p>
         </div>
         <div className="col-md-4 col-12 p-0 ps-md-3 help-items">
-          <div className="px-5 py-4 blue-text mb-4 text-uppercase">
+          <a href="tel:00310203055555" className="btn px-5 py-4 blue-text mb-4 text-uppercase">
             <RiPhoneLine className="me-4" />
             +31 (0) 203055 555
-          </div>
-          <div className="px-5 py-4 blue-text mb-4 text-uppercase">
+          </a>
+          <button className="btn px-5 py-4 blue-text mb-4 text-uppercase">
             <RiChatSmile2Line className="me-4" />
             Live chat
-          </div>
-          <div className="px-5 py-4 blue-text mb-4 text-uppercase">
+          </button>
+          <button className="btn px-5 py-4 blue-text mb-4 text-uppercase">
             <RiStore2Line className="me-4" />
             Find a showroom
-          </div>
+          </button>
         </div>
         <div className="col-md-4 col-12 p-0 ps-md-3 help-items">
-          <div className="px-5 py-4 blue-text mb-4 text-uppercase">
+          <button className="btn px-5 py-4 blue-text mb-4 text-uppercase">
             <RiStore2Line className="me-4" />
             Online Consultation
-          </div>
-          <div className="px-5 py-4 blue-text mb-4 text-uppercase">
+          </button>
+          <button className="btn px-5 py-4 blue-text mb-4 text-uppercase" data-bs-toggle="modal" data-bs-target="#appointment">
             <RiUser3Line className="me-4" />
             book an appointment
-          </div>
-          <div className="px-5 py-4 blue-text mb-4 text-uppercase">
+          </button>
+          <a href="mailto:support@costerdiamonds.com" className="btn px-5 py-4 blue-text mb-4 text-uppercase">
             <RiMailLine className="me-4" />
             Send as a email
-          </div>
+          </a>
         </div>
       </div>
     </div>

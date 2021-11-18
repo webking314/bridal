@@ -23,12 +23,13 @@
     }
   }
   .help-items {
-    & > div {
+    & > .btn {
       background: rgba(1, 33, 92, 0.05);
       font-size: 2rem;
       border-radius: 1.2rem;
       display: flex;
       align-items: center;
+      width: 100%;
     }
   }
   .pink-circle {
