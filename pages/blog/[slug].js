@@ -74,12 +74,12 @@ const ReadingProgress = ({ target }) => {
   );
 };
 
-const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
+const blogURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/blogs";
 const insideURL =
-  "https://royalcoster.nl/wordpress/wp-json/wp/v2/inside-coster";
-const authorURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/users";
-const tagsURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tags";
-const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
+  process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/inside-coster";
+const authorURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/users";
+const tagsURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/tags";
+const categoryURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/categories";
 const productURL = process.env.NEXT_PUBLIC_PRODUCT_URL;
 const headers = {
   "Content-Type": "application/json",

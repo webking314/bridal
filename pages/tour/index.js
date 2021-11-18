@@ -20,7 +20,7 @@ const toursData = [
   { title: "Luxury Shopping Experience", description: "Come in for a Royal Experience at Royal Coster Diamonds and combine it with 'This is Holland'. Discover all the beautiful things the Dutch are so famous for.", image: "/img/tour/tour-5.png" },
 ]
 
-const tourURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tours?order=asc&orderby=id";
+const tourURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/tours?order=asc&orderby=id";
 let tourData, localSticky = 1;
 
 export default function Tour() {

@@ -16,11 +16,11 @@ import head from "next/head";
 import Loading from "../../components/loading";
 import Skeleton from "@mui/material/Skeleton";
 
-const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs";
-const detailBlogURL = "https://royalcoster.nl/wordpress/wp-json/acf/v3/blogs";
-const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories";
+const blogURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/blogs";
+const detailBlogURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/acf/v3/blogs";
+const categoryURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/categories";
 const getResultURL =
-  "https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/226055";
+  "https://wordpress.royalcoster.nl/wp-json/wp/v2/pages/226055";
 const headers = {
   // "Content-Type": "application/json",
 };

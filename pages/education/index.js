@@ -17,8 +17,8 @@ const educationData = [
   { image: '/img/education/about (6).png', title: "Watches" },
 ]
 
-const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs?orderby=id&per_page=6&categories=";
-const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories?search=craftsmanship";
+const blogURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/blogs?orderby=id&per_page=6&categories=";
+const categoryURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/categories?search=craftsmanship";
 let localBlog;
 
 export default function Education({ blogData }) {

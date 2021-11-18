@@ -35,7 +35,7 @@ var dateFormat = require("dateformat");
 
 SwiperCore.use([Autoplay, Navigation]);
 
-const tourURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/tours";
+const tourURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/tours";
 const calendarScript =
   "https://fareharbor.com/embeds/script/calendar/royalcosterdiamondbv/?fallback=simple";
 const form2Date = [

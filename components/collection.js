@@ -4,35 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import "swiper/css";
 
-const mainURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/225800";
+const mainURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/pages/225800";
 
-let collectionSliders = [
-  {
-    url: "Rectangle 29.png",
-    title: "Empress Collection",
-    slug: "empress-collectie",
-  },
-  {
-    url: "Rectangle 30.png",
-    title: "Wedding & Anniversary",
-    slug: "rainbow-collectie",
-  },
-  {
-    url: "Rectangle 31.png",
-    title: "Royal Classics",
-    slug: "rainbow-collectie",
-  },
-  {
-    url: "Rectangle 32.png",
-    title: "Fine Jewelry",
-    slug: "rainbow-collectie",
-  },
-  {
-    url: "Rectangle 33.png",
-    title: "Watches",
-    slug: "rainbow-collectie",
-  },
-];
 SwiperCore.use([Autoplay, Navigation]);
 
 export default function Collection() {
@@ -104,12 +77,6 @@ export default function Collection() {
                 <SwiperSlide key={index}>
                   <Link
                     passHref={true}
-                    // href={{
-                    //   pathname: "/collections/[slug]",
-                    //   query: {
-                    //     slug: item.collection_item_url,
-                    //   },
-                    // }}
                     href={item.collection_item_url}
                   >
                     <a>

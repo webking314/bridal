@@ -60,8 +60,8 @@ const sliderData = [
   },
 ]
 
-const blogURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/blogs?orderby=id&per_page=7&categories=";
-const categoryURL = "https://royalcoster.nl/wordpress/wp-json/wp/v2/categories?search=news";
+const blogURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/blogs?orderby=id&per_page=7&categories=";
+const categoryURL = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/categories?search=news";
 let localBlog;
 
 SwiperCore.use([Autoplay, Navigation]);

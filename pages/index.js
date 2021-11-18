@@ -9,7 +9,7 @@ import Collection from "../components/collection";
 import Help from "../components/help";
 import Instagram from "../components/instagram";
 
-const url = "https://royalcoster.nl/wordpress/wp-json/wp/v2/pages/225800";
+const url = process.env.NEXT_PUBLIC_WORDPRESS_URL + "/wp-json/wp/v2/pages/225800";
 const heroGradientStyle =
   "linear-gradient(180deg, #01215c 0%, rgba(1, 33, 92, 0) 50%),";
 let localData;
