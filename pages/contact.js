@@ -87,7 +87,7 @@ export default function ContactUs() {
                   </div>
                 </a>
               </Link>
-              <Link href="mailto:support@costerdiamonds.com>
+              <Link href="mailto:support@costerdiamonds.com">
                 <a>
                   <div className="rounded-circle d-flex justify-content-center align-items-center">
                     <RiMessengerFill />
