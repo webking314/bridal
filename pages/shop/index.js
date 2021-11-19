@@ -1259,7 +1259,7 @@ function Ring(props) {
               ).replaceAll(",", "")
             : "";
 
-            if(router.asPath == "/shop") {
+            {/* if(router.asPath == "/shop") {
               if(!defaultProductType && !query0 &&!query1 && !query2 &&!query3 &&!query4 &&!query5 &&!query6 &&!query7 &&!query8 &&!query9 &&!query10&&!query11) {
                 defaultTags = (
               tag.map((item, index) =>
@@ -1269,7 +1269,8 @@ function Ring(props) {
             } else {
               defaultTags = ''
             } 
-    }
+            }
+          */}
         let data = new FormData();
 
         setLoad(true);
@@ -1710,7 +1711,7 @@ function Ring(props) {
               ).replaceAll(",", "")
             : "";
 
-    if(router.asPath == "/shop") {
+   {/* if(router.asPath == "/shop") {
       if(!defaultProductType && !query0 &&!query1 && !query2 &&!query3 &&!query4 &&!query5 &&!query6 &&!query7 &&!query8 &&!query9 &&!query10 &&!query11) {
         defaultTags = (
       tag.map((item, index) =>
@@ -1720,7 +1721,7 @@ function Ring(props) {
       } else {
         defaultTags = ''
       } 
-    }
+    } */}
     formData.append("position", `first:9, after:"${lastProduct}"`);
     if (tag.length) {
       if (productType) {
