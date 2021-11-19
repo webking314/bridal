@@ -1260,8 +1260,7 @@ function Ring(props) {
             : "";
 
             if(router.asPath == "/shop") {
-              console.log(!defaultProductType && !query0 &&!query1 && !query2 &&!query3 &&!query4 &&!query5 &&!query6 &&!query7 &&!query8 &&!query9 &&!query10&&!query11)
-              if(!query0 &&!query1 && !query2 &&!query3 &&!query4 &&!query5 &&!query6 &&!query7 &&!query8 &&!query9 &&!query10&&!query11) {
+              if(!defaultProductType && !query0 &&!query1 && !query2 &&!query3 &&!query4 &&!query5 &&!query6 &&!query7 &&!query8 &&!query9 &&!query10&&!query11) {
                 defaultTags = (
               tag.map((item, index) =>
                 index == 0 ? " AND (tag:" + item : " OR tag:" + item
