@@ -332,6 +332,7 @@ function Ring(props) {
   const [materialColorFilter, setMaterialColorFilter] = useState();
   const [caratFilter, setCaratFilter] = useState();
   const [settingFilter, setSettingFilter] = useState();
+  const [checkingStatus, setCheckingStatus] = useState(false);
   const [productTypeFilter, setProductTypeFilter] = useState();
 
   useEffect(() => {
@@ -982,10 +983,7 @@ function Ring(props) {
             );
           }
         } else {
-          formData.append(
-            "query",
-            "tag:active" + defaultTags
-          );
+          formData.append("query", "tag:active" + defaultTags);
         }
         fetch(CTagURL, {
           method: "post",
@@ -1069,10 +1067,7 @@ function Ring(props) {
             }
           } else {
             if (defaultTags) {
-              formData.append(
-                "query",
-                "tag:active" + defaultTags
-              );
+              formData.append("query", "tag:active" + defaultTags);
             } else {
               formData.append("query", "tag:active");
             }
@@ -1084,30 +1079,41 @@ function Ring(props) {
             .then((res) => res.json())
             .then((data) => {
               let middleArr = [];
-              if (data.hasNextPage == "Yes") {
-                setTotalCounter(totalCounter + data.productsCount);
-                let tags = cTagMiddleStore;
-                data.tags.map((tag, index) => {
-                  if (!tags.find((item) => item == getFilterValue(tag))) {
-                    middleArr.push(getFilterValue(tag));
-                  }
-                  if (index == data.tags.length - 1) {
-                    setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
-                    cTagData = [...cTagMiddleStore, ...middleArr];
-                    setCTags(cTagData);
-                  }
-                });
-                setCTagLastAdd(data.last);
-              } else {
-                localResultCounter = totalCounter + data.productsCount;
-                setResult(localResultCounter);
-              }
+              let tags = cTagMiddleStore;
+              data.tags.map((tag, index) => {
+                if (!tags.find((item) => item == getFilterValue(tag))) {
+                  middleArr.push(getFilterValue(tag));
+                }
+                if (index == data.tags.length - 1) {
+                  setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
+                  cTagData = [...cTagMiddleStore, ...middleArr];
+                  setCTags(cTagData);
+                }
+              });
+              // if (data.hasNextPage == "Yes") {
+              //   setTotalCounter(totalCounter + data.productsCount);
+              //   let tags = cTagMiddleStore;
+              //   data.tags.map((tag, index) => {
+              //     if (!tags.find((item) => item == getFilterValue(tag))) {
+              //       middleArr.push(getFilterValue(tag));
+              //     }
+              //     if (index == data.tags.length - 1) {
+              //       setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
+              //       cTagData = [...cTagMiddleStore, ...middleArr];
+              //       setCTags(cTagData);
+              //     }
+              //   });
+              //   setCTagLastAdd(data.last);
+              // } else {
+              //   localResultCounter = totalCounter + data.productsCount;
+              //   setResult(localResultCounter);
+              // }
             });
         }
       }
       setFilterMounted(true);
     }
-  }, [cTagLastAdd, productType, checking, tag]);
+  }, [cTagLastAdd, productType, checking]);
 
   useEffect(() => {
     if (cTags.length) {
@@ -1126,9 +1132,8 @@ function Ring(props) {
   }, [cTags, basicSettingFilter]);
 
   useEffect(() => {
-    setChecking(!checking);
     if (tag) {
-      let defaultProductType = checkedProductType.length
+        let defaultProductType = checkedProductType.length
         ? (
             checkedProductType.map(
               (item, index) =>
@@ -1146,8 +1151,9 @@ function Ring(props) {
             index == 0 ? " AND (tag:" + item : " OR tag:" + item
           ) + ")"
         ).replaceAll(",", "");
-    
+
       if (checked0.length || mounted) {
+        setChecking(!checking);
         setLoad(true);
         check0 = checked0;
         check1 = checked1;
@@ -1259,7 +1265,8 @@ function Ring(props) {
               ).replaceAll(",", "")
             : "";
 
-            {/* if(router.asPath == "/shop") {
+        {
+          /* if(router.asPath == "/shop") {
               if(!defaultProductType && !query0 &&!query1 && !query2 &&!query3 &&!query4 &&!query5 &&!query6 &&!query7 &&!query8 &&!query9 &&!query10&&!query11) {
                 defaultTags = (
               tag.map((item, index) =>
@@ -1270,7 +1277,8 @@ function Ring(props) {
               defaultTags = ''
             } 
             }
-          */}
+          */
+        }
         let data = new FormData();
 
         setLoad(true);
@@ -1358,7 +1366,7 @@ function Ring(props) {
                       " OR product_type:necklaces)"
                     : "product_type:" + productType) +
                   defaultProductType +
-                defaultTags +
+                  defaultTags +
                   query0 +
                   query1 +
                   query2 +
@@ -1382,7 +1390,7 @@ function Ring(props) {
                       " OR product_type:necklaces)"
                     : "product_type:" + productType) +
                   defaultProductType +
-                defaultTags +
+                  defaultTags +
                   query0 +
                   query1 +
                   query2 +
@@ -1460,9 +1468,7 @@ function Ring(props) {
           } else {
             data.append(
               "query",
-              "tag:active" +
-                defaultTags +
-                defaultProductType
+              "tag:active" + defaultTags + defaultProductType
             );
           }
         } else {
@@ -1476,8 +1482,8 @@ function Ring(props) {
                       productType +
                       " OR product_type:necklaces)"
                     : "product_type:" + productType) +
-                  defaultProductType + 
-                defaultTags
+                  defaultProductType +
+                  defaultTags
               );
             } else {
               data.append(
@@ -1489,7 +1495,8 @@ function Ring(props) {
                       " OR product_type:necklaces)"
                     : "product_type:" + productType) +
                   defaultProductType +
-                defaultTags               );
+                  defaultTags
+              );
             }
           } else {
             data.append(
@@ -1702,16 +1709,17 @@ function Ring(props) {
             ) + ")"
           ).replaceAll(",", "")
         : "";
-        let query11 =
-          checked11.length > 0
-            ? (
-                checked11.map((filter, index) =>
-                  index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
-                ) + ")"
-              ).replaceAll(",", "")
-            : "";
+    let query11 =
+      checked11.length > 0
+        ? (
+            checked11.map((filter, index) =>
+              index == 0 ? " AND (tag:" + filter : " OR tag:" + filter
+            ) + ")"
+          ).replaceAll(",", "")
+        : "";
 
-   {/* if(router.asPath == "/shop") {
+    {
+      /* if(router.asPath == "/shop") {
       if(!defaultProductType && !query0 &&!query1 && !query2 &&!query3 &&!query4 &&!query5 &&!query6 &&!query7 &&!query8 &&!query9 &&!query10 &&!query11) {
         defaultTags = (
       tag.map((item, index) =>
@@ -1721,7 +1729,8 @@ function Ring(props) {
       } else {
         defaultTags = ''
       } 
-    } */}
+    } */
+    }
     formData.append("position", `first:9, after:"${lastProduct}"`);
     if (tag.length) {
       if (productType) {
@@ -1744,7 +1753,7 @@ function Ring(props) {
               query7 +
               query8 +
               query9 +
-              query10 + 
+              query10 +
               query11
           );
         } else {
@@ -1766,7 +1775,7 @@ function Ring(props) {
               query7 +
               query8 +
               query9 +
-              query10 + 
+              query10 +
               query11
           );
         }
@@ -1786,8 +1795,8 @@ function Ring(props) {
             query7 +
             query8 +
             query9 +
-              query10 + 
-              query11
+            query10 +
+            query11
         );
       }
     } else {
@@ -1810,7 +1819,7 @@ function Ring(props) {
               query7 +
               query8 +
               query9 +
-              query10 + 
+              query10 +
               query11
           );
         } else {
@@ -1831,7 +1840,7 @@ function Ring(props) {
               query7 +
               query8 +
               query9 +
-              query10 + 
+              query10 +
               query11
           );
         }
@@ -1850,8 +1859,8 @@ function Ring(props) {
             query7 +
             query8 +
             query9 +
-              query10 + 
-              query11
+            query10 +
+            query11
         );
       }
     }
