@@ -939,10 +939,6 @@ function Ring(props) {
           checked11,
           checkedProductType,
         ];
-        if (tag) {
-          tagArr.push(tag);
-          console.log(tag)
-        }
         if (tagArr.length) {
           defaultTags = tagArr
             .map((arr, index) =>
@@ -956,6 +952,25 @@ function Ring(props) {
             )
             .join("")
             .replaceAll(",", "");
+        }
+        if (tag.length) {
+          if(tag[tag.length - 1] == 'jewelry') {
+            defaultTags  = 
+              defaultTags + (
+              tag.map((item, index) => 
+                index + 1 < tag.length ? (
+                  index == 0 ? " AND (tag:" + item : " OR tag:" + item
+                ) : ''
+              ) + ")" + " AND tag:jewelry"
+            ).replaceAll(",", "");
+          } else {
+            defaultTags  = 
+              defaultTags + (
+              tag.map((item, index) => 
+                index == 0 ? " AND (tag:" + item : " OR tag:" + item
+              ) + ")"
+            ).replaceAll(",", "");
+          }
         }
         if (filterMounted) {
           let formData = new FormData();
@@ -1158,11 +1173,21 @@ function Ring(props) {
         : "";
       let defaultTags = "";
       if (tag.length > 0)
-        defaultTags = (
-          tag.map((item, index) =>
-            index == 0 ? " AND (tag:" + item : " OR tag:" + item
-          ) + ")"
-        ).replaceAll(",", "");
+        if(tag[tag.length - 1] == 'jewelry') {
+          defaultTags = (
+            tag.map((item, index) => 
+              index + 1 < tag.length ? (
+                index == 0 ? " AND (tag:" + item : " OR tag:" + item
+              ) : ''
+            ) + ")" + " AND tag:jewelry"
+          ).replaceAll(",", "");
+        } else {
+           defaultTags = (
+            tag.map((item, index) => 
+              index == 0 ? " AND (tag:" + item : " OR tag:" + item
+            ) + ")"
+          ).replaceAll(",", "");
+        }
 
       if (checked0.length || mounted) {
         setLoad(true);
@@ -1628,9 +1653,15 @@ function Ring(props) {
           ).replaceAll(",", "")
         : "";
     let defaultTags = (
-      tag.map((item, index) =>
-        index == 0 ? " AND (tag:" + item : " OR tag:" + item
-      ) + ")"
+      tag[tag.length - 1] == 'jewelry' ? 
+        tag.map((item, index) =>
+          index + 1 < tag.length ? (
+            index == 0 ? " AND (tag:" + item : " OR tag:" + item
+          ) : ''
+        ) + ")" + " AND tag:jewelry"
+      : tag.map((item, index) =>
+          index == 0 ? " AND (tag:" + item : " OR tag:" + item
+        ) + ")"
     ).replaceAll(",", "");
     let query0 =
       checked0.length > 0
