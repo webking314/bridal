@@ -525,12 +525,18 @@ function Ring(props) {
             }
           }
           if (router.query.tags) {
-            setTag(router.query.tags.split(","));
+            if (router.query.productType == "watches") {
+              setTag(router.query.tags.split(","));
+            } else {
+              setTag([...router.query.tags.split(","), "jewelry"]);
+            }
           } else {
-            setTag([]);
+            if (router.query.productType != "watches") {
+              setTag(["jewelry"]);
+            }
           }
         } else {
-          setTag([]);
+          setTag(["jewelry"]);
         }
       } else {
         if (router.asPath == "/shop") {
@@ -913,125 +919,45 @@ function Ring(props) {
   }, [props.wishList]);
 
   useEffect(() => {
-    if (router.asPath.includes("/shop")) {
-      if (checking != localChecking) {
-        setCTagLastAdd(1);
-      }
-      let defaultTags = "";
-      let tagArr = [
-        checked1,
-        checked2,
-        checked3,
-        checked4,
-        checked5,
-        checked6,
-        checked7,
-        checked8,
-        checked9,
-        checked10,
-        checked11,
-      ];
-      if (tag) {
-        tagArr.push(tag);
-      }
-      if (tagArr.length) {
-        defaultTags = tagArr
-          .map((arr, index) =>
-            arr.length > 0
-              ? " AND (" +
-                arr.map((item, id) =>
-                  id == 0 ? "tag:" + item : " OR tag:" + item
-                ) +
-                ")"
-              : ""
-          )
-          .join("")
-          .replaceAll(",", "");
-      }
-      if (filterMounted) {
-        let formData = new FormData();
-        if (cTagLastAdd == 1) {
-          formData.append("position", "first:50");
-        } else {
-          formData.append(
-            "position",
-            "first:50,after:" + '"' + cTagLastAdd + '"'
-          );
+    if (checkingStatus) {
+      if (router.asPath.includes("/shop")) {
+        if (checking != localChecking) {
+          setCTagLastAdd(1);
         }
-        if (productType) {
-          if (productType == "watches") {
-            formData.append(
-              "query",
-              "status:active AND " +
-                (productType == "pendants"
-                  ? "(product_type:" +
-                    productType +
-                    " OR product_type:necklaces)"
-                  : "product_type:" + productType) +
-                defaultTags
-            );
-          } else {
-            formData.append(
-              "query",
-              "tag:active AND " +
-                (productType == "pendants"
-                  ? "(product_type:" +
-                    productType +
-                    " OR product_type:necklaces)"
-                  : "product_type:" + productType) +
-                defaultTags
-            );
-          }
-        } else {
-          formData.append("query", "tag:active" + defaultTags);
+        let defaultTags = "";
+        let tagArr = [
+          checked1,
+          checked2,
+          checked3,
+          checked4,
+          checked5,
+          checked6,
+          checked7,
+          checked8,
+          checked9,
+          checked10,
+          checked11,
+          checkedProductType,
+        ];
+        if (tag) {
+          tagArr.push(tag);
+          console.log(tag)
         }
-        fetch(CTagURL, {
-          method: "post",
-          body: formData,
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            let middleArr = [];
-            if (data.last) {
-              let total = totalCounter;
-              let tags = [];
-              let cTagStore = cTagMiddleStore;
-              if (checking != localChecking) {
-                total = 0;
-                cTagStore = [];
-                localChecking = checking;
-              }
-              setTotalCounter(total + data.productsCount);
-              data.tags.map((tag, index) => {
-                if (!tags.find((item) => item == getFilterValue(tag))) {
-                  middleArr.push(getFilterValue(tag));
-                }
-                if (index == data.tags.length - 1) {
-                  cTagData = [...cTagStore, ...middleArr];
-                  setCTagMiddleStore(cTagData);
-                  setCTags(cTagData);
-                  if (data.hasNextPage == "No") {
-                    localResultCounter = total + data.productsCount;
-                    setResult(localResultCounter);
-                  }
-                }
-              });
-              if (data.hasNextPage == "Yes") {
-                setCTagLastAdd(data.last);
-              }
-            }
-          });
-      } else {
-        if (
-          JSON.stringify(localTag) == JSON.stringify(tag) &&
-          localProductType == productType &&
-          cTagData
-        ) {
-          setCTags(cTagData);
-        } else {
-          localTag = tag;
-          localProductType = productType;
-          setResult(0);
+        if (tagArr.length) {
+          defaultTags = tagArr
+            .map((arr, index) =>
+              arr.length > 0
+                ? " AND (" +
+                  arr.map((item, id) =>
+                    id == 0 ? "tag:" + item : " OR tag:" + item
+                  ) +
+                  ")"
+                : ""
+            )
+            .join("")
+            .replaceAll(",", "");
+        }
+        if (filterMounted) {
           let formData = new FormData();
           if (cTagLastAdd == 1) {
             formData.append("position", "first:50");
@@ -1066,11 +992,7 @@ function Ring(props) {
               );
             }
           } else {
-            if (defaultTags) {
-              formData.append("query", "tag:active" + defaultTags);
-            } else {
-              formData.append("query", "tag:active");
-            }
+            formData.append("query", "tag:active" + defaultTags);
           }
           fetch(CTagURL, {
             method: "post",
@@ -1079,39 +1001,127 @@ function Ring(props) {
             .then((res) => res.json())
             .then((data) => {
               let middleArr = [];
-              let tags = cTagMiddleStore;
-              data.tags.map((tag, index) => {
-                if (!tags.find((item) => item == getFilterValue(tag))) {
-                  middleArr.push(getFilterValue(tag));
+              if (data.last) {
+                let total = totalCounter;
+                let tags = [];
+                let cTagStore = cTagMiddleStore;
+                if (checking != localChecking) {
+                  total = 0;
+                  cTagStore = [];
+                  localChecking = checking;
                 }
-                if (index == data.tags.length - 1) {
-                  setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
-                  cTagData = [...cTagMiddleStore, ...middleArr];
-                  setCTags(cTagData);
+                setTotalCounter(total + data.productsCount);
+                data.tags.map((tag, index) => {
+                  if (!tags.find((item) => item == getFilterValue(tag))) {
+                    middleArr.push(getFilterValue(tag));
+                  }
+                  if (index == data.tags.length - 1) {
+                    cTagData = [...cTagStore, ...middleArr];
+                    setCTagMiddleStore(cTagData);
+                    setCTags(cTagData);
+                    if (data.hasNextPage == "No") {
+                      localResultCounter = total + data.productsCount;
+                      setResult(localResultCounter);
+                    }
+                  }
+                });
+                if (data.hasNextPage == "Yes") {
+                  setCTagLastAdd(data.last);
                 }
-              });
-              // if (data.hasNextPage == "Yes") {
-              //   setTotalCounter(totalCounter + data.productsCount);
-              //   let tags = cTagMiddleStore;
-              //   data.tags.map((tag, index) => {
-              //     if (!tags.find((item) => item == getFilterValue(tag))) {
-              //       middleArr.push(getFilterValue(tag));
-              //     }
-              //     if (index == data.tags.length - 1) {
-              //       setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
-              //       cTagData = [...cTagMiddleStore, ...middleArr];
-              //       setCTags(cTagData);
-              //     }
-              //   });
-              //   setCTagLastAdd(data.last);
-              // } else {
-              //   localResultCounter = totalCounter + data.productsCount;
-              //   setResult(localResultCounter);
-              // }
+              }
             });
+        } else {
+          if (
+            JSON.stringify(localTag) == JSON.stringify(tag) &&
+            localProductType == productType &&
+            cTagData
+          ) {
+            setCTags(cTagData);
+          } else {
+            localTag = tag;
+            localProductType = productType;
+            setResult(0);
+            let formData = new FormData();
+            if (cTagLastAdd == 1) {
+              formData.append("position", "first:50");
+            } else {
+              formData.append(
+                "position",
+                "first:50,after:" + '"' + cTagLastAdd + '"'
+              );
+            }
+            if (productType) {
+              if (productType == "watches") {
+                formData.append(
+                  "query",
+                  "status:active AND " +
+                    (productType == "pendants"
+                      ? "(product_type:" +
+                        productType +
+                        " OR product_type:necklaces)"
+                      : "product_type:" + productType) +
+                    defaultTags
+                );
+              } else {
+                formData.append(
+                  "query",
+                  "tag:active AND " +
+                    (productType == "pendants"
+                      ? "(product_type:" +
+                        productType +
+                        " OR product_type:necklaces)"
+                      : "product_type:" + productType) +
+                    defaultTags
+                );
+              }
+            } else {
+              if (defaultTags) {
+                formData.append("query", "tag:active" + defaultTags);
+              } else {
+                formData.append("query", "tag:active");
+              }
+            }
+            fetch(CTagURL, {
+              method: "post",
+              body: formData,
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                let middleArr = [];
+                let tags = cTagMiddleStore;
+                data.tags.map((tag, index) => {
+                  if (!tags.find((item) => item == getFilterValue(tag))) {
+                    middleArr.push(getFilterValue(tag));
+                  }
+                  if (index == data.tags.length - 1) {
+                    setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
+                    cTagData = [...cTagMiddleStore, ...middleArr];
+                    setCTags(cTagData);
+                  }
+                });
+                // if (data.hasNextPage == "Yes") {
+                //   setTotalCounter(totalCounter + data.productsCount);
+                //   let tags = cTagMiddleStore;
+                //   data.tags.map((tag, index) => {
+                //     if (!tags.find((item) => item == getFilterValue(tag))) {
+                //       middleArr.push(getFilterValue(tag));
+                //     }
+                //     if (index == data.tags.length - 1) {
+                //       setCTagMiddleStore([...cTagMiddleStore, ...middleArr]);
+                //       cTagData = [...cTagMiddleStore, ...middleArr];
+                //       setCTags(cTagData);
+                //     }
+                //   });
+                //   setCTagLastAdd(data.last);
+                // } else {
+                //   localResultCounter = totalCounter + data.productsCount;
+                //   setResult(localResultCounter);
+                // }
+              });
+          }
         }
+        setFilterMounted(true);
       }
-      setFilterMounted(true);
     }
   }, [cTagLastAdd, productType, checking]);
 
@@ -1133,7 +1143,9 @@ function Ring(props) {
 
   useEffect(() => {
     if (tag) {
-        let defaultProductType = checkedProductType.length
+      setCheckingStatus(true);
+      setChecking(!checking);
+      let defaultProductType = checkedProductType.length
         ? (
             checkedProductType.map(
               (item, index) =>
@@ -1153,7 +1165,6 @@ function Ring(props) {
         ).replaceAll(",", "");
 
       if (checked0.length || mounted) {
-        setChecking(!checking);
         setLoad(true);
         check0 = checked0;
         check1 = checked1;
