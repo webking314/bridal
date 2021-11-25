@@ -960,8 +960,8 @@ function Ring(props) {
               tag.map((item, index) => 
                 index + 1 < tag.length ? (
                   index == 0 ? " AND (tag:" + item : " OR tag:" + item
-                ) : ''
-              ) + ")" + " AND tag:jewelry"
+                ) + ")" : ''
+              ) + " AND tag:jewelry"
             ).replaceAll(",", "");
           } else {
             defaultTags  = 
@@ -1178,8 +1178,8 @@ function Ring(props) {
             tag.map((item, index) => 
               index + 1 < tag.length ? (
                 index == 0 ? " AND (tag:" + item : " OR tag:" + item
-              ) : ''
-            ) + ")" + " AND tag:jewelry"
+              ) + ")" : ''
+            ) + " AND tag:jewelry"
           ).replaceAll(",", "");
         } else {
            defaultTags = (
