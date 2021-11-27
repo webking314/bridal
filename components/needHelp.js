@@ -25,13 +25,17 @@ export default function NeedHelp() {
             <RiChatSmile2Line className="me-4" />
             Live chat
           </button>
-          <button className="btn px-5 py-4 blue-text mb-4 text-uppercase">
+          <button className="btn px-5 py-4 blue-text mb-4 text-uppercase"
+              data-bs-toggle="modal"
+              data-bs-target="#appointment">
             <RiStore2Line className="me-4" />
             Find a showroom
           </button>
         </div>
         <div className="col-md-4 col-12 p-0 ps-md-3 help-items">
-          <button className="btn px-5 py-4 blue-text mb-4 text-uppercase">
+          <button className="btn px-5 py-4 blue-text mb-4 text-uppercase"
+              data-bs-toggle="modal"
+              data-bs-target="#appointment">
             <RiStore2Line className="me-4" />
             Online Consultation
           </button>

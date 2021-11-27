@@ -205,197 +205,6 @@ export default function TourDetail() {
         <Skeleton variant="rect" animation="wave" width="100%" height={500} />
       )}
 
-      {/* Start guide section */}
-      {tourData ? (
-        <div className="guide-section py-5">
-          <div className="row r-container py-5">
-            <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
-              <h3 className="title text-capitalize">
-                {renderHTML(tourData.acf.form.title)}
-              </h3>
-            </div>
-            <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
-              <p className="guide-text m-0">
-                {renderHTML(tourData.acf.form.content)}
-              </p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="guide-section py-5">
-          <div className="row r-container py-5">
-            <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
-              <Skeleton
-                variant="text"
-                animation="wave"
-                width="100%"
-                height={50}
-              />
-            </div>
-            <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
-              <Skeleton
-                variant="text"
-                animation="wave"
-                width="100%"
-                height={30}
-              />
-              <Skeleton
-                variant="text"
-                animation="wave"
-                width="100%"
-                height={30}
-              />
-              <Skeleton
-                variant="text"
-                animation="wave"
-                width="100%"
-                height={30}
-              />
-              <Skeleton
-                variant="text"
-                animation="wave"
-                width="100%"
-                height={30}
-              />
-              <Skeleton
-                variant="text"
-                animation="wave"
-                width="100%"
-                height={30}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-      {/* End guide section */}
-
-      {/* Start banner section */}
-      <div className="banner-section mb-5">
-        {tourData ? (
-          <div className="cover-image-panel r-container round">
-            <div className="banner-panel">
-              {tourData.acf.media.video && (
-                <video
-                  loop="loop"
-                  muted
-                  defaultmuted="defaultmuted"
-                  playsInline
-                  onContextMenu={() => false}
-                  preload="auto"
-                  className="bg_video"
-                  ref={videoRef}
-                  controls={playBtnShow ? false : true}
-                >
-                  <source
-                    src={tourData.acf.media.video.file.url}
-                    type="video/mp4"
-                  />
-                </video>
-              )}
-              {playBtnShow && (
-                <button
-                  className="btn btn-play d-flex"
-                  onClick={() => {
-                    if (videoRef.current.paused) {
-                      setPlayBtnShow(false);
-                      videoRef.current.play();
-                      videoRef.current.controls = true;
-                    }
-                  }}
-                >
-                  <RiPlayCircleFill />
-                </button>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="cover-image-panel r-container round">
-            <Skeleton
-              variant="rect"
-              animation="wave"
-              width="100%"
-              height={350}
-            />
-          </div>
-        )}
-        {tourData ? (
-          <div className="r-container slider-panel mt-4">
-            <Swiper
-              slidesPerView={4}
-              spaceBetween={10}
-              loop={true}
-              className="mySwiper"
-              breakpoints={{
-                1024: {
-                  slidesPerView: 4,
-                },
-                768: {
-                  slidesPerView: 3,
-                },
-                590: {
-                  slidesPerView: 2,
-                },
-                480: {
-                  slidesPerView: 1,
-                },
-                1: {
-                  slidesPerView: 1,
-                },
-              }}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-            >
-              {tourData.acf.media.gallery.map((item, index) => {
-                return (
-                  <SwiperSlide key={index}>
-                    <div className="image-panel hover-scale round">
-                      <img src={item.sizes.medium} alt="banner-imaeg" />
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </div>
-        ) : (
-          <div className="r-container slider-panel row mt-4">
-            <div className="col-lg-4 col-md-6 px-3 mb-5">
-              <div className="image-panel hover-scale round mb-4">
-                <Skeleton
-                  variant="rect"
-                  animation="wave"
-                  width="100%"
-                  height={200}
-                />
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6 px-3 mb-5 d-md-block d-none">
-              <div className="image-panel hover-scale round mb-4">
-                <Skeleton
-                  variant="rect"
-                  animation="wave"
-                  width="100%"
-                  height={200}
-                />
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6 px-3 mb-5 d-lg-block d-none">
-              <div className="image-panel hover-scale round mb-4">
-                <Skeleton
-                  variant="rect"
-                  animation="wave"
-                  width="100%"
-                  height={200}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-      {/* End banner section */}
-
       {/* Start overview section */}
       <div className="overview-section r-container row pt-5">
         <div className="col-md-6 pe-lg-5">
@@ -643,6 +452,197 @@ export default function TourDetail() {
         </div>
       </div>
       {/* End overview section */}
+
+      {/* Start guide section */}
+      {tourData ? (
+        <div className="guide-section py-5">
+          <div className="row r-container py-5">
+            <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
+              <h3 className="title text-capitalize">
+                {renderHTML(tourData.acf.form.title)}
+              </h3>
+            </div>
+            <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
+              <p className="guide-text m-0">
+                {renderHTML(tourData.acf.form.content)}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="guide-section py-5">
+          <div className="row r-container py-5">
+            <div className="col-md-4 col-12 p-0 pe-md-5 pe-5 py-sm-5">
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={50}
+              />
+            </div>
+            <div className="col-md-8 col-12 p-0 ps-md-5 ps-0 pt-sm-5 pt-4 pb-sm-5">
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+              <Skeleton
+                variant="text"
+                animation="wave"
+                width="100%"
+                height={30}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      {/* End guide section */}
+
+      {/* Start banner section */}
+      <div className="banner-section mb-5">
+        {tourData ? (
+          <div className="cover-image-panel r-container round">
+            <div className="banner-panel">
+              {tourData.acf.media.video && (
+                <video
+                  loop="loop"
+                  muted
+                  defaultmuted="defaultmuted"
+                  playsInline
+                  onContextMenu={() => false}
+                  preload="auto"
+                  className="bg_video"
+                  ref={videoRef}
+                  controls={playBtnShow ? false : true}
+                >
+                  <source
+                    src={tourData.acf.media.video.file.url}
+                    type="video/mp4"
+                  />
+                </video>
+              )}
+              {playBtnShow && (
+                <button
+                  className="btn btn-play d-flex"
+                  onClick={() => {
+                    if (videoRef.current.paused) {
+                      setPlayBtnShow(false);
+                      videoRef.current.play();
+                      videoRef.current.controls = true;
+                    }
+                  }}
+                >
+                  <RiPlayCircleFill />
+                </button>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="cover-image-panel r-container round">
+            <Skeleton
+              variant="rect"
+              animation="wave"
+              width="100%"
+              height={350}
+            />
+          </div>
+        )}
+        {tourData ? (
+          <div className="r-container slider-panel mt-4">
+            <Swiper
+              slidesPerView={4}
+              spaceBetween={10}
+              loop={true}
+              className="mySwiper"
+              breakpoints={{
+                1024: {
+                  slidesPerView: 4,
+                },
+                768: {
+                  slidesPerView: 3,
+                },
+                590: {
+                  slidesPerView: 2,
+                },
+                480: {
+                  slidesPerView: 1,
+                },
+                1: {
+                  slidesPerView: 1,
+                },
+              }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+            >
+              {tourData.acf.media.gallery.map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="image-panel hover-scale round">
+                      <img src={item.sizes.medium} alt="banner-imaeg" />
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        ) : (
+          <div className="r-container slider-panel row mt-4">
+            <div className="col-lg-4 col-md-6 px-3 mb-5">
+              <div className="image-panel hover-scale round mb-4">
+                <Skeleton
+                  variant="rect"
+                  animation="wave"
+                  width="100%"
+                  height={200}
+                />
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-6 px-3 mb-5 d-md-block d-none">
+              <div className="image-panel hover-scale round mb-4">
+                <Skeleton
+                  variant="rect"
+                  animation="wave"
+                  width="100%"
+                  height={200}
+                />
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-6 px-3 mb-5 d-lg-block d-none">
+              <div className="image-panel hover-scale round mb-4">
+                <Skeleton
+                  variant="rect"
+                  animation="wave"
+                  width="100%"
+                  height={200}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      {/* End banner section */}
 
       {/* Start address section */}
       <div className="booking-section r-container my-5 pb-5">

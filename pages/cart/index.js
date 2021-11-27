@@ -43,13 +43,28 @@ const cartItems = [
   },
 ];
 
-let subTotalPrice = 0;
+function getFilterValue(str) {
+  str = str.toLowerCase();
+  var toReplace = ['"', "'", "\\", "(", ")", "[", "]"];
+  // For the old browsers
+  for (var i = 0; i < toReplace.length; ++i) {
+    str = str.replace(toReplace[i], "");
+  }
+  str = str.replace(/\W+/g, "-");
+  if (str.charAt(str.length - 1) == "-") {
+    str = str.replace(/-+\z/, "");
+  }
+  if (str.charAt(0) == "-") {
+    str = str.replace(/\A-+/, "");
+  }
+  return str;
+}
 
 function MyCart(props) {
   const [items, setItems] = useState();
   const [subTotal, setSubTotal] = useState(0);
   const [vat, setVat] = useState(0);
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState(0);
   const router = useRouter();
 
   const showProduct = (product) => {
@@ -79,18 +94,22 @@ function MyCart(props) {
 
   useEffect(() => {
     if (items) {
-      items.map((item, index) => {
-        if (index == 0) subTotalPrice = 0;
-        subTotalPrice += item.price * item.amount;
-        setSubTotal(subTotalPrice);
-        setTotal(subTotalPrice - vat);
-      });
+      let subTotalPrice = 0;
+      if(items.length) {
+        items.map((item, index) => {
+          subTotalPrice += item.price * item.amount;
+        })
+      } else {
+        subTotalPrice = 0;
+      }
+      setSubTotal(subTotalPrice);
+      setTotal(subTotalPrice - vat);
       localStorage.setItem(
         "cart",
         JSON.stringify({ cartData: items, vat: vat, subTotal: subTotal })
       );
     }
-  }, [items, subTotal]);
+  }, [items]);
 
   return (
     <div className="myCart_page">
@@ -101,13 +120,12 @@ function MyCart(props) {
       {/* Start link section */}
       <div className="link-section">
         <div className="r-container py-3 d-flex align-items-center justify-content-between">
-          <button
-            className="btn back-arrow d-flex align-items-center text-uppercase blue-text px-0"
-            onClick={() => router.back()}
-          >
-            <HiOutlineArrowLeft className="me-5" />
-            continue shopping
-          </button>
+          <Link href="/shop">
+            <a className="btn back-arrow d-flex align-items-center text-uppercase blue-text px-0">
+              <HiOutlineArrowLeft className="me-5" />
+              continue shopping
+            </a>
+          </Link>
           <span className="text-uppercase blue-text">
             <span>{items ? items.length : 0}</span> items in shopping cart
           </span>
@@ -216,7 +234,23 @@ function MyCart(props) {
                           </h3>
                         </div>
                       </div>
-                      <div className="link-panel  d-md-flex d-none justify-content-end">
+                      <div className="link-panel  d-md-flex d-none justify-content-between">
+                        <Link
+                          passHref={true}
+                          href={{
+                            pathname: "/shop/[slug]",
+                            query: {
+                              slug:
+                                getFilterValue(item.title) +
+                                "-" +
+                                item.shopifyid,
+                            },
+                          }}
+                        >
+                          <a className="btn btn-detail d-flex align-items-center text-uppercase">
+                            more details <RiArrowRightSFill />
+                          </a>
+                        </Link>
                         <button
                           className="btn btn-remove d-flex align-items-center text-uppercase"
                           onClick={() => {
@@ -242,9 +276,20 @@ function MyCart(props) {
                         <RiCloseFill className="ms-2" />
                       </button>
                     </div>
-                    <button className="btn btn-detail d-flex align-items-center text-uppercase">
-                      more details <RiArrowRightSFill />
-                    </button>
+                    <Link
+                      passHref={true}
+                      href={{
+                        pathname: "/shop/[slug]",
+                        query: {
+                          slug:
+                            getFilterValue(item.title) + "-" + item.shopifyid,
+                        },
+                      }}
+                    >
+                      <a className="btn btn-detail d-flex align-items-center text-uppercase">
+                        more details <RiArrowRightSFill />
+                      </a>
+                    </Link>
                   </div>
                 </div>
               );

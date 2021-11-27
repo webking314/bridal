@@ -73,7 +73,7 @@ export default function ContactUs() {
           </form>
           <div className="col-md-6 ps-md-4 p-0 mt-0 order-md-last order-first">
             <div className="link-panel p-md-5 p-3 round d-flex justify-content-between">
-              <Link href="#">
+              <Link href="mailto:support@costerdiamonds.com">
                 <a>
                   <div className="rounded-circle d-flex justify-content-center align-items-center">
                     <RiMailFill />
@@ -87,14 +87,14 @@ export default function ContactUs() {
                   </div>
                 </a>
               </Link>
-              <Link href="mailto:support@costerdiamonds.com">
+              <Link href="https://www.facebook.com/RoyalCosterDiamonds">
                 <a>
                   <div className="rounded-circle d-flex justify-content-center align-items-center">
                     <RiMessengerFill />
                   </div>
                 </a>
               </Link>
-              <Link href="#">
+              <Link href="https://wa.me/31629705658">
                 <a>
                   <div className="rounded-circle d-flex justify-content-center align-items-center">
                     <RiWhatsappFill />

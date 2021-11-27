@@ -1139,7 +1139,7 @@ function Header(props) {
                   </div>
                 </a>
               </Link>
-              <Link passHref={true} href="#">
+              <Link passHref={true} href="mailto:support@costerdiamonds.com">
                 <a>
                   <div className="contact-item d-flex align-items-center justify-content-center">
                     <RiMailLine />

@@ -25,24 +25,15 @@ const vendors = [
 ];
 
 const silderData = [
-  { vendor: "chopard", image: "chopard.png" },
-  { vendor: "tudor", image: "tudor.png" },
-  { vendor: "piaget", image: "piaget.png" },
-  { vendor: "longines", image: "longines.png" },
-  { vendor: "frederique-constant", image: "frederique.png" },
-  { vendor: "tag-heuer", image: "tag_heuer.png" },
-  { vendor: "titoni", image: "titoni.png" },
-  { vendor: "hamilton", image: "hamilton.png" },
-  { vendor: "omega", image: "omega.png" },
-  { vendor: "chopard", image: "chopard.png" },
-  { vendor: "tudor", image: "tudor.png" },
-  { vendor: "piaget", image: "piaget.png" },
-  { vendor: "longines", image: "longines.png" },
-  { vendor: "frederique-constant", image: "frederique.png" },
-  { vendor: "tag-heuer", image: "tag_heuer.png" },
-  { vendor: "titoni", image: "titoni.png" },
-  { vendor: "hamilton", image: "hamilton.png" },
-  { vendor: "omega", image: "omega.png" },
+  { tags:"chopard", productType:"watches", image: "chopard.png" },
+  { tags:"tudor", productType:"watches", image: "tudor.png" },
+  { tags: "piaget", productType:"watches", image: "piaget.png" },
+  { tags: "longines", productType:"watches", image: "longines.png" },
+  { tags: "frederique-constant", productType:"watches", image: "frederique.png" },
+  { tags: "tag-heuer", productType:"watches", image: "tag_heuer.png" },
+  { tags: "titoni", productType:"watches", image: "titoni.png" },
+  { tags: "hamilton", productType:"watches", image: "hamilton.png" },
+  { tags: "omega", productType:"watches", image: "omega.png" },
 ];
 
 const basicData = [
@@ -198,13 +189,25 @@ export default function Watch() {
           {silderData.map((item, index) => {
             return (
               <SwiperSlide key={index}>
-                <a
-                  className="px-4 py-2 btn-vendor round-form d-flex align-items-center"
-                  href={"#" + item.vendor}
-                  key={index}
-                >
-                  <img src={"/img/watch/logo/" + item.image} alt="logo-image" />
-                </a>
+                <Link
+                    passHref={true}
+                    href={
+                      {
+                        pathname: "/shop",
+                        query: {
+                          tags: item.tags,
+                          productType:
+                            item.productType,
+                        },
+                      }
+                    }
+                  >
+                    <a
+                      className="px-4 py-2 btn-vendor round-form d-flex align-items-center"
+                    >
+                      <img src={"/img/watch/logo/" + item.image} alt="logo-image" />
+                    </a>
+                </Link>
               </SwiperSlide>
             );
           })}

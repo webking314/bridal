@@ -52,7 +52,7 @@ export default function WatchDetails({ watchData, loading }) {
                         (index % 2 == 0 ? "pe-md-5" : "ps-md-5 ms-md-5")
                       }
                     >
-                      {watch.title + " Diamond Watches"}
+                      {watch.title + " Watches"}
                     </h3>
                     <p
                       className={

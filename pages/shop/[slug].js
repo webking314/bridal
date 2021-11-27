@@ -310,15 +310,10 @@ function ProductRing(props) {
               /
               <Link
                 passHref={true}
-                href={{
-                  pathname: "/shop",
-                  query: {
-                    productType: productData.product_type.toLowerCase(),
-                  },
-                }}
+                href="/shop"
               >
                 <a className="mx-2 text-uppercase">
-                  {productData.product_type}
+                  shop
                 </a>
               </Link>
               /

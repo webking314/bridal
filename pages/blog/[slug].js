@@ -166,6 +166,7 @@ function Brief(props) {
   const [facebookLink, setFacebookLink] = useState();
   const [linkdinLink, setLinkdinLink] = useState();
   const [twitterLink, setTwitterLink] = useState();
+  const [whatsAppLink, setWhatsAppLink] = useState();
   const [accessToken, setAccessToken] = useState();
   const [products, setProducts] = useState();
   const target = React.createRef();
@@ -227,6 +228,7 @@ function Brief(props) {
         "https://www.linkedin.com/shareArticle?mini=true&url=" + currentURL
       );
       setTwitterLink("https://twitter.com/share?url=" + currentURL);
+      setWhatsAppLink('https://wa.me/31629705658?text=' + encodeURI(currentURL));
 
       let url = blogURL + "?slug=" + router.query.slug;
       if (insideArr.find((item) => item == router.query.slug)) {
@@ -454,7 +456,7 @@ function Brief(props) {
                       <RiTwitterFill />
                     </buutton>
                   )}
-                  <buutton className="btn">
+                  <buutton className="btn" onClick={() => openShareWindow('https://instagram.com/costerdiamondsofficial/')}>
                     <RiInstagramFill />
                   </buutton>
                   {linkdinLink && (
@@ -465,7 +467,7 @@ function Brief(props) {
                       <RiLinkedinFill />
                     </buutton>
                   )}
-                  <buutton className="btn">
+                  <buutton className="btn" onClick={() => openShareWindow(whatsAppLink)}>
                     <RiWhatsappFill />
                   </buutton>
                 </div>
