@@ -227,6 +227,16 @@ const backgrounndArr = [
   "precious-earrings",
   "tennis-bracelets",
   "diamond-pendants",
+  "chopard-watches",
+  "frederique-constant-watches",
+  "hamilton-watches",
+  "longines-watches",
+  "omega-watches",
+  "piage-watches",
+  "rado-watches",
+  "tag-heuer-watches",
+  "titoni-watches",
+  "tudor-watches",
 ];
 
 const checkTreeIcons = {

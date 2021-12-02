@@ -92,7 +92,7 @@ export default function WatchDetails({ watchData, loading }) {
                     }
                   >
                     <img
-                      src={"/img/watch/" + watch.coverImage}
+                      src={"/img/watch/" + watch.title + "_image.jpg"}
                       className="watch-cover-image"
                       alt="watch-cover-image"
                     />
